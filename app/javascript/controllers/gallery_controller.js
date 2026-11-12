@@ -74,7 +74,11 @@ export default class extends Controller {
       this.closeLightbox()
     } else if (["ArrowLeft", "ArrowRight"].includes(event.key)) {
       event.preventDefault()
-      if (event.key === "ArrowLeft") this.previous() else this.next()
+      if (event.key === "ArrowLeft") {
+        this.previous()
+      } else {
+        this.next()
+      }
     }
   }
 
@@ -90,7 +94,11 @@ export default class extends Controller {
     this.touchStartX = null
 
     if (Math.abs(delta) < 40) return
-    if (delta > 0) this.previous() else this.next()
+    if (delta > 0) {
+      this.previous()
+    } else {
+      this.next()
+    }
   }
 
   update(index) {

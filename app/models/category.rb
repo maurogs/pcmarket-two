@@ -29,16 +29,80 @@ class Category < ApplicationRecord
   before_validation :assign_depth
   after_update :refresh_descendant_depths, if: :saved_change_to_parent_id?
   after_commit :bump_search_cache, if: :saved_change_to_active?
+  after_commit { self.class.expire_tree_cache }
 
   scope :roots, -> { where(parent_id: nil).order(:position, :id) }
   scope :active, -> { where(active: true) }
   scope :ordered, -> { order(:position, :id) }
 
+  TREE_VERSION_KEY = "categories/tree_version"
+  ATTRIBUTE_DEFINITIONS_MAP_KEY = "categories/effective_attribute_definitions_map"
+
   # Any category update changes the global maximum timestamp, which invalidates
   # every cached descendant list. `belongs_to :parent, touch: true` additionally
-  # propagates the touch to ancestors.
+  # propagates the touch to ancestors. Cached so descendant lookups on a page do
+  # not each issue an aggregate query (Solid Cache in production).
   def self.tree_cache_version
-    maximum(:updated_at)&.to_f
+    Rails.cache.fetch(TREE_VERSION_KEY, expires_in: 1.hour) { maximum(:updated_at)&.to_f }
+  end
+
+  def self.expire_tree_cache
+    Rails.cache.delete(TREE_VERSION_KEY)
+    Rails.cache.delete(ACTIVE_TREE_KEY)
+    expire_attribute_definitions_cache
+  end
+
+  def self.expire_attribute_definitions_cache
+    Rails.cache.delete(ATTRIBUTE_DEFINITIONS_MAP_KEY)
+  end
+
+  ACTIVE_TREE_KEY = "categories/active_tree"
+
+  # Every active category in display order, cached until any category changes.
+  # Used by the navigation, breadcrumb chips and descendant lookups so a page
+  # does not re-query the tree for each section.
+  def self.active_tree
+    Rails.cache.fetch([ ACTIVE_TREE_KEY, tree_cache_version ]) { active.ordered.to_a }
+  end
+
+  def self.descendant_ids_from_active_tree(root_id)
+    tree = active_tree
+    children = tree.group_by(&:parent_id)
+    ids = []
+    queue = [ root_id ]
+    until queue.empty?
+      id = queue.shift
+      ids << id
+      queue.concat((children[id] || []).map(&:id))
+    end
+    ids
+  end
+
+  # Own + inherited attribute definitions for every category, keyed by id and
+  # built in a fixed number of queries. Card rendering and filtered searches
+  # ask for this once per category; without the map a cold home page runs four
+  # queries for every distinct leaf on the page. Definition and option labels
+  # are Mobility attributes resolved per locale at render time, so the cached
+  # ActiveRecord objects are safe to share across locales.
+  def self.effective_attribute_definitions_map
+    Rails.cache.fetch(ATTRIBUTE_DEFINITIONS_MAP_KEY) do
+      links = CategoryAttribute.includes(attribute_definition: :attribute_options)
+                               .order(:position, :id)
+                               .to_a
+      parents = pluck(:id, :parent_id).to_h
+      pluck(:id).index_with do |category_id|
+        chain = []
+        visited = Set.new
+        current = category_id
+        while current && visited.add?(current)
+          chain << current
+          current = parents[current]
+        end
+        links.select { |link| chain.include?(link.category_id) }
+             .map(&:attribute_definition)
+             .uniq(&:id)
+      end
+    end
   end
 
   def self.descendant_ids_for(root_id)
@@ -112,6 +176,7 @@ class Category < ApplicationRecord
 
   def descendant_ids
     return [] if new_record?
+    return self.class.descendant_ids_from_active_tree(id) if active?
 
     Rails.cache.fetch([ TREE_CACHE_NAMESPACE, id, self.class.tree_cache_version ]) do
       self.class.descendant_ids_for(id)
@@ -120,17 +185,17 @@ class Category < ApplicationRecord
 
   # Own + inherited attribute links, de-duplicated by definition and ordered by
   # the link position. Definitions and their options are preloaded to avoid N+1.
-  def effective_category_attributes
+  def effective_category_attributes(include_category: true)
     ids = [ id ] + ancestor_ids
-
-    CategoryAttribute
-      .where(category_id: ids)
-      .includes(:category, attribute_definition: :attribute_options)
-      .order(:position, :id)
+    scope = CategoryAttribute
+            .where(category_id: ids)
+            .includes(attribute_definition: :attribute_options)
+            .order(:position, :id)
+    include_category ? scope.includes(:category) : scope
   end
 
   def effective_attribute_definitions
-    effective_category_attributes.map(&:attribute_definition).uniq(&:id)
+    self.class.effective_attribute_definitions_map[id] || []
   end
 
   def slug_source

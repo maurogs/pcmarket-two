@@ -36,13 +36,13 @@ class Cart < ApplicationRecord
 
   def available_items
     items
-      .includes(listing: [ :store, :seller, { photos: { image_attachment: :blob } } ])
+      .includes(:offer, listing: [ :store, :seller, { photos: { image_attachment: :blob } } ])
       .select(&:purchasable?)
   end
 
   def unavailable_items
     items
-      .includes(listing: [ :store, :seller, { photos: { image_attachment: :blob } } ])
+      .includes(:offer, listing: [ :store, :seller, { photos: { image_attachment: :blob } } ])
       .reject(&:purchasable?)
   end
 

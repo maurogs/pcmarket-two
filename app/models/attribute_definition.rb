@@ -28,6 +28,8 @@ class AttributeDefinition < ApplicationRecord
   scope :filterable, -> { where(filterable: true) }
   scope :ordered, -> { order(:position, :id) }
 
+  after_commit { Category.expire_attribute_definitions_cache }
+
   def select_type?
     single_select? || multi_select?
   end

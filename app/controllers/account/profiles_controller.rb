@@ -26,7 +26,7 @@ module Account
 
     def update_profile
       if current_user.update(profile_params)
-        redirect_to account_profile_path(locale: current_user.locale),
+        redirect_to account_profile_path(locale: current_user.locale == I18n.default_locale ? nil : current_user.locale),
                     notice: t("account.settings.profile.flash.updated")
       else
         @user = current_user

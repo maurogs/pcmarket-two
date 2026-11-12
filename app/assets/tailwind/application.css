@@ -33,7 +33,7 @@
   --color-muted: #52607a;
   --color-border: #e2e8f0;
 
-  --color-success: #0b8f62;
+  --color-success: #087a53;
   --color-success-soft: #e7f8f1;
   --color-warning: #b45309;
   --color-warning-soft: #fef4e6;
@@ -86,19 +86,19 @@
 
 @layer components {
   .field {
-    @apply w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm text-content placeholder:text-muted focus:border-primary-500 focus:ring-0;
+    @apply w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-content placeholder:text-muted focus:border-primary-500 focus:ring-0;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-primary-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-primary-700 active:bg-primary-800;
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-primary-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-700 active:bg-primary-800;
   }
 
   .btn-accent {
-    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl border border-accent/60 bg-accent-soft px-4 py-2.5 text-sm font-semibold text-accent-content transition hover:border-accent hover:bg-accent/10;
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl border border-accent/60 bg-accent-soft px-4 py-3 text-sm font-semibold text-accent-content transition hover:border-accent hover:bg-accent/10;
   }
 
   .icon-button {
-    @apply inline-flex h-10 w-10 items-center justify-center rounded-xl text-muted transition hover:bg-surface-muted hover:text-content;
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-xl text-muted transition hover:bg-surface-muted hover:text-content;
   }
 
   .rich-text p {

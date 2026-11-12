@@ -39,7 +39,7 @@ class CreditsPageTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "https://example.com/ada"
     assert_includes response.body, "https://example.com/photos/credits"
     assert_includes response.body, "https://creativecommons.org/licenses/by/4.0/"
-    assert_includes response.body, "hover:text-content\" href=\"/es/credits\">#{I18n.t('footer.legal.image_credits')}</a>"
+    assert_includes response.body, "hover:text-content\" href=\"/credits\">#{I18n.t('footer.legal.image_credits')}</a>"
   end
 
   test "renders an empty state without demo photos" do
@@ -51,6 +51,6 @@ class CreditsPageTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes response.body, I18n.t("credits.empty")
     assert_not_includes response.body,
-                        "hover:text-content\" href=\"/es/credits\">#{I18n.t('footer.legal.image_credits')}</a>"
+                        "hover:text-content\" href=\"/credits\">#{I18n.t('footer.legal.image_credits')}</a>"
   end
 end

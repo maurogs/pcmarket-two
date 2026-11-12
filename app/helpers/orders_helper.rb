@@ -25,7 +25,7 @@ module OrdersHelper
   end
 
   def order_timeline(order)
-    order.events.chronological.map do |event|
+    order.events.includes(:actor).chronological.map do |event|
       { label: t("orders.events.#{event.event}"), at: event.created_at, actor: event.actor }
     end
   end

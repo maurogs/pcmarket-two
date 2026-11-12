@@ -26,6 +26,15 @@ class Tag < ApplicationRecord
   scope :product_labels, -> { where(kind: :product_label) }
   scope :seller_tags, -> { where(kind: :seller_tag) }
 
+  CACHE_KEY = "tags/active_options"
+
+  after_commit { Rails.cache.delete(CACHE_KEY) }
+
+  # The filter sidebar and card labels only need active tags in display order.
+  def self.active_options
+    Rails.cache.fetch(CACHE_KEY) { active.ordered.to_a }
+  end
+
   def slug_source
     name_en.presence || name_es.presence || name
   end

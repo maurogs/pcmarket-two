@@ -67,4 +67,12 @@ module ApplicationHelper
   rescue StandardError
     false
   end
+
+  # Memoised seller store for the header/account menu. Avoids loading the same
+  # association twice per request on onboarding screens.
+  def current_user_store
+    return unless user_signed_in?
+
+    @current_user_store ||= Store.find_by(user_id: current_user.id)
+  end
 end

@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="application-name" content="<%= t("app.name") %>">
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <title><%= t("maintenance.title") %> · <%= t("app.name") %></title>
-    <script>
+    <script nonce="<%= content_security_policy_nonce %>">
       (() => {
         try {
           const stored = localStorage.getItem("theme");

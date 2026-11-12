@@ -32,7 +32,7 @@ class NavigationTest < ActionDispatch::IntegrationTest
   end
 
   test "renders the navigation in the requested locale" do
-    get "/es"
+    get "/"
 
     assert_response :success
     assert_includes response.body, "Componentes"

@@ -129,6 +129,7 @@ ignore_unused:
   - "buyback_mailer.events.*"
   - "errors.messages.invalid_iban"
   - "api.errors.*"
+  - "errors.pages.*"
   - "api.auth.*"
   - "api.checkout.*"
   - "api.me.*"

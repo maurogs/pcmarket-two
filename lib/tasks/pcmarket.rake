@@ -75,3 +75,11 @@ namespace :pcmarket do
     end
   end
 end
+
+namespace :pcmarket do
+  desc "Generate the gzipped sitemap index and per-locale sitemaps in public/sitemaps"
+  task sitemaps: :environment do
+    SitemapGenerator::Interpreter.run
+    puts "Sitemaps written to #{Rails.root.join("public/sitemaps")}"
+  end
+end

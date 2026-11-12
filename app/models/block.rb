@@ -11,6 +11,12 @@ class Block < ApplicationRecord
     where(blocker_id: user.id).or(where(blocked_id: user.id))
   }
 
+  # All directed pairs involving the user in one query. Callers that render a
+  # list of conversations use this instead of calling between? per row.
+  def self.pairs_for(user)
+    involving(user).pluck(:blocker_id, :blocked_id)
+  end
+
   def self.between?(first, second)
     return false if first.blank? || second.blank?
 

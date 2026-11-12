@@ -35,7 +35,7 @@ class OmniauthCallbacksTest < ActionDispatch::IntegrationTest
     post user_google_oauth2_omniauth_callback_path,
          env: { "omniauth.auth" => auth }
 
-    assert_redirected_to new_user_session_path(locale: I18n.locale)
+    assert_redirected_to new_user_session_path
     assert_equal I18n.t("auth.omniauth_email_not_verified"), flash[:alert]
 
     existing.reload
@@ -61,7 +61,7 @@ class OmniauthCallbacksTest < ActionDispatch::IntegrationTest
     post user_google_oauth2_omniauth_callback_path,
          env: { "omniauth.auth" => auth }
 
-    assert_redirected_to root_path(locale: I18n.locale)
+    assert_redirected_to root_path
     assert_nil flash[:alert]
 
     existing.reload

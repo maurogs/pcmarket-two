@@ -6,7 +6,7 @@
         <% navigation_tree.each do |root, children| %>
           <li>
             <details class="group rounded-xl">
-              <summary class="flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-content transition hover:bg-surface-muted [&::-webkit-details-marker]:hidden">
+              <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-content transition hover:bg-surface-muted [&::-webkit-details-marker]:hidden">
                 <span><%= root.name %></span>
                 <svg class="h-4 w-4 text-muted transition group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -16,13 +16,13 @@
                 <li>
                   <%= link_to all_category_label(root),
                               category_path(root),
-                              class: "block rounded-lg px-3 py-2 text-sm font-medium text-primary-700 transition hover:bg-primary-50 dark:text-primary-300 dark:hover:bg-primary-900/30" %>
+                              class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-primary-700 transition hover:bg-primary-50 dark:text-primary-300 dark:hover:bg-primary-900/30" %>
                 </li>
                 <% children.each do |child| %>
                   <li>
                     <%= link_to child.name,
                                 category_path(child),
-                                class: "block rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-surface-muted hover:text-content" %>
+                                class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-surface-muted hover:text-content" %>
                   </li>
                 <% end %>
               </ul>
@@ -42,7 +42,7 @@
                     data-action="click->mega-menu#toggle keydown->mega-menu#triggerKeydown mouseenter->mega-menu#intentOpen"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    class="flex items-center gap-1 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-muted transition hover:bg-surface-muted hover:text-content">
+                    class="flex min-h-11 items-center gap-1 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-muted transition hover:bg-surface-muted hover:text-content">
               <span><%= root.name %></span>
               <svg class="h-3.5 w-3.5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
                 <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -70,7 +70,7 @@
                     <li>
                       <%= link_to child.name,
                                   category_path(child),
-                                  class: "block rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-surface-muted hover:text-content" %>
+                                  class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-surface-muted hover:text-content" %>
                     </li>
                   <% end %>
                 </ul>

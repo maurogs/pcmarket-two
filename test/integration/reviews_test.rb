@@ -80,7 +80,7 @@ class ReviewsTest < ActionDispatch::IntegrationTest
       review: { rating: 1, body: "This should never be allowed." }
     }
 
-    assert_redirected_to root_path(locale: :es)
+    assert_redirected_to root_path
     assert_equal I18n.t("pundit.not_authorized", locale: :es), flash[:alert]
   end
 end

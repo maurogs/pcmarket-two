@@ -28,7 +28,7 @@
 
         <div class="absolute left-3 top-3 flex flex-col items-start gap-1">
           <% if sold %>
-            <span class="inline-flex items-center rounded-full bg-content px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white shadow-sm">
+            <span class="inline-flex items-center rounded-full bg-content px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-canvas shadow-sm">
               <%= t("home.sold.badge") %>
             </span>
           <% end %>
@@ -55,7 +55,7 @@
           <ul class="space-y-0.5 text-xs text-muted">
             <% specs.each do |spec| %>
               <li class="flex gap-1">
-                <span class="shrink-0 text-muted/80"><%= spec[:label] %>:</span>
+                <span class="shrink-0 text-muted"><%= spec[:label] %>:</span>
                 <span class="line-clamp-1"><%= spec[:value] %></span>
               </li>
             <% end %>

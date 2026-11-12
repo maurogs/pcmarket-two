@@ -279,6 +279,7 @@ it:
     errors:
       region_country_mismatch: La provincia non appartiene al paese selezionato.
   sell:
+    progress_label: "Avanzamento dell'annuncio"
     listings:
       title: I miei annunci
       subtitle: Gestisci ciò che vendi, dalle bozze agli articoli venduti.
@@ -1175,6 +1176,7 @@ it:
       empty_cta: Sfoglia gli annunci
   favourites:
     button:
+      sign_in: "Accedi per salvare"
       add: Aggiungi ai preferiti
       remove: Rimuovi dai preferiti
     flash:

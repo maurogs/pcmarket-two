@@ -2,7 +2,7 @@
 
 class StorefrontsController < ApplicationController
   def show
-    @store = Store.active.friendly.find(params[:id])
+    @store = Store.active.includes(logo_attachment: :blob).friendly.find(params[:id])
     @profile = StorefrontProfile.new(store: @store, params: request.query_parameters).call
     @search = @profile.search
 

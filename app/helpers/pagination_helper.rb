@@ -30,7 +30,8 @@ module PaginationHelper
                 class: page_link_class
       else
         content_tag(:span, t("listings.pagination.previous"),
-                    class: "#{page_link_class} pointer-events-none opacity-40")
+                    class: "#{page_link_class} pointer-events-none cursor-not-allowed text-muted",
+                    aria: { disabled: "true" })
       end
     end
   end
@@ -44,7 +45,8 @@ module PaginationHelper
                 class: page_link_class
       else
         content_tag(:span, t("listings.pagination.next"),
-                    class: "#{page_link_class} pointer-events-none opacity-40")
+                    class: "#{page_link_class} pointer-events-none cursor-not-allowed text-muted",
+                    aria: { disabled: "true" })
       end
     end
   end

@@ -54,7 +54,7 @@
              class="absolute right-0 z-50 mt-2 hidden w-44 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-xl">
           <% I18n.available_locales.each do |locale| %>
             <%= link_to t("locale.names.#{locale}"),
-                        url_for(locale: locale),
+                        url_for(locale: locale == I18n.default_locale ? nil : locale),
                         role: "menuitem",
                         lang: locale,
                         hreflang: locale,
@@ -96,7 +96,7 @@
             <p class="truncate text-xs text-muted"><%= current_user.email %></p>
           </div>
           <%= button_to t("account.menu.logout"),
-                        destroy_user_session_path(locale: I18n.locale),
+                        destroy_user_session_path,
                         method: :delete,
                         role: "menuitem",
                         class: menu_item_class %>

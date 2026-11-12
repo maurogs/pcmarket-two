@@ -13,33 +13,45 @@ class Wishlist
 
   def call
     @tab = normalized_tab
-    @favourites = @user.favourites
-                       .includes(
-                         listing: [
-                           { photos: { image_attachment: :blob } },
-                           :tags,
-                           :category,
-                           :region,
-                           { store: { logo_attachment: :blob } }
-                         ]
-                       )
-                       .recent
-                       .to_a
-    @follows = @user.follows
-                    .includes(store: { logo_attachment: :blob })
-                    .recent
-                    .to_a
     self
   end
 
-  attr_reader :tab, :favourites, :follows
+  attr_reader :tab
+
+  # Each tab loads only its own rows; the other tab's badge uses a COUNT.
+  def favourites
+    return [] unless tab == "favourites"
+
+    @favourites ||= @user.favourites
+                         .includes(
+                           listing: [
+                             { photos: { image_attachment: :blob } },
+                             :tags,
+                             :category,
+                             :region,
+                             :store,
+                             :seller
+                           ]
+                         )
+                         .recent
+                         .to_a
+  end
+
+  def follows
+    return [] unless tab == "following"
+
+    @follows ||= @user.follows
+                      .includes(store: { logo_attachment: :blob })
+                      .recent
+                      .to_a
+  end
 
   def favourite_count
-    favourites.size
+    @favourites ? favourites.size : @user.favourites.count
   end
 
   def following_count
-    follows.size
+    @follows ? follows.size : @user.follows.count
   end
 
   private

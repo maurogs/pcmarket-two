@@ -7,8 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files.
+# Ignore all environment files, but keep the documented example.
 /.env*
+!/.env.example
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -29,6 +30,7 @@
 !/tmp/storage/.keep
 
 /public/assets
+/public/sitemaps
 
 # Ignore key files for decrypting credentials and more.
 /config/*.key

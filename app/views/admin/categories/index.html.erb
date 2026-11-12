@@ -13,7 +13,7 @@
 
   <% if @groups.any? %>
     <% @groups.each do |parent_id, children| %>
-      <% parent = parent_id && Category.find_by(id: parent_id) %>
+      <% parent = parent_id && @categories_by_id[parent_id] %>
       <section class="rounded-2xl border border-border bg-surface p-4 sm:p-5">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <h2 class="text-sm font-bold uppercase tracking-widest text-muted">
@@ -47,7 +47,7 @@
                   </div>
                   <p class="mt-1 text-xs text-muted">
                     /<%= category.slug %> · <%= t("admin.categories.table.listings", count: category.listings_count) %> ·
-                    <%= t("admin.categories.table.children", count: category.children.count) %>
+                    <%= t("admin.categories.table.children", count: @child_counts.fetch(category.id, 0)) %>
                   </p>
                   <div class="mt-2 flex flex-wrap items-center gap-2 text-xs">
                     <%= label_tag "moves_#{category.id}", t("admin.categories.tree.move_to"), class: "font-semibold text-muted" %>

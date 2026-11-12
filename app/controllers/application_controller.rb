@@ -98,11 +98,15 @@ class ApplicationController < ActionController::Base
       launched = Country.launched_codes
       requested = cookies[:country].to_s.upcase
       code = launched.include?(requested) ? requested : launched.first
-      Country.find_by(code: code) || Country.find_by(code: "ES")
+      countries = Country.launched_countries
+      countries.find { |country| country.code == code } ||
+        countries.find { |country| country.code == "ES" }
     end
   end
 
   def default_url_options
-    { locale: I18n.locale }
+    # Spanish is served unprefixed: a nil locale drops the optional segment,
+    # while keeping the key so positional route helpers still map ids correctly.
+    { locale: (I18n.locale == I18n.default_locale ? nil : I18n.locale) }
   end
 end

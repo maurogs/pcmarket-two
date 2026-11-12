@@ -279,6 +279,7 @@ fr:
     errors:
       region_country_mismatch: La province ne correspond pas au pays sélectionné.
   sell:
+    progress_label: "Progression de l'annonce"
     listings:
       title: Mes annonces
       subtitle: Gérez ce que vous vendez, des brouillons aux articles vendus.
@@ -1175,6 +1176,7 @@ fr:
       empty_cta: Parcourir les annonces
   favourites:
     button:
+      sign_in: "Connectez-vous pour enregistrer"
       add: Ajouter aux favoris
       remove: Retirer des favoris
     flash:

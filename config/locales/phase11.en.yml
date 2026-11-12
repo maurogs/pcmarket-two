@@ -1,0 +1,23 @@
+en:
+  errors:
+    search_label: Search the marketplace
+    search_placeholder: Search PC parts, PCs or consoles
+    search_button: Search
+    links_label: Helpful links
+    links:
+      home: Back to home
+      help: Help centre
+      contact: Contact us
+    pages:
+      not_found:
+        eyebrow: Error 404
+        title: We couldn't find that page
+        body: The link may be broken, or the listing may have been sold or removed.
+      unprocessable:
+        eyebrow: Error 422
+        title: We couldn't process that request
+        body: Please check the information you entered and try again.
+      server_error:
+        eyebrow: Error 500
+        title: Something went wrong on our side
+        body: We have been notified. Please try again in a moment.

@@ -110,11 +110,11 @@ class ConversationsTest < ActionDispatch::IntegrationTest
     post blocks_path(locale: :en), params: { blocked_user_id: @seller.id }
 
     get conversation_path(conversation, locale: :en)
-    assert_redirected_to root_path(locale: :es)
+    assert_redirected_to root_path
 
     post conversation_messages_path(conversation, locale: :en),
          params: { message: { body: "Still there?" } }
-    assert_redirected_to root_path(locale: :es)
+    assert_redirected_to root_path
   end
 
   test "the blocked users tab lists blocked accounts and can unblock them" do

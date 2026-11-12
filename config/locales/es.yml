@@ -279,6 +279,7 @@ es:
     errors:
       region_country_mismatch: La provincia no pertenece al país seleccionado.
   sell:
+    progress_label: "Progreso del anuncio"
     listings:
       title: Mis anuncios
       subtitle: Gestiona lo que vendes, desde los borradores hasta los artículos vendidos.
@@ -1175,6 +1176,7 @@ es:
       empty_cta: Explorar anuncios
   favourites:
     button:
+      sign_in: "Inicia sesión para guardar"
       add: Añadir a favoritos
       remove: Quitar de favoritos
     flash:

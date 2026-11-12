@@ -19,7 +19,9 @@ module SeoHelper
       og: {
         site_name: t("app.name"),
         type: "website",
-        locale: OG_LOCALES.fetch(I18n.locale, "es_ES")
+        locale: OG_LOCALES.fetch(I18n.locale, "es_ES"),
+        title: t("app.name"),
+        url: request.original_url
       },
       twitter: { card: "summary_large_image" }
     }
@@ -28,7 +30,7 @@ module SeoHelper
   def home_meta_tags
     title = t("home.seo.title")
     description = t("home.seo.description")
-    canonical = root_url(locale: I18n.locale)
+    canonical = canonicalize_url(root_url)
 
     {
       title: title,
@@ -49,7 +51,7 @@ module SeoHelper
       "@context" => "https://schema.org",
       "@type" => "Organization",
       "name" => t("app.name"),
-      "url" => root_url(locale: I18n.locale),
+      "url" => canonicalize_url(root_url),
       "logo" => "#{request.base_url}/icon.png",
       "description" => t("app.tagline")
     }
@@ -61,13 +63,13 @@ module SeoHelper
       "@context" => "https://schema.org",
       "@type" => "WebSite",
       "name" => t("app.name"),
-      "url" => root_url(locale: I18n.locale),
+      "url" => canonicalize_url(root_url),
       "inLanguage" => I18n.locale.to_s,
       "potentialAction" => {
         "@type" => "SearchAction",
         "target" => {
           "@type" => "EntryPoint",
-          "urlTemplate" => "#{request.base_url}#{search_path(locale: I18n.locale)}?q={search_term_string}"
+          "urlTemplate" => "#{request.base_url}#{search_path}?q={search_term_string}"
         },
         "query-input" => "required name=search_term_string"
       }
@@ -86,7 +88,7 @@ module SeoHelper
   def result_meta_tags(category, search)
     title = result_title(category, search)
     description = result_description(category, search)
-    canonical = result_canonical(category, search)
+    canonical = canonicalize_url(result_canonical(category, search))
 
     tags = {
       title: title,
@@ -106,7 +108,7 @@ module SeoHelper
       game = criteria.preset_game
       title = t("pc_finder.seo.preset_title", game: game.name)
       description = t("pc_finder.seo.preset_description", game: game.name)
-      canonical = pc_finder_url(game: game.slug, locale: I18n.locale)
+      canonical = canonicalize_url(pc_finder_url(game: game.slug, locale: I18n.locale))
 
       {
         title: title,
@@ -124,7 +126,7 @@ module SeoHelper
     else
       title = t("pc_finder.seo.title")
       description = t("pc_finder.seo.description")
-      canonical = pc_finder_url(locale: I18n.locale)
+      canonical = canonicalize_url(pc_finder_url)
 
       {
         title: title,
@@ -137,7 +139,7 @@ module SeoHelper
   end
 
   def listing_meta_tags(listing)    description = truncate(listing.description.to_s.squish, length: 160)
-    canonical = listing_url(listing)
+    canonical = canonicalize_url(listing_url(listing))
     image_url = meta_image_url(listing)
 
     tags = {
@@ -181,7 +183,7 @@ module SeoHelper
         {
           "@type" => "ListItem",
           "position" => index + 1,
-          "url" => listing_url(listing),
+          "url" => canonicalize_url(listing_url(listing)),
           "name" => listing.title
         }
       end
@@ -191,7 +193,7 @@ module SeoHelper
   def store_meta_tags(store)
     title = store.name
     description = truncate(store.description.to_s.squish.presence || t("app.tagline"), length: 160)
-    canonical = storefront_url(store)
+    canonical = canonicalize_url(storefront_url(store))
 
     {
       title: title,
@@ -214,7 +216,7 @@ module SeoHelper
       "@context" => "https://schema.org",
       "@type" => type,
       "name" => store.name,
-      "url" => storefront_url(store),
+      "url" => canonicalize_url(storefront_url(store)),
       "description" => store.description.presence,
       "image" => store_image_url(store)
     }
@@ -259,7 +261,7 @@ module SeoHelper
       "itemCondition" => schema_condition(listing.condition),
       "offers" => {
         "@type" => "Offer",
-        "url" => listing_url(listing),
+        "url" => canonicalize_url(listing_url(listing)),
         "price" => format("%.2f", listing.price),
         "priceCurrency" => listing.currency,
         "availability" => listing.published? ? "https://schema.org/InStock" : "https://schema.org/SoldOut",
@@ -335,12 +337,27 @@ module SeoHelper
     path.start_with?("http") ? path : "#{request.base_url}#{path}"
   end
 
+  # Builds the canonical/hreflang URL for a locale without relying on
+  # url_for's current-locale defaults. Spanish (default) has no /es prefix.
   def localized_url(locale)
-    url_for(request.path_parameters.merge(request.query_parameters).merge(locale: locale, only_path: false))
+    path = request.path.sub(%r{\A/(es|en|fr|de|it|pt)(?=/|\z)}, "")
+    path = "/" if path.empty?
+    prefix = locale.to_sym == I18n.default_locale ? "" : "/#{locale}"
+    query = request.query_string.present? ? "?#{request.query_string}" : ""
+    "#{request.base_url}#{prefix}#{path}#{query}"
   end
 
   def absolute_url(url)
-    url.to_s.start_with?("http") ? url : "#{request.base_url}#{url}"
+    absolute = url.to_s.start_with?("http") ? url.to_s : "#{request.base_url}#{url}"
+    canonicalize_url(absolute)
+  end
+
+  # Spanish pages are reachable at /es/... for compatibility but canonicalise
+  # to the unprefixed URLs that the site links to.
+  def canonicalize_url(url)
+    canonical = url.to_s.sub(%r{\A(https?://[^/]+)/es(?=/|\z)}, '\1')
+    canonical = "#{canonical}/" if canonical.match?(%r{\Ahttps?://[^/]+\z})
+    canonical
   end
 
   def strip_site_suffix(title)

@@ -21,17 +21,22 @@ class Inbox
   end
 
   def conversations
-    @conversations ||= Conversation.visible_for(@user)
-                                    .recent
-                                    .includes(
-                                      { listing: { photos: { image_attachment: :blob } } },
-                                      :store,
-                                      { buyer: { avatar_attachment: :blob } },
-                                      { seller: { avatar_attachment: :blob } },
-                                      messages: [ :sender, { images_attachments: :blob } ]
-                                    )
-                                    .to_a
-                                    .reject { |conversation| Block.between?(@user, conversation.other_party_for(@user)) }
+    @conversations ||= begin
+      blocked_ids = Block.pairs_for(@user).map do |blocker_id, blocked_id|
+        blocker_id == @user.id ? blocked_id : blocker_id
+      end.to_set
+
+      Conversation.visible_for(@user)
+                  .recent
+                  .includes(
+                    { listing: { photos: { image_attachment: :blob } } },
+                    { buyer: { avatar_attachment: :blob } },
+                    { seller: { avatar_attachment: :blob } },
+                    messages: [ :sender, { images_attachments: :blob } ]
+                  )
+                  .to_a
+                  .reject { |conversation| blocked_ids.include?(conversation.other_party_for(@user).id) }
+    end
   end
 
   def offers

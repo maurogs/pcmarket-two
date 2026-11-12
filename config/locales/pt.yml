@@ -279,6 +279,7 @@ pt:
     errors:
       region_country_mismatch: A província não pertence ao país selecionado.
   sell:
+    progress_label: "Progresso do anúncio"
     listings:
       title: Os meus anúncios
       subtitle: Gere o que vendes, desde rascunhos até artigos vendidos.
@@ -1175,6 +1176,7 @@ pt:
       empty_cta: Explorar anúncios
   favourites:
     button:
+      sign_in: "Inicie sessão para guardar"
       add: Adicionar aos favoritos
       remove: Remover dos favoritos
     flash:

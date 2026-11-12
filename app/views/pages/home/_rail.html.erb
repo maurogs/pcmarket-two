@@ -1,4 +1,4 @@
-<% cache ["home/rail", section, I18n.locale, Listing.search_cache_version], expires_in: 5.minutes do %>
+<% cache_if !user_signed_in?, ["home/rail", section, I18n.locale, Listing.search_cache_version], expires_in: 5.minutes do %>
   <% listings = home.public_send(section) %>
   <% if listings.any? %>
     <section aria-labelledby="rail-<%= section %>" data-controller="rail" class="space-y-3">

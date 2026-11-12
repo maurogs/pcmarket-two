@@ -6,7 +6,7 @@ class StorePolicy < ApplicationPolicy
       user.confirmed? &&
       !user.banned? &&
       !user.soft_deleted? &&
-      (user.store.nil? || user.store.new_record?)
+      record.new_record? && !Store.exists?(user_id: user.id)
   end
 
   def new?

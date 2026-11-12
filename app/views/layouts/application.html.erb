@@ -5,6 +5,7 @@
     <%= display_meta_tags(default_meta_tags) %>
     <%= hreflang_link_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="turbo-prefetch" content="true">
     <meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#080d18" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,7 +15,7 @@
     <%= csp_meta_tag %>
 
     <%# Applies the persisted/system theme before first paint to avoid a flash. %>
-    <script>
+    <script nonce="<%= content_security_policy_nonce %>">
       (() => {
         try {
           const stored = localStorage.getItem("theme");

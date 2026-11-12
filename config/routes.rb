@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Health check also verifies database connectivity (DB down => 503).
+  get "up" => "health#show", as: :rails_health_check
 
   # OmniAuth callbacks must live outside the optional locale scope.
   devise_for :users, only: :omniauth_callbacks,
@@ -12,6 +13,15 @@ Rails.application.routes.draw do
 
   # Human-readable API documentation. Only this page loads the Redoc bundle.
   get "api/docs", to: "api/docs#show", as: :api_docs
+
+  # robots.txt is generated so staging (NOINDEX=1) and the sitemap URL stay in
+  # sync with the environment. The static public/robots.txt was removed.
+  get "robots.txt", to: "robots#show", as: :robots
+
+  # Branded, translated error pages used by config.exceptions_app.
+  %w[404 422 500].each do |code|
+    match code, to: "errors#show", via: :all, defaults: { code: code }, as: :"error_#{code}"
+  end
 
   # Versioned JSON API for the native apps. It lives outside the locale scope:
   # clients negotiate locale with Accept-Language instead of URL prefixes.

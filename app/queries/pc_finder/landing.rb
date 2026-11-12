@@ -39,7 +39,7 @@ module PcFinder
     end
 
     def best_games
-      Game.active.ordered.limit(3).to_a
+      Game.active.ordered.includes(cover_attachment: :blob).limit(3).to_a
     end
 
     private

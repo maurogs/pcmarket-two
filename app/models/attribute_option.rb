@@ -16,6 +16,8 @@ class AttributeOption < ApplicationRecord
   scope :popular, -> { where(popular: true) }
   scope :ordered, -> { order(:position, :id) }
 
+  after_commit { Category.expire_attribute_definitions_cache }
+
   # True when at least one listing stores this option value under the
   # definition key, either as a scalar or inside an array.
   def used?

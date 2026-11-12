@@ -279,6 +279,7 @@ en:
     errors:
       region_country_mismatch: The province does not belong to the selected country.
   sell:
+    progress_label: "Listing progress"
     listings:
       title: My listings
       subtitle: Manage what you are selling, from drafts to sold items.
@@ -1175,6 +1176,7 @@ en:
       empty_cta: Browse listings
   favourites:
     button:
+      sign_in: "Sign in to save"
       add: Add to favourites
       remove: Remove from favourites
     flash:

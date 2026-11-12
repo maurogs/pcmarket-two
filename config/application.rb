@@ -1,4 +1,5 @@
 require_relative "boot"
+require_relative "../lib/canonical_url_middleware"
 
 require "rails/all"
 
@@ -23,8 +24,15 @@ module AppTestTwo
     #
     config.time_zone = "Madrid"
 
-    # ImageMagick is available in every environment; libvips is optional.
-    config.active_storage.variant_processor = :mini_magick
+    # Prefer libvips when the native library is available (the production
+    # Docker image installs it); fall back to ImageMagick everywhere else.
+    config.active_storage.variant_processor =
+      begin
+        require "vips"
+        :vips
+      rescue LoadError
+        :mini_magick
+      end
 
     # Internationalisation: Spanish is the default, English is the fallback.
     config.i18n.available_locales = %i[es en fr de it pt]
@@ -36,7 +44,7 @@ module AppTestTwo
     # provide the three keys through credentials or ENV; development/test fall
     # back to local-only deterministic values so the app boots without secrets.
     encryption = Rails.application.credentials[:active_record_encryption] || {}
-    fallback = Rails.env.local?
+    fallback = Rails.env.local? || ENV["SECRET_KEY_BASE_DUMMY"] == "1"
     primary_key = encryption[:primary_key].presence ||
                   ENV["ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY"].presence ||
                   ("0123456789abcdef0123456789abcdef" if fallback)
@@ -56,6 +64,24 @@ module AppTestTwo
     config.active_record.encryption.primary_key = primary_key
     config.active_record.encryption.deterministic_key = deterministic_key
     config.active_record.encryption.key_derivation_salt = key_derivation_salt
+
+    # Spanish canonical URLs have no /es prefix and public paths never keep a
+    # trailing slash. Runs before static file serving so both are redirects.
+    config.middleware.insert_before(ActionDispatch::Static, CanonicalUrlMiddleware)
+
+    # Permissions-Policy must be configured before the middleware stack is
+    # built, so it lives here rather than in an initializer.
+    config.permissions_policy do |policy|
+      policy.camera :none
+      policy.microphone :none
+      policy.geolocation :none
+      policy.usb :none
+      policy.payment :self
+    end
+
+    # Exceptions are rendered by ErrorsController with the branded, translated
+    # error layout instead of the static public/*.html files.
+    config.exceptions_app = ->(env) { Rails.application.routes.call(env) }
 
     # config.eager_load_paths << Rails.root.join("extras")
   end

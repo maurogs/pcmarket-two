@@ -38,8 +38,8 @@ module Accounts
 
     def open_orders?
       Order.where(buyer_id: user.id, status: OPEN_ORDER_STATUSES).exists? ||
-        (user.store.present? &&
-          user.store.orders.where(status: OPEN_ORDER_STATUSES).exists?)
+        (Store.exists?(user_id: user.id) &&
+          Order.joins(:store).where(stores: { user_id: user.id }, status: OPEN_ORDER_STATUSES).exists?)
     end
 
     def archive_listings
@@ -60,10 +60,11 @@ module Accounts
     end
 
     def refresh_store_counter
-      return if user.store.blank?
+      store = Store.find_by(user_id: user.id)
+      return if store.blank?
 
-      user.store.update_columns(
-        listings_count: Listing.published.where(store_id: user.store.id).count,
+      store.update_columns(
+        listings_count: Listing.published.where(store_id: store.id).count,
         updated_at: Time.current
       )
     end
@@ -92,6 +93,12 @@ module Accounts
     end
 
     def purge_attachments
+      ActiveRecord::Associations::Preloader.new(
+        records: [ user ],
+        associations: [ { avatar_attachment: { blob: :variant_records } },
+                        { data_export_attachment: { blob: :variant_records } } ]
+      ).call
+
       user.avatar.purge if user.avatar.attached?
       user.data_export.purge if user.data_export.attached?
     end

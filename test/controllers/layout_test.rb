@@ -26,6 +26,6 @@ class LayoutTest < ActionDispatch::IntegrationTest
     assert_includes response.body, 'href="/de"'
     assert_includes response.body, 'href="/it"'
     assert_includes response.body, 'href="/pt"'
-    assert_includes response.body, 'href="/es"'
+    assert_includes response.body, 'href="/"'
   end
 end

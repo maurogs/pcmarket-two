@@ -8,7 +8,7 @@ module Api
         authorize conversation
 
         records, meta = cursor_page(
-          conversation.messages.visible.includes(:sender, images_attachments: :blob)
+          conversation.messages.visible.includes({ sender: { avatar_attachment: :blob } }, images_attachments: :blob)
         )
         render_collection(records, MessageSerializer, meta: meta)
       end

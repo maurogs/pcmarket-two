@@ -42,6 +42,7 @@
              style="width: <%= wizard_step_percent(step) %>%"
              data-wizard-target="bar"
              role="progressbar"
+             aria-label="<%= t("sell.progress_label") %>"
              aria-valuemin="0"
              aria-valuemax="100"
              aria-valuenow="<%= wizard_step_percent(step) %>"></div>

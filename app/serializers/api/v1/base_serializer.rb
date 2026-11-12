@@ -24,15 +24,24 @@ module Api
 
       private
 
-      # Absolute URL for an Active Storage attachment variant. Returns nil for
-      # unattached records so clients can fall back to a placeholder.
+      # Variant URL generation is CPU-heavy (variation key, signed params,
+      # route resolution). The URL only depends on the blob and the variant,
+      # so cache the string; it invalidates naturally when the blob changes.
       def attachment_url(attachment, variant: :thumb)
         return if attachment.blank? || !attachment.attached?
 
-        representation = variant.is_a?(Hash) ? attachment.variant(variant) : attachment.variant(variant)
-        Rails.application.routes.url_helpers.rails_representation_url(
-          representation, **self.class.image_url_options
-        )
+        blob = attachment.blob
+        cache_key = [
+          "api/v1/attachment_url", blob.id, blob.checksum,
+          Digest::SHA1.hexdigest(variant.inspect),
+          self.class.image_host, self.class.image_protocol
+        ]
+        Rails.cache.fetch(cache_key, expires_in: 1.day) do
+          representation = variant.is_a?(Hash) ? attachment.variant(variant) : attachment.variant(variant)
+          Rails.application.routes.url_helpers.rails_representation_url(
+            representation, **self.class.image_url_options
+          )
+        end
       rescue StandardError
         nil
       end

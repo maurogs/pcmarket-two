@@ -44,7 +44,8 @@ class StoresController < ApplicationController
   private
 
   def set_store
-    @store = current_user.store || current_user.build_store(country_code: "ES")
+    @store = Store.find_by(user_id: current_user.id) ||
+             current_user.build_store(country_code: "ES")
   end
 
   def require_store

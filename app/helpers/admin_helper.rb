@@ -60,18 +60,37 @@ module AdminHelper
   # Parent choices for a move select, excluding the category itself and its
   # descendants so a cycle can never be submitted from the UI.
   def admin_category_move_options(category)
-    excluded_ids = [ category.id ] + category.descendant_ids
-    categories = Category.order(:depth, :position, :id).reject { |c| excluded_ids.include?(c.id) }
+    excluded_ids = [ category.id ] + admin_category_descendant_ids(category)
+    categories = admin_category_options.reject { |c| excluded_ids.include?(c.id) }
     options = [ [ t("admin.categories.tree.keep_parent"), "keep" ],
                 [ t("admin.categories.tree.root_parent"), "root" ] ]
     options + categories.map { |c| [ admin_category_label(c), c.id ] }
   end
 
   def admin_category_parent_options(category)
-    excluded_ids = category.persisted? ? [ category.id ] + category.descendant_ids : []
-    categories = Category.order(:depth, :position, :id).reject { |c| excluded_ids.include?(c.id) }
+    excluded_ids = category.persisted? ? [ category.id ] + admin_category_descendant_ids(category) : []
+    categories = admin_category_options.reject { |c| excluded_ids.include?(c.id) }
     [ [ t("admin.categories.form.no_parent"), nil ] ] +
       categories.map { |c| [ admin_category_label(c), c.id ] }
+  end
+
+  # One query for the whole screen: the category list and the descendant map
+  # are reused by every move/parent select instead of running a recursive CTE
+  # per row.
+  def admin_category_options
+    @admin_category_options ||= Category.order(:depth, :position, :id).to_a
+  end
+
+  def admin_category_descendant_ids(category)
+    @admin_category_descendants ||= begin
+      children = Category.pluck(:id, :parent_id).group_by(&:last)
+      map = {}
+      walk = lambda do |id|
+        map[id] ||= (children[id] || []).flat_map { |child_id| [ child_id ] + walk.call(child_id) }
+      end
+      map
+    end
+    @admin_category_descendants.fetch(category.id, [])
   end
 
   def admin_tag_colour_classes(colour)

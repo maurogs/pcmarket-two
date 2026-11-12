@@ -1,4 +1,5 @@
 <% set_meta_tags(store_meta_tags(@store)) %>
+<%= json_ld_tag(breadcrumb_json_ld([[ t("nav.home"), root_path ], [ @store.name, storefront_path(@store) ]])) %>
 <% profile = @profile %>
 
 <div class="space-y-6">
@@ -15,7 +16,7 @@
 
     <div class="p-5 sm:p-6">
       <div class="flex flex-wrap items-start gap-4">
-        <% cache [ @store, :storefront_identity, I18n.locale, profile.for_sale_count, profile.sold_count, @store.followers_count, @store.ratings_count ] do %>
+        <% cache_if !user_signed_in?, [ @store, :storefront_identity, I18n.locale, profile.for_sale_count, profile.sold_count, @store.followers_count, @store.ratings_count ] do %>
           <div class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-border bg-surface-muted sm:h-24 sm:w-24">
             <% if @store.logo.attached? %>
               <%= image_tag url_for(@store.logo.variant(resize_to_limit: [ 192, 192 ], format: :webp)),
@@ -206,25 +207,28 @@
         </div>
       <% end %>
 
-      <% if profile.sold_listings.any? %>
-        <section class="space-y-3 border-t border-border pt-6">
-          <h2 class="text-lg font-bold"><%= t("storefronts.sold.title") %></h2>
-          <p class="text-sm text-muted"><%= t("storefronts.sold.hint") %></p>
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <% profile.sold_listings.each do |listing| %>
-              <div class="relative">
-                <span class="absolute left-3 top-3 z-10 inline-flex items-center rounded-full bg-slate-950/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
-                  <%= t("storefronts.sold.badge") %>
-                </span>
-                <%= render "listings/card", listing: listing, eager: false %>
-              </div>
-            <% end %>
-          </div>
-        </section>
+      <% cache_if !user_signed_in?, [ @store, :storefront_sold, I18n.locale, Listing.search_cache_version ], expires_in: 10.minutes do %>
+        <% sold_listings = @profile.sold_listings %>
+        <% if sold_listings.any? %>
+          <section class="space-y-3 border-t border-border pt-6">
+            <h2 class="text-lg font-bold"><%= t("storefronts.sold.title") %></h2>
+            <p class="text-sm text-muted"><%= t("storefronts.sold.hint") %></p>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <% sold_listings.each do |listing| %>
+                <div class="relative">
+                  <span class="absolute left-3 top-3 z-10 inline-flex items-center rounded-full bg-slate-950/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+                    <%= t("storefronts.sold.badge") %>
+                  </span>
+                  <%= render "listings/card", listing: listing, eager: false %>
+                </div>
+              <% end %>
+            </div>
+          </section>
+        <% end %>
       <% end %>
     </section>
   <% elsif profile.tab == "about" %>
-    <% cache [ @store, :storefront_about, I18n.locale ] do %>
+    <% cache_if !user_signed_in?, [ @store, :storefront_about, I18n.locale ] do %>
       <section class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div class="space-y-4">
           <div class="rounded-2xl border border-border bg-surface p-6">
@@ -352,7 +356,7 @@
         </div>
 
         <% if profile.reviews.any? %>
-          <% cache [ @store, :storefront_reviews, I18n.locale, profile.review_sort, profile.review_pagy.page, @store.updated_at.to_i ] do %>
+          <% cache_if !user_signed_in?, [ @store, :storefront_reviews, I18n.locale, profile.review_sort, profile.review_pagy.page, @store.updated_at.to_i ] do %>
             <ul class="space-y-3">
               <% profile.reviews.each do |review| %>
                 <li class="rounded-2xl border border-border bg-surface p-5">

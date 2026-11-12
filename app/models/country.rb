@@ -2,6 +2,7 @@
 
 class Country < ApplicationRecord
   LAUNCHED_CODES_CACHE_KEY = "countries/launched_codes"
+  LAUNCHED_COUNTRIES_CACHE_KEY = "countries/launched_countries"
 
   has_many :regions, foreign_key: :country_code, primary_key: :code,
                      inverse_of: :country, dependent: :restrict_with_exception
@@ -24,6 +25,14 @@ class Country < ApplicationRecord
   def self.launched_codes
     Rails.cache.fetch(LAUNCHED_CODES_CACHE_KEY) do
       active.pluck(:code)
+    end
+  end
+
+  # The full rows for launched countries, ordered for the footer selector.
+  # Cached with the same invalidation as launched_codes.
+  def self.launched_countries
+    Rails.cache.fetch(LAUNCHED_COUNTRIES_CACHE_KEY) do
+      where(code: launched_codes).order(:position).to_a
     end
   end
 
@@ -86,6 +95,7 @@ class Country < ApplicationRecord
 
   def clear_launched_codes_cache
     Rails.cache.delete(LAUNCHED_CODES_CACHE_KEY)
+    Rails.cache.delete(LAUNCHED_COUNTRIES_CACHE_KEY)
   end
 
   def bump_listing_search_cache

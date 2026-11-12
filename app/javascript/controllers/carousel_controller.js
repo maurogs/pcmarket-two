@@ -86,7 +86,9 @@ export default class extends Controller {
     this.slideTargets.forEach((slide, index) => {
       const active = index === this.index
       slide.setAttribute("aria-hidden", active ? "false" : "true")
+      slide.toggleAttribute("inert", !active)
       slide.querySelectorAll("a, button").forEach((element) => {
+        if (element.getAttribute("aria-hidden") === "true") return
         element.tabIndex = active ? 0 : -1
       })
     })

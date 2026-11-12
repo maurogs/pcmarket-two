@@ -19,7 +19,7 @@
               data-action="submit->stripe-payment#submit"
               data-stripe-payment-publishable-key-value="<%= Payments.stripe_publishable_key %>"
               data-stripe-payment-client-secret-value="<%= @checkout.payment_client_secret %>"
-              data-stripe-payment-return-url-value="<%= checkout_url(locale: I18n.locale) %>"
+              data-stripe-payment-return-url-value="<%= checkout_url %>"
               data-stripe-payment-locale-value="<%= I18n.locale %>"
               data-stripe-payment-error-fallback-value="<%= t("checkout.payment_page.error_fallback") %>"
               data-stripe-payment-processing-value="<%= t("checkout.payment_page.processing") %>">

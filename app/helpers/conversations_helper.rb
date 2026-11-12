@@ -32,7 +32,12 @@ module ConversationsHelper
   end
 
   def conversation_last_message(conversation)
-    message = conversation.messages.visible.last
+    messages = conversation.messages
+    message = if messages.loaded?
+      messages.reject(&:hidden_at).max_by { |candidate| [ candidate.created_at, candidate.id ] }
+    else
+      messages.visible.last
+    end
     return t("conversations.index.no_messages") if message.blank?
 
     message.event? ? message_text(message) : message.body

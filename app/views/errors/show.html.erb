@@ -1,0 +1,18 @@
+<% key = { "404" => "not_found", "422" => "unprocessable", "500" => "server_error" }.fetch(@code, "server_error") %>
+<% content_for :title, t("errors.pages.#{key}.title") %>
+<p class="mt-10 text-sm font-bold uppercase tracking-[0.2em] text-primary-700 dark:text-primary-300"><%= t("errors.pages.#{key}.eyebrow") %></p>
+<p class="mt-2 text-6xl font-extrabold tracking-tight"><%= @code %></p>
+<h1 class="mt-4 text-2xl font-extrabold tracking-tight sm:text-3xl"><%= t("errors.pages.#{key}.title") %></h1>
+<p class="mt-3 max-w-md text-muted"><%= t("errors.pages.#{key}.body") %></p>
+
+<form action="<%= search_path %>" method="get" class="mt-8 flex w-full max-w-md gap-2">
+  <label for="error-search" class="sr-only"><%= t("errors.search_label") %></label>
+  <input id="error-search" type="search" name="q" autocomplete="off" class="field flex-1" placeholder="<%= t("errors.search_placeholder") %>">
+  <button type="submit" class="btn-primary shrink-0"><%= t("errors.search_button") %></button>
+</form>
+
+<nav aria-label="<%= t("errors.links_label") %>" class="mt-8 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-semibold">
+  <%= link_to t("errors.links.home"), root_path, class: "text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+  <%= link_to t("errors.links.help"), help_pages_path, class: "text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+  <%= link_to t("errors.links.contact"), contact_messages_path, class: "text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+</nav>

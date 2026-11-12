@@ -3,6 +3,16 @@
 ## Overview
 PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This document tracks architectural decisions, the current code map and open items.
 
+## Architecture overview
+
+- **HTTP edge:** `CanonicalUrlMiddleware` (301 `/es` → `/` and trailing slashes) runs before static files; Rack::Attack throttles HTML/API traffic and safelists `/up`; CSP, HSTS, Referrer-Policy, Permissions-Policy and frame denial are configured globally. `config.exceptions_app` renders translated 404/422/500 pages; `/up` checks PostgreSQL.
+- **Request layer:** thin HTML controllers under an optional locale scope (`/es` is the unprefixed default), a versioned JSON API under `/api/v1` (token auth, no cookies/CSRF) and staff controllers under `/admin`. Pundit policies and `Admin::Auditable` guard mutations; impersonation is blocked outside the admin area.
+- **Domain layer:** models own state machines, validations and lifecycle callbacks; `app/services` owns multi-step business rules (checkout, moderation, offers, accounts, legal publishing, payouts); `app/queries` owns read models and search (`ListingSearch`, `HomeFeed`, `StorefrontProfile`, inbox, analytics, admin filters) with Pagy and facet caching.
+- **Data and jobs:** PostgreSQL with partial/jsonb/GIN/tsvector indexes, Solid Cache/Queue/Cable in production, recurring jobs for reservations, offers, saved-search digests, vacation auto-off, legal notices and daily sitemaps.
+- **Rendering and assets:** Propshaft + importmap + Tailwind, Hotwire/Stimulus, Russian-doll fragment caching for public cards/nav/storefront/home, user-specific controls (favourites, CSRF, account menus) rendered outside those fragments, LCP preloads and Turbo prefetch.
+- **Integrations:** Stripe PaymentIntents/Connect/webhooks through `Payments.gateway` (fake gateway in test/key-less development), SMTP via ENV, S3/R2 or local Active Storage, Google OAuth, and external demo image providers only in development tooling.
+
+
 ## Stack
 - Ruby 4.0.9, Rails 8.1.4, PostgreSQL
 - Propshaft asset pipeline, importmap, Hotwire
@@ -59,7 +69,7 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Listing detail visibility is published + active store + active seller, with owners, admins and moderators able to inspect non-public listings and see a status banner. Anonymous detail responses use `fresh_when` with `[listing, locale, user id]`; anonymous category/search responses send `Cache-Control: max-age=60, public`.
 - View counts increment with `update_column`, throttled by a per-listing session key. `DeliveryEstimate` counts handling days and the 2–4 day carrier window in business days, skipping weekends and starting on the next business day for weekend orders.
 - SEO uses the MetaTags gem for title/description/OG/Twitter defaults and per-page overrides, hreflang alternates for all six locales plus x-default, BreadcrumbList/ItemList/Product+Offer JSON-LD, canonical URLs and `noindex,follow` on filtered or sorted result URLs. Page 2+ result URLs canonicalise to themselves.
-- Active Storage variants use `:mini_magick` (ImageMagick is available; libvips is not), with `card`, `large` and `thumb` variants for listing photos.
+- Active Storage variants use libvips when `require "vips"` succeeds at boot and fall back to `:mini_magick` otherwise, with `card`, `large` and `thumb` variants for listing photos. The production image installs both libvips and ImageMagick.
 - Store onboarding is a singular `/store` resource (`new/create/edit/update`). Users without a store are redirected there before listing an item. `stores.region_id` links the selected Spanish province; `province` is kept in sync with the region name.
 - Spanish NIF/NIE/CIF numbers are validated by `SpanishTaxIdValidator` (control letters/digits, tolerant of spaces, dots and hyphens). `Store` validates the tax ID globally and requires region/city (plus a five-digit postal code for business stores) in the `:onboarding` context.
 - Business sellers' legal name, tax ID and address are rendered in the public seller card on listing pages, matching the EU DSA trader-transparency notice in the store form.
@@ -91,7 +101,7 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Webhooks are signature-verified at the locale-less `/webhooks/stripe`, stored in `webhook_events` (unique provider/event pair), and processed asynchronously by `StripeWebhookJob` → `Webhooks::ProcessStripeEvent`. Handled events: payment succeeded/failed, refunds, disputes, Connect account updates and Connect transfers. Duplicate deliveries are acknowledged without enqueuing a second job; processing errors are stored on the row and re-raised without setting `processed_at`.
 - Stripe Connect uses Express accounts for every seller. `Payments::ConnectOnboarding` creates the account (`country: ES`, `business_type` company/individual, transfers capability) and an account-onboarding link; `Store::PaymentsController` owns the singular `/store/payment` page with payout status and requirements. Until `store.payouts_ready?` is true (or the fake gateway is active), carts reject the seller's listings.
 - `Payouts::TransferToSeller` creates one `Payout` per completed order and transfers `total - commission` to the seller's connected account with an idempotency key; transfer failures are recorded on the payout and never roll back the order completion. Refunds go through `Payments.gateway.refund` per order, and disputes open the order state and email every admin.
-- The CSP initializer is intentionally left unconfigured in this phase. If a CSP is added later, `https://js.stripe.com` must be allowed for the Payment Element.
+- The CSP is nonce-based and enforced in test/production (report-only in development). `https://js.stripe.com` is allowed for the Payment Element; `/api/docs` adds the pinned Redoc CDN origin per request.
 
 - Order status is an AASM state machine on `orders.status`: `pending_payment → paid → shipped → delivered → completed`, plus `cancelled`, `refunded` and `disputed`. Shipping orders require carrier + tracking; local pickup orders do not. `Orders::Cancel` refunds when already paid and restocks; `Orders::ConfirmDelivery` opens the protection window and schedules auto-completion.
 - `Order#commission_cents` is frozen at checkout as `subtotal × Setting commission_percent / 100` only when Flipper `:commissions` and `Setting commission_enabled` are both on; otherwise zero.
@@ -169,7 +179,62 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Demo rows are tagged with `users.demo`, `stores.demo` and `listings.demo` (boolean, indexed) by a reversible migration. `Demo::Reset` deletes only demo-tagged rows and their activity (orders, reviews, chat, views, attachments/blobs). `Demo::Seed` auto-resets existing demo rows so re-running gives a fresh dataset; `pcmarket:demo:reset` exposes the same behaviour. Demo accounts are confirmed, use `DEMO_PASSWORD` (default `Demo1234!`) and the email pattern `demo-<n>-<username>@pcmarket.test`. `pcmarket:demo:images` also generates placeholder files for categories where no provider returned anything and prunes stale placeholders once real photos exist.
 - `Demo::ImageCredits` reads `demo_*` metadata from attached blobs and powers the public `/credits` page (grouped by provider with author, licence and source links, cached for 10 minutes). The footer shows the translated “Image credits” link only when at least one demo photo is attached. Phase 10 copy lives in `config/locales/demo_credits.*.yml` (loaded by the `config/locales/**/*.yml` glob in i18n-tasks).
 
+## Phase 11 — performance, SEO, security and production hardening
 
+- Bullet is installed in development/test. Test raises on N+1 (`Bullet.raise = true`); the suite is green with it enabled. The development footer is disabled (warnings go to `log/bullet.log`).
+- `ListingSearch` result caching was removed: caching the whole `Result` marshalled ActiveRecord graphs whose loaded associations did not survive the round trip, producing N+1s on every cache hit. Facets (5 min), card/nav fragments, HTTP caching and the `Category` definition map cover the expensive paths instead. `Category.effective_attribute_definitions_map` builds own+inherited definitions for all categories in three queries and is invalidated by category, category-attribute, definition and option commits; card rendering and search reuse it.
+- `bin/perf_check` runs integration requests against the seeded development DB and reports warm SQL queries, SQL time, render time and response size for 30 pages/API endpoints. It exits non-zero outside the launch targets (< 150 ms server time, < 20 warm SQL queries). `--cold` clears the cache before each measurement for first-render diagnostics.
+- **Before/after:** the before numbers are unknown — the previous run was interrupted before recording them. After measurements (seeded demo DB, warm = median of three requests, development):
+
+| Page | Warm SQL | SQL ms | Render ms | Server ms |
+| --- | ---: | ---: | ---: | ---: |
+| home | 5 | 26.2 | 97 | 60 |
+| category | 15 | 12.5 | 30 | 75 |
+| category filtered+sorted | 15 | 12.9 | 29 | 73 |
+| search | 12 | 19.8 | 26 | 79 |
+| search facets+sort | 12 | 17.8 | 31 | 82 |
+| listing | 15 | 3.5 | 42 | 38 |
+| store | 19 | 13.7 | 26 | 69 |
+| PC Finder | 15 | 60.5 | 166 | 127 |
+| trust | 1 | 0.5 | 12 | 17 |
+| help | 1 | 0.5 | 11 | 16 |
+| legal | 4 | 1.6 | 15 | 19 |
+| cart | 14 | 3.7 | 58 | 47 |
+| checkout | 15 | 4.6 | 29 | 33 |
+| orders | 12 | 3.5 | 27 | 24 |
+| wishlist | 19 | 9.4 | 151 | 86 |
+| notifications | 8 | 2.2 | 19 | 22 |
+| inbox | 19 | 7.1 | 101 | 60 |
+| conversation | 17 | 5.1 | 32 | 30 |
+| seller sales | 12 | 3.3 | 45 | 33 |
+| seller dashboard | 6 | 1.9 | 42 | 30 |
+| admin dashboard | 13 | 5.5 | 8 | 36 |
+| admin listings | 13 | 13.7 | 132 | 78 |
+| admin users | 7 | 2.4 | 30 | 26 |
+| admin stores | 4 | 4.5 | 44 | 35 |
+| admin orders | 5 | 8.5 | 53 | 37 |
+| admin moderation | 16 | 11.2 | 94 | 84 |
+| admin payouts | 5 | 2.1 | 11 | 16 |
+| admin audit logs | 5 | 1.7 | 8 | 16 |
+| API listings | 14 | 17.0 | 0 | 69 |
+| API categories | 1 | 0.5 | 0 | 8 |
+
+Cold (cache cleared before every measured request) is reported for first-render diagnostics only: home 37 queries/850 ms, category 30/222 ms, filtered category 30/216 ms, search 26/226 ms, listing 31/261 ms, store 42/257 ms, PC Finder 26/266 ms, API listings 23/192 ms. All warm pages are inside the targets.
+
+- **Indexes (EXPLAIN ANALYZE, 1,166 published listings / 1,500 total):** no new migration was needed. Category newest uses `index_listings_on_category_id_and_published_at` (1.7 ms); category + spec + price sort uses a `BitmapAnd` of that partial index and the `jsonb_path_ops` GIN `index_listings_on_specs` (2.3 ms); full-text search uses the generated `searchable` GIN index (6.7 ms); the facet query materialises the filtered ids through the category partial index and reads counts via `listings_pkey` (3.8 ms); home newest uses `index_listings_on_published_at_published` (0.4 ms); store listings use `index_listings_on_store_id_and_status` (<0.1 ms on the empty probe). The home “popular” rail falls back to a seq scan + top-N sort (7.3 ms) because sorting 1,166 rows is cheaper than an index at this volume; it is cached for five minutes and should be revisited with a partial `(favorites_count DESC, views_count DESC, id DESC)` index above ~50k published listings.
+- Public caches are user-neutral: the card fragment contains only presentational listing data; the favourite control renders outside it, and `ListingSearch` no longer caches ActiveRecord graphs. Home rails, listing similar/more sections and storefront fragments cache only for anonymous visitors (`cache_if !user_signed_in?`), and anonymous favourite controls are sign-in links rather than `button_to` forms, so no CSRF token can enter a shared fragment. `test/integration/public_caching_test.rb` fills category, home and storefront fragments as anonymous visitors and as a signed-in member, then proves a second visitor receives neither CSRF tokens nor favourite state nor emails. Anonymous result pages send `Cache-Control: public, max-age=60`; signed-in pages do not.
+- LCP: home preloads the first hero image and listing pages preload the first gallery image (`rel=preload as=image` with `imagesrcset`/`imagesizes`), both with `fetchpriority=high`; hero/gallery images render eager. Fonts use `preconnect` to Google Fonts/Gstatic plus `display=swap`. The layout declares `<meta name="turbo-prefetch" content="true">`.
+- Variant processing is detected at boot: `require "vips"` selects `:vips`, otherwise `:mini_magick`. The Docker image installs `libvips`, `imagemagick` and `libpq5`; CI installs both image libraries.
+- Sitemaps: `config/sitemap.rb` writes a gzipped index plus one `sitemap-<locale>.xml.gz` per locale (six), every URL with `xhtml:link` alternates for all six locales + `x-default` (Spanish). It covers home, search, trust, PC Finder (plus presets), help, legal, contact, categories, active stores and visible listings. `Sitemaps::GenerateJob` runs daily at 03:00 from `config/recurring.yml`; `bin/rails pcmarket:sitemaps` generates on demand. `public/sitemaps` is gitignored.
+- `/robots.txt` is dynamic (`RobotsController`): it disallows `/admin`, `/account`, `/sell`, `/cart`, `/checkout`, `/inbox`, `/api` and query/filter search URLs, emits the Sitemap line, and `NOINDEX=1` switches to `Disallow: /`. The static file was removed.
+- SEO crawl test (`test/integration/seo_crawl_test.rb`) covers home (ES/EN), category, listing, search, store, trust, help, legal, PC Finder and contact: title ≤70 chars and unique, description, canonical, six hreflang alternates + x-default, OG/Twitter tags, `html lang`, exactly one H1 and breadcrumb JSON-LD.
+- Errors: `config.exceptions_app` routes to `ErrorsController#404/422/500`, rendered with the translated `layouts/error` (noindex, no-store, search + help/home links). `test/integration/robots_and_canonical_urls_test.rb` calls the exceptions app directly for all three statuses.
+- Canonical URLs: `CanonicalUrlMiddleware` 301s `/es` → `/` (query string kept) and strips trailing slashes; Spanish default URLs are unprefixed. `ApplicationController#default_url_options` returns `{ locale: nil }` for Spanish (the nil key keeps positional route helpers mapped to `:id` while dropping the optional segment) and `{ locale: … }` otherwise. `SeoHelper` canonicalises `/es/...` to unprefixed URLs for canonicals/hreflang/JSON-LD, and the locale switcher links Spanish to `/`.
+- Security: nonce-based CSP enforced in test/production and report-only in development (self, Google Fonts, Stripe script/frames/connect, storage origins; Redoc CDN only on `/api/docs`). HSTS + `force_ssl` + `assume_ssl` in production, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` (camera/microphone/geolocation/USB disabled, payment self), `X-Frame-Options: DENY`, nosniff, no XSS auditor. Devise runs in paranoid mode; the session cookie is HttpOnly, SameSite=Lax and Secure in production. Rack::Attack safelists `/up` and adds password-reset (5/hour per IP and email), newsletter (30/hour per IP), HTML message and API message throttles.
+- Production: SMTP via `SMTP_*` with `deliver_later` on Solid Queue; Active Storage `local`/`amazon`/`cloudflare` (R2) via `ACTIVE_STORAGE_SERVICE` with local fallback; `APP_HOST`/`APP_HOSTS` host allow-list (plus `/up` exclusion); `ASSET_HOST`; Solid Cache/Queue/Cable; `/up` runs `SELECT 1` and returns 503 when the DB is unreachable. The Docker build precompiles assets with `SECRET_KEY_BASE_DUMMY=1`, which also skips the Active Record encryption boot guard. Verified locally: `SECRET_KEY_BASE_DUMMY=1 RAILS_ENV=production bin/rails assets:precompile` succeeds (generated assets/cache removed afterwards); `docker build .` was not run because Docker is unavailable on this machine.
+- `.env.example` documents every runtime variable (including `ADMIN_PASSWORD` and `BULLET_DISABLED`); README has English “Configuration”, “Deployment”, “Security headers” and “Performance checks” sections. CI runs the test job against a Postgres service, prepares the DB, then runs tests, both i18n-tasks checks and RuboCop.
+- Responsive QA: headless Chrome screenshots (54) at 375×812, 768×1024 and 1440×900 in light/dark for home, category, listing, cart, checkout, sell wizard, inbox, seller dashboard and admin dashboard, signed in as demo seller/buyer and seeded admin. Fixes: header overflow on 375 px (brand text hidden below `sm`, 44 px icon buttons), seller dashboard grid overflow (`min-w-0`), dashboard `<ul>` containing links (changed to `<div>`), unlabeled gallery/cart thumbnail links (`aria-label`), wizard progressbar name, disabled pagination contrast, success-badge contrast (`#087a53`), card spec label contrast, sold badge text in dark mode (`text-canvas`), carousel inactive-slide focus (`inert` + skip intentionally hidden links), and a real gallery JS syntax error (`if … else` without braces) that broke every Stimulus controller. Axe-core reports 0 serious/critical violations and 0 console errors on the final run; screenshots live in gitignored `tmp/screenshots` with `report.json`.
+- Phase 11 copy lives in `config/locales/phase11.*.yml` (branded error pages), with `errors.pages.*` ignored by i18n-tasks; the wizard progress label lives in the base locale files.
 
 
 ## Schema Summary
@@ -406,13 +471,22 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `test/fixtures/{categories,attribute_definitions,attribute_options,category_attributes,tags,listings,regions}.yml` — catalogue fixtures.
 - `Procfile.dev`, `bin/dev` — development processes (web + Tailwind watch).
 
+- `bin/perf_check` — warm/cold per-page SQL/render/size benchmark with launch-target exit status.
+- `config/initializers/{bullet,content_security_policy,security_headers,session_store}.rb` — N+1 guard, nonce CSP, hardening headers, cookie flags.
+- `config/sitemap.rb`, `app/jobs/sitemaps/generate_job.rb`, `app/controllers/robots_controller.rb`, `app/views/robots/show.text.erb` — gzipped per-locale sitemap + hreflang alternates, daily job and dynamic robots.txt.
+- `app/controllers/{errors,health}_controller.rb`, `app/views/{errors/show,layouts/error}.html.erb` — branded translated 404/422/500 via `config.exceptions_app`; `/up` DB probe.
+- `lib/canonical_url_middleware.rb` — `/es` → `/` and trailing-slash 301s, mounted before static serving.
+- `app/queries/storefront_profile.rb`, `app/models/category.rb`, `app/queries/listing_search.rb` — shared category definition map, lazy sold rail, N+1-safe search results.
+- `test/integration/{seo_crawl,robots_and_canonical_urls,security_headers,public_caching,health}_test.rb`, `test/performance_guard_test.rb` — launch SEO/security/caching/health/perf contracts.
+- `.env.example`, `README.md`, `config/environments/production.rb`, `config/storage.yml`, `Dockerfile`, `config/deploy.yml`, `.github/workflows/ci.yml` — production configuration, deployment and CI.
+
 ## Stripe configuration
 - Keys are read from `Rails.application.credentials.dig(:stripe, :secret_key/:publishable_key/:webhook_secret)` first and then from `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY` and `STRIPE_WEBHOOK_SECRET`.
 - `Payments.stripe_configured?` requires both the secret and publishable keys. With them present, `Payments.gateway` returns `Payments::StripeGateway` in development and production; test always uses `Payments::FakeGateway`. Production without both keys raises `Payments::ConfigurationError`.
 - `config/initializers/stripe.rb` sets `Stripe.api_key` after boot and after code reloads when the secret key exists.
 - Local webhook testing: run `stripe listen --forward-to localhost:3000/webhooks/stripe` and put the printed `whsec_…` value in credentials or `STRIPE_WEBHOOK_SECRET`. The endpoint lives outside the locale scope and verifies `Stripe-Signature` before storing anything.
 - Sellers complete Connect onboarding at `/store/payment`; Stripe redirects them back to the same page. `account.updated` webhooks keep the store's payout flags and requirements in sync.
-- The CSP initializer (`config/initializers/content_security_policy.rb`) is deliberately left unconfigured in this phase. If one is added, allow `https://js.stripe.com` for the Payment Element script.
+- The CSP (`config/initializers/content_security_policy.rb`) is nonce-based; `https://js.stripe.com` is allowed for the Payment Element and `/api/docs` adds the Redoc CDN origin only on that page.
 
 ## Open Items
 - Demo data is delivered by `pcmarket:demo:images`, `pcmarket:demo:seed` and `pcmarket:demo:reset`; images live in gitignored `tmp/demo_images` and `/credits` exposes their attribution. Re-run the seed after changing the catalogue or image library; the seed auto-resets existing demo rows.
@@ -427,7 +501,7 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Stripe capture, Connect onboarding, seller transfers and webhook processing are implemented. Development/test without keys use `Payments::FakeGateway`; production requires both the secret and publishable keys or checkout raises `Payments::ConfigurationError`. Connect payouts only start after Stripe reports `payouts_enabled` (except with the fake gateway), and `Payouts::TransferToSeller` records failures on the payout for manual retry.
 - Discount codes and problem reports/disputes UI are placeholders (disabled input and redirect-only action respectively). Address management is now available at `/account/addresses`. Refund/payout admin screens, payout scheduling and dispute evidence uploads are future work.
 - The newsletter form now performs double opt-in (confirmation and unsubscribe emails); the theme-color meta tags still follow the system scheme rather than a manual toggle.
-- Stripe webhooks require a public URL in production and the `whsec_…` secret configured; local development uses `stripe listen` (see the Stripe configuration section). The CSP initializer is still unconfigured; allow `https://js.stripe.com` before adding a policy.
+- Stripe webhooks require a public URL in production and the `whsec_…` secret configured; local development uses `stripe listen` (see the Stripe configuration section). The nonce-based CSP allows `https://js.stripe.com` and the Stripe frames used by the Payment Element.
 - Only ES is launched and only Spanish provinces are accepted by the region filter; FR, GB, DE, IT and PT are inactive catalogue rows with their top-level regions seeded (GB has the four nations; Counties can be bulk-imported).
 - Phase 7b delivers the admin legal-page CMS and `LegalPage.current`; Phase 8a adds the public legal routes/pages, versions list, country selector and the seeded ES/FR/GB/DE/IT/PT documents. LegalPageMailer still sends update text without a public link (the page exists now, so a link can be added when notification copy is revisited).
 - Two-factor authentication is not implemented yet; `BlocksImpersonation` is already wired to the account security controllers that exist (profile/email, password, deletion and data export) so future 2FA controllers can include the same concern.
@@ -446,3 +520,11 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Configure the Active Record encryption keys in credentials/ENV before enabling sell-to-us in production (development/test fall back to local keys).
 - Buyback operations (prepaid label contract, inspection workflow and bank-transfer process) are manual until `sell_to_us` is switched on; admin screens and translated emails are ready.
 - Replace the remaining blog/social placeholders in the announcement bar and footer.
+- Set `APP_HOST`/`APP_HOSTS`, `SITEMAP_HOST` (if different), `ASSET_HOST` and `ACTIVE_STORAGE_HOST` before the first production deploy; the CSP only allows the storage origin when configured.
+- Run the first `bin/rails pcmarket:sitemaps` (or wait for the 03:00 job) after DNS is live, verify `/robots.txt` and submit `/sitemaps/sitemap.xml.gz` to Search Console/Bing; confirm the proxy serves the `.gz` files with a gzip content type and that staging uses `NOINDEX=1`.
+- Choose `ACTIVE_STORAGE_SERVICE` (`amazon`/`cloudflare`) and bucket lifecycle/backup policy, or keep `local` with a persistent volume; verify variant generation in the built image (`libvips` present).
+- Build and smoke-test the Docker image (`docker build .`, `/up`, a variant upload) on a Docker-capable machine; only the asset precompile was verified locally because Docker is unavailable.
+- Add CSP reporting (`report-uri`/`report-to`) if you want violation telemetry; the policy is currently enforced without a report endpoint.
+- Add an uptime monitor for `/up` and Solid Queue depth/failed-job alerts; `/up` now fails when PostgreSQL is unreachable but does not check Redis (not used) or external providers.
+- Revisit the home “popular” rail index when the published catalogue grows past ~50k rows; re-run `bin/perf_check` against production-like data after enabling Solid Cache.
+- Re-run the headless-Chrome/axe sweep after content, component or theme changes; the Phase 11 screenshots are in gitignored `tmp/screenshots` and are not a substitute for ongoing visual regression coverage.

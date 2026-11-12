@@ -82,10 +82,11 @@ module ListingsHelper
   end
 
   def subcategory_chips(category)
-    children = category.children.select(&:active?).sort_by { |child| [ child.position, child.id ] }
-    if children.empty? && category.parent
-      parent = category.parent
-      children = parent.children.select(&:active?).sort_by { |child| [ child.position, child.id ] }
+    tree = Category.active_tree
+    children = tree.select { |child| child.parent_id == category.id }
+    if children.empty? && category.parent_id
+      parent = tree.find { |candidate| candidate.id == category.parent_id } || category
+      children = tree.select { |child| child.parent_id == parent.id }
       all_label = all_category_label(parent)
       all_path = category_path(parent)
     else

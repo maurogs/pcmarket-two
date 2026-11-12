@@ -15,5 +15,6 @@ class CategoryAttribute < ApplicationRecord
   # The navigation and descendant caches key off Category#updated_at.
   def refresh_category_cache
     Category.where(id: category_id).update_all(updated_at: Time.current)
+    Category.expire_tree_cache
   end
 end

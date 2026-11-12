@@ -115,7 +115,9 @@
             </button>
           </div>
 
-          <%= render "listings/filters", id_prefix: "filters" %>
+          <% cache [ "listings/filters", I18n.locale, @category&.id, @search.normalized_params, @search.facets, Listing.search_cache_version ] do %>
+            <%= render "listings/filters", id_prefix: "filters" %>
+          <% end %>
 
           <div class="sticky bottom-0 mt-5 border-t border-border bg-surface pt-4 lg:hidden">
             <button type="submit" class="btn-primary w-full"><%= t("listings.filters.apply") %></button>

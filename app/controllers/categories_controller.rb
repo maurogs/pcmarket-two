@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   include ListingFilters
 
   def show
-    @category = Category.active.includes(:children).friendly.find(params[:id])
+    @category = Category.active.friendly.find(params[:id])
 
     if @category.slug != params[:id]
       redirect_to category_path(@category), status: :moved_permanently

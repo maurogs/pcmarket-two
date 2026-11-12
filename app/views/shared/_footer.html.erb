@@ -31,7 +31,7 @@
           <%= form_with url: country_preference_path, method: :patch, class: "mt-2 flex items-center gap-2" do %>
             <label for="footer-country" class="sr-only"><%= t("footer.country.label") %></label>
             <%= select_tag :country,
-                           options_for_select(Country.active.ordered.map { |country| [ country.name, country.code ] }, current_country&.code),
+                           options_for_select(Country.launched_countries.map { |country| [ country.name, country.code ] }, current_country&.code),
                            id: "footer-country",
                            class: "field" %>
             <%= submit_tag t("footer.country.button"), class: "btn-accent shrink-0 cursor-pointer" %>

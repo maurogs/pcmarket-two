@@ -97,11 +97,10 @@ class Listing < ApplicationRecord
                       tsvector_column: :searchable,
                       prefix: true,
                       dictionary: "simple"
-                    },
-                    trigram: { threshold: 0.2 }
+                    }
                   },
                   ignoring: :accents,
-                  ranked_by: ":tsearch + (0.25 * :trigram)"
+                  ranked_by: ":tsearch"
 
   aasm column: :status, whiny_transitions: false do
     state :draft, initial: true
@@ -187,7 +186,7 @@ class Listing < ApplicationRecord
       :category,
       :region,
       :tags,
-      { store: { logo_attachment: :blob } },
+      :store,
       { photos: { image_attachment: :blob } }
     )
   }
@@ -542,13 +541,20 @@ class Listing < ApplicationRecord
   end
 
   def region_belongs_to_country
-    return if region.blank? || country_code.blank?
-    return if region.country_code == country_code
+    return if region_id.blank? || country_code.blank?
+    # Country/region never changes after creation in practice; skip the extra
+    # lookups when archiving or editing other attributes in bulk.
+    return unless will_save_change_to_region_id? || will_save_change_to_country_code?
+    return if region&.country_code == country_code
 
     errors.add(:region_id, I18n.t("listings.errors.region_country_mismatch"))
   end
 
   def required_specs_present
+    # Specs already valid at creation; re-checking on every archive/edit loads
+    # the category and its attribute tree for nothing.
+    return if persisted? && will_save_change_to_status? &&
+              !will_save_change_to_specs? && !will_save_change_to_category_id?
     return if category.blank?
     return if draft? && !wizard_context_at_or_after?("details")
 
@@ -565,6 +571,10 @@ class Listing < ApplicationRecord
   end
 
   def spec_values_are_active_options
+    # Specs are validated when they (or the category) change, not when a
+    # listing is archived or its status otherwise updated.
+    return if persisted? && will_save_change_to_status? &&
+              !will_save_change_to_specs? && !will_save_change_to_category_id?
     return if category.blank? || specs_hash.empty?
 
     definitions = category.effective_attribute_definitions.index_by(&:key)
@@ -589,6 +599,9 @@ class Listing < ApplicationRecord
   end
 
   def seller_tags_within_limit
+    # Archive/ban flows change status only; avoid loading tags for every row.
+    return if persisted? && will_save_change_to_status? && !association(:tags).loaded?
+
     count = tags.select(&:seller_tag?).size
     return if count <= MAX_SELLER_TAGS
 

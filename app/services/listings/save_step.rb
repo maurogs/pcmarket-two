@@ -93,7 +93,7 @@ module Listings
     def order_photos
       return if photo_order.empty?
 
-      photos = listing.photos.index_by { |photo| photo.id.to_s }
+      photos = listing.photos.includes(image_attachment: :blob).index_by { |photo| photo.id.to_s }
       photo_order.each_with_index do |id, index|
         photos[id.to_s]&.update_column(:position, index)
       end

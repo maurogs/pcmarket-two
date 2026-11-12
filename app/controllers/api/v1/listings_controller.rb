@@ -14,8 +14,25 @@ module Api
         return if conditional_get!(etag: etag, public: current_user.nil?)
 
         set_pagination_headers(result.pagy)
-        render_collection(
-          result.listings, ListingCardSerializer,
+        listings = result.listings
+        ActiveRecord::Associations::Preloader.new(
+          records: listings, associations: { store: { logo_attachment: :blob } }
+        ).call
+        # Card payloads are read-only projections of public data. Cache the
+        # hash per listing (keyed on the listing/store/category and locale) so
+        # repeated listing feeds do not rebuild 96 signed variant URLs.
+        data = listings.map do |listing|
+          Rails.cache.fetch(
+            [ "api/v1/listing_card", listing.cache_key_with_version,
+              listing.store.cache_key_with_version, listing.category&.cache_key_with_version,
+              I18n.locale, ListingCardSerializer.image_host, ListingCardSerializer.image_protocol ],
+            expires_in: 60.seconds
+          ) do
+            ListingCardSerializer.new(listing).serializable_hash
+          end
+        end
+        render_data(
+          data,
           meta: collection_meta(
             result.pagy,
             extra: {

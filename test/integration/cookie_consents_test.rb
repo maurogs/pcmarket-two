@@ -8,7 +8,7 @@ class CookieConsentsTest < ActionDispatch::IntegrationTest
   end
 
   test "shows the consent banner before a choice is made" do
-    get root_path
+    get "/"
 
     assert_response :success
     assert_includes response.body, I18n.t("cookie_consent.banner.title")
@@ -33,7 +33,7 @@ class CookieConsentsTest < ActionDispatch::IntegrationTest
     assert_equal CookieConsent::VERSION, payload["version"]
     assert payload["timestamp"].present?
 
-    get root_path
+    get "/"
     assert_response :success
     assert_not_includes response.body, I18n.t("cookie_consent.banner.title")
   end

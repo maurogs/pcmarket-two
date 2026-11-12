@@ -45,7 +45,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
   end
 
   test "renders every populated section with SEO structured data" do
-    get root_path
+    get "/"
 
     assert_response :success
     assert_includes response.body, I18n.t("home.deals.title")
@@ -72,7 +72,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     Review.delete_all
     Listing.find_each(&:destroy)
 
-    get root_path
+    get "/"
 
     assert_response :success
     assert_not_includes response.body, I18n.t("home.deals.title")
@@ -86,7 +86,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     store = ActiveSupport::Cache::MemoryStore.new
 
     with_cache(store) do
-      get root_path
+      get "/"
       assert_response :success
 
       queries = []
@@ -99,7 +99,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
       end
 
       ActiveSupport::Notifications.subscribed(callback, "sql.active_record") do
-        get root_path
+        get "/"
       end
 
       assert_response :success

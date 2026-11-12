@@ -7,8 +7,12 @@ module Admin
     def index
       authorize Category, :index?, policy_class: Admin::CategoryPolicy
 
+      @categories = Category.order(:depth, :position, :id).to_a
+      @categories_by_id = @categories.index_by(&:id)
+      @children_by_parent = @categories.group_by(&:parent_id)
+      @child_counts = @children_by_parent.transform_values(&:size)
       @groups = build_groups
-      @total = Category.count
+      @total = @categories.size
     end
 
     def new
@@ -86,7 +90,7 @@ module Admin
     end
 
     def build_groups
-      grouped = Category.order(:position, :id).to_a.group_by(&:parent_id)
+      grouped = @children_by_parent
       rows = []
       walk = lambda do |parent_id|
         children = grouped[parent_id] || []

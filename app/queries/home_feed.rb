@@ -28,11 +28,15 @@ class HomeFeed
 
   # Featured listings first; if there are none, the biggest discounts.
   def deals_of_day
-    featured = visible_with_cards.featured.order(featured_until: :desc, id: :desc).limit(CAROUSEL_SIZE)
-    return featured.to_a if featured.any?
-
-    discounted.order(Arel.sql("(compare_at_price_cents - price_cents)::float / compare_at_price_cents DESC"))
-      .limit(CAROUSEL_SIZE).to_a
+    @deals_of_day ||= begin
+      featured = visible_with_cards.featured.order(featured_until: :desc, id: :desc).limit(CAROUSEL_SIZE)
+      if featured.any?
+        featured.to_a
+      else
+        discounted.order(Arel.sql("(compare_at_price_cents - price_cents)::float / compare_at_price_cents DESC"))
+          .limit(CAROUSEL_SIZE).to_a
+      end
+    end
   end
 
   def most_wanted

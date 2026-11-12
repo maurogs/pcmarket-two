@@ -7,7 +7,7 @@ class PcFindersController < ApplicationController
     @criteria = PcFinder::Criteria.new(criteria_params)
     @result = PcFinder::Recommend.new(@criteria, page: params[:page]).call
     @landing = PcFinder::Landing.new
-    @games = Game.active.ordered.to_a
+    @games = Game.active.ordered.includes(cover_attachment: :blob).to_a
 
     respond_to do |format|
       format.html

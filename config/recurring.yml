@@ -20,6 +20,9 @@ default: &default
   expire_offers:
     class: Offers::ExpiryJob
     schedule: every 15 minutes
+  generate_sitemaps:
+    class: Sitemaps::GenerateJob
+    schedule: every day at 3am
 
 development:
   <<: *default

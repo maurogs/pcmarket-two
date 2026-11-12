@@ -80,7 +80,17 @@ class ListingSearch
     {}
   end
 
+  # Results include eager-loaded ActiveRecord graphs (photos, attachments and
+  # blobs) that do not survive a Marshal round trip with their loaded
+  # associations intact, so caching the whole result caused N+1 queries on
+  # every cache hit. The expensive pieces are cached individually: facets for
+  # five minutes, cards as Russian-doll fragments and the HTTP response for
+  # anonymous visitors.
   def call
+    build_result
+  end
+
+  def build_result
     normalize_filters!
     category = @resolved_category
     definitions = @definitions
@@ -91,7 +101,11 @@ class ListingSearch
     total_count = relation.count
     sorted_relation = sort_relation(relation)
     pagy = build_pagy(total_count)
-    listings = sorted_relation.with_card_includes.offset(pagy.offset).limit(pagy.limit).to_a
+    # Load the ranked ids first (cheap, keeps the full-text/facet sort off the
+    # wide eager-load join) and then preload the 24 cards in one extra query.
+    ordered_ids = sorted_relation.offset(pagy.offset).limit(pagy.limit).pluck(:id)
+    records = Listing.where(id: ordered_ids).with_card_includes.index_by(&:id)
+    listings = ordered_ids.filter_map { |id| records[id] }
 
     Result.new(
       listings: listings,
@@ -203,9 +217,9 @@ class ListingSearch
     @filterable_definitions = @definitions.select(&:filterable?)
     @allowed_spec_keys = @filterable_definitions.index_by(&:key)
     @selected_specs = normalized_specs
-    @tags = Tag.active.ordered.to_a
+    @tags = Tag.active_options
     @tag_slugs &= @tags.map(&:slug)
-    @regions = Region.for_country("ES").ordered.to_a
+    @regions = Region.cached_for_country("ES")
     @region_id = nil unless @regions.any? { |region| region.id == @region_id }
   end
 
@@ -263,45 +277,11 @@ class ListingSearch
     )
   end
 
-  # Batch-loads attribute definitions for every category shown on the page so
-  # search results spanning categories do not trigger one query per card.
-  def definitions_for_cards(listings, current_category, current_definitions)
-    categories = listings.map(&:category).compact.uniq(&:id)
-    result = {}
-    result[current_category.id] = current_definitions if current_category
-    pending = categories.reject { |category| result.key?(category.id) }
-    return result if pending.empty?
-
-    parents = Category.pluck(:id, :parent_id).to_h
-    ids_by_category = pending.index_with { |category| ancestor_chain(category.id, parents) }
-    links = CategoryAttribute
-            .where(category_id: ids_by_category.values.flatten.uniq)
-            .includes(attribute_definition: :attribute_options)
-            .order(:position, :id)
-            .to_a
-            .group_by(&:category_id)
-
-    ids_by_category.each do |category_id, ids|
-      result[category_id] = ids
-                            .flat_map { |id| links[id] || [] }
-                            .sort_by { |link| [ link.position, link.id ] }
-                            .map(&:attribute_definition)
-                            .uniq(&:id)
-    end
-
-    result
-  end
-
-  def ancestor_chain(category_id, parents)
-    ids = []
-    node = category_id
-    guard = 0
-    while node && guard < 20
-      ids << node
-      node = parents[node]
-      guard += 1
-    end
-    ids
+  # Card specs for every category on the page come from the shared map built
+  # once per cache lifetime, instead of one query set per card category.
+  def definitions_for_cards(listings, _current_category, _current_definitions)
+    map = Category.effective_attribute_definitions_map
+    listings.map(&:category).compact.uniq(&:id).index_with { |category| map[category.id] || [] }
   end
 
   def normalized_query

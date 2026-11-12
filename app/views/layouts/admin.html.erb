@@ -11,7 +11,7 @@
     <%= csp_meta_tag %>
 
     <%# Applies the persisted/system theme before first paint to avoid a flash. %>
-    <script>
+    <script nonce="<%= content_security_policy_nonce %>">
       (() => {
         try {
           const stored = localStorage.getItem("theme");

@@ -86,7 +86,7 @@ jobs:
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips imagemagick
 
       - name: Checkout code
         uses: actions/checkout@v6
@@ -96,13 +96,30 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Prepare test database
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+        run: bin/rails db:prepare
+
       - name: Run tests
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+        run: bin/rails test
+
+      - name: Check translations
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec i18n-tasks missing
+          bundle exec i18n-tasks unused
+
+      - name: Lint
+        env:
+          RAILS_ENV: test
+        run: bin/rubocop
 
   system-test:
     runs-on: ubuntu-latest
@@ -125,7 +142,7 @@ jobs:
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev libvips imagemagick
 
       - name: Checkout code
         uses: actions/checkout@v6

@@ -43,6 +43,9 @@ class Store < ApplicationRecord
             size: { less_than_or_equal_to: IMAGE_MAX_SIZE, message: :image_too_large }
 
   scope :active, -> { where(status: :active) }
+
+  after_commit :bump_listing_search_cache, if: :saved_change_to_status?
+
   scope :verified, -> { where.not(verified_at: nil) }
 
   before_validation :sync_province_from_region
@@ -93,5 +96,9 @@ class Store < ApplicationRecord
     return if region.country_code == country_code
 
     errors.add(:region_id, I18n.t("stores.errors.region_country_mismatch"))
+  end
+
+  def bump_listing_search_cache
+    Rails.cache.write(Listing::SEARCH_CACHE_VERSION_KEY, Time.current.to_f)
   end
 end

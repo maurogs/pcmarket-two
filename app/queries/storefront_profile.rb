@@ -13,7 +13,6 @@ class StorefrontProfile
     :tab,
     :search,
     :categories,
-    :sold_listings,
     :reviews,
     :review_pagy,
     :review_sort,
@@ -21,7 +20,17 @@ class StorefrontProfile
     :for_sale_count,
     :sold_count,
     keyword_init: true
-  )
+  ) do
+    # Lazy: only the listings tab asks for it, and only when the sold-rail
+    # fragment is cold.
+    def sold_listings
+      @sold_listings ||= store.listings.where(status: "sold")
+                                .with_card_includes
+                                .order(sold_at: :desc, id: :desc)
+                                .limit(StorefrontProfile::SOLD_LIMIT)
+                                .to_a
+    end
+  end
 
   def initialize(store:, params:)
     @store = store
@@ -36,7 +45,6 @@ class StorefrontProfile
       tab: @tab,
       search: listings_tab? ? search : nil,
       categories: listings_tab? ? categories : [],
-      sold_listings: listings_tab? ? sold_listings : [],
       reviews: reviews_tab? ? reviews : [],
       review_pagy: reviews_tab? ? review_pagy : nil,
       review_sort: @review_sort,
@@ -64,14 +72,6 @@ class StorefrontProfile
     @categories ||= Category.where(id: Listing.visible.where(store_id: @store.id).select(:category_id))
                             .order(:position, :id)
                             .to_a
-  end
-
-  def sold_listings
-    @sold_listings ||= @store.listings.where(status: "sold")
-                               .with_card_includes
-                               .order(sold_at: :desc, id: :desc)
-                               .limit(SOLD_LIMIT)
-                               .to_a
   end
 
   def reviews

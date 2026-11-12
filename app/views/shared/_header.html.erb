@@ -12,13 +12,13 @@
       </svg>
     </button>
 
-    <%= link_to root_path, class: "flex shrink-0 items-center gap-2", aria: { label: t("nav.home") } do %>
+    <%= link_to root_path, class: "flex min-h-11 shrink-0 items-center gap-2", aria: { label: t("nav.home") } do %>
       <svg class="h-9 w-9" viewBox="0 0 36 36" aria-hidden="true">
         <rect width="36" height="36" rx="11" class="fill-primary-600"></rect>
         <path d="M11 25V11h7.4a4.6 4.6 0 0 1 0 9.2H15.8" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
         <circle cx="24.8" cy="24.4" r="2.4" class="fill-accent"></circle>
       </svg>
-      <span class="text-lg font-extrabold tracking-tight text-content"><%= t("app.name") %></span>
+      <span class="hidden text-lg font-extrabold tracking-tight text-content sm:inline"><%= t("app.name") %></span>
     <% end %>
 
     <div class="mx-auto hidden w-full max-w-xl md:block">
@@ -103,14 +103,14 @@
             <div class="my-1 border-t border-border"></div>
             <p class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.menu.store.title") %></p>
             <%= link_to t("account.menu.store.public_profile"),
-                        current_user.store&.persisted? ? storefront_path(current_user.store) : new_store_path,
+                        current_user_store&.persisted? ? storefront_path(current_user_store) : new_store_path,
                         role: "menuitem",
                         class: account_menu_item_class %>
             <%= link_to t("account.menu.store.seller_dashboard"), sell_dashboard_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.listings"), sell_listings_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.sales"), sell_orders_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.settings"),
-                        current_user.store&.persisted? ? edit_store_path : new_store_path,
+                        current_user_store&.persisted? ? edit_store_path : new_store_path,
                         role: "menuitem",
                         class: account_menu_item_class %>
 
@@ -119,13 +119,13 @@
               <%= link_to t("account.menu.admin_panel"), admin_root_path, role: "menuitem", class: account_menu_item_class %>
             <% end %>
             <%= button_to t("account.menu.logout"),
-                          destroy_user_session_path(locale: I18n.locale),
+                          destroy_user_session_path,
                           method: :delete,
                           role: "menuitem",
                           class: account_menu_item_class %>
           <% else %>
-            <%= link_to t("account.menu.signed_out.sign_in"), new_user_session_path(locale: I18n.locale), role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.signed_out.sign_up"), new_user_registration_path(locale: I18n.locale), role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.signed_out.sign_in"), new_user_session_path, role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.signed_out.sign_up"), new_user_registration_path, role: "menuitem", class: account_menu_item_class %>
           <% end %>
         </div>
       </div>
@@ -168,7 +168,7 @@
              class="absolute right-0 z-50 mt-2 hidden w-44 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-xl">
           <% I18n.available_locales.each do |locale| %>
             <%= link_to t("locale.names.#{locale}"),
-                        url_for(locale: locale),
+                        url_for(locale: locale == I18n.default_locale ? nil : locale),
                         role: "menuitem",
                         lang: locale,
                         hreflang: locale,
@@ -224,30 +224,30 @@
         <p class="px-3 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("nav.account") %></p>
         <ul class="mt-2 space-y-1">
           <li>
-            <%= link_to t("account.menu.inbox"), conversations_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+            <%= link_to t("account.menu.inbox"), conversations_path, class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
           <li>
-            <%= link_to t("account.menu.wishlist"), wishlist_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+            <%= link_to t("account.menu.wishlist"), wishlist_path, class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
           <li>
-            <%= link_to t("account.menu.saved_searches"), saved_searches_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+            <%= link_to t("account.menu.saved_searches"), saved_searches_path, class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
           <li>
-            <%= link_to t("account.menu.notifications"), notifications_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+            <%= link_to t("account.menu.notifications"), notifications_path, class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
           <li>
-            <%= link_to t("account.menu.notification_settings"), notification_preferences_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+            <%= link_to t("account.menu.notification_settings"), notification_preferences_path, class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
           <li>
-            <%= link_to t("account.menu.settings"), account_profile_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+            <%= link_to t("account.menu.settings"), account_profile_path, class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
           <li>
-            <%= link_to t("account.menu.store.seller_dashboard"), sell_dashboard_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+            <%= link_to t("account.menu.store.seller_dashboard"), sell_dashboard_path, class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
           <li>
             <%= link_to t("account.menu.store.public_profile"),
-                        current_user.store&.persisted? ? storefront_path(current_user.store) : new_store_path,
-                        class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+                        current_user_store&.persisted? ? storefront_path(current_user_store) : new_store_path,
+                        class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
         </ul>
       </div>
@@ -259,10 +259,10 @@
         <% I18n.available_locales.each do |locale| %>
           <li>
             <%= link_to t("locale.names.#{locale}"),
-                        url_for(locale: locale),
+                        url_for(locale: locale == I18n.default_locale ? nil : locale),
                         lang: locale,
                         hreflang: locale,
-                        class: "block rounded-lg px-3 py-2 text-sm text-content transition hover:bg-surface-muted #{locale == I18n.locale ? "font-semibold text-primary-700 dark:text-primary-300" : ""}" %>
+                        class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm text-content transition hover:bg-surface-muted #{locale == I18n.locale ? "font-semibold text-primary-700 dark:text-primary-300" : ""}" %>
           </li>
         <% end %>
       </ul>

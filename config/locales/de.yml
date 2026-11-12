@@ -279,6 +279,7 @@ de:
     errors:
       region_country_mismatch: Die Provinz gehört nicht zum ausgewählten Land.
   sell:
+    progress_label: "Fortschritt der Anzeige"
     listings:
       title: Meine Angebote
       subtitle: Verwalte, was du verkaufst – von Entwürfen bis zu verkauften Artikeln.
@@ -1175,6 +1176,7 @@ de:
       empty_cta: Angebote entdecken
   favourites:
     button:
+      sign_in: "Anmelden zum Speichern"
       add: Zu Favoriten hinzufügen
       remove: Aus Favoriten entfernen
     flash:

@@ -1,4 +1,12 @@
 <% set_meta_tags(home_meta_tags) %>
+<% if (hero_photo = @home.deals_of_day.first&.primary_photo) && hero_photo.image.attached? %>
+  <% content_for :head do %>
+    <link rel="preload" as="image"
+          href="<%= url_for(hero_photo.image.variant(:large)) %>"
+          fetchpriority="high">
+  <% end %>
+<% end %>
+<h1 class="sr-only"><%= t("home.seo.title") %></h1>
 <%= json_ld_tag(organization_json_ld) %>
 <%= json_ld_tag(website_json_ld) %>
 

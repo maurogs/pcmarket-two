@@ -1,4 +1,13 @@
 <% set_meta_tags(listing_meta_tags(@listing)) %>
+<% if (preload_photo = @listing.photos.find { |photo| photo.image.attached? }) %>
+  <% content_for :head do %>
+    <link rel="preload" as="image"
+          href="<%= url_for(preload_photo.image.variant(:large)) %>"
+          imagesrcset="<%= url_for(preload_photo.image.variant(:card)) %> 640w, <%= url_for(preload_photo.image.variant(:large)) %> 1600w"
+          imagesizes="(min-width: 1024px) 60vw, 100vw"
+          fetchpriority="high">
+  <% end %>
+<% end %>
 <% breadcrumbs = listing_breadcrumbs(@listing) %>
 <% labels = product_labels(@listing) %>
 <% tags = seller_tags(@listing) %>
@@ -179,7 +188,7 @@
     </aside>
   </div>
 
-  <% cache [ "listings/similar", @listing.id, @listing.updated_at.to_f, I18n.locale ], expires_in: 10.minutes do %>
+  <% cache_if !user_signed_in?, [ "listings/similar", @listing.id, @listing.updated_at.to_f, I18n.locale ], expires_in: 10.minutes do %>
     <% similar = Listing.similar_to(@listing).to_a %>
     <% if similar.any? %>
       <section class="space-y-3">
@@ -195,7 +204,7 @@
     <% end %>
   <% end %>
 
-  <% cache [ "listings/more_from_seller", @listing.id, @listing.store_id, @listing.updated_at.to_f, I18n.locale ], expires_in: 10.minutes do %>
+  <% cache_if !user_signed_in?, [ "listings/more_from_seller", @listing.id, @listing.store_id, @listing.updated_at.to_f, I18n.locale ], expires_in: 10.minutes do %>
     <% more = Listing.more_from_seller(@listing).to_a %>
     <% if more.any? %>
       <section class="space-y-3">
