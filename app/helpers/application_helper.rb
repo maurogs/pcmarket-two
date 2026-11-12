@@ -59,4 +59,12 @@ module ApplicationHelper
   def consented_to?(category)
     cookie_consent_categories[category.to_s] == true
   end
+
+  # The footer only advertises the credits page when demo photos are attached,
+  # so a clean production install never links to an empty page.
+  def demo_image_credits?
+    Demo::ImageCredits.any?
+  rescue StandardError
+    false
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_230200) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_13_090000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -552,8 +552,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_230200) do
     t.datetime "updated_at", null: false
     t.integer "gpu_tier", default: 0, null: false
     t.integer "cpu_tier", default: 0, null: false
+    t.boolean "demo", default: false, null: false
     t.index ["category_id", "published_at"], name: "index_listings_on_category_id_and_published_at", order: { published_at: :desc }, where: "((status)::text = 'published'::text)"
     t.index ["category_id"], name: "index_listings_on_category_id"
+    t.index ["demo"], name: "index_listings_on_demo"
     t.index ["gpu_tier", "cpu_tier"], name: "index_listings_on_gpu_tier_and_cpu_tier"
     t.index ["price_cents"], name: "index_listings_on_price_cents", where: "((status)::text = 'published'::text)"
     t.index ["price_cents"], name: "index_listings_on_price_cents_and_tiers"
@@ -848,7 +850,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_230200) do
     t.text "return_policy"
     t.text "shipping_policy"
     t.integer "handling_days", default: 3, null: false
+    t.boolean "demo", default: false, null: false
     t.index ["country_code"], name: "index_stores_on_country_code"
+    t.index ["demo"], name: "index_stores_on_demo"
     t.index ["region_id"], name: "index_stores_on_region_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
     t.index ["status"], name: "index_stores_on_status"
@@ -905,8 +909,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_230200) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_customer_id"
+    t.boolean "demo", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
+    t.index ["demo"], name: "index_users_on_demo"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

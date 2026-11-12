@@ -124,6 +124,7 @@ Rails.application.routes.draw do
                                  path: "sell-to-us/trade-ins"
 
     resource :trust, only: :show, controller: "trust"
+    resource :credits, only: :show, controller: "credits"
     resources :help_pages, only: %i[index show], path: "help", param: :slug
     resources :contact_messages, only: %i[index create], path: "contact"
     resources :legal_pages, only: %i[index show], path: "legal", param: :kind

@@ -82,6 +82,9 @@
           <li><%= link_to t("footer.legal.privacy"), legal_page_path(kind: "privacy"), class: "text-muted transition hover:text-content" %></li>
           <li><%= link_to t("footer.legal.cookies"), legal_page_path(kind: "cookies"), class: "text-muted transition hover:text-content" %></li>
           <li><%= link_to t("footer.legal.legal_notice"), legal_page_path(kind: "legal_notice"), class: "text-muted transition hover:text-content" %></li>
+          <% if demo_image_credits? %>
+            <li><%= link_to t("footer.legal.image_credits"), credits_path, class: "text-muted transition hover:text-content" %></li>
+          <% end %>
           <li><%= link_to t("footer.legal.index"), legal_pages_path, class: "text-muted transition hover:text-content" %></li>
           <li>
             <button type="button" data-action="cookie_consent#open" class="text-muted transition hover:text-content">

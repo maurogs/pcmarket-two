@@ -1,0 +1,63 @@
+<% set_meta_tags(title: t("credits.meta.title"), description: t("credits.meta.description"), canonical: credits_url(locale: I18n.locale)) %>
+
+<div class="mx-auto max-w-5xl space-y-10">
+  <header class="space-y-3">
+    <p class="text-xs font-semibold uppercase tracking-widest text-primary-600 dark:text-primary-300">
+      <%= t("credits.eyebrow") %>
+    </p>
+    <h1 class="text-3xl font-extrabold tracking-tight text-content sm:text-4xl"><%= t("credits.title") %></h1>
+    <p class="max-w-3xl text-sm leading-relaxed text-muted"><%= t("credits.intro") %></p>
+  </header>
+
+  <% if @credits.any? %>
+    <% @credits.group_by(&:provider).each do |provider, entries| %>
+      <section class="space-y-4" aria-labelledby="credits-<%= provider.to_s.parameterize %>">
+        <h2 id="credits-<%= provider.to_s.parameterize %>" class="text-lg font-bold capitalize text-content">
+          <%= provider.presence || t("credits.unknown_provider") %>
+          <span class="ml-2 rounded-full bg-surface-muted px-2 py-0.5 align-middle text-xs font-semibold text-muted">
+            <%= t("credits.image_count", count: entries.size) %>
+          </span>
+        </h2>
+
+        <ul class="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
+          <% entries.each do |entry| %>
+            <li class="flex flex-col gap-1 px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+              <span class="min-w-0 truncate font-medium text-content"><%= entry.title.presence || t("credits.untitled") %></span>
+              <span class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted">
+                <span>
+                  <%= t("credits.author") %>:
+                  <% if entry.author_url.present? %>
+                    <%= link_to entry.author.presence || t("credits.unknown_author"), entry.author_url,
+                                class: "underline decoration-border underline-offset-2 transition hover:text-content",
+                                rel: "noopener noreferrer", target: "_blank" %>
+                  <% else %>
+                    <%= entry.author.presence || t("credits.unknown_author") %>
+                  <% end %>
+                </span>
+                <span>
+                  <%= t("credits.license") %>:
+                  <% if entry.license_url.present? %>
+                    <%= link_to entry.license.presence || t("credits.unknown_license"), entry.license_url,
+                                class: "underline decoration-border underline-offset-2 transition hover:text-content",
+                                rel: "license noopener noreferrer", target: "_blank" %>
+                  <% else %>
+                    <%= entry.license.presence || t("credits.unknown_license") %>
+                  <% end %>
+                </span>
+                <% if entry.source_url.present? %>
+                  <%= link_to t("credits.source"), entry.source_url,
+                              class: "underline decoration-border underline-offset-2 transition hover:text-content",
+                              rel: "noopener noreferrer", target: "_blank" %>
+                <% end %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
+
+    <p class="text-xs leading-relaxed text-muted"><%= t("credits.note") %></p>
+  <% else %>
+    <p class="rounded-2xl border border-border bg-surface p-6 text-sm text-muted"><%= t("credits.empty") %></p>
+  <% end %>
+</div>

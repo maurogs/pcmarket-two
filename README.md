@@ -138,6 +138,63 @@ ephemeral key secret for the Stripe PaymentSheet. The customer id is stored on
 `users.stripe_customer_id`. Test and key-less development installations use
 `Payments::FakeGateway`, which returns deterministic fake values.
 
+## Demo data
+
+The development demo marketplace is built by three rake tasks. They are safe to
+re-run: the seed refreshes only rows tagged `demo`, and `pcmarket:demo:reset`
+removes only demo-tagged users, stores and listings (plus their activity).
+
+```bash
+bin/rails db:seed                     # countries, categories, filters, tags, games, legal pages
+bin/rails pcmarket:demo:images        # download cached demo photos into tmp/demo_images
+bin/rails pcmarket:demo:seed          # users, stores, ~1,500 listings, orders, reviews, chat…
+```
+
+Image fetching is resumable and cached: files and a `manifest.json` live under
+`tmp/demo_images/<category>/` (gitignored), so a second run never downloads the
+same photo twice. The default target is 12 photos per category; override it
+with task arguments or environment variables:
+
+```bash
+bin/rake 'pcmarket:demo:images[gpus,cpus,12]'   # category slugs and per-category count
+CATEGORIES=gpus PER_CATEGORY=16 bin/rails pcmarket:demo:images
+```
+
+Providers are Openverse (no key needed), Unsplash (`UNSPLASH_ACCESS_KEY`),
+Pexels (`PEXELS_API_KEY`) and Pixabay (`PIXABAY_API_KEY`). Providers without a
+key are skipped. Requests use timeouts and retry/backoff (including Openverse’s
+anonymous rate limit); every downloaded file is resized to at most 1600 px and
+stored with its author, provider, source page, licence and licence URL. The
+Unsplash download endpoint is triggered when a photo is used, and
+`/credits` lists every attached demo image; the footer links to it only when
+demo photos exist.
+
+When a network provider fails, both `pcmarket:demo:images` and the seed fall
+back to locally generated ImageMagick placeholders (a category name on a
+gradient), so seeding never depends on network access. No images are committed
+to git.
+
+Seed options:
+
+```bash
+DEMO_PASSWORD='MyDemo123!' bin/rails pcmarket:demo:seed
+DEMO_SCALE=0.02 bin/rails pcmarket:demo:seed   # small dataset for CI/tests
+bin/rails pcmarket:demo:reset                  # delete demo rows only
+```
+
+The seed refuses to run in production unless `DEMO=1` is set. Demo stores are
+marked as payout-ready so their listings can be purchased with the fake
+gateway; real Stripe keys are never touched.
+
+Demo accounts are confirmed and all share the password from `DEMO_PASSWORD`
+(default `Demo1234!`). Their emails follow
+`demo-<number>-<username>@pcmarket.test`; list a few with:
+
+```bash
+bin/rails runner 'puts User.where(demo: true).limit(5).pluck(:email)'
+```
+
+
 ## Tests
 
 Run `bin/rails test`, `bundle exec i18n-tasks missing`, `bundle exec i18n-tasks unused`,

@@ -1,0 +1,185 @@
+# Search queries used by `pcmarket:demo:images` to build the demo photo library.
+#
+# Keys are category slugs (leaves of the catalogue plus the standalone root
+# categories that own listings). Several queries per category give providers a
+# chance to return enough variety for the 12–20 images the demo seed expects.
+gaming-pcs:
+  - gaming pc rgb
+  - custom gaming computer
+  - desktop pc setup
+laptops:
+  - gaming laptop
+  - laptop computer desk
+  - notebook computer
+phones:
+  - smartphone
+  - mobile phone device
+  - smartphone camera
+tablets:
+  - tablet computer
+  - ipad tablet
+  - digital tablet desk
+home-consoles:
+  - playstation console
+  - xbox console
+  - nintendo switch console
+handheld-consoles:
+  - nintendo switch handheld
+  - steam deck
+  - handheld gaming console
+retro-consoles:
+  - retro console
+  - super nintendo
+  - sega mega drive
+retro-handhelds:
+  - game boy
+  - retro handheld console
+  - gameboy advance
+creator-rigs:
+  - video editing workstation
+  - content creator desk setup
+  - studio computer
+streaming-rigs:
+  - streaming setup
+  - twitch streaming desk
+  - gaming streamer computer
+local-ai-rigs:
+  - computer workstation gpu
+  - server computer hardware
+  - deep learning workstation
+gpus:
+  - graphics card
+  - gpu nvidia
+  - amd radeon graphics card
+cpus:
+  - cpu processor
+  - intel processor
+  - amd ryzen processor
+motherboards:
+  - motherboard
+  - computer mainboard
+  - pc motherboard closeup
+motherboard-bundles:
+  - motherboard cpu combo
+  - computer motherboard components
+  - pc build components
+memory:
+  - ram memory
+  - computer memory modules
+  - ddr5 ram
+storage:
+  - ssd nvme
+  - solid state drive
+  - m2 ssd
+external-storage:
+  - external hard drive
+  - portable ssd
+  - usb flash drive
+cases:
+  - pc case
+  - computer tower case
+  - gaming pc case
+case-fans:
+  - computer fan
+  - pc cooling fans
+  - rgb case fans
+power-supplies:
+  - computer power supply
+  - psu power supply unit
+  - modular power supply
+cpu-coolers:
+  - cpu cooler
+  - cpu air cooler
+  - aio liquid cooler
+thermal-paste:
+  - thermal paste
+  - thermal compound
+  - cpu thermal paste
+expansion-cards:
+  - capture card
+  - sound card
+  - pcie expansion card
+network-adapters:
+  - wifi network card
+  - network adapter
+  - ethernet card
+other-components:
+  - computer hardware components
+  - electronic components
+  - pc building tools
+monitors:
+  - computer monitor
+  - gaming monitor
+  - ultrawide monitor
+keyboards:
+  - mechanical keyboard
+  - gaming keyboard
+  - keyboard desk setup
+mice:
+  - gaming mouse
+  - computer mouse
+  - wireless mouse
+headphones:
+  - gaming headset
+  - headphones
+  - over ear headphones
+speakers:
+  - desktop speakers
+  - computer speakers
+  - bluetooth speaker
+webcams:
+  - webcam
+  - streaming webcam
+  - web camera desk
+microphones:
+  - usb microphone
+  - studio microphone
+  - podcast microphone
+controllers:
+  - xbox controller
+  - playstation controller
+  - game controller
+retro-controllers:
+  - retro game controller
+  - nintendo controller
+  - arcade controller
+sim-racing:
+  - sim racing wheel
+  - racing wheel setup
+  - gaming steering wheel
+vr:
+  - vr headset
+  - virtual reality headset
+  - vr goggles
+other-peripherals:
+  - computer accessories
+  - desk gadgets
+  - pc peripherals
+games:
+  - video game case
+  - video game cartridge
+  - playstation game
+software:
+  - software box
+  - computer software
+  - operating system software
+art-decor:
+  - gaming room decor
+  - poster wall art
+  - gaming artwork
+collectibles:
+  - gaming figure
+  - collectible figurine
+  - gaming collectible
+desk-accessories:
+  - desk mousepad
+  - desk organizer
+  - gaming desk mat
+clothing-gear:
+  - gaming tshirt
+  - gaming hoodie
+  - esports jersey
+other-accessories:
+  - gaming accessories
+  - pc accessories
+  - gaming gear

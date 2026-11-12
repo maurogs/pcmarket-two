@@ -1,0 +1,23 @@
+de:
+  credits:
+    meta:
+      title: "Bildnachweise | PCMarket"
+      description: "Urheber, Anbieter und Lizenzen der Fotos in den PCMarket-Demoanzeigen."
+    eyebrow: "Transparenz"
+    title: "Bildnachweise"
+    intro: "Die Fotos in den Demoanzeigen stammen aus Bilddatenbanken mit offenen Lizenzen. Diese Seite nennt Urheber, Anbieter, Lizenz und einen Link zum Originalbild."
+    unknown_provider: "Andere"
+    image_count:
+      one: "%{count} Bild"
+      other: "%{count} Bilder"
+    author: "Urheber"
+    license: "Lizenz"
+    source: "Original ansehen"
+    untitled: "Ohne Titel"
+    unknown_author: "Unbekannter Urheber"
+    unknown_license: "Lizenz nicht angegeben"
+    note: "Diese Bilder dienen ausschließlich als Demo-Inhalt. Die Lizenzen CC BY und CC BY-SA verlangen die Nennung des Urhebers und einen Link zur Originalquelle; jeder Eintrag nennt seinen Anbieter."
+    empty: "Es gibt noch keine Demo-Fotos. Führe bin/rails pcmarket:demo:images und danach bin/rails pcmarket:demo:seed aus, um den Beispielkatalog zu erstellen."
+  footer:
+    legal:
+      image_credits: "Bildnachweise"
