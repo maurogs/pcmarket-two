@@ -56,6 +56,15 @@ class LegalPage < ApplicationRecord
       .order(created_at: :desc, id: :desc).first
   end
 
+  # Every kind that currently has a published, effective page for the
+  # requested country and locale (with the same locale fallback as .current).
+  def self.current_pages(country:, locale:)
+    KINDS.filter_map do |kind|
+      page = current(country: country, locale: locale, kind: kind)
+      [ kind, page ] if page
+    end
+  end
+
   def notifiable?
     NOTIFIABLE_KINDS.include?(kind.to_s)
   end

@@ -22,6 +22,21 @@ Rails.application.routes.draw do
     end
     get "search", to: "listings#index", as: :search
 
+    resource :trust, only: :show, controller: "trust"
+    resources :help_pages, only: %i[index show], path: "help", param: :slug
+    resources :contact_messages, only: %i[index create], path: "contact"
+    resources :legal_pages, only: %i[index show], path: "legal", param: :kind
+    resources :legal_page_versions, only: :index, path: "legal/:kind/versions",
+                                    param: :kind, controller: "legal_page_versions"
+    resources :newsletter_subscriptions, only: :create, path: "newsletter"
+    resources :newsletter_confirmations, only: :show,
+                                         path: "newsletter/confirmations", param: :token
+    resources :newsletter_unsubscriptions, only: :show,
+                                           path: "newsletter/unsubscriptions", param: :token
+    resource :cookie_consent, only: :create, controller: "cookie_consents"
+    resource :country_preference, only: :update, path: "country",
+                                 controller: "country_preferences"
+
     resources :conversations, only: %i[index show create], path: "inbox" do
       resources :messages, only: :create
     end

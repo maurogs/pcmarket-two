@@ -35,12 +35,6 @@ pt:
       consoles: Consolas
       more: Mais
       all_category: Tudo em %{category}
-  home:
-    hero:
-      eyebrow: Feito para entusiastas de PC
-      title: Encontre as peças. Monte o seu PC ideal.
-      subtitle: Compre componentes testados a vendedores de confiança ou transforme o seu hardware antigo em dinheiro, tudo num só lugar.
-      cta: Explorar o marketplace
   footer:
     newsletter:
       title: Mantenha-se a par

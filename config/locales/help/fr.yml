@@ -1,0 +1,158 @@
+fr:
+  help:
+    pages:
+      about:
+        title: À propos
+        summary: Une plateforme espagnole pour acheter et vendre du matériel PC en toute sécurité.
+        description: PCMarket existe pour que les passionnés et les professionnels achètent et vendent des composants PC sans mauvaise surprise.
+        sections:
+          - title: Notre mission
+            paragraphs:
+              - "Nous voulons faire de la réutilisation du matériel l'option la plus simple : trouver la bonne pièce, savoir que le vendeur est réel et recevoir ce qui a été promis."
+              - "C'est pourquoi nous associons un catalogue organisé par spécifications à des paiements retenus et à une équipe qui répond en cas de problème."
+          - title: Notre fonctionnement
+            paragraphs:
+              - "Nous examinons les annonces qui nécessitent une validation, vérifions les vendeurs et gardons les canaux de signalement accessibles. Nous ne sommes pas une boutique : nous intermédions pour sécuriser l'achat."
+            bullets:
+              - Un catalogue et des filtres pensés pour le matériel réel.
+              - La protection de l'acheteur sur chaque paiement effectué sur la plateforme.
+              - Un support en français et en espagnol et le respect du droit européen.
+          - title: Où nous sommes
+            paragraphs:
+              - "Nous opérons depuis l'Espagne et expédions dans toute la péninsule et les îles. La société et ses données d'immatriculation figurent dans les mentions légales."
+      how-it-works:
+        title: Comment acheter
+        summary: De la recherche à la livraison, avec un paiement protégé à chaque étape.
+        description: Guide pas à pas pour acheter sur PCMarket avec protection de l'acheteur.
+        sections:
+          - title: "1. Trouvez ce qu'il vous faut"
+            paragraphs:
+              - "Utilisez la recherche ou parcourez les catégories. Vous pouvez filtrer par spécifications, état, prix, province et livraison gratuite."
+          - title: "2. Vérifiez l'annonce et le vendeur"
+            paragraphs:
+              - "Consultez les photos, la description, l'état et les avis du vendeur. En cas de doute, écrivez-lui depuis la plateforme."
+          - title: "3. Payez sur PCMarket"
+            paragraphs:
+              - "Ajoutez l'article au panier et payez par carte. Le montant est retenu et ne parvient au vendeur qu'après confirmation de la livraison."
+          - title: "4. Recevez et inspectez"
+            paragraphs:
+              - "Suivez la livraison depuis votre compte. À réception, inspectez l'article et confirmez que tout est en ordre. Sinon, ouvrez un litige avant la fin du délai de protection."
+      how-to-sell:
+        title: Comment vendre
+        summary: Publiez, vendez et soyez payé en toute sécurité.
+        description: Guide pour publier une annonce et vendre du matériel sur PCMarket.
+        sections:
+          - title: Préparez l'annonce
+            paragraphs:
+              - "Prenez des photos nettes à la lumière naturelle, indiquez l'état réel et détaillez les spécifications. Une annonce honnête vend plus vite et génère moins de litiges."
+            bullets:
+              - Un titre précis avec le modèle et la capacité.
+              - Des photos du produit, des ports et des éventuels défauts.
+              - L'état et les accessoires inclus.
+          - title: Publiez et répondez
+            paragraphs:
+              - "Créez votre boutique si ce n'est pas déjà fait et publiez l'annonce. Les annonces peuvent être validées avant publication. Répondez vite et gardez la conversation sur la plateforme."
+          - title: Expédiez ou remettez
+            paragraphs:
+              - "Une fois vendu, emballez soigneusement et ajoutez le suivi. En cas de remise en main propre, choisissez un lieu public et confirmez la livraison dans votre tableau de bord."
+          - title: Soyez payé
+            paragraphs:
+              - "Le paiement est libéré lorsque l'acheteur confirme la réception ou à la fin du délai de protection. Les versements arrivent sur votre compte Stripe."
+      seller-fees:
+        title: Frais de vente
+        summary: Publier est gratuit et toute commission future est annoncée à l'avance.
+        description: Ce que coûte la vente sur PCMarket et comment fonctionnent les frais.
+        sections:
+          - title: Publication
+            paragraphs:
+              - "Créer des annonces et gérer votre boutique est gratuit. Aucun abonnement mensuel ni frais pour ajouter des photos."
+          - title: Commission
+            paragraphs:
+              - "Pendant notre phase de croissance, nous ne prélevons aucune commission. Si nous l'activons, elle apparaîtra ici et dans le récapitulatif de l'annonce avant publication."
+          - title: Annonces mises en avant
+            paragraphs:
+              - "Les annonces mises en avant sont facultatives. Leur prix est affiché avant l'achat et n'est jamais prélevé automatiquement."
+      shipping:
+        title: Guide d'expédition
+        summary: Comment emballer PC et cartes graphiques pour qu'ils arrivent intacts, et quels transporteurs opèrent en Espagne.
+        description: Conseils d'emballage et de transport pour envoyer du matériel PC en sécurité.
+        sections:
+          - title: Emballer une carte graphique
+            paragraphs:
+              - "Utilisez un sachet antistatique, protégez le connecteur PCIe et les sorties vidéo, puis placez la carte dans une boîte rigide avec du rembourrage sur toutes les faces."
+            bullets:
+              - Sachet antistatique et mousse ou film à bulles en double couche.
+              - Une boîte extérieure avec au moins 5 cm de rembourrage sur chaque face.
+              - Une étiquette fragile, sans compter uniquement sur elle.
+          - title: Emballer un PC complet
+            paragraphs:
+              - "Pour une tour, immobilisez la carte graphique et le refroidissement. Remplissez l'intérieur de mousse antistatique et utilisez une double boîte."
+            bullets:
+              - Retirez ou fixez le GPU et le ventirad s'ils dépassent.
+              - Protégez séparément une paroi en verre.
+              - Placez tous les câbles et accessoires dans un sachet.
+          - title: Transporteurs en Espagne
+            paragraphs:
+              - "Vous pouvez utiliser tout transporteur avec suivi. Les plus courants sont Correos, SEUR, MRW, GLS et Nacex."
+              - "Souscrivez une assurance au-delà du plafond standard, conservez le reçu et ajoutez le numéro de suivi à la commande."
+      returns:
+        title: Retours et remboursements
+        summary: Vos droits auprès d'un vendeur professionnel et la protection entre particuliers.
+        description: Résumé des retours, du droit de rétractation et des remboursements sur PCMarket.
+        sections:
+          - title: Achats auprès de vendeurs professionnels
+            paragraphs:
+              - "En tant que consommateur, vous disposez de 14 jours calendaires pour vous rétracter d'un achat à distance, sauf exceptions légales. Contactez-nous depuis la commande et nous vous indiquerons comment retourner l'article."
+          - title: Achats entre particuliers
+            paragraphs:
+              - "Il n'existe pas de droit légal de rétractation entre particuliers. Toutefois, la protection de l'acheteur couvre les articles non reçus, endommagés ou non conformes à la description."
+          - title: Remboursements
+            paragraphs:
+              - "Si un retour ou un litige est accepté, le remboursement est effectué sur le moyen de paiement d'origine. Le délai dépend de la banque émettrice, généralement de 3 à 10 jours ouvrés."
+    faq:
+      categories:
+        buying:
+          title: Achats
+          items:
+            - question: Faut-il un compte pour acheter ?
+              answer: Vous pouvez parcourir sans compte, mais il faut un compte confirmé pour payer et suivre vos commandes.
+            - question: Puis-je parler au vendeur avant ?
+              answer: "Oui. Depuis l'annonce ou le profil du vendeur, vous pouvez ouvrir une conversation sans partager de données personnelles."
+            - question: Et si l'article ne correspond pas ?
+              answer: Ouvrez un litige depuis la commande avant la fin du délai de protection et joignez des photos.
+        selling:
+          title: Ventes
+          items:
+            - question: Combien coûte la publication ?
+              answer: Publier est gratuit. Toute commission sera annoncée à l'avance et affichée avant publication.
+            - question: Quand suis-je payé ?
+              answer: Lorsque l'acheteur confirme la livraison ou que le délai de protection se termine sans problème.
+            - question: Puis-je vendre en tant que professionnel ?
+              answer: "Oui. Renseignez vos données fiscales dans votre boutique ; elles apparaîtront sur l'annonce conformément aux règles de traçabilité."
+        payments:
+          title: Paiements
+          items:
+            - question: Quels moyens acceptez-vous ?
+              answer: Les cartes traitées par Stripe. Nous n'acceptons ni espèces ni virements hors plateforme.
+            - question: Quand l'argent est-il retenu ?
+              answer: Du paiement jusqu'à la confirmation de réception ou la fin du délai de protection.
+            - question: Émettez-vous une facture ?
+              answer: Le vendeur professionnel doit émettre la facture. PCMarket fournit les données de la commande.
+        shipping:
+          title: Livraisons
+          items:
+            - question: Qui paie la livraison ?
+              answer: Chaque annonce indique son coût. Vous pouvez filtrer sur la livraison gratuite.
+            - question: Puis-je venir chercher en main propre ?
+              answer: "Oui, si le vendeur l'autorise. Convenez d'un lieu public et confirmez la livraison sur la commande."
+            - question: Que faire si le colis arrive endommagé ?
+              answer: Photographiez l'emballage et l'article avant de tout ouvrir et ouvrez un litige le jour même.
+        account:
+          title: Compte
+          items:
+            - question: Comment changer mon mot de passe ?
+              answer: Depuis les paramètres du compte, rubrique Sécurité. Vous pouvez aussi demander une réinitialisation depuis la connexion.
+            - question: Comment supprimer mon compte ?
+              answer: Depuis les paramètres du compte, rubrique Confidentialité. Les commandes en cours doivent d'abord être résolues.
+            - question: Comment changer la langue ?
+              answer: Utilisez le sélecteur de langue dans l'en-tête. Nous mémoriserons votre choix pour vos prochaines visites.

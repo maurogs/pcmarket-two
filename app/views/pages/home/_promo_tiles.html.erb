@@ -1,0 +1,61 @@
+<% cache ["home/promos", I18n.locale, Listing.search_cache_version], expires_in: 5.minutes do %>
+  <% gaming = home.categories["gaming-pcs"] %>
+  <% tiles = [
+       {
+         key: "most_wanted",
+         listings: home.most_wanted,
+         path: search_path(sort: "popular")
+       },
+       {
+         key: "ready_to_ship",
+         listings: home.ready_to_ship,
+         path: gaming ? category_path(gaming) : search_path
+       },
+       {
+         key: "deals",
+         listings: home.deals,
+         path: search_path
+       }
+     ].select { |tile| tile[:listings].any? } %>
+
+  <% if tiles.any? %>
+    <section class="space-y-4" aria-labelledby="promo-tiles-title">
+      <h2 id="promo-tiles-title" class="text-2xl font-extrabold tracking-tight"><%= t("home.promos.title") %></h2>
+
+      <div class="grid gap-4 md:grid-cols-3">
+        <% tiles.each do |tile| %>
+          <article class="flex flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-sm">
+            <div class="grid grid-cols-2 gap-0.5 bg-border">
+              <% tile[:listings].first(4).each do |listing| %>
+                <%= link_to listing_path(listing), class: "group relative block aspect-square overflow-hidden bg-surface-muted", aria: { label: listing.title } do %>
+                  <% if listing.primary_photo&.image&.attached? %>
+                    <%= image_tag url_for(listing.primary_photo.image.variant(:card)),
+                                  alt: "",
+                                  width: 320,
+                                  height: 320,
+                                  loading: "lazy",
+                                  class: "h-full w-full object-cover transition duration-300 group-hover:scale-[1.04]" %>
+                  <% else %>
+                    <span class="flex h-full w-full items-center justify-center text-muted">
+                      <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                        <path d="m4 17 5-5 4 4 3-3 4 4" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </span>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+
+            <div class="flex flex-1 flex-col p-4">
+              <h3 class="text-base font-bold"><%= t("home.promos.#{tile[:key]}.title") %></h3>
+              <p class="mt-1 text-sm text-muted"><%= t("home.promos.#{tile[:key]}.description") %></p>
+              <%= link_to t("home.promos.#{tile[:key]}.cta"), tile[:path],
+                          class: "mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-700 transition hover:text-primary-800 dark:text-primary-300 dark:hover:text-primary-200" %>
+            </div>
+          </article>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+<% end %>

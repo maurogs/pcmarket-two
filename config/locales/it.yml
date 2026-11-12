@@ -35,12 +35,6 @@ it:
       consoles: Console
       more: Altro
       all_category: Tutti i %{category}
-  home:
-    hero:
-      eyebrow: Pensato per gli appassionati di PC
-      title: Trova i componenti. Assembla il PC perfetto.
-      subtitle: Acquista componenti testati da venditori affidabili o trasforma l'hardware che non usi in denaro, tutto in un unico posto.
-      cta: Esplora il marketplace
   footer:
     newsletter:
       title: Resta aggiornato

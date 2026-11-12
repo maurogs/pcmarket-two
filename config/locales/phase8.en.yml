@@ -1,0 +1,312 @@
+en:
+  home:
+    seo:
+      title: "PCMarket — Buy and sell PC parts"
+      description: "Find verified gaming PCs, laptops, graphics cards and consoles, with buyer protection and trusted sellers."
+    deals:
+      title: Deals of the day
+      eyebrow: Deal of the day
+      slide: "Deal %{current} of %{total}"
+      cta: View the deal
+      browse: Browse the marketplace
+      pagination: Select a deal
+      go_to: "Go to deal %{number}"
+      previous: Previous deal
+      next: Next deal
+    promos:
+      title: What's moving
+      most_wanted:
+        title: Most wanted
+        description: The listings that gained the most favourites this week.
+        cta: See the most popular
+      ready_to_ship:
+        title: Ready to ship
+        description: Gaming PCs packed and dispatched within 48 hours.
+        cta: See ready-to-ship PCs
+      deals:
+        title: Reduced
+        description: Prices below their previous price, with no small print.
+        cta: See every reduction
+    pc_finder:
+      eyebrow: Find your machine
+      title: Not sure which PC fits you?
+      description: Answer a few questions and we will suggest builds for your budget and the games you love.
+      cta: Use PC Finder
+    styles:
+      title: Shop PCs by style
+      description: Filter by the finishes and looks that fit your setup.
+      count:
+        one: "%{count} listing"
+        other: "%{count} listings"
+    rails:
+      view_all: View all
+      previous: Scroll left
+      next: Scroll right
+      new_gpus: Newly listed GPUs
+      most_watched: Most watched this week
+      on_sale: On sale
+      laptops: Latest laptops
+      phones_tablets: Latest phones and tablets
+      consoles: Consoles
+    sell:
+      eyebrow: Sell with us
+      title: Your hardware could be worth more than you think
+      description: List for free, reach buyers across Spain and get paid with protection.
+      cta: List an item
+      sell_to_us: Sell to us
+    sold:
+      title: Recently sold
+      badge: Sold
+    testimonials:
+      title: What buyers say
+      rating: "Rating: %{rating} out of 5"
+    trust:
+      protection:
+        title: Protected payment
+        description: We hold the money until the item arrives as described.
+      payments:
+        title: Secure payments
+        description: Cards processed by Stripe; we never see your details.
+      sellers:
+        title: Verified sellers
+        description: We check identity and activity before awarding the badge.
+      support:
+        title: Real support
+        description: People who answer when something goes wrong.
+  trust:
+    meta:
+      title: Trust & Safety
+      description: "Held payments, verified sellers and real support: how we protect every purchase on PCMarket."
+    eyebrow: Trust & Safety
+    title: Is PCMarket safe?
+    subtitle: "Yes: we hold the payment, verify sellers and step in when something goes wrong. That is how we look after every purchase, from the first click to delivery."
+    cta:
+      browse: Browse listings
+      contact: Talk to support
+      title: Buy with confidence
+      body: Thousands of enthusiasts already buy and sell parts on PCMarket. Join them knowing your money is protected.
+      sell: Start selling
+    stats:
+      label: Platform figures
+      listings_sold: listings sold
+      active_sellers: active sellers
+      average_rating: "average rating (%{count} reviews)"
+    protection:
+      title: How buyer protection works
+      subtitle: Your money does not reach the seller until you confirm everything is right.
+      steps:
+        hold:
+          title: We hold the payment
+          body: When you pay, the money is held safely. The seller knows the order is real and you do not expose your funds.
+        ship:
+          title: The item ships with tracking
+          body: The seller packs the order and adds a tracking number. You can follow the delivery from your account.
+        inspect:
+          title: You inspect the item
+          body: "You have %{days} days from delivery to check that everything matches the description. If not, raise an issue before the payment is released."
+    covered:
+      title: What buyer protection covers
+      items:
+        - The item never arrives within the expected timeframe.
+        - It arrives damaged or does not match the description.
+        - The seller cancels after payment.
+        - The item is counterfeit or prohibited.
+        - You receive something different from what you bought.
+      note: Protection covers purchases paid inside PCMarket. Payments made outside the platform cannot be claimed.
+    verified:
+      title: What "verified seller" means
+      intro: The verification badge is not automatic. We award it after checking signals of trust.
+      items:
+        - Identity and contact details confirmed.
+        - An activity history without serious incidents.
+        - A correctly configured Stripe payout account.
+        - Listings that follow our catalogue rules.
+    safety:
+      title: Safety tips
+      subtitle: A few seconds of care prevent almost every problem.
+      tips:
+        - Never pay outside PCMarket: you would lose buyer protection.
+        - Be wary of anyone asking for Bizum or a direct transfer to "skip fees".
+        - If you meet in person, choose a public, busy place.
+        - Check the serial number and test the item before completing a cash sale.
+        - Keep the conversation on the platform and treat external links with suspicion.
+    report:
+      title: How to report
+      body: If you see a suspicious listing, an abusive message or a possible scam, use the report button on the listing or profile. We review every notice and can remove content, suspend accounts and work with the authorities.
+      cta: Report a listing
+      contact: Email support
+    contact:
+      title: Need help?
+      body: Our team replies in English and Spanish from Monday to Friday. Tell us what happened in as much detail as you can and we will help you sort it out.
+    faq:
+      title: Frequently asked questions
+      items:
+        - question: When does the seller get paid?
+          answer: When you confirm delivery or the protection window ends without an issue. Until then the money stays held.
+        - question: Can I buy without an account?
+          answer: You can browse without an account, but you need a confirmed account to pay. That lets us protect the purchase and notify you about delivery.
+        - question: What happens if the item does not arrive?
+          answer: Open an issue from the order before the window closes. If the seller cannot prove dispatch, we refund you.
+        - question: Is shipping included?
+          answer: Each listing shows its shipping cost. Many sellers offer free shipping, and you can filter for that option.
+        - question: Can I return an item I do not like?
+          answer: If you buy from a business seller you have a 14-day right of withdrawal. Between private sellers that legal right does not exist, but buyer protection covers items that do not match the description.
+        - question: How do I know a seller is reliable?
+          answer: Check their profile, reviews and whether they have the verification badge. You can also message them before buying.
+        - question: Which payment methods do you accept?
+          answer: Card payments processed by Stripe. We do not accept cash or transfers outside the platform because we could not protect you.
+        - question: How do I report a listing?
+          answer: Press "Report" on the listing or profile and choose a reason. Our team reviews the report and tells you the decision.
+  help:
+    index:
+      eyebrow: Help centre
+      title: Help centre
+      description: Quick answers about buying, selling, payments and shipping. And if you cannot find what you need, write to us.
+      contact: Contact support
+      trust: Trust & Safety
+      pages_title: Main guides
+      read_more: Read the guide
+      cta_title: Still stuck?
+      cta_body: Tell us about your case and we will reply as soon as we can.
+    pages:
+      eyebrow: Help
+      related_title: Keep reading
+    faq:
+      title: Frequently asked questions
+      description: The questions we get most often, grouped by topic.
+    fees:
+      title: Seller fees
+      commission: Commission per sale
+      featured: Featured listing
+      free_notice: Listing and selling is free while we grow. We do not charge commission.
+      note: When we enable fees we will give advance notice, and they will only apply to new sales.
+      cta: List an item
+  contact:
+    meta:
+      title: Contact
+      description: Write to us for help with buying, selling, payments, shipping or any account issue.
+    eyebrow: We are here
+    title: Contact
+    subtitle: Tell us what you need and we will reply as soon as possible. If your question is about an order, include the number so we can help faster.
+    form:
+      name: Name
+      email: Email address
+      topic: Reason
+      order_number: Order number
+      order_number_placeholder: "PCM-2026-000123"
+      order_number_hint: Optional. You will find it in the confirmation email.
+      message: Message
+      website: Leave this field empty
+      privacy_note: We will only use your details to answer this enquiry, in line with our privacy policy.
+      submit: Send message
+    topics:
+      general: General enquiry
+      buying: Buying
+      selling: Selling
+      payments: Payments and payouts
+      shipping: Shipping
+      account: Account and sign-in
+      report: Report content
+      privacy: Privacy and data
+    aside:
+      title: Email us directly
+      body: You can also write to us directly. We reply Monday to Friday during working hours.
+      links_title: Useful links
+      report: Report a listing
+    flash:
+      sent: Thank you. We have received your message and will reply soon.
+    errors:
+      rate_limited: You have sent several messages in a row. Please wait a little before trying again.
+  newsletter:
+    flash:
+      check_email: Check your inbox and confirm your subscription to start receiving updates.
+    errors:
+      rate_limited: Too many requests in a row. Please try again within an hour.
+    confirmation:
+      title: Subscription confirmed
+      body: You are on the list. You will receive PCMarket offers and news without spam.
+      cta: Back to home
+    unsubscribe:
+      title: You have unsubscribed
+      body: You will no longer receive our newsletter. You can subscribe again whenever you like.
+      cta: Back to home
+  newsletter_mailer:
+    confirmation:
+      subject: Confirm your PCMarket subscription
+      heading: "Confirm your subscription to %{app}"
+      body: You asked to receive PCMarket offers and news. Press the button to confirm your email. If this was not you, ignore this message.
+      cta: Confirm subscription
+      fallback: If the button does not work, copy this link into your browser.
+      unsubscribe: Do not want these emails?
+      unsubscribe_cta: Unsubscribe here
+  contact_mailer:
+    notification:
+      subject: "New contact message: %{topic}"
+      heading: New contact message
+      intro: A message has been sent from the PCMarket contact form.
+      none: Not provided
+  legal_pages:
+    public:
+      eyebrow: Legal
+      index_title: Legal information
+      index_description: Read the terms, privacy notice and the rest of the legal documents that apply in your country.
+      effective_from: Effective from
+      version: "Version %{version}"
+      versions_link: Previous versions
+      print: Print
+      toc: On this page
+      no_toc: This document has no sections.
+      help_note: If anything is unclear, write to us and we will help.
+      country: "Country: %{country}"
+      updated: "Updated on %{date}"
+      meta_description: "%{title} for PCMarket."
+      undated: Undated
+    versions:
+      title: "Versions of %{title}"
+      description: History of published versions. The version in force is marked.
+      current: In force
+      open: Open
+      back: Back to the document
+  cookie_consent:
+    banner:
+      label: Cookie consent
+      title: Your privacy, your rules
+      body: We use necessary cookies to make the site work. With your permission, we also use preferences, analytics and marketing cookies.
+      configure: Configure
+      reject: Reject all
+      accept: Accept all
+    modal:
+      title: Cookie preferences
+      description: Choose which categories you allow. Necessary cookies cannot be switched off.
+      close: Close
+      cancel: Cancel
+      save: Save preferences
+    categories:
+      necessary:
+        title: Necessary
+        description: Session, language, theme, country and your own cookie choice. The site cannot work without them.
+      preferences:
+        title: Preferences
+        description: Remember settings such as the theme or view you chose.
+      analytics:
+        title: Analytics
+        description: Help us understand which pages are used so we can improve the catalogue and navigation.
+      marketing:
+        title: Marketing
+        description: Let us measure campaigns and show you relevant ads outside the platform.
+      always: Always on
+    flash:
+      saved: We have saved your cookie preferences.
+  country_preference:
+    invalid: That country is not available yet. We are working on opening it soon.
+  footer:
+    country:
+      label: Country
+      button: Apply
+    legal:
+      index: Legal
+      cookie_preferences: Cookie preferences
+  admin:
+    legal_pages:
+      show:
+        review_required: "Template — must be reviewed by a qualified lawyer before launch."

@@ -1,0 +1,26 @@
+<% set_meta_tags(title: t("legal_pages.public.index_title"), description: t("legal_pages.public.index_description"), canonical: legal_pages_url(locale: I18n.locale)) %>
+<% breadcrumbs = [ [ t("nav.home"), root_path ], [ t("legal_pages.public.index_title"), legal_pages_path ] ] %>
+
+<div class="space-y-8">
+  <%= render "listings/breadcrumbs", trail: breadcrumbs %>
+
+  <header class="max-w-2xl">
+    <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("legal_pages.public.eyebrow") %></p>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl"><%= t("legal_pages.public.index_title") %></h1>
+    <p class="mt-3 text-base leading-relaxed text-muted"><%= t("legal_pages.public.index_description") %></p>
+    <p class="mt-2 text-sm text-muted"><%= t("legal_pages.public.country", country: @country&.name) %></p>
+  </header>
+
+  <ul class="grid gap-3 sm:grid-cols-2">
+    <% @pages.each do |kind, page| %>
+      <li>
+        <%= link_to legal_page_path(kind: kind),
+                    class: "group flex h-full flex-col rounded-2xl border border-border bg-surface p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md dark:hover:border-primary-700" do %>
+          <span class="text-base font-bold group-hover:text-primary-700 dark:group-hover:text-primary-300"><%= page.title %></span>
+          <span class="mt-1 text-xs text-muted"><%= t("legal_pages.public.updated", date: legal_page_date(page)) %></span>
+          <span class="mt-2 text-xs text-muted"><%= t("legal_pages.public.version", version: page.version) %></span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>

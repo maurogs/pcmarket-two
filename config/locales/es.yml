@@ -35,12 +35,6 @@ es:
       consoles: Consolas
       more: Más
       all_category: Ver todo en %{category}
-  home:
-    hero:
-      eyebrow: Hecho para aficionados al PC
-      title: Encuentra las piezas. Monta tu equipo ideal.
-      subtitle: Compra componentes verificados a vendedores de confianza o convierte tu hardware en efectivo, todo en un mismo lugar.
-      cta: Explorar el mercado
   footer:
     newsletter:
       title: Mantente al día

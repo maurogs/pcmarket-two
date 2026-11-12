@@ -1,23 +1,58 @@
-<section class="relative overflow-hidden rounded-3xl bg-primary-900 px-6 py-14 text-white sm:px-10 lg:px-16 lg:py-20">
-  <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/30 blur-3xl"></div>
-  <div class="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-primary-500/40 blur-3xl"></div>
+<% set_meta_tags(home_meta_tags) %>
+<%= json_ld_tag(organization_json_ld) %>
+<%= json_ld_tag(website_json_ld) %>
 
-  <div class="relative max-w-2xl">
-    <p class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary-100">
-      <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
-      <%= t("home.hero.eyebrow") %>
-    </p>
+<% rails_setup = @home.categories %>
+<% gpus = rails_setup["graphics-cards"] %>
+<% laptops = rails_setup["laptops"] %>
+<% phones = rails_setup["phones"] %>
+<% consoles = rails_setup["consoles"] %>
 
-    <h1 class="mt-5 text-4xl font-extrabold tracking-tight sm:text-5xl"><%= t("home.hero.title") %></h1>
-    <p class="mt-4 max-w-xl text-lg leading-relaxed text-primary-100"><%= t("home.hero.subtitle") %></p>
+<div class="space-y-12 lg:space-y-16">
+  <%= render "pages/home/hero_carousel", home: @home %>
+  <%= render "pages/home/promo_tiles", home: @home %>
+  <%= render "pages/home/pc_finder" %>
+  <%= render "pages/home/style_tiles", home: @home %>
 
-    <div class="mt-8 flex flex-wrap gap-3">
-      <%= link_to t("home.hero.cta"),
-                  "#",
-                  class: "inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-primary-900 transition hover:bg-primary-50" %>
-      <%= link_to t("nav.sell_to_us"),
-                  "#",
-                  class: "inline-flex items-center justify-center rounded-xl border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/10" %>
-    </div>
+  <div class="space-y-10">
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :new_gpus,
+               title_key: "home.rails.new_gpus",
+               path: gpus ? category_path(gpus) : search_path %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :most_watched,
+               title_key: "home.rails.most_watched",
+               path: search_path(sort: "popular") %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :on_sale,
+               title_key: "home.rails.on_sale",
+               path: search_path %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :latest_laptops,
+               title_key: "home.rails.laptops",
+               path: laptops ? category_path(laptops) : search_path %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :latest_phones_and_tablets,
+               title_key: "home.rails.phones_tablets",
+               path: phones ? category_path(phones) : search_path %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :latest_consoles,
+               title_key: "home.rails.consoles",
+               path: consoles ? category_path(consoles) : search_path %>
   </div>
-</section>
+
+  <%= render "pages/home/sell_cta" %>
+  <%= render "pages/home/rail",
+             home: @home,
+             section: :recently_sold,
+             title_key: "home.sold.title",
+             path: search_path,
+             sold: true %>
+  <%= render "pages/home/testimonials", home: @home %>
+</div>

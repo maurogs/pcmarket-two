@@ -35,12 +35,6 @@ en:
       consoles: Consoles
       more: More
       all_category: All %{category}
-  home:
-    hero:
-      eyebrow: Built for PC enthusiasts
-      title: Find the parts. Build your perfect rig.
-      subtitle: Buy tested components from trusted sellers, or turn your spare hardware into cash — all in one place.
-      cta: Browse the marketplace
   footer:
     newsletter:
       title: Stay in the loop

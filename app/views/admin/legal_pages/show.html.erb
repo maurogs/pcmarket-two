@@ -18,6 +18,11 @@
 
   <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
     <article class="prose prose-slate max-w-none rounded-2xl border border-border bg-surface p-6 dark:prose-invert">
+      <% if @page.review_required? %>
+        <div role="alert" class="not-prose mb-6 rounded-xl border border-warning/40 bg-warning-soft px-4 py-3 text-sm font-semibold text-warning">
+          <%= t("admin.legal_pages.show.review_required") %>
+        </div>
+      <% end %>
       <%= @page.body %>
     </article>
 

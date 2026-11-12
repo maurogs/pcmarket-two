@@ -104,6 +104,14 @@ ignore_unused:
   - "admin.reports.*"
   - "offer_mailer.*"
   - "report_mailer.decisions.*"
+  - "help.pages.*"
+  - "help.faq.categories.*"
+  - "contact.topics.*"
+  - "cookie_consent.categories.*"
+  - "home.promos.*"
+  - "home.trust.*"
+  - "home.rails.*"
+  - "home.sold.*"
 
 # Devise resolves its failure keys at runtime through devise-i18n, outside
 # config/locales, so i18n-tasks cannot see them.

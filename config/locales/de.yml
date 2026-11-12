@@ -35,12 +35,6 @@ de:
       consoles: Konsolen
       more: Mehr
       all_category: Alle %{category}
-  home:
-    hero:
-      eyebrow: Für PC-Enthusiasten gemacht
-      title: Finde die richtigen Teile. Baue deinen Traum-PC.
-      subtitle: Kaufe geprüfte Komponenten von vertrauenswürdigen Verkäufern oder verwandle deine Ersatzhardware in Geld – alles an einem Ort.
-      cta: Marktplatz entdecken
   footer:
     newsletter:
       title: Bleib auf dem Laufenden

@@ -39,7 +39,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body id="top" class="min-h-screen bg-canvas text-content">
+  <body id="top"
+        class="min-h-screen bg-canvas text-content"
+        data-controller="cookie_consent consent"
+        data-cookie-consent-consented-value="<%= cookie_consent_given? %>"
+        data-cookie-consent-categories-value="<%= cookie_consent_categories.to_json %>"
+        data-consent-categories-value="<%= cookie_consent_categories.to_json %>">
     <a href="#main-content"
        class="sr-only rounded-xl bg-primary-600 px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60]">
       <%= t("layout.skip_to_content") %>
@@ -57,5 +62,10 @@
 
     <%= render "shared/footer" %>
     <%= render "shared/back_to_top" %>
+    <%= render "shared/cookie_consent" %>
+
+    <%# Consent-gated third-party tags stay inert inside these templates. %>
+    <template data-consent="analytics"></template>
+    <template data-consent="marketing"></template>
   </body>
 </html>

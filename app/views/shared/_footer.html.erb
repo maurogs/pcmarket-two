@@ -14,44 +14,57 @@
         <h2 class="mt-6 text-lg font-bold"><%= t("footer.newsletter.title") %></h2>
         <p class="mt-2 max-w-md text-sm text-muted"><%= t("footer.newsletter.description") %></p>
 
-        <%= form_with url: "#", method: :post, class: "mt-5 flex max-w-md flex-col gap-2 sm:flex-row" do |form| %>
+        <%= form_with url: newsletter_subscriptions_path, method: :post, class: "mt-5 flex max-w-md flex-col gap-2 sm:flex-row" do |form| %>
           <label for="newsletter-email" class="sr-only"><%= t("footer.newsletter.label") %></label>
           <%= form.email_field :email,
                                id: "newsletter-email",
                                placeholder: t("footer.newsletter.placeholder"),
                                autocomplete: "email",
+                               required: true,
                                class: "field" %>
           <%= form.submit t("footer.newsletter.button"), class: "btn-primary shrink-0 cursor-pointer" %>
         <% end %>
         <p class="mt-2 text-xs text-muted"><%= t("footer.newsletter.note") %></p>
+
+        <div class="mt-8 max-w-xs">
+          <h2 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("footer.country.label") %></h2>
+          <%= form_with url: country_preference_path, method: :patch, class: "mt-2 flex items-center gap-2" do %>
+            <label for="footer-country" class="sr-only"><%= t("footer.country.label") %></label>
+            <%= select_tag :country,
+                           options_for_select(Country.active.ordered.map { |country| [ country.name, country.code ] }, current_country&.code),
+                           id: "footer-country",
+                           class: "field" %>
+            <%= submit_tag t("footer.country.button"), class: "btn-accent shrink-0 cursor-pointer" %>
+          <% end %>
+        </div>
       </div>
 
       <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
         <div>
           <h2 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("footer.about.title") %></h2>
           <ul class="mt-4 space-y-2.5 text-sm">
-            <li><%= link_to t("footer.about.about_us"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
-            <li><%= link_to t("footer.about.trust_safety"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
-            <li><%= link_to t("footer.about.blog"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.about.about_us"), help_page_path(slug: "about"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.about.trust_safety"), trust_path, class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.about.blog"), help_pages_path, class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
           </ul>
         </div>
 
         <div>
           <h2 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("footer.help.title") %></h2>
           <ul class="mt-4 space-y-2.5 text-sm">
-            <li><%= link_to t("footer.help.help_centre"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
-            <li><%= link_to t("footer.help.contact"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
-            <li><%= link_to t("footer.help.shipping"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
-            <li><%= link_to t("footer.help.returns"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.help.help_centre"), help_pages_path, class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.help.contact"), contact_messages_path, class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.help.shipping"), help_page_path(slug: "shipping"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.help.returns"), help_page_path(slug: "returns"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
           </ul>
         </div>
 
         <div>
           <h2 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("footer.selling.title") %></h2>
           <ul class="mt-4 space-y-2.5 text-sm">
-            <li><%= link_to t("footer.selling.how_to_sell"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
-            <li><%= link_to t("footer.selling.fees"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
-            <li><%= link_to t("footer.selling.academy"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.selling.how_to_sell"), help_page_path(slug: "how-to-sell"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.selling.fees"), help_page_path(slug: "seller-fees"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.selling.academy"), help_page_path(slug: "how-to-sell"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
           </ul>
         </div>
       </div>
@@ -62,10 +75,16 @@
 
       <nav aria-label="<%= t("footer.legal.label") %>">
         <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          <li><%= link_to t("footer.legal.terms"), "#", class: "text-muted transition hover:text-content" %></li>
-          <li><%= link_to t("footer.legal.privacy"), "#", class: "text-muted transition hover:text-content" %></li>
-          <li><%= link_to t("footer.legal.cookies"), "#", class: "text-muted transition hover:text-content" %></li>
-          <li><%= link_to t("footer.legal.legal_notice"), "#", class: "text-muted transition hover:text-content" %></li>
+          <li><%= link_to t("footer.legal.terms"), legal_page_path(kind: "terms"), class: "text-muted transition hover:text-content" %></li>
+          <li><%= link_to t("footer.legal.privacy"), legal_page_path(kind: "privacy"), class: "text-muted transition hover:text-content" %></li>
+          <li><%= link_to t("footer.legal.cookies"), legal_page_path(kind: "cookies"), class: "text-muted transition hover:text-content" %></li>
+          <li><%= link_to t("footer.legal.legal_notice"), legal_page_path(kind: "legal_notice"), class: "text-muted transition hover:text-content" %></li>
+          <li><%= link_to t("footer.legal.index"), legal_pages_path, class: "text-muted transition hover:text-content" %></li>
+          <li>
+            <button type="button" data-action="cookie_consent#open" class="text-muted transition hover:text-content">
+              <%= t("footer.legal.cookie_preferences") %>
+            </button>
+          </li>
         </ul>
       </nav>
 

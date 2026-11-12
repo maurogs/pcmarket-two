@@ -25,6 +25,55 @@ module SeoHelper
     }
   end
 
+  def home_meta_tags
+    title = t("home.seo.title")
+    description = t("home.seo.description")
+    canonical = root_url(locale: I18n.locale)
+
+    {
+      title: title,
+      description: description,
+      canonical: canonical,
+      og: {
+        type: "website",
+        url: canonical,
+        title: title,
+        description: description
+      },
+      twitter: { card: "summary_large_image" }
+    }
+  end
+
+  def organization_json_ld
+    {
+      "@context" => "https://schema.org",
+      "@type" => "Organization",
+      "name" => t("app.name"),
+      "url" => root_url(locale: I18n.locale),
+      "logo" => "#{request.base_url}/icon.png",
+      "description" => t("app.tagline")
+    }
+  end
+
+  # WebSite + SearchAction enables the sitelinks search box.
+  def website_json_ld
+    {
+      "@context" => "https://schema.org",
+      "@type" => "WebSite",
+      "name" => t("app.name"),
+      "url" => root_url(locale: I18n.locale),
+      "inLanguage" => I18n.locale.to_s,
+      "potentialAction" => {
+        "@type" => "SearchAction",
+        "target" => {
+          "@type" => "EntryPoint",
+          "urlTemplate" => "#{request.base_url}#{search_path(locale: I18n.locale)}?q={search_term_string}"
+        },
+        "query-input" => "required name=search_term_string"
+      }
+    }
+  end
+
   def hreflang_link_tags
     links = I18n.available_locales.map do |locale|
       tag.link(rel: "alternate", hreflang: locale, href: localized_url(locale))

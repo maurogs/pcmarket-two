@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   around_action :switch_locale
   before_action :enforce_maintenance_mode
   before_action :merge_guest_cart
-  helper_method :current_cart, :impersonating?
+  helper_method :current_cart, :impersonating?, :current_country
 
   rescue_from Pundit::NotAuthorizedError do
     respond_to do |format|
@@ -82,6 +82,18 @@ class ApplicationController < ActionController::Base
   # never reach staff screens or payment-setting pages.
   def impersonating?
     session[:impersonator_id].present?
+  end
+
+  # The visitor's country drives legal content and the footer selector. Only
+  # launched countries are accepted; anything else falls back to the first
+  # launched country (Spain today).
+  def current_country
+    @current_country ||= begin
+      launched = Country.launched_codes
+      requested = cookies[:country].to_s.upcase
+      code = launched.include?(requested) ? requested : launched.first
+      Country.find_by(code: code) || Country.find_by(code: "ES")
+    end
   end
 
   def default_url_options

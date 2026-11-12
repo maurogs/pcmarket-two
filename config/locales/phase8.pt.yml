@@ -1,0 +1,312 @@
+pt:
+  home:
+    seo:
+      title: "PCMarket — Compra e vende componentes de PC"
+      description: "Encontra PCs gaming, portáteis, placas gráficas e consolas verificados, com proteção do comprador e vendedores de confiança."
+    deals:
+      title: Ofertas do dia
+      eyebrow: Oferta do dia
+      slide: "Oferta %{current} de %{total}"
+      cta: Ver a oferta
+      browse: Explorar o mercado
+      pagination: Selecionar oferta
+      go_to: "Ir para a oferta %{number}"
+      previous: Oferta anterior
+      next: Oferta seguinte
+    promos:
+      title: O que mexe
+      most_wanted:
+        title: Os mais desejados
+        description: Os anúncios que ganharam mais favoritos esta semana.
+        cta: Ver os mais populares
+      ready_to_ship:
+        title: Prontos a enviar
+        description: PCs gaming preparados e enviados em 48 horas.
+        cta: Ver PCs prontos a enviar
+      deals:
+        title: Com desconto
+        description: Preços abaixo do preço anterior, sem letras pequenas.
+        cta: Ver todos os descontos
+    pc_finder:
+      eyebrow: Encontra a tua máquina
+      title: Não sabes que PC combina contigo?
+      description: Responde a algumas perguntas e propomos configurações para o teu orçamento e os teus jogos.
+      cta: Usar o PC Finder
+    styles:
+      title: Compra PCs por estilo
+      description: Filtra por acabamentos e estética que combinam com o teu setup.
+      count:
+        one: "%{count} anúncio"
+        other: "%{count} anúncios"
+    rails:
+      view_all: Ver tudo
+      previous: Deslocar para a esquerda
+      next: Deslocar para a direita
+      new_gpus: GPUs recém-publicadas
+      most_watched: Mais vistas esta semana
+      on_sale: Em promoção
+      laptops: Últimos portáteis
+      phones_tablets: Últimos telefones e tablets
+      consoles: Consolas
+    sell:
+      eyebrow: Vende connosco
+      title: O teu hardware pode valer mais do que pensas
+      description: Publica grátis, chega a compradores em toda a Espanha e recebe com proteção.
+      cta: Publicar um anúncio
+      sell_to_us: Vende-nos
+    sold:
+      title: Vendidos recentemente
+      badge: Vendido
+    testimonials:
+      title: O que dizem os compradores
+      rating: "Avaliação: %{rating} de 5"
+    trust:
+      protection:
+        title: Pagamento protegido
+        description: Retemos o dinheiro até o artigo chegar como descrito.
+      payments:
+        title: Pagamentos seguros
+        description: Cartões processados pela Stripe; nunca vemos os teus dados.
+      sellers:
+        title: Vendedores verificados
+        description: Verificamos identidade e atividade antes de atribuir o selo.
+      support:
+        title: Apoio real
+        description: Pessoas que respondem quando algo corre mal.
+  trust:
+    meta:
+      title: Confiança e segurança
+      description: "Pagamentos retidos, vendedores verificados e apoio real: é assim que protegemos cada compra no PCMarket."
+    eyebrow: Confiança e segurança
+    title: O PCMarket é seguro?
+    subtitle: "Sim: retemos o pagamento, verificamos os vendedores e intervimos quando algo falha. É assim que cuidamos de cada compra, do primeiro clique à entrega."
+    cta:
+      browse: Explorar anúncios
+      contact: Falar com o apoio
+      title: Compra com confiança
+      body: Milhares de entusiastas já compram e vendem componentes no PCMarket. Junta-te a eles sabendo que o teu dinheiro está protegido.
+      sell: Começar a vender
+    stats:
+      label: Números da plataforma
+      listings_sold: anúncios vendidos
+      active_sellers: vendedores ativos
+      average_rating: "avaliação média (%{count} avaliações)"
+    protection:
+      title: Como funciona a proteção do comprador
+      subtitle: O teu dinheiro só chega ao vendedor quando confirmas que está tudo bem.
+      steps:
+        hold:
+          title: Retemos o pagamento
+          body: Ao pagar, o valor fica retido em segurança. O vendedor sabe que a encomenda é real e tu não expões o teu dinheiro.
+        ship:
+          title: O artigo é enviado com seguimento
+          body: O vendedor prepara a encomenda e adiciona o número de seguimento. Podes acompanhar a entrega na tua conta.
+        inspect:
+          title: Inspecionas o artigo
+          body: "Tens %{days} dias após a entrega para verificar que tudo corresponde à descrição. Caso contrário, abre uma ocorrência antes de o pagamento ser libertado."
+    covered:
+      title: O que cobre a proteção do comprador
+      items:
+        - O artigo não chega no prazo previsto.
+        - Chega danificado ou não corresponde à descrição.
+        - O vendedor cancela depois do pagamento.
+        - O artigo é falsificado ou proibido.
+        - Recebes algo diferente do que compraste.
+      note: A proteção cobre compras pagas dentro do PCMarket. Pagamentos fora da plataforma não podem ser reclamados.
+    verified:
+      title: O que significa "vendedor verificado"
+      intro: O selo de verificação não é automático. Atribuímo-lo depois de verificar sinais de confiança.
+      items:
+        - Identidade e contactos confirmados.
+        - Histórico de atividade sem incidentes graves.
+        - Conta de recebimentos Stripe corretamente configurada.
+        - Anúncios que cumprem as nossas regras de catálogo.
+    safety:
+      title: Conselhos de segurança
+      subtitle: Alguns segundos de cuidado evitam quase todos os problemas.
+      tips:
+        - Nunca pagues fora do PCMarket: perderias a proteção do comprador.
+        - Desconfia de quem pede Bizum ou transferência direta para "saltar comissões".
+        - Se se encontrarem em pessoa, escolham um local público e movimentado.
+        - Verifica o número de série e testa o artigo antes de fechar uma venda em mão.
+        - Mantém a conversa na plataforma e desconfia de links externos.
+    report:
+      title: Como denunciar
+      body: Se vires um anúncio suspeito, uma mensagem abusiva ou uma possível fraude, usa o botão de denúncia do anúncio ou do perfil. Analisamos cada aviso e podemos remover conteúdo, suspender contas e colaborar com as autoridades.
+      cta: Denunciar um anúncio
+      contact: Escrever ao apoio
+    contact:
+      title: Precisas de ajuda?
+      body: A nossa equipa responde em português e espanhol de segunda a sexta. Conta-nos o que aconteceu com o máximo de detalhe e ajudamos.
+    faq:
+      title: Perguntas frequentes
+      items:
+        - question: Quando recebe o dinheiro o vendedor?
+          answer: Quando confirmas a entrega ou termina o prazo de proteção sem problemas. Até lá o valor fica retido.
+        - question: Posso comprar sem conta?
+          answer: Podes explorar sem conta, mas para pagar precisas de uma conta confirmada. Assim protegemos a compra e avisamos-te da entrega.
+        - question: O que acontece se o artigo não chegar?
+          answer: Abre uma ocorrência na encomenda antes do fim do prazo. Se o vendedor não conseguir provar o envio, devolvemos o valor.
+        - question: O envio está incluído?
+          answer: Cada anúncio indica o custo de envio. Muitos vendedores oferecem envio grátis e podes filtrar por essa opção.
+        - question: Posso devolver um artigo de que não gosto?
+          answer: Se comprares a um vendedor profissional tens 14 dias de livre resolução. Entre particulares esse direito legal não existe, mas a proteção cobre artigos que não correspondam à descrição.
+        - question: Como sei se um vendedor é fiável?
+          answer: Consulta o perfil, as avaliações e se tem o selo de verificação. Também podes escrever-lhe antes de comprar.
+        - question: Que métodos de pagamento aceitam?
+          answer: Pagamentos com cartão processados pela Stripe. Não aceitamos dinheiro nem transferências fora da plataforma porque não te poderíamos proteger.
+        - question: Como denuncio um anúncio?
+          answer: Prime "Denunciar" no anúncio ou perfil e escolhe o motivo. A nossa equipa analisa a denúncia e informa-te da decisão.
+  help:
+    index:
+      eyebrow: Centro de ajuda
+      title: Centro de ajuda
+      description: Respostas rápidas sobre compras, vendas, pagamentos e envios. E se não encontrares o que procuras, escreve-nos.
+      contact: Contactar o apoio
+      trust: Confiança e segurança
+      pages_title: Guias principais
+      read_more: Ler o guia
+      cta_title: Ainda com dúvidas?
+      cta_body: Conta-nos o teu caso e respondemos o mais depressa possível.
+    pages:
+      eyebrow: Ajuda
+      related_title: Continuar a ler
+    faq:
+      title: Perguntas frequentes
+      description: As dúvidas mais frequentes, organizadas por tema.
+    fees:
+      title: Comissões de venda
+      commission: Comissão por venda
+      featured: Anúncio em destaque
+      free_notice: Publicar e vender é gratuito enquanto crescemos. Não cobramos comissão.
+      note: Quando ativarmos as comissões, avisaremos com antecedência e só se aplicarão a novas vendas.
+      cta: Publicar um anúncio
+  contact:
+    meta:
+      title: Contacto
+      description: Escreve-nos para obteres ajuda com compras, vendas, pagamentos, envios ou qualquer problema na conta.
+    eyebrow: Estamos aqui
+    title: Contacto
+    subtitle: Diz-nos do que precisas e respondemos o mais depressa possível. Se a dúvida for sobre uma encomenda, inclui o número para ajudarmos mais rápido.
+    form:
+      name: Nome
+      email: Endereço de e-mail
+      topic: Motivo
+      order_number: Número da encomenda
+      order_number_placeholder: "PCM-2026-000123"
+      order_number_hint: Opcional. Encontras-lo no e-mail de confirmação.
+      message: Mensagem
+      website: Não preenchas este campo
+      privacy_note: Usaremos os teus dados apenas para responder a este pedido, de acordo com a nossa política de privacidade.
+      submit: Enviar mensagem
+    topics:
+      general: Questão geral
+      buying: Comprar
+      selling: Vender
+      payments: Pagamentos e recebimentos
+      shipping: Envios
+      account: Conta e acesso
+      report: Denunciar conteúdo
+      privacy: Privacidade e dados
+    aside:
+      title: Escreve diretamente
+      body: Também podes escrever-nos diretamente. Respondemos de segunda a sexta em horário laboral.
+      links_title: Ligações úteis
+      report: Denunciar um anúncio
+    flash:
+      sent: Obrigado. Recebemos a tua mensagem e respondemos em breve.
+    errors:
+      rate_limited: Enviaste várias mensagens seguidas. Espera um pouco antes de tentar novamente.
+  newsletter:
+    flash:
+      check_email: Verifica o teu e-mail e confirma a subscrição para começares a receber novidades.
+    errors:
+      rate_limited: Demasiados pedidos seguidos. Tenta novamente dentro de uma hora.
+    confirmation:
+      title: Subscrição confirmada
+      body: Já estás na lista. Receberás ofertas e novidades do PCMarket sem spam.
+      cta: Voltar ao início
+    unsubscribe:
+      title: Cancelaste a subscrição
+      body: Deixarás de receber a nossa newsletter. Podes subscrever novamente quando quiseres.
+      cta: Voltar ao início
+  newsletter_mailer:
+    confirmation:
+      subject: Confirma a tua subscrição do PCMarket
+      heading: "Confirma a tua subscrição do %{app}"
+      body: Pediste para receber ofertas e novidades do PCMarket. Prime o botão para confirmar o teu e-mail. Se não foste tu, ignora esta mensagem.
+      cta: Confirmar subscrição
+      fallback: Se o botão não funcionar, copia esta ligação para o navegador.
+      unsubscribe: Não queres receber estes e-mails?
+      unsubscribe_cta: Cancela a subscrição aqui
+  contact_mailer:
+    notification:
+      subject: "Nova mensagem de contacto: %{topic}"
+      heading: Nova mensagem de contacto
+      intro: Foi enviada uma mensagem através do formulário de contacto do PCMarket.
+      none: Não indicado
+  legal_pages:
+    public:
+      eyebrow: Legal
+      index_title: Informação legal
+      index_description: Consulta os termos, a privacidade e os restantes documentos legais aplicáveis no teu país.
+      effective_from: Em vigor desde
+      version: "Versão %{version}"
+      versions_link: Versões anteriores
+      print: Imprimir
+      toc: Nesta página
+      no_toc: Este documento não tem secções.
+      help_note: Se algo não estiver claro, escreve-nos e ajudamos.
+      country: "País: %{country}"
+      updated: "Atualizado a %{date}"
+      meta_description: "%{title} do PCMarket."
+      undated: Sem data
+    versions:
+      title: "Versões de %{title}"
+      description: Histórico de versões publicadas. A versão em vigor está assinalada.
+      current: Em vigor
+      open: Abrir
+      back: Voltar ao documento
+  cookie_consent:
+    banner:
+      label: Consentimento de cookies
+      title: A tua privacidade, as tuas regras
+      body: Usamos cookies necessários para o site funcionar. Com a tua autorização, usamos também cookies de preferências, análise e marketing.
+      configure: Configurar
+      reject: Rejeitar tudo
+      accept: Aceitar tudo
+    modal:
+      title: Preferências de cookies
+      description: Escolhe as categorias que autorizas. Os cookies necessários não podem ser desativados.
+      close: Fechar
+      cancel: Cancelar
+      save: Guardar preferências
+    categories:
+      necessary:
+        title: Necessários
+        description: Sessão, idioma, tema, país e a tua própria escolha de cookies. Sem eles o site não funciona.
+      preferences:
+        title: Preferências
+        description: Guardam definições como o tema ou a vista escolhida.
+      analytics:
+        title: Análise
+        description: Ajudam-nos a perceber que páginas são usadas para melhorar o catálogo e a navegação.
+      marketing:
+        title: Marketing
+        description: Permitem medir campanhas e mostrar-te anúncios relevantes fora da plataforma.
+      always: Sempre ativos
+    flash:
+      saved: Guardámos as tuas preferências de cookies.
+  country_preference:
+    invalid: Esse país ainda não está disponível. Estamos a trabalhar para o abrir em breve.
+  footer:
+    country:
+      label: País
+      button: Aplicar
+    legal:
+      index: Legal
+      cookie_preferences: Preferências de cookies
+  admin:
+    legal_pages:
+      show:
+        review_required: "Modelo — tem de ser revisto por um advogado qualificado antes do lançamento."

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_200100) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_210300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -203,6 +203,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_200100) do
     t.index ["status"], name: "index_checkouts_on_status"
   end
 
+  create_table "contact_messages", force: :cascade do |t|
+    t.string "name", null: false
+    t.citext "email", null: false
+    t.string "topic", null: false
+    t.string "order_number"
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email", "created_at"], name: "index_contact_messages_on_email_and_created_at"
+  end
+
   create_table "conversations", force: :cascade do |t|
     t.bigint "listing_id"
     t.bigint "buyer_id", null: false
@@ -223,6 +234,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_200100) do
     t.index ["seller_id"], name: "index_conversations_on_seller_id"
     t.index ["store_id", "buyer_id"], name: "index_conversations_on_store_and_buyer_without_listing", unique: true, where: "(listing_id IS NULL)"
     t.index ["store_id"], name: "index_conversations_on_store_id"
+  end
+
+  create_table "cookie_consents", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.jsonb "categories", default: {}, null: false
+    t.string "version", null: false
+    t.datetime "consented_at", null: false
+    t.string "ip"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "created_at"], name: "index_cookie_consents_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_cookie_consents_on_user_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -307,6 +331,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_200100) do
     t.datetime "notified_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "review_required", default: false, null: false
     t.index ["country_code", "locale", "kind", "status"], name: "index_legal_pages_on_country_locale_kind_status"
     t.index ["country_code", "locale", "kind", "version"], name: "index_legal_pages_on_country_locale_kind_version", unique: true
   end
@@ -417,6 +442,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_200100) do
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["sender_id", "created_at"], name: "index_messages_on_sender_id_and_created_at"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "newsletter_subscriptions", force: :cascade do |t|
+    t.citext "email", null: false
+    t.string "locale", default: "es", null: false
+    t.string "token", null: false
+    t.datetime "confirmed_at"
+    t.datetime "unsubscribed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_newsletter_subscriptions_on_email", unique: true
+    t.index ["token"], name: "index_newsletter_subscriptions_on_token", unique: true
   end
 
   create_table "notification_preferences", force: :cascade do |t|
@@ -767,6 +804,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_200100) do
   add_foreign_key "conversations", "stores"
   add_foreign_key "conversations", "users", column: "buyer_id"
   add_foreign_key "conversations", "users", column: "seller_id"
+  add_foreign_key "cookie_consents", "users"
   add_foreign_key "favourites", "listings"
   add_foreign_key "favourites", "users"
   add_foreign_key "follows", "stores"

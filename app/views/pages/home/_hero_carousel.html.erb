@@ -1,0 +1,127 @@
+<% cache ["home/hero", I18n.locale, Listing.search_cache_version], expires_in: 5.minutes do %>
+  <% listings = home.deals_of_day %>
+  <% if listings.any? %>
+    <section class="relative overflow-hidden rounded-3xl bg-primary-900 text-white"
+             data-controller="carousel"
+             data-carousel-interval-value="6000"
+             aria-roledescription="carousel"
+             aria-label="<%= t("home.deals.title") %>">
+      <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/30 blur-3xl"></div>
+      <div class="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full bg-primary-500/40 blur-3xl"></div>
+
+      <div class="relative overflow-hidden">
+        <div class="flex transition-transform duration-500 ease-out motion-reduce:transition-none"
+             data-carousel-target="track">
+          <% listings.each_with_index do |listing, index| %>
+            <article class="w-full shrink-0 px-4 py-8 sm:px-8 lg:px-12 lg:py-12"
+                     data-carousel-target="slide"
+                     role="group"
+                     aria-roledescription="slide"
+                     aria-label="<%= t("home.deals.slide", current: index + 1, total: listings.size) %>"
+                     <%= "aria-hidden=true" unless index.zero? %>>
+              <div class="grid items-center gap-6 lg:grid-cols-2 lg:gap-10">
+                <div class="order-2 lg:order-1">
+                  <p class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary-100">
+                    <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+                    <%= t("home.deals.eyebrow") %>
+                  </p>
+
+                  <h2 class="mt-4 text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
+                    <%= link_to listing.title, listing_path(listing), class: "transition hover:text-primary-100" %>
+                  </h2>
+
+                  <p class="mt-3 max-w-lg text-sm leading-relaxed text-primary-100 sm:text-base">
+                    <%= truncate(listing.description.to_s.squish, length: 170) %>
+                  </p>
+
+                  <div class="mt-5 flex flex-wrap items-baseline gap-3">
+                    <span class="text-3xl font-extrabold tracking-tight"><%= money(listing.price_cents, currency: listing.currency) %></span>
+                    <% if listing.compare_at_price_cents.present? && listing.compare_at_price_cents > listing.price_cents %>
+                      <span class="text-sm text-primary-200 line-through"><%= money(listing.compare_at_price_cents, currency: listing.currency) %></span>
+                    <% end %>
+                    <% if listing.discount_percent %>
+                      <span class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-on-accent">-<%= listing.discount_percent %>%</span>
+                    <% end %>
+                  </div>
+
+                  <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-primary-200">
+                    <span><%= condition_label(listing.condition) %></span>
+                    <span aria-hidden="true">·</span>
+                    <span><%= listing.store.name %></span>
+                    <% if listing.store.verified? %>
+                      <span class="inline-flex items-center gap-1 font-semibold text-white">
+                        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="M12 2.5 14.7 5l3.6-.2.6 3.6 3 2-1.7 3.2 1.7 3.2-3 2-.6 3.6-3.6-.2L12 21.5 9.3 19l-3.6.2-.6-3.6-3-2 1.7-3.2L2.1 7.2l3-2 .6-3.6L9.3 2 12 2.5Z"></path>
+                          <path d="m8.6 12 2.2 2.2 4.6-4.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <%= t("listings.card.verified_seller") %>
+                      </span>
+                    <% end %>
+                  </div>
+
+                  <div class="mt-6 flex flex-wrap gap-3">
+                    <%= link_to t("home.deals.cta"), listing_path(listing),
+                                class: "inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-primary-900 transition hover:bg-primary-50" %>
+                    <%= link_to t("home.deals.browse"), search_path,
+                                class: "inline-flex items-center justify-center rounded-xl border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/10" %>
+                  </div>
+                </div>
+
+                <div class="order-1 lg:order-2">
+                  <%= link_to listing_path(listing), class: "block overflow-hidden rounded-2xl border border-white/10 bg-white/5", tabindex: "-1", aria: { hidden: "true" } do %>
+                    <% if listing.primary_photo&.image&.attached? %>
+                      <%= image_tag url_for(listing.primary_photo.image.variant(:large)),
+                                    alt: "",
+                                    width: 960,
+                                    height: 720,
+                                    loading: index.zero? ? "eager" : "lazy",
+                                    fetchpriority: index.zero? ? "high" : nil,
+                                    class: "aspect-[4/3] w-full object-cover" %>
+                    <% else %>
+                      <div class="flex aspect-[4/3] items-center justify-center text-primary-200">
+                        <svg class="h-12 w-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                          <path d="m4 17 5-5 4 4 3-3 4 4" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </article>
+          <% end %>
+        </div>
+      </div>
+
+      <% if listings.size > 1 %>
+        <div class="relative flex items-center justify-between gap-4 px-4 pb-5 sm:px-8 lg:px-12">
+          <div class="flex items-center gap-1.5" role="tablist" aria-label="<%= t("home.deals.pagination") %>">
+            <% listings.each_with_index do |_listing, index| %>
+              <button type="button"
+                      data-carousel-target="dot"
+                      data-action="carousel#goTo"
+                      data-index="<%= index %>"
+                      role="tab"
+                      aria-selected="<%= index.zero? %>"
+                      aria-label="<%= t("home.deals.go_to", number: index + 1) %>"
+                      class="h-2.5 rounded-full transition <%= index.zero? ? "w-7 bg-white" : "w-2.5 bg-white/40 hover:bg-white/70" %>"></button>
+            <% end %>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button type="button" data-action="carousel#previous" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/30 text-white transition hover:bg-white/10" aria-label="<%= t("home.deals.previous") %>">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+            <button type="button" data-action="carousel#next" class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/30 text-white transition hover:bg-white/10" aria-label="<%= t("home.deals.next") %>">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>

@@ -35,12 +35,6 @@ fr:
       consoles: Consoles
       more: Plus
       all_category: Tout %{category}
-  home:
-    hero:
-      eyebrow: Conçu pour les passionnés de PC
-      title: Trouvez les pièces. Montez la configuration parfaite.
-      subtitle: Achetez des composants testés auprès de vendeurs de confiance ou transformez votre matériel inutilisé en argent, au même endroit.
-      cta: Explorer la marketplace
   footer:
     newsletter:
       title: Restez informé

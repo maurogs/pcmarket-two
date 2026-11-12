@@ -1,0 +1,12 @@
+<% set_meta_tags(title: t("newsletter.confirmation.title"), noindex: true) %>
+
+<div class="mx-auto max-w-xl space-y-5 rounded-3xl border border-border bg-surface p-6 text-center shadow-sm sm:p-10">
+  <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-success-soft text-success">
+    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </span>
+  <h1 class="text-2xl font-extrabold tracking-tight"><%= t("newsletter.confirmation.title") %></h1>
+  <p class="text-sm leading-relaxed text-muted"><%= t("newsletter.confirmation.body") %></p>
+  <%= link_to t("newsletter.confirmation.cta"), root_path, class: "btn-primary" %>
+</div>

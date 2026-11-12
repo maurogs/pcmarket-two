@@ -43,4 +43,20 @@ module ApplicationHelper
   def favourite_dom_id(listing)
     ActionView::RecordIdentifier.dom_id(listing, :favourite)
   end
+
+  # Cookie consent: "necessary" is always on. The consent cookie itself is a
+  # necessary first-party cookie.
+  def cookie_consent_categories
+    @cookie_consent_categories ||= CookieConsent.categories_from_cookie(
+      cookies[CookieConsent::COOKIE_NAME]
+    )
+  end
+
+  def cookie_consent_given?
+    cookies[CookieConsent::COOKIE_NAME].present?
+  end
+
+  def consented_to?(category)
+    cookie_consent_categories[category.to_s] == true
+  end
 end

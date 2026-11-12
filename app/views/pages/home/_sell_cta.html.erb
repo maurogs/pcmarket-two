@@ -1,0 +1,17 @@
+<% cache ["home/sell_cta", I18n.locale, Flipper.enabled?(:sell_to_us)], expires_in: 5.minutes do %>
+  <section class="overflow-hidden rounded-3xl bg-gradient-to-r from-primary-700 via-primary-600 to-accent px-6 py-10 text-white sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/80"><%= t("home.sell.eyebrow") %></p>
+      <h2 class="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl"><%= t("home.sell.title") %></h2>
+      <p class="mt-2 text-sm leading-relaxed text-white/90"><%= t("home.sell.description") %></p>
+    </div>
+    <div class="mt-5 flex flex-wrap gap-3 lg:mt-0 lg:shrink-0">
+      <%= link_to t("home.sell.cta"), new_sell_listing_path,
+                  class: "inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-primary-900 transition hover:bg-primary-50" %>
+      <% if Flipper.enabled?(:sell_to_us) %>
+        <%= link_to t("home.sell.sell_to_us"), "#",
+                    class: "inline-flex items-center justify-center rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/70 hover:bg-white/10" %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
