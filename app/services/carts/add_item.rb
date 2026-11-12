@@ -9,16 +9,18 @@ module Carts
       end
     end
 
-    def initialize(cart:, listing:, quantity: 1)
+    def initialize(cart:, listing:, quantity: 1, offer: nil)
       @cart = cart
       @listing = listing
       @quantity = quantity.to_i
+      @offer = offer
     end
 
     def call
       return failure("cart.errors.guest_disabled") if @cart.guest? && !Flipper.enabled?(:guest_checkout)
       return failure("cart.errors.invalid_quantity") unless @quantity.positive?
       return failure("cart.errors.own_listing") if own_listing?
+      return failure("cart.errors.offer_invalid") if offer_invalid?
       return failure("cart.errors.unavailable") unless @listing.publicly_visible?
       return failure("cart.errors.store_vacation") if @listing.store.vacation_mode?
       return failure("cart.errors.payouts_not_enabled") unless @listing.store.payouts_ready?
@@ -28,6 +30,12 @@ module Carts
     end
 
     private
+
+    def offer_invalid?
+      return false if @offer.blank?
+
+      !@offer.redeemable_by?(@cart.user, listing: @listing)
+    end
 
     def own_listing?
       @cart.user_id.present? && @listing.user_id == @cart.user_id
@@ -46,6 +54,10 @@ module Carts
         end
 
         item.quantity = new_quantity
+        if @offer.present?
+          item.offer = @offer
+          item.unit_price_cents = @offer.amount_cents
+        end
         if item.save
           result = Result.new(success: true, item: item, errors: [])
         else

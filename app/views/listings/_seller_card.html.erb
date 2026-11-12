@@ -97,5 +97,20 @@
     </div>
   <% end %>
 
-  <%= link_to t("listings.show.seller.visit_store"), "#", class: "btn-accent mt-4 w-full" %>
+  <div class="mt-4 space-y-2">
+    <%= link_to t("listings.show.seller.visit_store"), storefront_path(store), class: "btn-accent w-full" %>
+    <% if user_signed_in? && store.user_id != current_user.id %>
+      <%= button_to t("listings.show.message_seller"),
+                    conversations_path,
+                    params: { store_id: store.id },
+                    class: "w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-content hover:bg-surface-muted" %>
+      <%= button_to t("blocks.block"),
+                    blocks_path,
+                    params: { blocked_user_id: store.user_id },
+                    class: "w-full rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-danger hover:bg-danger-soft" %>
+    <% end %>
+    <%= link_to t("reports.link"),
+                new_report_path(reportable_type: "Store", reportable_id: store.id),
+                class: "block text-center text-xs font-semibold text-muted underline-offset-2 hover:text-danger hover:underline" %>
+  </div>
 </section>

@@ -1,0 +1,7 @@
+<%= t("report_mailer.acknowledgement.greeting") %>
+
+<%= t("report_mailer.acknowledgement.body", reference: @report.id) %>
+
+<%= t("report_mailer.acknowledgement.reason_label") %>: <%= t("reports.reasons.#{@report.reason}") %>
+
+<%= t("report_mailer.acknowledgement.closing") %>

@@ -17,6 +17,9 @@ default: &default
   saved_searches_digest:
     class: SavedSearches::DigestJob
     schedule: every day at 8am
+  expire_offers:
+    class: Offers::ExpiryJob
+    schedule: every 15 minutes
 
 development:
   <<: *default

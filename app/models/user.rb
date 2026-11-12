@@ -31,6 +31,15 @@ class User < ApplicationRecord
                            dependent: :delete_all
   has_many :notification_preferences, dependent: :destroy
 
+  has_many :conversations, foreign_key: :buyer_id, inverse_of: :buyer, dependent: :destroy
+  has_many :seller_conversations, class_name: "Conversation", foreign_key: :seller_id,
+                                  inverse_of: :seller, dependent: :destroy
+  has_many :messages, foreign_key: :sender_id, inverse_of: :sender, dependent: :destroy
+  has_many :offers, foreign_key: :buyer_id, inverse_of: :buyer, dependent: :destroy
+  has_many :blocks, foreign_key: :blocker_id, inverse_of: :blocker, dependent: :destroy
+  has_many :blocked_users, through: :blocks, source: :blocked
+  has_many :reports, foreign_key: :reporter_id, inverse_of: :reporter, dependent: :nullify
+
   enum :role, { user: 0, moderator: 1, admin: 2 }, scopes: false
 
   # Virtual attribute backing the sign-up terms checkbox.

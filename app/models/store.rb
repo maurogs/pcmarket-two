@@ -17,6 +17,7 @@ class Store < ApplicationRecord
   has_many :payouts, dependent: :restrict_with_error
   has_many :follows, dependent: :destroy
   has_many :followers, through: :follows, source: :follower
+  has_many :conversations, dependent: :restrict_with_error
 
   friendly_id :name, use: %i[slugged history]
 

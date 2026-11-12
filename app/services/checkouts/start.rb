@@ -188,7 +188,7 @@ module Checkouts
     end
 
     def build_order(checkout, store, group_items, fulfilment)
-      subtotal = group_items.sum { |item| item.listing.price_cents.to_i * item.quantity }
+      subtotal = group_items.sum { |item| item.effective_unit_price_cents * item.quantity }
       shipping = if fulfilment == "local_pickup"
        0
       else
@@ -211,7 +211,7 @@ module Checkouts
         order.items.create!(
           listing: item.listing,
           quantity: item.quantity,
-          unit_price_cents: item.listing.price_cents.to_i,
+          unit_price_cents: item.effective_unit_price_cents,
           shipping_cents: item_shipping(item),
           title: item.listing.title,
           seller_name: store.name,

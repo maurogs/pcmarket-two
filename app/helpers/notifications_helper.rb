@@ -7,6 +7,7 @@ module NotificationsHelper
     params = notification.params.to_h.symbolize_keys
     params[:price] = money(params.delete(:price_cents), currency: params[:currency]) if params.key?(:price_cents)
     params[:amount] = money(params.delete(:total_cents), currency: params[:currency]) if params.key?(:total_cents)
+    params[:amount] = money(params.delete(:amount_cents), currency: params[:currency]) if params.key?(:amount_cents)
 
     t("notifications.messages.#{notification.kind}", **params, raise: true)
   rescue I18n::MissingTranslationData, I18n::MissingInterpolationArgument
@@ -17,6 +18,8 @@ module NotificationsHelper
     case notification.notifiable
     when Listing then listing_path(notification.notifiable)
     when Order then order_path(notification.notifiable)
+    when Message then conversation_path(notification.notifiable.conversation_id)
+    when Offer then conversation_path(notification.notifiable.conversation_id)
     else notifications_path
     end
   rescue ActionController::UrlGenerationError

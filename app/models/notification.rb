@@ -11,6 +11,13 @@ class Notification < ApplicationRecord
     price_drop
     followed_store_new_listing
     saved_search_match
+    new_message
+    new_offer
+    offer_accepted
+    offer_declined
+    offer_countered
+    offer_expired
+    offer_expiring
   ].freeze
 
   # Email alerts that honour the recipient's email preference.

@@ -88,7 +88,7 @@
             </div>
 
             <%= link_to t("account.menu.my_orders"), orders_path, role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.inbox"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.inbox"), conversations_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.wishlist"), wishlist_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.saved_searches"), saved_searches_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.notifications"), notifications_path, role: "menuitem", class: account_menu_item_class %>
@@ -213,6 +213,9 @@
       <div class="mt-6 border-t border-border pt-4">
         <p class="px-3 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("nav.account") %></p>
         <ul class="mt-2 space-y-1">
+          <li>
+            <%= link_to t("account.menu.inbox"), conversations_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+          </li>
           <li>
             <%= link_to t("account.menu.wishlist"), wishlist_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>

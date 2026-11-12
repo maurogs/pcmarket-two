@@ -1,0 +1,18 @@
+<p style="margin: 0 0 12px; font-size: 15px; color: #0f172a;">
+  <%= t("report_mailer.decision.greeting") %>
+</p>
+
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("report_mailer.decision.body",
+        reference: @report.id,
+        decision: t("report_mailer.decisions.#{@report.status}")) %>
+</p>
+
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("report_mailer.decision.note_label") %>:
+  <%= @report.resolution_note %>
+</p>
+
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("report_mailer.decision.closing") %>
+</p>

@@ -48,7 +48,10 @@
                       <%= link_to listing.title, listing_path(listing), class: "hover:text-primary-700 dark:hover:text-primary-300" %>
                     </h3>
                     <p class="mt-1 text-xs text-muted"><%= group.store.name %> · <%= condition_label(listing.condition) %></p>
-                    <p class="mt-2 text-sm font-bold text-content"><%= money(listing.price_cents, currency: listing.currency) %></p>
+                    <p class="mt-2 text-sm font-bold text-content"><%= money(item.effective_unit_price_cents, currency: listing.currency) %></p>
+                    <% if item.offer.present? %>
+                      <p class="mt-1 inline-flex rounded-full bg-success-soft px-2 py-0.5 text-[11px] font-semibold text-success"><%= t("cart.offer_price") %></p>
+                    <% end %>
 
                     <div class="mt-3 flex flex-wrap items-center gap-3">
                       <% if listing.quantity > 1 || item.quantity > 1 %>

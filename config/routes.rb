@@ -18,8 +18,18 @@ Rails.application.routes.draw do
     resources :categories, only: :show, path: "c"
     resources :listings, only: %i[index show], path: "l" do
       resource :favourite, only: %i[create destroy]
+      resources :offers, only: :create
     end
     get "search", to: "listings#index", as: :search
+
+    resources :conversations, only: %i[index show create], path: "inbox" do
+      resources :messages, only: :create
+    end
+    resource :inbox_read, only: :create, path: "inbox/read", controller: "inbox_reads"
+    resources :offers, only: :update
+    resources :blocks, only: %i[create destroy]
+    resources :reports, only: %i[new create]
+    resources :storefronts, only: :show, path: "s"
 
     resource :wishlist, only: :show
     resources :stores, only: [] do
@@ -70,6 +80,7 @@ Rails.application.routes.draw do
     namespace :admin do
       resource :dashboard, only: :show, controller: "dashboard"
       resources :listing_reviews, only: %i[index show update], path: "moderation"
+      resources :reports, only: %i[index show update]
       root to: "dashboard#show"
     end
 

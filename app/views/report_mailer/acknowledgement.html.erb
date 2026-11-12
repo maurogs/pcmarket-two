@@ -1,0 +1,16 @@
+<p style="margin: 0 0 12px; font-size: 15px; color: #0f172a;">
+  <%= t("report_mailer.acknowledgement.greeting") %>
+</p>
+
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("report_mailer.acknowledgement.body", reference: @report.id) %>
+</p>
+
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("report_mailer.acknowledgement.reason_label") %>:
+  <%= t("reports.reasons.#{@report.reason}") %>
+</p>
+
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("report_mailer.acknowledgement.closing") %>
+</p>

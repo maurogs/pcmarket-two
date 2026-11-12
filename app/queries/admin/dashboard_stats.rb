@@ -15,6 +15,7 @@ module Admin
       new_users_last_7_days
       active_stores
       published_listings
+      open_reports
     ].freeze
 
     Stats = Struct.new(*KPI_KEYS, keyword_init: true)
@@ -31,7 +32,8 @@ module Admin
         new_users_today: User.where(created_at: Time.current.beginning_of_day..).count,
         new_users_last_7_days: User.where(created_at: 7.days.ago..).count,
         active_stores: Store.active.count,
-        published_listings: Listing.published.count
+        published_listings: Listing.published.count,
+        open_reports: Report.unresolved.count
       )
     end
 

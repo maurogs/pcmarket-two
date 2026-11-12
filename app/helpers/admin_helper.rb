@@ -18,7 +18,7 @@ module AdminHelper
       { key: "settings" },
       { key: "feature_flags", path: "/admin/flipper" },
       { key: "legal" },
-      { key: "reports" }
+      { key: "reports", path: admin_reports_path }
     ]
   end
 

@@ -26,6 +26,8 @@ class Listing < ApplicationRecord
   has_many :cart_items, dependent: :destroy
   has_many :order_items, dependent: :restrict_with_error
   has_many :favourites, dependent: :destroy
+  has_many :conversations, dependent: :destroy
+  has_many :offers, dependent: :restrict_with_error
 
   friendly_id :slug_source, use: %i[slugged history]
 

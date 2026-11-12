@@ -1,1095 +1,1170 @@
 en:
   app:
-    name: "PCMarket"
-    tagline: "Buy and sell PC parts"
+    name: PCMarket
+    tagline: Buy and sell PC parts
   announcement:
-    promo: "Free delivery on orders over £75 — buy and sell with confidence"
-    links: "Quick links"
-    help: "Help"
-    blog: "Blog"
-    finder: "PC Finder"
+    promo: Free delivery on orders over £75 — buy and sell with confidence
+    links: Quick links
+    help: Help
+    blog: Blog
+    finder: PC Finder
   nav:
-    home: "Home"
-    search_placeholder: "Search for PC parts"
-    list_item: "List an item"
-    sell_to_us: "Sell to us"
-    wishlist: "Favourites"
-    notifications: "Notifications"
-    cart: "Basket"
-    account: "Account"
-    menu: "Menu"
-    open_menu: "Open menu"
-    close_menu: "Close menu"
-    language: "Language"
+    home: Home
+    search_placeholder: Search for PC parts
+    list_item: List an item
+    sell_to_us: Sell to us
+    wishlist: Favourites
+    notifications: Notifications
+    cart: Basket
+    account: Account
+    menu: Menu
+    open_menu: Open menu
+    close_menu: Close menu
+    language: Language
     theme:
-      toggle: "Switch colour theme"
+      toggle: Switch colour theme
     categories:
-      label: "Shop by category"
-      new: "New"
-      gaming_pcs: "Gaming PCs"
-      gpus: "GPUs"
-      components: "Components"
-      peripherals: "Peripherals"
-      laptops: "Laptops"
-      phones_tablets: "Phones & Tablets"
-      consoles: "Consoles"
-      more: "More"
-      all_category: "All %{category}"
+      label: Shop by category
+      new: New
+      gaming_pcs: Gaming PCs
+      gpus: GPUs
+      components: Components
+      peripherals: Peripherals
+      laptops: Laptops
+      phones_tablets: Phones & Tablets
+      consoles: Consoles
+      more: More
+      all_category: All %{category}
   home:
     hero:
-      eyebrow: "Built for PC enthusiasts"
-      title: "Find the parts. Build your perfect rig."
-      subtitle: "Buy tested components from trusted sellers, or turn your spare hardware into cash — all in one place."
-      cta: "Browse the marketplace"
+      eyebrow: Built for PC enthusiasts
+      title: Find the parts. Build your perfect rig.
+      subtitle: Buy tested components from trusted sellers, or turn your spare hardware into cash — all in one place.
+      cta: Browse the marketplace
   footer:
     newsletter:
-      title: "Stay in the loop"
-      description: "Weekly deals, fresh arrivals and PC building tips — straight to your inbox."
-      label: "Email address"
-      placeholder: "you@example.com"
-      button: "Subscribe"
-      note: "No spam. Unsubscribe at any time."
+      title: Stay in the loop
+      description: Weekly deals, fresh arrivals and PC building tips — straight to your inbox.
+      label: Email address
+      placeholder: you@example.com
+      button: Subscribe
+      note: No spam. Unsubscribe at any time.
     about:
-      title: "About"
-      about_us: "About us"
-      trust_safety: "Trust & Safety"
-      blog: "Blog"
+      title: About
+      about_us: About us
+      trust_safety: Trust & Safety
+      blog: Blog
     help:
-      title: "Help"
-      help_centre: "Help centre"
-      contact: "Contact"
-      shipping: "Shipping"
-      returns: "Returns"
+      title: Help
+      help_centre: Help centre
+      contact: Contact
+      shipping: Shipping
+      returns: Returns
     selling:
-      title: "Selling"
-      how_to_sell: "How to sell"
-      fees: "Seller fees"
-      academy: "Seller academy"
+      title: Selling
+      how_to_sell: How to sell
+      fees: Seller fees
+      academy: Seller academy
     legal:
-      label: "Legal"
-      terms: "Terms"
-      privacy: "Privacy"
-      cookies: "Cookies"
-      legal_notice: "Legal notice"
+      label: Legal
+      terms: Terms
+      privacy: Privacy
+      cookies: Cookies
+      legal_notice: Legal notice
     social:
-      instagram: "Instagram"
-      youtube: "YouTube"
-      x: "X"
+      instagram: Instagram
+      youtube: YouTube
+      x: X
     copyright: "© %{year} PCMarket. All rights reserved."
   flash:
-    dismiss: "Dismiss notification"
+    dismiss: Dismiss notification
   layout:
-    skip_to_content: "Skip to main content"
-    back_to_top: "Back to top"
+    skip_to_content: Skip to main content
+    back_to_top: Back to top
   locale:
     names:
-      es: "Español"
-      en: "English"
-      fr: "Français"
-      de: "Deutsch"
-      it: "Italiano"
-      pt: "Português"
+      es: Español
+      en: English
+      fr: Français
+      de: Deutsch
+      it: Italiano
+      pt: Português
   countries:
-    es: "Spain"
-    fr: "France"
-    gb: "United Kingdom"
-    de: "Germany"
-    it: "Italy"
-    pt: "Portugal"
+    es: Spain
+    fr: France
+    gb: United Kingdom
+    de: Germany
+    it: Italy
+    pt: Portugal
   settings:
-    listings_require_approval: "Require approval before a listing goes live"
-    commission_percent: "Commission charged on each sale (%)"
-    commission_enabled: "Charge commissions on sales"
-    featured_listing_price: "Price of a featured listing"
-    featured_enabled: "Allow sellers to feature listings"
-    max_images_per_listing: "Maximum images per listing"
-    min_listing_price: "Minimum listing price"
-    max_listing_price: "Maximum listing price"
-    buyer_protection_days: "Days a buyer is protected after delivery"
-    support_email: "Support email address"
-    maintenance_mode: "Put the marketplace in maintenance mode"
+    listings_require_approval: Require approval before a listing goes live
+    commission_percent: Commission charged on each sale (%)
+    commission_enabled: Charge commissions on sales
+    featured_listing_price: Price of a featured listing
+    featured_enabled: Allow sellers to feature listings
+    max_images_per_listing: Maximum images per listing
+    min_listing_price: Minimum listing price
+    max_listing_price: Maximum listing price
+    buyer_protection_days: Days a buyer is protected after delivery
+    support_email: Support email address
+    maintenance_mode: Put the marketplace in maintenance mode
   auth:
     sign_in:
-      title: "Welcome back"
-      subtitle: "Sign in to manage your listings, orders and favourites."
-      submit: "Sign in"
+      title: Welcome back
+      subtitle: Sign in to manage your listings, orders and favourites.
+      submit: Sign in
     sign_up:
-      title: "Create your account"
-      subtitle: "Join the marketplace and start buying or selling PC parts."
-      submit: "Create account"
+      title: Create your account
+      subtitle: Join the marketplace and start buying or selling PC parts.
+      submit: Create account
     forgot_password:
-      title: "Forgot your password?"
-      subtitle: "Enter your email and we'll send you a reset link."
-      submit: "Send reset link"
+      title: Forgot your password?
+      subtitle: Enter your email and we'll send you a reset link.
+      submit: Send reset link
     reset_password:
-      title: "Choose a new password"
-      subtitle: "Pick a strong password you haven't used before."
-      submit: "Change password"
+      title: Choose a new password
+      subtitle: Pick a strong password you haven't used before.
+      submit: Change password
     confirmation:
-      title: "Confirm your email"
-      subtitle: "We'll send the confirmation instructions again."
-      submit: "Resend confirmation"
+      title: Confirm your email
+      subtitle: We'll send the confirmation instructions again.
+      submit: Resend confirmation
     unlock:
-      title: "Unlock your account"
-      subtitle: "We'll email you a link to unlock it."
-      submit: "Send unlock link"
+      title: Unlock your account
+      subtitle: We'll email you a link to unlock it.
+      submit: Send unlock link
     benefits:
-      title: "Buy and sell with confidence"
-      buyers: "Buyer protection on every order"
-      sellers: "Reach thousands of PC enthusiasts"
-      secure: "Secure payments and verified sellers"
-    google: "Continue with Google"
-    remember_me: "Remember me"
-    username_hint: "3–30 characters. Letters, numbers, hyphens and underscores."
-    or: "or"
+      title: Buy and sell with confidence
+      buyers: Buyer protection on every order
+      sellers: Reach thousands of PC enthusiasts
+      secure: Secure payments and verified sellers
+    google: Continue with Google
+    remember_me: Remember me
+    username_hint: 3–30 characters. Letters, numbers, hyphens and underscores.
+    or: or
     terms:
-      acceptance_html: "I accept the %{terms} and the %{privacy}"
-    marketing_opt_in: "Send me deals and marketplace news"
-    omniauth_failure: "We couldn't sign you in with Google. Please try again."
-    omniauth_email_not_verified: "An account with this email already exists. Please sign in with your password first."
+      acceptance_html: I accept the %{terms} and the %{privacy}
+    marketing_opt_in: Send me deals and marketplace news
+    omniauth_failure: We couldn't sign you in with Google. Please try again.
+    omniauth_email_not_verified: An account with this email already exists. Please sign in with your password first.
   account:
     menu:
       signed_out:
-        sign_in: "Log in"
-        sign_up: "Create account"
-      my_orders: "My orders"
-      inbox: "Inbox"
-      wishlist: "Wishlist"
-      saved_searches: "Saved searches"
-      notifications: "Notifications"
-      notification_settings: "Notification settings"
-      settings: "Account settings"
+        sign_in: Log in
+        sign_up: Create account
+      my_orders: My orders
+      inbox: Inbox & offers
+      wishlist: Wishlist
+      saved_searches: Saved searches
+      notifications: Notifications
+      notification_settings: Notification settings
+      settings: Account settings
       store:
-        title: "My store"
-        public_profile: "Public profile"
-        seller_dashboard: "Seller dashboard"
-        listings: "My listings"
-        sales: "My sales"
-        settings: "Store settings"
-      admin_panel: "Admin panel"
-      logout: "Log out"
+        title: My store
+        public_profile: Public profile
+        seller_dashboard: Seller dashboard
+        listings: My listings
+        sales: My sales
+        settings: Store settings
+      admin_panel: Admin panel
+      logout: Log out
   devise:
     failure:
-      banned: "Your account has been suspended. Please contact support."
-      deleted: "This account has been deleted."
+      banned: Your account has been suspended. Please contact support.
+      deleted: This account has been deleted.
   pundit:
-    not_authorized: "You are not allowed to perform that action."
+    not_authorized: You are not allowed to perform that action.
   activerecord:
     models:
-      user: "User"
-      store: "Store"
-      listing: "Listing"
+      user: User
+      store: Store
+      listing: Listing
     attributes:
       user:
-        username: "Username"
-        first_name: "First name"
-        last_name: "Last name"
-        phone: "Phone"
-        locale: "Language"
-        country_code: "Country"
-        marketing_opt_in: "Marketing emails"
-        terms_accepted: "Terms acceptance"
-        role: "Role"
+        username: Username
+        first_name: First name
+        last_name: Last name
+        phone: Phone
+        locale: Language
+        country_code: Country
+        marketing_opt_in: Marketing emails
+        terms_accepted: Terms acceptance
+        role: Role
       store:
-        kind: "Seller type"
-        name: "Store name"
-        description: "About your store"
-        logo: "Logo"
-        region: "Province"
-        region_id: "Province"
-        province: "Province"
-        city: "City"
-        legal_name: "Legal name"
-        tax_id: "Tax ID"
-        address_line: "Address"
-        postal_code: "Postal code"
-        phone: "Phone"
-        website: "Website"
-        country_code: "Country"
+        kind: Seller type
+        name: Store name
+        description: About your store
+        logo: Logo
+        region: Province
+        region_id: Province
+        province: Province
+        city: City
+        legal_name: Legal name
+        tax_id: Tax ID
+        address_line: Address
+        postal_code: Postal code
+        phone: Phone
+        website: Website
+        country_code: Country
       listing:
-        category: "Category"
-        title: "Title"
-        description: "Description"
-        condition: "Condition"
-        price_cents: "Price"
-        compare_at_price_cents: "Original price"
-        quantity: "Quantity"
-        shipping_mode: "Delivery"
-        shipping_price_cents: "Shipping price"
-        handling_days: "Handling time"
-        region: "Province"
-        region_id: "Province"
-        city: "City"
-        postal_code: "Postal code"
-        photos: "Photos"
-        specs: "Specifications"
-        tags: "Tags"
-        seller_tags: "Seller tags"
+        category: Category
+        title: Title
+        description: Description
+        condition: Condition
+        price_cents: Price
+        compare_at_price_cents: Original price
+        quantity: Quantity
+        shipping_mode: Delivery
+        shipping_price_cents: Shipping price
+        handling_days: Handling time
+        region: Province
+        region_id: Province
+        city: City
+        postal_code: Postal code
+        photos: Photos
+        specs: Specifications
+        tags: Tags
+        seller_tags: Seller tags
   errors:
     messages:
-      invalid_spanish_tax_id: "is not a valid Spanish NIF, NIE or CIF"
-      invalid_image_type: "is not a supported image type"
-      image_too_large: "is larger than the maximum allowed"
+      invalid_spanish_tax_id: is not a valid Spanish NIF, NIE or CIF
+      invalid_image_type: is not a supported image type
+      image_too_large: is larger than the maximum allowed
       not_saved:
-        one: "1 error prevented this %{resource} from being saved:"
+        one: '1 error prevented this %{resource} from being saved:'
         other: "%{count} errors prevented this %{resource} from being saved:"
+      too_many_images: has too many images (maximum is 4)
   form:
     errors:
-      heading: "Please fix the following:"
+      heading: 'Please fix the following:'
   categories:
     errors:
-      cycle: "A category cannot be its own ancestor."
+      cycle: A category cannot be its own ancestor.
   stores:
     new:
-      title: "Set up your seller store"
-      subtitle: "Before you list your first item, tell buyers who you are."
+      title: Set up your seller store
+      subtitle: Before you list your first item, tell buyers who you are.
     edit:
-      title: "Store settings"
-      subtitle: "Keep your seller details up to date."
+      title: Store settings
+      subtitle: Keep your seller details up to date.
     form:
-      kind: "Seller type"
-      individual: "Individual"
-      individual_hint: "Selling spare parts as a private person."
-      business: "Business"
-      business_hint: "Selling as a company or self-employed professional."
-      name: "Store name"
-      name_hint: "The name buyers see on your listings."
-      description: "About your store"
-      description_hint: "Tell buyers what you sell and how you pack and ship."
-      logo: "Logo"
-      logo_hint: "PNG, JPEG or WebP, up to 5 MB."
-      province: "Province"
-      province_hint: "Only Spanish provinces are available for now."
-      province_placeholder: "Choose a province"
-      city: "City"
-      city_placeholder: "e.g. Madrid"
-      business_heading: "Business details"
-      business_intro: "Under the EU Digital Services Act, business sellers must show their legal details on their listings. Buyers will see your legal name, tax ID and address."
-      legal_name: "Legal name"
-      tax_id: "Tax ID (NIF, NIE or CIF)"
-      tax_id_hint: "Spanish tax identification number, for example B12345674."
-      address_line: "Address"
-      postal_code: "Postal code"
-      postal_code_hint: "Five digits for Spanish addresses."
-      phone: "Phone"
-      website: "Website"
-      submit: "Create store"
-      update: "Save changes"
-      cancel: "Cancel"
+      kind: Seller type
+      individual: Individual
+      individual_hint: Selling spare parts as a private person.
+      business: Business
+      business_hint: Selling as a company or self-employed professional.
+      name: Store name
+      name_hint: The name buyers see on your listings.
+      description: About your store
+      description_hint: Tell buyers what you sell and how you pack and ship.
+      logo: Logo
+      logo_hint: PNG, JPEG or WebP, up to 5 MB.
+      province: Province
+      province_hint: Only Spanish provinces are available for now.
+      province_placeholder: Choose a province
+      city: City
+      city_placeholder: e.g. Madrid
+      business_heading: Business details
+      business_intro: Under the EU Digital Services Act, business sellers must show their legal details on their listings. Buyers will see your legal name, tax ID and address.
+      legal_name: Legal name
+      tax_id: Tax ID (NIF, NIE or CIF)
+      tax_id_hint: Spanish tax identification number, for example B12345674.
+      address_line: Address
+      postal_code: Postal code
+      postal_code_hint: Five digits for Spanish addresses.
+      phone: Phone
+      website: Website
+      submit: Create store
+      update: Save changes
+      cancel: Cancel
     flash:
-      created: "Your store is ready. You can list your first item now."
-      updated: "Store settings updated."
+      created: Your store is ready. You can list your first item now.
+      updated: Store settings updated.
     errors:
-      region_country_mismatch: "The province does not belong to the selected country."
+      region_country_mismatch: The province does not belong to the selected country.
   sell:
     listings:
-      title: "My listings"
-      subtitle: "Manage what you are selling, from drafts to sold items."
-      new_listing: "List an item"
-      untitled: "Untitled listing"
-      tabs_label: "Filter listings by status"
+      title: My listings
+      subtitle: Manage what you are selling, from drafts to sold items.
+      new_listing: List an item
+      untitled: Untitled listing
+      tabs_label: Filter listings by status
       tabs:
-        active: "Active"
-        pending_review: "Pending review"
-        drafts: "Drafts"
-        rejected: "Rejected"
-        sold: "Sold"
-        archived: "Archived"
+        active: Active
+        pending_review: Pending review
+        drafts: Drafts
+        rejected: Rejected
+        sold: Sold
+        archived: Archived
       search:
-        label: "Search your listings"
-        placeholder: "Search by title"
-        submit: "Search"
-        clear: "Clear search"
+        label: Search your listings
+        placeholder: Search by title
+        submit: Search
+        clear: Clear search
       table:
-        select: "Select"
-        listing: "Listing"
-        price: "Price"
-        status: "Status"
-        views: "Views"
-        favourites: "Favourites"
-        updated: "Updated"
-        actions: "Actions"
+        select: Select
+        listing: Listing
+        price: Price
+        status: Status
+        views: Views
+        favourites: Favourites
+        updated: Updated
+        actions: Actions
       actions:
-        edit: "Edit"
-        archive: "Archive"
-        republish: "Republish"
-        delete_draft: "Delete draft"
+        edit: Edit
+        archive: Archive
+        republish: Republish
+        delete_draft: Delete draft
       rejected:
-        reason: "Reason: %{reason}"
-        resubmit: "Edit and resubmit"
+        reason: 'Reason: %{reason}'
+        resubmit: Edit and resubmit
       bulk:
-        select_all: "Select all"
-        select_listing: "Select %{title}"
-        archive_selected: "Archive selected"
-        confirm: "Archive the selected listings?"
+        select_all: Select all
+        select_listing: Select %{title}
+        archive_selected: Archive selected
+        confirm: Archive the selected listings?
         archived:
           one: "%{count} listing archived."
           other: "%{count} listings archived."
-        nothing_selected: "Select at least one listing to archive."
+        nothing_selected: Select at least one listing to archive.
       empty:
-        title: "No listings here yet"
-        body: "Listings in this section will appear here once you have some."
-        cta: "List an item"
+        title: No listings here yet
+        body: Listings in this section will appear here once you have some.
+        cta: List an item
       flash:
-        cannot_republish: "This listing cannot be republished right now."
+        cannot_republish: This listing cannot be republished right now.
     new:
-      title: "List an item"
-      subtitle: "Five quick steps. Your draft is saved as you go."
+      title: List an item
+      subtitle: Five quick steps. Your draft is saved as you go.
     edit:
-      title: "Edit listing"
-      subtitle: "Update your listing. Changes are saved step by step."
+      title: Edit listing
+      subtitle: Update your listing. Changes are saved step by step.
     steps:
-      counter: "Step %{current} of %{total}"
-      category: "Category"
-      photos: "Photos"
-      details: "Details"
-      price: "Price and delivery"
-      review: "Review"
-      back: "Back"
-      continue: "Continue"
-      save: "Save changes"
-      submit: "Submit for review"
-      publish: "Publish listing"
-      published_warning: "You are editing a published listing. Changes to the title, description, category, specifications or photos send it back for review. Price, quantity and delivery changes stay live."
-      delete_draft: "Delete draft"
-      archive_listing: "Archive listing"
-      confirm_delete: "Are you sure you want to continue?"
+      counter: Step %{current} of %{total}
+      category: Category
+      photos: Photos
+      details: Details
+      price: Price and delivery
+      review: Review
+      back: Back
+      continue: Continue
+      save: Save changes
+      submit: Submit for review
+      publish: Publish listing
+      published_warning: You are editing a published listing. Changes to the title, description, category, specifications or photos send it back for review. Price, quantity and delivery changes stay live.
+      delete_draft: Delete draft
+      archive_listing: Archive listing
+      confirm_delete: Are you sure you want to continue?
     category:
-      title: "Choose a category"
-      subtitle: "Start with a broad category, then pick the closest match."
-      search_label: "Search categories"
-      search_placeholder: "e.g. graphics card"
-      choose_root: "Choose a category"
-      choose_child: "Choose a subcategory"
-      selected: "Selected: %{category}"
-      no_results: "No categories match that search."
-      all_in: "All %{category}"
+      title: Choose a category
+      subtitle: Start with a broad category, then pick the closest match.
+      search_label: Search categories
+      search_placeholder: e.g. graphics card
+      choose_root: Choose a category
+      choose_child: Choose a subcategory
+      selected: 'Selected: %{category}'
+      no_results: No categories match that search.
+      all_in: All %{category}
     photos:
-      title: "Add photos"
-      subtitle: "Clear photos help buyers decide. The first photo is the one shown in search results."
-      upload: "Upload photos"
-      upload_hint: "Drag and drop images here, or choose files. PNG, JPEG, WebP or HEIC, up to %{size} each."
-      limit: "You can add up to %{max} photos."
-      existing: "Your photos"
-      no_photos: "No photos yet."
-      primary: "Main photo"
-      remove: "Remove"
-      move_up: "Move up"
-      move_down: "Move down"
-      drag_hint: "Drag photos to reorder them, or use the arrow buttons."
-      tips_title: "Tips for great photos"
-      tip_1: "Use natural light and a plain background."
-      tip_2: "Show the whole item, then close-ups of any wear."
-      tip_3: "Include the original box, cables and accessories."
-      tip_4: "Avoid stock photos: buyers want to see the actual item."
+      title: Add photos
+      subtitle: Clear photos help buyers decide. The first photo is the one shown in search results.
+      upload: Upload photos
+      upload_hint: Drag and drop images here, or choose files. PNG, JPEG, WebP or HEIC, up to %{size} each.
+      limit: You can add up to %{max} photos.
+      existing: Your photos
+      no_photos: No photos yet.
+      primary: Main photo
+      remove: Remove
+      move_up: Move up
+      move_down: Move down
+      drag_hint: Drag photos to reorder them, or use the arrow buttons.
+      tips_title: Tips for great photos
+      tip_1: Use natural light and a plain background.
+      tip_2: Show the whole item, then close-ups of any wear.
+      tip_3: Include the original box, cables and accessories.
+      tip_4: 'Avoid stock photos: buyers want to see the actual item.'
     details:
-      title: "Describe your item"
-      subtitle: "Accurate details reduce questions and returns."
-      title_label: "Title"
-      title_placeholder: "e.g. NVIDIA RTX 4070 Ti Super 16 GB"
-      condition_label: "Condition"
-      description_label: "Description"
-      description_placeholder: "Describe the condition, age, what is included and why you are selling."
-      attributes_title: "Specifications"
-      attributes_hint: "These help buyers filter and compare. Required fields are marked."
-      required: "Required"
-      choose: "Choose an option"
-      boolean_yes: "Yes"
-      tags_title: "Seller tags"
-      tags_hint: "Choose up to %{max} tags that describe your listing."
-      product_labels_note: "Product labels are applied by our team and cannot be selected here."
+      title: Describe your item
+      subtitle: Accurate details reduce questions and returns.
+      title_label: Title
+      title_placeholder: e.g. NVIDIA RTX 4070 Ti Super 16 GB
+      condition_label: Condition
+      description_label: Description
+      description_placeholder: Describe the condition, age, what is included and why you are selling.
+      attributes_title: Specifications
+      attributes_hint: These help buyers filter and compare. Required fields are marked.
+      required: Required
+      choose: Choose an option
+      boolean_yes: 'Yes'
+      tags_title: Seller tags
+      tags_hint: Choose up to %{max} tags that describe your listing.
+      product_labels_note: Product labels are applied by our team and cannot be selected here.
       conditions:
         new_sealed:
-          title: "New (sealed)"
-          description: "Unopened, in the original sealed packaging."
+          title: New (sealed)
+          description: Unopened, in the original sealed packaging.
         new_open_box:
-          title: "New (open box)"
-          description: "Unused, but the packaging has been opened."
+          title: New (open box)
+          description: Unused, but the packaging has been opened.
         used_like_new:
-          title: "Used – like new"
-          description: "Used briefly, with no visible signs of wear."
+          title: Used – like new
+          description: Used briefly, with no visible signs of wear.
         used_good:
-          title: "Used – good"
-          description: "Used, with minor signs of wear that do not affect function."
+          title: Used – good
+          description: Used, with minor signs of wear that do not affect function.
         used_fair:
-          title: "Used – fair"
-          description: "Noticeable wear, fully functional unless stated otherwise."
+          title: Used – fair
+          description: Noticeable wear, fully functional unless stated otherwise.
         for_parts:
-          title: "For parts"
-          description: "Not working, sold for repair or spare parts."
+          title: For parts
+          description: Not working, sold for repair or spare parts.
     price:
-      title: "Price and delivery"
-      subtitle: "Set a fair price and explain how buyers receive the item."
-      price_label: "Price"
-      price_placeholder: "0.00"
-      compare_at_label: "Original price (optional)"
-      compare_at_hint: "Must be higher than your selling price. Buyers see it crossed out."
-      quantity_label: "Quantity"
-      quantity_hint: "How many identical units do you have?"
-      quantity_fixed: "Private sellers list one item per listing."
-      offers_label: "Allow offers"
-      offers_hint: "Buyers can send you a price offer."
-      shipping_title: "Delivery"
-      shipping_mode_label: "How will you deliver?"
-      shipping_price_label: "Shipping price"
-      free_shipping_label: "Offer free shipping"
-      handling_days_label: "Handling time"
-      handling_days_hint: "Business days before you hand the parcel to the carrier."
-      location_title: "Item location"
-      region_label: "Province"
-      region_placeholder: "Choose a province"
-      city_label: "City"
-      postal_code_label: "Postal code"
+      title: Price and delivery
+      subtitle: Set a fair price and explain how buyers receive the item.
+      price_label: Price
+      price_placeholder: '0.00'
+      compare_at_label: Original price (optional)
+      compare_at_hint: Must be higher than your selling price. Buyers see it crossed out.
+      quantity_label: Quantity
+      quantity_hint: How many identical units do you have?
+      quantity_fixed: Private sellers list one item per listing.
+      offers_label: Allow offers
+      offers_hint: Buyers can send you a price offer.
+      shipping_title: Delivery
+      shipping_mode_label: How will you deliver?
+      shipping_price_label: Shipping price
+      free_shipping_label: Offer free shipping
+      handling_days_label: Handling time
+      handling_days_hint: Business days before you hand the parcel to the carrier.
+      location_title: Item location
+      region_label: Province
+      region_placeholder: Choose a province
+      city_label: City
+      postal_code_label: Postal code
     review:
-      title: "Review your listing"
-      subtitle: "Check how buyers will see it, then submit it for review."
-      preview_title: "Buyer preview"
-      checklist_title: "Before you submit"
-      checklist_ok: "Everything required is complete."
+      title: Review your listing
+      subtitle: Check how buyers will see it, then submit it for review.
+      preview_title: Buyer preview
+      checklist_title: Before you submit
+      checklist_ok: Everything required is complete.
       missing: "%{field} is missing."
-      go_to_step: "Go to %{step}"
-      approval_note: "Listings are reviewed by our team before publication, usually within 24 hours."
-      publish_note: "Your listing will be published immediately."
-      published_note: "This listing is already published. Save your changes to keep it up to date."
-      pending_note: "This listing is waiting for review. You can still update it."
+      go_to_step: Go to %{step}
+      approval_note: Listings are reviewed by our team before publication, usually within 24 hours.
+      publish_note: Your listing will be published immediately.
+      published_note: This listing is already published. Save your changes to keep it up to date.
+      pending_note: This listing is waiting for review. You can still update it.
     flash:
-      created: "Draft created. Add some photos next."
-      saved: "Listing saved."
-      submitted: "Listing submitted for review."
-      published: "Listing published."
-      destroyed: "Draft deleted."
-      archived: "Listing archived."
+      created: Draft created. Add some photos next.
+      saved: Listing saved.
+      submitted: Listing submitted for review.
+      published: Listing published.
+      destroyed: Draft deleted.
+      archived: Listing archived.
     errors:
-      store_required: "You need a store before you can list items."
-
+      store_required: You need a store before you can list items.
   listings:
     errors:
-      price_out_of_range: "Price must be between %{min} and %{max} euros."
-      compare_at_price: "The compare-at price must be higher than the selling price."
-      required_specs: "Missing required specifications: %{attributes}."
+      price_out_of_range: Price must be between %{min} and %{max} euros.
+      compare_at_price: The compare-at price must be higher than the selling price.
+      required_specs: 'Missing required specifications: %{attributes}.'
       invalid_spec_option: "%{attribute} contains an option that is not available."
-      country_not_launched: "Listings are not available in this country yet."
-      region_country_mismatch: "The region does not belong to the selected country."
-      too_many_photos: "A listing can have at most %{max} photos."
-      photos_required: "Add at least one photo before continuing."
-      too_many_seller_tags: "Choose no more than %{max} seller tags."
-      quantity_individual: "Private sellers can list only one unit per listing."
-      rejection_reason_required: "A rejection reason is required."
+      country_not_launched: Listings are not available in this country yet.
+      region_country_mismatch: The region does not belong to the selected country.
+      too_many_photos: A listing can have at most %{max} photos.
+      photos_required: Add at least one photo before continuing.
+      too_many_seller_tags: Choose no more than %{max} seller tags.
+      quantity_individual: Private sellers can list only one unit per listing.
+      rejection_reason_required: A rejection reason is required.
     breadcrumb:
-      label: "Breadcrumb"
+      label: Breadcrumb
     index:
-      title: "All listings"
-      search_title: "Results for “%{query}”"
-      search_hint: "Showing matches for “%{query}”."
-      search_description: "Listings matching “%{query}” on PCMarket."
+      title: All listings
+      search_title: Results for “%{query}”
+      search_hint: Showing matches for “%{query}”.
+      search_description: Listings matching “%{query}” on PCMarket.
       results_count:
         one: "%{count} result"
         other: "%{count} results"
-      empty_title: "No listings match your filters"
-      empty_body: "Try removing a filter, widening the price range or searching for something else."
-      clear_filters: "Clear all filters"
-      browse_categories: "Browse categories"
-      about_category: "About %{category}"
+      empty_title: No listings match your filters
+      empty_body: Try removing a filter, widening the price range or searching for something else.
+      clear_filters: Clear all filters
+      browse_categories: Browse categories
+      about_category: About %{category}
     sort:
-      label: "Sort results"
-      best_match: "Best match"
-      newest: "Newest first"
-      price_asc: "Price: low to high"
-      price_desc: "Price: high to low"
-      popular: "Most popular"
+      label: Sort results
+      best_match: Best match
+      newest: Newest first
+      price_asc: 'Price: low to high'
+      price_desc: 'Price: high to low'
+      popular: Most popular
     conditions:
-      new_sealed: "New (sealed)"
-      new_open_box: "New (open box)"
-      used_like_new: "Used – like new"
-      used_good: "Used – good"
-      used_fair: "Used – fair"
-      for_parts: "For parts"
+      new_sealed: New (sealed)
+      new_open_box: New (open box)
+      used_like_new: Used – like new
+      used_good: Used – good
+      used_fair: Used – fair
+      for_parts: For parts
     shipping_modes:
-      shipping: "Shipping"
-      local_pickup: "Collection only"
-      shipping_and_pickup: "Shipping or collection"
+      shipping: Shipping
+      local_pickup: Collection only
+      shipping_and_pickup: Shipping or collection
     statuses:
-      draft: "Draft"
-      pending_review: "Pending review"
-      published: "Published"
-      rejected: "Rejected"
-      reserved: "Reserved"
-      sold: "Sold"
-      archived: "Archived"
+      draft: Draft
+      pending_review: Pending review
+      published: Published
+      rejected: Rejected
+      reserved: Reserved
+      sold: Sold
+      archived: Archived
     attribute_groups:
-      cpu: "Processor"
-      general: "General"
-      gpu: "Graphics card"
-      lighting: "Lighting"
-      memory: "Memory"
-      motherboard: "Motherboard"
-      power: "Power supply"
-      storage: "Storage"
+      cpu: Processor
+      general: General
+      gpu: Graphics card
+      lighting: Lighting
+      memory: Memory
+      motherboard: Motherboard
+      power: Power supply
+      storage: Storage
     specs:
-      "yes": "Yes"
-      "no": "No"
+      'yes': 'Yes'
+      'no': 'No'
     filters:
-      title: "Filters"
-      open: "Filters (%{count})"
-      close: "Close filters"
-      apply: "Apply filters"
-      text_label: "Search within results"
-      text_placeholder: "e.g. RTX 4070"
-      price: "Price range"
-      min_price: "Min"
-      max_price: "Max"
-      condition: "Condition"
+      title: Filters
+      open: Filters (%{count})
+      close: Close filters
+      apply: Apply filters
+      text_label: Search within results
+      text_placeholder: e.g. RTX 4070
+      price: Price range
+      min_price: Min
+      max_price: Max
+      condition: Condition
       show_more:
-        one: "Show more (%{count})"
-        other: "Show more (%{count})"
-      product_labels: "Product labels"
-      seller_tags: "Seller tags"
-      delivery: "Delivery"
-      free_shipping: "Free shipping"
-      region: "Province"
-      all_regions: "All provinces"
-      remove_filter: "Remove filter: %{filter}"
-      clear_all: "Clear all"
+        one: Show more (%{count})
+        other: Show more (%{count})
+      product_labels: Product labels
+      seller_tags: Seller tags
+      delivery: Delivery
+      free_shipping: Free shipping
+      region: Province
+      all_regions: All provinces
+      remove_filter: 'Remove filter: %{filter}'
+      clear_all: Clear all
       applied:
-        q: "Search: %{query}"
-        min_price: "From €%{value}"
-        max_price: "Up to €%{value}"
+        q: 'Search: %{query}'
+        min_price: From €%{value}
+        max_price: Up to €%{value}
     card:
-      verified_seller: "Verified seller"
-      free_shipping: "Free shipping"
+      verified_seller: Verified seller
+      free_shipping: Free shipping
     pagination:
-      label: "Pagination"
-      previous: "Previous"
-      next: "Next"
+      label: Pagination
+      previous: Previous
+      next: Next
     show:
-      status_banner: "This listing is %{status}."
-      rejection_reason: "Reason: %{reason}"
-      status_visibility: "Only you and PCMarket staff can see this page in this state."
-      overview: "Overview"
-      condition: "Condition"
-      location: "Location"
+      status_banner: This listing is %{status}.
+      rejection_reason: 'Reason: %{reason}'
+      status_visibility: Only you and PCMarket staff can see this page in this state.
+      overview: Overview
+      condition: Condition
+      location: Location
       specifications:
-        title: "Specifications"
-        empty: "The seller has not added specifications for this listing."
+        title: Specifications
+        empty: The seller has not added specifications for this listing.
       shipping_returns:
-        title: "Shipping and returns"
-        order_placed: "Order placed"
-        ships_by: "Ships by"
-        delivered: "Estimated delivery"
-        returns_copy: "Returns are accepted within 14 days of delivery if the item is not as described. Buyer protection covers you after delivery."
+        title: Shipping and returns
+        order_placed: Order placed
+        ships_by: Ships by
+        delivered: Estimated delivery
+        returns_copy: Returns are accepted within 14 days of delivery if the item is not as described. Buyer protection covers you after delivery.
       ships_within:
-        one: "Ships within %{count} business day"
-        other: "Ships within %{count} business days"
-      buy_now: "Buy now"
-      add_to_cart: "Add to basket"
-      make_offer: "Make an offer"
-      message_seller: "Message seller"
+        one: Ships within %{count} business day
+        other: Ships within %{count} business days
+      buy_now: Buy now
+      add_to_cart: Add to basket
+      make_offer: Make an offer
+      message_seller: Message seller
       seller:
-        verified: "Verified seller"
+        verified: Verified seller
         rating: "%{rating} (%{count} reviews)"
-        no_ratings: "No reviews yet"
-        listings: "Listings"
-        member_since: "Member since"
-        business_details: "Business seller details"
-        legal_name: "Legal name"
-        tax_id: "Tax ID"
-        address: "Address"
-        visit_store: "Visit store"
+        no_ratings: No reviews yet
+        listings: Listings
+        member_since: Member since
+        business_details: Business seller details
+        legal_name: Legal name
+        tax_id: Tax ID
+        address: Address
+        visit_store: Visit store
       buyer_protection:
-        title: "Buyer protection"
-        body: "You are covered for %{days} days after delivery if the item does not arrive or is not as described."
-      similar: "Similar listings"
-      more_from_seller: "More from this seller"
-      published_on: "Published on %{date}"
+        title: Buyer protection
+        body: You are covered for %{days} days after delivery if the item does not arrive or is not as described.
+      similar: Similar listings
+      more_from_seller: More from this seller
+      published_on: Published on %{date}
       shipping:
-        free: "Free shipping"
-        cost: "Shipping %{price}"
-        pickup_only: "Collection only"
+        free: Free shipping
+        cost: Shipping %{price}
+        pickup_only: Collection only
       gallery:
         counter: "%{current} of %{total}"
         counter_template: "%{current} of %{total}"
-        previous: "Previous photo"
-        next: "Next photo"
-        open: "Open full-screen gallery"
-        close: "Close gallery"
-        show_photo: "Show photo %{number}"
-        empty: "No photos yet"
+        previous: Previous photo
+        next: Next photo
+        open: Open full-screen gallery
+        close: Close gallery
+        show_photo: Show photo %{number}
+        empty: No photos yet
   admin:
-    title: "Administration"
+    title: Administration
     nav:
-      label: "Administration navigation"
-      dashboard: "Dashboard"
-      moderation: "Moderation queue"
-      listings: "Listings"
-      users: "Users"
-      stores: "Stores"
-      orders: "Orders"
-      categories: "Categories"
-      filters: "Filters (attributes)"
-      tags: "Tags"
-      countries: "Countries"
-      settings: "Settings"
-      feature_flags: "Feature flags"
-      legal: "Legal pages"
-      reports: "Reports"
-      coming_soon: "Coming soon"
-      open_sidebar: "Open the admin menu"
-      close_sidebar: "Close the admin menu"
+      label: Administration navigation
+      dashboard: Dashboard
+      moderation: Moderation queue
+      listings: Listings
+      users: Users
+      stores: Stores
+      orders: Orders
+      categories: Categories
+      filters: Filters (attributes)
+      tags: Tags
+      countries: Countries
+      settings: Settings
+      feature_flags: Feature flags
+      legal: Legal pages
+      reports: Reports
+      coming_soon: Coming soon
+      open_sidebar: Open the admin menu
+      close_sidebar: Close the admin menu
     topbar:
-      search_label: "Search listings"
-      search_placeholder: "Search by title"
-      language: "Language"
-      back_to_site: "Back to site"
+      search_label: Search listings
+      search_placeholder: Search by title
+      language: Language
+      back_to_site: Back to site
     dashboard:
-      title: "Admin dashboard"
-      subtitle: "A quick view of the marketplace and the moderation queue."
+      title: Admin dashboard
+      subtitle: A quick view of the marketplace and the moderation queue.
       kpis:
-        pending_listings: "Pending listings"
-        published_today: "Published today"
-        published_last_7_days: "Published in the last 7 days"
-        new_users_today: "New users today"
-        new_users_last_7_days: "New users in the last 7 days"
-        active_stores: "Active stores"
-        published_listings: "Published listings"
+        pending_listings: Pending listings
+        published_today: Published today
+        published_last_7_days: Published in the last 7 days
+        new_users_today: New users today
+        new_users_last_7_days: New users in the last 7 days
+        active_stores: Active stores
+        published_listings: Published listings
+        open_reports: Open reports
       oldest_pending:
-        title: "Oldest pending listings"
-        subtitle: "The ten listings that have been waiting longest for review."
-        empty: "The moderation queue is empty. Nothing is waiting."
-        listing: "Listing"
-        seller: "Seller"
-        category: "Category"
-        price: "Price"
-        waiting: "Waiting"
-        actions: "Actions"
-        review: "Review"
-        waiting_for: "Waiting for %{time}"
+        title: Oldest pending listings
+        subtitle: The ten listings that have been waiting longest for review.
+        empty: The moderation queue is empty. Nothing is waiting.
+        listing: Listing
+        seller: Seller
+        category: Category
+        price: Price
+        waiting: Waiting
+        actions: Actions
+        review: Review
+        waiting_for: Waiting for %{time}
     moderation:
       index:
-        title: "Moderation queue"
-        subtitle: "Review pending listings, oldest first."
-        category: "Category"
-        all_categories: "All categories"
-        seller_kind: "Seller type"
-        photos: "Photos"
-        photos_any: "Any"
-        photos_with: "With photos"
-        photos_without: "Without photos"
-        apply: "Apply filters"
-        clear: "Clear filters"
+        title: Moderation queue
+        subtitle: Review pending listings, oldest first.
+        category: Category
+        all_categories: All categories
+        seller_kind: Seller type
+        photos: Photos
+        photos_any: Any
+        photos_with: With photos
+        photos_without: Without photos
+        apply: Apply filters
+        clear: Clear filters
         results_count:
           one: "%{count} listing waiting"
           other: "%{count} listings waiting"
         table:
-          listing: "Listing"
-          seller: "Seller"
-          price: "Price"
-          submitted: "Submitted"
-          actions: "Actions"
-        review: "Review"
-        waiting_for: "Waiting for %{time}"
-        empty_title: "Nothing to review"
-        empty_body: "New listings will appear here as soon as sellers submit them."
+          listing: Listing
+          seller: Seller
+          price: Price
+          submitted: Submitted
+          actions: Actions
+        review: Review
+        waiting_for: Waiting for %{time}
+        empty_title: Nothing to review
+        empty_body: New listings will appear here as soon as sellers submit them.
       show:
-        back: "Back to the queue"
-        previous: "Previous pending"
-        next: "Next pending"
-        buyer_preview: "Buyer preview"
-        overview: "Description"
-        condition: "Condition"
-        location: "Location"
-        seller_title: "Seller"
-        history_title: "Moderation history"
-        decision_title: "Decision"
-        approve: "Approve listing"
-        reject: "Reject and notify seller"
-        reject_hint: "Choose a predefined reason and, if you like, add a note for the seller."
-        reason_label: "Rejection reason"
-        reason_placeholder: "Add a note for the seller (optional)"
+        back: Back to the queue
+        previous: Previous pending
+        next: Next pending
+        buyer_preview: Buyer preview
+        overview: Description
+        condition: Condition
+        location: Location
+        seller_title: Seller
+        history_title: Moderation history
+        decision_title: Decision
+        approve: Approve listing
+        reject: Reject and notify seller
+        reject_hint: Choose a predefined reason and, if you like, add a note for the seller.
+        reason_label: Rejection reason
+        reason_placeholder: Add a note for the seller (optional)
       filters:
         seller_kinds:
-          all: "All sellers"
-          individual: "Individuals"
-          business: "Businesses"
+          all: All sellers
+          individual: Individuals
+          business: Businesses
       reasons:
-        prohibited_item: "Prohibited item"
-        misleading_description: "Misleading description"
-        poor_photos: "Poor photos"
-        wrong_category: "Wrong category"
-        price_suspicious: "Suspicious price"
-        contact_info_in_listing: "Contact details in the listing"
-        duplicate: "Duplicate listing"
-        other: "Other"
+        prohibited_item: Prohibited item
+        misleading_description: Misleading description
+        poor_photos: Poor photos
+        wrong_category: Wrong category
+        price_suspicious: Suspicious price
+        contact_info_in_listing: Contact details in the listing
+        duplicate: Duplicate listing
+        other: Other
       actions:
-        approved: "Approved"
-        rejected: "Rejected"
-        archived: "Archived"
-        restored: "Restored"
+        approved: Approved
+        rejected: Rejected
+        archived: Archived
+        restored: Restored
       seller:
-        account_age_label: "Account age"
+        account_age_label: Account age
         account_age:
-          one: "Member for %{count} day"
-          other: "Member for %{count} days"
-        previous_rejections_label: "Previous rejections"
+          one: Member for %{count} day
+          other: Member for %{count} days
+        previous_rejections_label: Previous rejections
         previous_rejections:
           one: "%{count} previous rejection"
           other: "%{count} previous rejections"
-        verified: "Verified"
-        verified_label: "Verification"
-        unverified: "Not verified"
+        verified: Verified
+        verified_label: Verification
+        unverified: Not verified
       history:
-        empty: "No moderation decisions have been recorded yet."
+        empty: No moderation decisions have been recorded yet.
       notices:
-        approved: "Listing approved and the seller has been notified."
-        rejected: "Listing rejected and the seller has been notified."
-        reason_required: "Choose a reason before rejecting the listing."
-        invalid_decision: "That moderation decision is not valid."
-        already_moderated: "Another moderator has already reviewed this listing."
+        approved: Listing approved and the seller has been notified.
+        rejected: Listing rejected and the seller has been notified.
+        reason_required: Choose a reason before rejecting the listing.
+        invalid_decision: That moderation decision is not valid.
+        already_moderated: Another moderator has already reviewed this listing.
       shortcuts:
-        title: "Keyboard shortcuts"
-        hint: "Press A to approve, R to choose a rejection reason and J/K to move between listings."
-        approve: "A: approve"
-        reject: "R: focus the rejection reasons"
-        next: "J: next listing"
-        previous: "K: previous listing"
+        title: Keyboard shortcuts
+        hint: Press A to approve, R to choose a rejection reason and J/K to move between listings.
+        approve: 'A: approve'
+        reject: 'R: focus the rejection reasons'
+        next: 'J: next listing'
+        previous: 'K: previous listing'
+    reports:
+      anonymous: Anonymous
+      'yes': 'Yes'
+      'no': 'No'
+      store_statuses:
+        active: Active
+        suspended: Suspended
+      statuses:
+        open: Open
+        in_review: In review
+        actioned: Action taken
+        dismissed: Dismissed
+      types:
+        listing: Listing
+        store: Store
+        message: Message
+        user: User
+      notices:
+        resolved: Report resolved and the reporter notified.
+        invalid: Add a statement of reasons before resolving the report.
+      index:
+        title: Reports
+        subtitle: Review notices received under the Digital Services Act, oldest first.
+        count:
+          one: "%{count} report"
+          other: "%{count} reports"
+        table:
+          report: Report
+          item: Item
+          reason: Reason
+          reporter: Reporter
+          created: Received
+          status: Status
+          actions: Actions
+          open: Open
+        empty_title: No reports match these filters
+        empty_body: New notices will appear here.
+      filters:
+        status: Status
+        reason: Reason
+        type: Type
+        any: Any
+        apply: Apply filters
+        clear: Clear filters
+      show:
+        title: 'Report #%{id}'
+        back: Back to reports
+        report_title: Notice details
+        reason: Reason
+        status: Status
+        reporter: Reporter
+        contact: Contact email
+        reported_item: Reported item
+        view_public: View public page
+        message_sender: Sent by %{name}
+        message_hidden: 'Message hidden: %{hidden}'
+        user_banned: 'Account banned: %{banned}'
+        history_title: Previous reports for this item
+        history_empty: No previous reports.
+        decision_title: Decision
+        decision_hint: Write a statement of reasons and choose an outcome. The reporter will receive it by email.
+        note: Statement of reasons
+        note_placeholder: Explain the decision and the action taken.
+        dismiss: Dismiss report
+        take_action: Take action
+        handled_by: Handled by %{name}
+        action_effect:
+          listing: Taking action archives the listing and notifies the seller.
+          store: Taking action suspends the storefront.
+          message: Taking action hides the message from the conversation.
+          user: Taking action bans the user account.
+      deleted_item: Deleted item
   listing_mailer:
     approved:
-      subject: "Your listing is now live"
-      greeting: "Hi %{name},"
-      body: "Good news: we have approved “%{title}” and it is now live on %{app}."
-      cta: "View your listing"
-      manage: "Edit your listing"
-      closing: "Thanks for selling with us."
+      subject: Your listing is now live
+      greeting: Hi %{name},
+      body: 'Good news: we have approved “%{title}” and it is now live on %{app}.'
+      cta: View your listing
+      manage: Edit your listing
+      closing: Thanks for selling with us.
     rejected:
-      subject: "Your listing needs a few changes"
-      greeting: "Hi %{name},"
-      body: "We have reviewed “%{title}” and it cannot be published just yet."
-      reason_label: "Reason"
-      cta: "Edit and resubmit"
-      closing: "Fix the details and send it back to us. We are here to help."
+      subject: Your listing needs a few changes
+      greeting: Hi %{name},
+      body: We have reviewed “%{title}” and it cannot be published just yet.
+      reason_label: Reason
+      cta: Edit and resubmit
+      closing: Fix the details and send it back to us. We are here to help.
     footer:
-      reason: "You are receiving this email because you have a listing on %{app}."
-      signature: "The %{app} team"
-
+      reason: You are receiving this email because you have a listing on %{app}.
+      signature: The %{app} team
   cart:
-    eyebrow: "Your basket"
-    title: "Your basket"
+    eyebrow: Your basket
+    title: Your basket
     item_count:
       one: "%{count} item"
       other: "%{count} items"
-    seller: "Sold by"
-    shipping_line: "Shipping %{price}"
-    quantity: "Qty"
+    seller: Sold by
+    shipping_line: Shipping %{price}
+    quantity: Qty
     quantity_value:
       one: "%{count} unit"
       other: "%{count} units"
-    update: "Update"
-    remove: "Remove"
-    wishlist_placeholder: "Wishlists are coming soon"
-    save_to_wishlist: "Save to wishlist"
-    checkout: "Checkout"
-    checkout_as_guest: "Checkout as guest"
-    log_in: "Log in"
-    guest_disabled: "Log in to check out. Guest checkout is currently disabled."
+    update: Update
+    remove: Remove
+    wishlist_placeholder: Wishlists are coming soon
+    save_to_wishlist: Save to wishlist
+    checkout: Checkout
+    checkout_as_guest: Checkout as guest
+    log_in: Log in
+    guest_disabled: Log in to check out. Guest checkout is currently disabled.
     errors:
-      guest_disabled: "Log in or enable guest checkout to add items to your basket."
-      invalid_quantity: "Choose a quantity of at least one."
-      own_listing: "You cannot buy your own listing."
-      unavailable: "This listing is no longer available."
-      store_vacation: "This seller is on holiday and cannot accept orders right now."
-      out_of_stock: "This listing has sold out."
-      insufficient_stock: "There is not enough stock for that quantity."
+      guest_disabled: Log in or enable guest checkout to add items to your basket.
+      invalid_quantity: Choose a quantity of at least one.
+      own_listing: You cannot buy your own listing.
+      unavailable: This listing is no longer available.
+      store_vacation: This seller is on holiday and cannot accept orders right now.
+      out_of_stock: This listing has sold out.
+      insufficient_stock: There is not enough stock for that quantity.
+      offer_invalid: This offer is no longer valid.
     flash:
-      added: "Added to your basket."
-      updated: "Basket updated."
-      removed: "Item removed from your basket."
+      added: Added to your basket.
+      updated: Basket updated.
+      removed: Item removed from your basket.
     unavailable:
-      title: "Unavailable items"
+      title: Unavailable items
       reasons:
-        own_listing: "This is your own listing."
-        store_vacation: "The seller is on holiday."
-        out_of_stock: "Out of stock."
-        unavailable: "No longer available."
+        own_listing: This is your own listing.
+        store_vacation: The seller is on holiday.
+        out_of_stock: Out of stock.
+        unavailable: No longer available.
+        offer_expired: The offer for this item has expired.
     summary:
-      title: "Order summary"
-      subtotal: "Subtotal"
-      shipping: "Shipping"
-      total: "Total"
+      title: Order summary
+      subtotal: Subtotal
+      shipping: Shipping
+      total: Total
     buyer_protection:
-      title: "Buyer protection"
-      body: "Your purchase is covered for %{days} days after delivery. Confirm delivery once everything arrives as described."
+      title: Buyer protection
+      body: Your purchase is covered for %{days} days after delivery. Confirm delivery once everything arrives as described.
     empty:
-      title: "Your basket is empty"
-      body: "Browse the marketplace and add the parts you need."
-      cta: "Start shopping"
+      title: Your basket is empty
+      body: Browse the marketplace and add the parts you need.
+      cta: Start shopping
     purchase_blocked:
-      own_listing: "You cannot buy your own listing."
-      store_vacation: "This seller is on holiday, so this item cannot be purchased right now."
-      guest_disabled: "Log in to buy this item."
-      out_of_stock: "This item has sold out."
-      unavailable: "This item is no longer available."
+      own_listing: You cannot buy your own listing.
+      store_vacation: This seller is on holiday, so this item cannot be purchased right now.
+      guest_disabled: Log in to buy this item.
+      out_of_stock: This item has sold out.
+      unavailable: This item is no longer available.
+    offer_price: Offer price
   addresses:
     errors:
-      postal_code_format: "Enter a five-digit postal code."
-      province_required: "Choose a province."
-      postal_code_province: "The postal code does not match the selected province."
-      region_country_mismatch: "The province does not belong to the selected country."
+      postal_code_format: Enter a five-digit postal code.
+      province_required: Choose a province.
+      postal_code_province: The postal code does not match the selected province.
+      region_country_mismatch: The province does not belong to the selected country.
   checkout:
-    eyebrow: "Secure checkout"
-    title: "Checkout"
-    subtitle: "Choose where to send your order and how each seller should deliver it."
+    eyebrow: Secure checkout
+    title: Checkout
+    subtitle: Choose where to send your order and how each seller should deliver it.
     errors:
-      title: "We could not start your checkout"
-      guest_disabled: "Log in to check out. Guest checkout is disabled."
-      terms_required: "Accept the Terms and the Privacy policy to continue."
-      empty_cart: "Your basket is empty."
-      address_not_found: "Choose a saved address or enter a new one."
-      unavailable_items: "Some items in your basket are no longer available. Review your basket and try again."
-      out_of_stock: "Another buyer reserved the last unit. Review your basket and try again."
-      payment_failed: "The payment was declined. No charge was made and your items have been released."
-      not_found: "We could not find that checkout."
+      title: We could not start your checkout
+      guest_disabled: Log in to check out. Guest checkout is disabled.
+      terms_required: Accept the Terms and the Privacy policy to continue.
+      empty_cart: Your basket is empty.
+      address_not_found: Choose a saved address or enter a new one.
+      unavailable_items: Some items in your basket are no longer available. Review your basket and try again.
+      out_of_stock: Another buyer reserved the last unit. Review your basket and try again.
+      payment_failed: The payment was declined. No charge was made and your items have been released.
+      not_found: We could not find that checkout.
     flash:
-      completed: "Payment received. Your order is confirmed."
+      completed: Payment received. Your order is confirmed.
     address:
-      title: "Shipping address"
-      step: "Step 1"
-      email: "Email address"
-      email_hint: "We will send your order confirmation and updates here."
-      saved: "Saved addresses"
-      use_new: "Use a new address"
-      new_title: "New address"
-      full_name: "Full name"
-      line1: "Address"
-      line2: "Address line 2 (optional)"
-      province: "Province"
-      choose_province: "Choose a province"
-      city: "City"
-      postal_code: "Postal code"
-      phone: "Phone"
-      country: "Country"
-      save_address: "Save this address for next time"
+      title: Shipping address
+      step: Step 1
+      email: Email address
+      email_hint: We will send your order confirmation and updates here.
+      saved: Saved addresses
+      use_new: Use a new address
+      new_title: New address
+      full_name: Full name
+      line1: Address
+      line2: Address line 2 (optional)
+      province: Province
+      choose_province: Choose a province
+      city: City
+      postal_code: Postal code
+      phone: Phone
+      country: Country
+      save_address: Save this address for next time
     shipping:
-      title: "Delivery options"
-      step: "Step 2"
-      shipping: "Ship to my address"
-      local_pickup: "Collect from the seller"
-      free: "Free"
+      title: Delivery options
+      step: Step 2
+      shipping: Ship to my address
+      local_pickup: Collect from the seller
+      free: Free
     withdrawal:
-      business: "Business seller: as a consumer you have 14 calendar days to withdraw from this distance purchase, starting when you receive the item."
-      private: "Private seller: EU statutory withdrawal rights do not apply to this sale. PCMarket buyer protection applies for %{days} days after delivery."
+      business: 'Business seller: as a consumer you have 14 calendar days to withdraw from this distance purchase, starting when you receive the item.'
+      private: 'Private seller: EU statutory withdrawal rights do not apply to this sale. PCMarket buyer protection applies for %{days} days after delivery.'
     payment:
-      title: "Payment"
-      step: "Step 3"
-      fake_title: "Test payment"
-      fake_body: "Payments are simulated in this phase. Press Pay to complete the order without being charged."
-      discount: "Discount code"
-      discount_placeholder: "Enter a code"
-      apply: "Apply"
-      coming_soon: "Discount codes are coming soon."
-      pay: "Pay and place order"
+      title: Payment
+      step: Step 3
+      fake_title: Test payment
+      fake_body: Payments are simulated in this phase. Press Pay to complete the order without being charged.
+      discount: Discount code
+      discount_placeholder: Enter a code
+      apply: Apply
+      coming_soon: Discount codes are coming soon.
+      pay: Pay and place order
     legal:
-      accept: "I accept the Terms and the Privacy policy."
-      notice: "By placing the order you confirm that the delivery details are correct and that you have read the seller and withdrawal information above."
+      accept: I accept the Terms and the Privacy policy.
+      notice: By placing the order you confirm that the delivery details are correct and that you have read the seller and withdrawal information above.
     summary:
-      title: "Order summary"
-      subtotal: "Subtotal"
-      shipping: "Shipping"
-      total: "Total"
+      title: Order summary
+      subtotal: Subtotal
+      shipping: Shipping
+      total: Total
     protection:
-      title: "Buyer protection"
-      body: "You have %{days} days after delivery to confirm everything is as described."
+      title: Buyer protection
+      body: You have %{days} days after delivery to confirm everything is as described.
     confirmation:
-      title: "Thank you — your order is confirmed"
-      body: "A confirmation has been sent to %{email}."
+      title: Thank you — your order is confirmed
+      body: A confirmation has been sent to %{email}.
       sellers:
-        one: "Your purchase was split into %{count} order from an independent seller."
-        other: "Your purchase was split into %{count} orders from independent sellers."
-      order: "Order"
-      total: "Total %{total}"
-      view_order: "View order"
-      my_orders: "My orders"
-      keep_shopping: "Keep shopping"
+        one: Your purchase was split into %{count} order from an independent seller.
+        other: Your purchase was split into %{count} orders from independent sellers.
+      order: Order
+      total: Total %{total}
+      view_order: View order
+      my_orders: My orders
+      keep_shopping: Keep shopping
   orders:
     statuses:
-      pending_payment: "Pending payment"
-      paid: "Paid"
-      shipped: "Shipped"
-      delivered: "Delivered"
-      completed: "Completed"
-      cancelled: "Cancelled"
-      refunded: "Refunded"
-      disputed: "Disputed"
+      pending_payment: Pending payment
+      paid: Paid
+      shipped: Shipped
+      delivered: Delivered
+      completed: Completed
+      cancelled: Cancelled
+      refunded: Refunded
+      disputed: Disputed
     fulfilments:
-      shipping: "Shipping"
-      local_pickup: "Local pickup"
+      shipping: Shipping
+      local_pickup: Local pickup
     carriers:
-      correos: "Correos"
-      seur: "SEUR"
-      mrw: "MRW"
-      gls: "GLS"
-      dhl: "DHL"
-      ups: "UPS"
-      nacex: "Nacex"
-      ctt: "CTT"
-      other: "Other"
+      correos: Correos
+      seur: SEUR
+      mrw: MRW
+      gls: GLS
+      dhl: DHL
+      ups: UPS
+      nacex: Nacex
+      ctt: CTT
+      other: Other
     events:
-      created: "Order created"
-      paid: "Payment received"
-      shipped: "Order shipped"
-      delivered: "Delivery confirmed"
-      completed: "Order completed"
-      cancelled: "Order cancelled"
-      payment_failed: "Payment declined"
-      expired: "Reservation expired"
+      created: Order created
+      paid: Payment received
+      shipped: Order shipped
+      delivered: Delivery confirmed
+      completed: Order completed
+      cancelled: Order cancelled
+      payment_failed: Payment declined
+      expired: Reservation expired
     index:
-      eyebrow: "Your purchases"
-      title: "My orders"
-      subtitle: "Track deliveries, confirm receipt and manage your purchases."
+      eyebrow: Your purchases
+      title: My orders
+      subtitle: Track deliveries, confirm receipt and manage your purchases.
       count:
         one: "%{count} order"
         other: "%{count} orders"
       items:
         one: "%{count} item"
         other: "%{count} items"
-      view: "View order"
-      empty_title: "No orders yet"
-      empty_body: "When you buy something, your orders will appear here."
-      empty_cta: "Browse the marketplace"
+      view: View order
+      empty_title: No orders yet
+      empty_body: When you buy something, your orders will appear here.
+      empty_cta: Browse the marketplace
     show:
-      title: "Order %{number}"
-      back: "Back to my orders"
-      eyebrow: "Order details"
-      placed_on: "Placed on %{date}"
-      items: "Items"
+      title: Order %{number}
+      back: Back to my orders
+      eyebrow: Order details
+      placed_on: Placed on %{date}
+      items: Items
       quantity:
         one: "%{count} unit"
         other: "%{count} units"
-      subtotal: "Subtotal"
-      shipping: "Shipping"
-      total: "Total"
-      timeline: "Status timeline"
-      no_events: "No status updates yet."
-      delivery: "Delivery"
-      tracking: "Tracking: %{carrier} · %{number}"
-      actions: "Actions"
-      confirm_delivery: "Confirm delivery"
-      cancel: "Cancel order"
-      cancel_reason: "Reason (optional)"
-      cancel_confirm: "Cancel this order?"
-      report_problem: "Report a problem"
-      report_problem_hint: "Disputes will open here in a future update."
-      protection_title: "Buyer protection"
-      protection_body: "You can report a problem until %{date}."
+      subtotal: Subtotal
+      shipping: Shipping
+      total: Total
+      timeline: Status timeline
+      no_events: No status updates yet.
+      delivery: Delivery
+      tracking: 'Tracking: %{carrier} · %{number}'
+      actions: Actions
+      confirm_delivery: Confirm delivery
+      cancel: Cancel order
+      cancel_reason: Reason (optional)
+      cancel_confirm: Cancel this order?
+      report_problem: Report a problem
+      report_problem_hint: Disputes will open here in a future update.
+      protection_title: Buyer protection
+      protection_body: You can report a problem until %{date}.
     flash:
-      delivery_confirmed: "Delivery confirmed. Thank you!"
-      cannot_confirm_delivery: "This order cannot be confirmed right now."
-      cancelled: "Order cancelled."
-      cannot_cancel: "This order cannot be cancelled right now."
-      problem_report_placeholder: "Problem reports will be available soon."
+      delivery_confirmed: Delivery confirmed. Thank you!
+      cannot_confirm_delivery: This order cannot be confirmed right now.
+      cancelled: Order cancelled.
+      cannot_cancel: This order cannot be cancelled right now.
+      problem_report_placeholder: Problem reports will be available soon.
   sales:
     index:
-      eyebrow: "Seller centre"
-      title: "My sales"
-      subtitle: "Track paid orders, ship them and manage cancellations."
+      eyebrow: Seller centre
+      title: My sales
+      subtitle: Track paid orders, ship them and manage cancellations.
       count:
         one: "%{count} sale"
         other: "%{count} sales"
-      filters_label: "Filter sales by status"
-      all: "All"
+      filters_label: Filter sales by status
+      all: All
       items:
         one: "%{count} item"
         other: "%{count} items"
-      payout: "Your payout %{amount}"
-      view: "View sale"
-      empty_title: "No sales yet"
-      empty_body: "Orders from buyers will appear here as soon as they are paid."
+      payout: Your payout %{amount}
+      view: View sale
+      empty_title: No sales yet
+      empty_body: Orders from buyers will appear here as soon as they are paid.
     show:
-      title: "Sale %{number}"
-      back: "Back to my sales"
-      eyebrow: "Sale details"
-      placed_on: "Placed on %{date}"
-      items: "Items"
+      title: Sale %{number}
+      back: Back to my sales
+      eyebrow: Sale details
+      placed_on: Placed on %{date}
+      items: Items
       quantity:
         one: "%{count} unit"
         other: "%{count} units"
-      subtotal: "Items subtotal"
-      shipping: "Shipping"
-      commission: "Commission"
-      payout: "Your payout"
-      timeline: "Status timeline"
-      no_events: "No status updates yet."
-      delivery: "Delivery"
-      tracking: "Tracking: %{carrier} · %{number}"
-      address_locked: "The buyer's address is shown once the payment is confirmed."
-      ship_title: "Mark as shipped"
-      carrier: "Carrier"
-      carrier_optional: "Carrier (optional)"
-      choose_carrier: "Choose a carrier"
-      tracking_number: "Tracking number"
-      mark_shipped: "Mark as shipped"
-      cancel_title: "Cancel sale"
-      cancel_reason: "Reason (optional)"
-      cancel: "Cancel order"
-      cancel_confirm: "Cancel this order and refund the buyer if needed?"
+      subtotal: Items subtotal
+      shipping: Shipping
+      commission: Commission
+      payout: Your payout
+      timeline: Status timeline
+      no_events: No status updates yet.
+      delivery: Delivery
+      tracking: 'Tracking: %{carrier} · %{number}'
+      address_locked: The buyer's address is shown once the payment is confirmed.
+      ship_title: Mark as shipped
+      carrier: Carrier
+      carrier_optional: Carrier (optional)
+      choose_carrier: Choose a carrier
+      tracking_number: Tracking number
+      mark_shipped: Mark as shipped
+      cancel_title: Cancel sale
+      cancel_reason: Reason (optional)
+      cancel: Cancel order
+      cancel_confirm: Cancel this order and refund the buyer if needed?
     flash:
-      shipped: "Order marked as shipped."
-      cannot_ship: "Add a carrier and tracking number, or check the order status."
-      cancelled: "Order cancelled."
-      cannot_cancel: "This order cannot be cancelled right now."
+      shipped: Order marked as shipped.
+      cannot_ship: Add a carrier and tracking number, or check the order status.
+      cancelled: Order cancelled.
+      cannot_cancel: This order cannot be cancelled right now.
   order_mailer:
     footer:
-      reason: "You are receiving this email because of an order on %{app}."
-      signature: "The %{app} team"
+      reason: You are receiving this email because of an order on %{app}.
+      signature: The %{app} team
     details:
-      subtotal: "Subtotal"
-      shipping: "Shipping"
-      total: "Total"
-      tracking: "Tracking: %{carrier} · %{number}"
+      subtotal: Subtotal
+      shipping: Shipping
+      total: Total
+      tracking: 'Tracking: %{carrier} · %{number}'
     buyer_confirmation:
-      subject: "Order %{number} confirmed"
-      greeting: "Hello %{name},"
-      body: "Your order %{number} from %{store} is confirmed. We will let you know when it ships."
-      cta: "View your order"
-      closing: "Thank you for shopping on PCMarket."
+      subject: Order %{number} confirmed
+      greeting: Hello %{name},
+      body: Your order %{number} from %{store} is confirmed. We will let you know when it ships.
+      cta: View your order
+      closing: Thank you for shopping on PCMarket.
     seller_new_sale:
-      subject: "New sale %{number}"
-      greeting: "Hello %{name},"
-      body: "You have a new paid order %{number}. Please prepare it for dispatch."
-      cta: "Open the sale"
-      closing: "Ship promptly to keep your buyer protection metrics healthy."
+      subject: New sale %{number}
+      greeting: Hello %{name},
+      body: You have a new paid order %{number}. Please prepare it for dispatch.
+      cta: Open the sale
+      closing: Ship promptly to keep your buyer protection metrics healthy.
     order_shipped:
-      subject: "Order %{number} has shipped"
-      greeting: "Hello %{name},"
-      body: "Your order %{number} from %{store} is on its way."
-      cta: "Track your order"
-      closing: "Confirm delivery once it arrives."
+      subject: Order %{number} has shipped
+      greeting: Hello %{name},
+      body: Your order %{number} from %{store} is on its way.
+      cta: Track your order
+      closing: Confirm delivery once it arrives.
     delivery_confirmed:
-      subject: "Delivery confirmed for order %{number}"
-      greeting: "Hello %{name},"
-      body: "The buyer confirmed delivery of order %{number}. Your payout will be released according to the marketplace schedule."
-      cta: "Open the sale"
-      closing: "Thank you for selling on PCMarket."
+      subject: Delivery confirmed for order %{number}
+      greeting: Hello %{name},
+      body: The buyer confirmed delivery of order %{number}. Your payout will be released according to the marketplace schedule.
+      cta: Open the sale
+      closing: Thank you for selling on PCMarket.
     order_cancelled:
-      subject: "Order %{number} cancelled"
-      greeting: "Hello,"
-      body: "Order %{number} has been cancelled. Any payment taken will be refunded to the original method."
-      closing: "If you have questions, contact PCMarket support."
+      subject: Order %{number} cancelled
+      greeting: Hello,
+      body: Order %{number} has been cancelled. Any payment taken will be refunded to the original method.
+      closing: If you have questions, contact PCMarket support.
   wishlist:
-    title: "Wishlist"
-    eyebrow: "Your account"
-    subtitle: "Everything you saved and the sellers you follow."
-    sold: "Sold"
-    unavailable: "Unavailable"
+    title: Wishlist
+    eyebrow: Your account
+    subtitle: Everything you saved and the sellers you follow.
+    sold: Sold
+    unavailable: Unavailable
     tabs:
-      label: "Wishlist sections"
-      favourites: "Favourites"
-      following: "Following"
+      label: Wishlist sections
+      favourites: Favourites
+      following: Following
     favourites:
-      added_on: "Saved on %{date}"
-      remove: "Remove"
-      move_to_basket: "Move to basket"
-      empty_title: "No favourites yet"
-      empty_body: "Use the heart on any listing to keep it here."
-      empty_cta: "Browse listings"
+      added_on: Saved on %{date}
+      remove: Remove
+      move_to_basket: Move to basket
+      empty_title: No favourites yet
+      empty_body: Use the heart on any listing to keep it here.
+      empty_cta: Browse listings
     following:
       followers_count:
         one: "%{count} follower"
@@ -1097,155 +1172,371 @@ en:
       listings_count:
         one: "%{count} listing"
         other: "%{count} listings"
-      following_since: "Following since %{date}"
-      unfollow: "Unfollow"
-      empty_title: "You are not following any stores yet"
-      empty_body: "Follow a seller from a listing page to see their new items here."
-      empty_cta: "Browse listings"
+      following_since: Following since %{date}
+      unfollow: Unfollow
+      empty_title: You are not following any stores yet
+      empty_body: Follow a seller from a listing page to see their new items here.
+      empty_cta: Browse listings
   favourites:
     button:
-      add: "Add to favourites"
-      remove: "Remove from favourites"
+      add: Add to favourites
+      remove: Remove from favourites
     flash:
-      added: "Listing added to your favourites."
-      removed: "Listing removed from your favourites."
+      added: Listing added to your favourites.
+      removed: Listing removed from your favourites.
   follows:
     button:
-      follow: "Follow store"
-      following: "Following"
+      follow: Follow store
+      following: Following
     flash:
-      followed: "You are now following this store."
-      unfollowed: "You stopped following this store."
+      followed: You are now following this store.
+      unfollowed: You stopped following this store.
   saved_searches:
-    hint: "Save these filters and get alerts when new items match."
-    save: "Save this search"
+    hint: Save these filters and get alerts when new items match.
+    save: Save this search
     index:
-      eyebrow: "Your account"
-      title: "Saved searches"
-      subtitle: "Keep your favourite filters close and get alerts when new matches appear."
+      eyebrow: Your account
+      title: Saved searches
+      subtitle: Keep your favourite filters close and get alerts when new matches appear.
       count: "%{count} of %{max} saved searches"
-      limit_note: "You can save up to %{max} searches. Delete one to make room for a new search."
-      empty_title: "No saved searches yet"
-      empty_body: "Run a search and use the save button to keep its filters here."
-      empty_cta: "Browse listings"
+      limit_note: You can save up to %{max} searches. Delete one to make room for a new search.
+      empty_title: No saved searches yet
+      empty_body: Run a search and use the save button to keep its filters here.
+      empty_cta: Browse listings
     card:
-      created_on: "Saved on %{date}"
-      no_filters: "All listings"
-      name_label: "Search name"
-      email_alerts: "Email alerts"
-      frequency: "Alert frequency"
-      save: "Save changes"
-      view_results: "View results"
-      delete: "Delete"
-      delete_confirm: "Delete this saved search?"
+      created_on: Saved on %{date}
+      no_filters: All listings
+      name_label: Search name
+      email_alerts: Email alerts
+      frequency: Alert frequency
+      save: Save changes
+      view_results: View results
+      delete: Delete
+      delete_confirm: Delete this saved search?
     frequency_options:
-      instant: "Instant"
-      daily: "Daily digest"
-      weekly: "Weekly digest"
+      instant: Instant
+      daily: Daily digest
+      weekly: Weekly digest
     flash:
-      created: "Search saved."
-      updated: "Saved search updated."
-      destroyed: "Saved search deleted."
+      created: Search saved.
+      updated: Saved search updated.
+      destroyed: Saved search deleted.
     names:
-      all: "All listings"
-      up_to: "up to %{price}"
-      from: "from %{price}"
+      all: All listings
+      up_to: up to %{price}
+      from: from %{price}
       between: "%{min} – %{max}"
     errors:
-      limit_reached: "You can save up to %{max} searches."
-      invalid_query_params: "The search filters are not valid."
+      limit_reached: You can save up to %{max} searches.
+      invalid_query_params: The search filters are not valid.
   notifications:
     index:
-      eyebrow: "Your account"
-      title: "Notifications"
-      subtitle: "Order updates, moderation decisions and alerts from your saved searches."
+      eyebrow: Your account
+      title: Notifications
+      subtitle: Order updates, moderation decisions and alerts from your saved searches.
       count:
         one: "%{count} notification"
         other: "%{count} notifications"
-      unread: "Unread"
-      mark_all_read: "Mark all as read"
-      empty_title: "You are all caught up"
-      empty_body: "New order updates and alerts will appear here."
+      unread: Unread
+      mark_all_read: Mark all as read
+      empty_title: You are all caught up
+      empty_body: New order updates and alerts will appear here.
     filters:
-      label: "Filter notifications"
-      unread: "Unread"
-      all: "All"
+      label: Filter notifications
+      unread: Unread
+      all: All
     bell:
-      label: "Notifications"
-      title: "Notifications"
+      label: Notifications
+      title: Notifications
       unread_count:
-        one: "1 unread notification"
+        one: 1 unread notification
         other: "%{count} unread notifications"
-      mark_all_read: "Mark all as read"
-      view_all: "View all"
-      empty: "No notifications yet"
+      mark_all_read: Mark all as read
+      view_all: View all
+      empty: No notifications yet
     messages:
-      default: "You have a new notification."
-      listing_approved: "Your listing “%{title}” was approved."
-      listing_rejected: "Your listing “%{title}” was rejected: %{reason}"
-      new_sale: "You sold “%{title}” on order %{number} for %{amount}."
-      order_shipped: "Order %{number} has been shipped."
-      order_delivered: "Order %{number} has been delivered."
-      order_cancelled: "Order %{number} has been cancelled."
+      default: You have a new notification.
+      listing_approved: Your listing “%{title}” was approved.
+      listing_rejected: 'Your listing “%{title}” was rejected: %{reason}'
+      new_sale: You sold “%{title}” on order %{number} for %{amount}.
+      order_shipped: Order %{number} has been shipped.
+      order_delivered: Order %{number} has been delivered.
+      order_cancelled: Order %{number} has been cancelled.
       price_drop: "“%{title}” from %{store_name} now costs %{price}."
       followed_store_new_listing: "%{store_name} published “%{title}”."
-      saved_search_match: "New match for “%{name}”: %{title}."
+      saved_search_match: 'New match for “%{name}”: %{title}.'
+      new_message: "%{sender_name} sent you a message about “%{title}”."
+      new_offer: New offer of %{amount} for “%{title}”.
+      offer_accepted: Your offer of %{amount} for “%{title}” was accepted.
+      offer_declined: Your offer of %{amount} for “%{title}” was declined.
+      offer_countered: New counter offer of %{amount} for “%{title}”.
+      offer_expired: Your offer of %{amount} for “%{title}” expired.
+      offer_expiring: Your offer of %{amount} for “%{title}” expires soon.
     preferences:
-      eyebrow: "Your account"
-      title: "Notification settings"
-      subtitle: "Choose which updates you receive in the app and by email."
-      kind: "Notification"
-      in_app: "In app"
-      email: "Email"
-      save: "Save preferences"
-      marketing_note: "Marketing emails are only sent when you explicitly opt in from your account settings."
+      eyebrow: Your account
+      title: Notification settings
+      subtitle: Choose which updates you receive in the app and by email.
+      kind: Notification
+      in_app: In app
+      email: Email
+      save: Save preferences
+      marketing_note: Marketing emails are only sent when you explicitly opt in from your account settings.
       kinds:
-        listing_approved: "Listing approved"
-        listing_rejected: "Listing rejected"
-        new_sale: "New sale"
-        order_shipped: "Order shipped"
-        order_delivered: "Order delivered"
-        order_cancelled: "Order cancelled"
-        price_drop: "Price drop"
-        followed_store_new_listing: "New listings from followed stores"
-        saved_search_match: "Saved search matches"
+        listing_approved: Listing approved
+        listing_rejected: Listing rejected
+        new_sale: New sale
+        order_shipped: Order shipped
+        order_delivered: Order delivered
+        order_cancelled: Order cancelled
+        price_drop: Price drop
+        followed_store_new_listing: New listings from followed stores
+        saved_search_match: Saved search matches
+        new_message: New messages
+        new_offer: New offers
+        offer_accepted: Offer accepted
+        offer_declined: Offer declined
+        offer_countered: Counter offers
+        offer_expired: Offer expired
+        offer_expiring: Offer expiring soon
       flash:
-        updated: "Notification preferences updated."
+        updated: Notification preferences updated.
     flash:
-      all_read: "All notifications marked as read."
+      all_read: All notifications marked as read.
     errors:
-      invalid_params: "The notification data is not valid."
+      invalid_params: The notification data is not valid.
   email_unsubscribe:
     flash:
-      success: "You have been unsubscribed from these emails."
-      invalid: "This unsubscribe link is invalid or has expired."
+      success: You have been unsubscribed from these emails.
+      invalid: This unsubscribe link is invalid or has expired.
   alert_mailer:
     footer:
-      reason: "You are receiving this email because you enabled alerts on %{app}."
-      unsubscribe: "Unsubscribe from these alerts"
-      signature: "The %{app} team"
+      reason: You are receiving this email because you enabled alerts on %{app}.
+      unsubscribe: Unsubscribe from these alerts
+      signature: The %{app} team
     price_drop:
-      subject: "Price drop: %{title}"
-      greeting: "Hello %{name},"
+      subject: 'Price drop: %{title}'
+      greeting: Hello %{name},
       body: "%{title} from %{store} is now %{price}."
-      cta: "View the listing"
-      closing: "You are receiving this email because you saved this listing."
+      cta: View the listing
+      closing: You are receiving this email because you saved this listing.
     followed_store_new_listing:
-      subject: "New listings from %{store}"
-      greeting: "Hello %{name},"
+      subject: New listings from %{store}
+      greeting: Hello %{name},
       body: "%{store} has just published new listings."
-      cta: "View the listing"
-      closing: "You are receiving this email because you follow this store."
+      cta: View the listing
+      closing: You are receiving this email because you follow this store.
     saved_search_match:
-      subject: "New match for %{name}"
-      greeting: "Hello %{name},"
-      body: "A new listing matches your saved search “%{name}”: %{title}."
-      cta: "View the listing"
-      closing: "You are receiving this email because you enabled alerts for this saved search."
+      subject: New match for %{name}
+      greeting: Hello %{name},
+      body: 'A new listing matches your saved search “%{name}”: %{title}.'
+      cta: View the listing
+      closing: You are receiving this email because you enabled alerts for this saved search.
     saved_search_digest:
-      subject: "Your saved search digest"
-      greeting: "Hello %{name},"
-      body: "Here are the latest listings that match your saved searches."
+      subject: Your saved search digest
+      greeting: Hello %{name},
+      body: Here are the latest listings that match your saved searches.
       search_heading: "%{name}"
-      cta: "View the results"
-      closing: "You are receiving this email because you enabled alerts for your saved searches."
+      cta: View the results
+      closing: You are receiving this email because you enabled alerts for your saved searches.
+  conversations:
+    errors:
+      self: You cannot message yourself.
+      seller_mismatch: The seller does not belong to this store.
+      listing_mismatch: The listing does not belong to this store.
+      blocked: You cannot message this user because one of you has blocked the other.
+      rate_limited: You can start at most %{max} new conversations per hour. Please try again later.
+      unavailable: This conversation is not available.
+    flash:
+      opened: Conversation opened.
+      all_read: All conversations marked as read.
+    index:
+      eyebrow: Your account
+      title: Inbox & offers
+      subtitle: Negotiate with buyers and sellers, track your offers and manage blocked users.
+      mark_all_read: Mark all as read
+      tabs_label: Inbox sections
+      tabs:
+        chats: Chats
+        offers: Offers
+        blocked: Blocked users
+      no_messages: No messages yet
+      empty_chats_title: No conversations yet
+      empty_chats_body: Message a seller from a listing or store page to start negotiating.
+      empty_offers_title: No offers yet
+      empty_offers_body: Offers you make or receive will appear here.
+      empty_blocked_title: No blocked users
+      empty_blocked_body: Users you block will appear here so you can unblock them later.
+    show:
+      back: Back to inbox
+      composer_placeholder: Write a message…
+      attach_images: Attach images
+      send: Send
+      composer_hint: Enter sends, Shift+Enter adds a new line. Up to 4 images, 10 MB each.
+  messages:
+    flash:
+      sent: Message sent.
+    errors:
+      not_participant: You are not part of this conversation.
+      blocked: You cannot send messages to this user.
+      rate_limited: You can send at most %{max} messages every 10 minutes. Please try again later.
+    safety_warning: Pay only through PCMarket to keep Buyer Protection. Never share phone numbers, emails, bank details or pay outside the platform.
+    read: Read
+  offers:
+    errors:
+      amount_range: The offer must be at least %{min} € and below %{max} €.
+      self: You cannot make an offer on your own listing.
+      pending_exists: You already have a pending offer for this listing.
+      counter_mismatch: The counter offer does not match this listing.
+      disabled: Offers are not available right now.
+      unavailable: This listing does not accept offers.
+      blocked: You cannot make an offer to this seller.
+      not_pending: This offer is no longer pending.
+      expired: This offer has expired.
+      not_recipient: You cannot respond to this offer.
+      invalid_decision: That offer decision is not valid.
+    statuses:
+      pending: Pending
+      accepted: Accepted
+      declined: Declined
+      countered: Countered
+      expired: Expired
+      withdrawn: Withdrawn
+    flash:
+      created: Offer sent.
+      accept: Offer accepted.
+      decline: Offer declined.
+      counter: Counter offer sent.
+    form:
+      title: Make an offer
+      amount: Your price (€)
+      message_placeholder: Add a message to the seller (optional)
+      hint: Offers must be at least 50% of the asking price and below it. They expire after 48 hours.
+    inbox:
+      with: With %{name}
+      open: Open chat
+    actions:
+      pending: Pending offer of %{amount}
+      accept: Accept
+      decline: Decline
+      counter_amount: Counter price (€)
+      counter_message: Message (optional)
+      counter: Send counter
+      accepted: Offer accepted at %{amount}
+      buy: Buy at offer price
+    system:
+      created: Offer of %{amount} sent.
+      accepted: Offer of %{amount} accepted.
+      declined: Offer of %{amount} declined.
+      countered: Counter offer of %{amount} sent.
+      expired: Offer of %{amount} expired.
+  blocks:
+    errors:
+      self: You cannot block yourself.
+    flash:
+      created: User blocked.
+      destroyed: User unblocked.
+    block: Block
+    unblock: Unblock
+  reports:
+    link: Report
+    reasons:
+      illegal_content: Illegal content
+      counterfeit: Counterfeit product
+      stolen_goods: Stolen goods
+      scam_fraud: Scam or fraud
+      prohibited_item: Prohibited item
+      misleading: Misleading information
+      harassment: Harassment
+      spam: Spam
+      ip_infringement: Intellectual property infringement
+      other: Other
+    errors:
+      invalid_email: Enter a valid email address.
+      unavailable: This item cannot be reported.
+    flash:
+      created: Thank you. Your report has been received and we will review it.
+    new:
+      eyebrow: Trust & Safety
+      title: Report this item
+      subtitle: Tell us what is wrong. We review every notice under the EU Digital Services Act.
+      reported_item: Reported item
+      email: Your email address
+      email_hint: We will send you an acknowledgement and the final decision.
+      reason: Reason
+      reason_placeholder: Choose a reason
+      details: What happened?
+      details_placeholder: Describe the problem, including links or evidence where possible.
+      details_hint: Between 20 and 2000 characters.
+      cancel: Cancel
+      submit: Submit report
+      dsa_notice: We process reports under the notice-and-action rules of the EU Digital Services Act. False reports may lead to account restrictions.
+  storefronts:
+    member_since: Member since %{date}
+    report_hint: Something wrong with this store?
+    listings_title: Listings from this store
+    empty_title: No active listings
+    empty_body: This store has no published listings right now.
+  message_mailer:
+    new_message:
+      subject: New message from %{sender}
+      greeting: Hello %{name},
+      body: "%{sender} sent you a message about “%{title}”."
+      cta: Open the conversation
+      closing: You can reply from your inbox. If you have already read it, you can ignore this email.
+  offer_mailer:
+    new_offer:
+      subject: New offer for “%{title}”
+      greeting: Hello %{name},
+      body: You received a new offer of %{amount} for “%{title}”.
+      cta: Review the offer
+      closing: Offers expire after 48 hours.
+    offer_accepted:
+      subject: 'Your offer was accepted: %{title}'
+      greeting: Hello %{name},
+      body: Your offer of %{amount} for “%{title}” was accepted. You can now buy at that price.
+      cta: Buy at offer price
+      closing: Complete the purchase from the conversation before the offer expires.
+    offer_declined:
+      subject: 'Your offer was declined: %{title}'
+      greeting: Hello %{name},
+      body: Your offer of %{amount} for “%{title}” was declined.
+      cta: Open the conversation
+      closing: You can still message the seller or make another offer.
+    offer_countered:
+      subject: New counter offer for “%{title}”
+      greeting: Hello %{name},
+      body: You received a counter offer of %{amount} for “%{title}”.
+      cta: Review the counter offer
+      closing: Accept it or decline it from the conversation.
+    offer_expiring:
+      subject: Your offer for “%{title}” expires soon
+      greeting: Hello %{name},
+      body: The offer of %{amount} for “%{title}” expires in less than 6 hours.
+      cta: Respond now
+      closing: After it expires you will need to make a new offer.
+    offer_expired:
+      subject: Your offer for “%{title}” expired
+      greeting: Hello %{name},
+      body: The offer of %{amount} for “%{title}” has expired.
+      cta: Open the conversation
+      closing: You can make a new offer if the listing is still available.
+  report_mailer:
+    acknowledgement:
+      subject: We received your report
+      greeting: Hello,
+      body: 'Thank you for your report. We have recorded it as reference #%{reference} and will review it under our notice-and-action process.'
+      reason_label: Reason
+      closing: We will email you again with the decision.
+    decision:
+      subject: 'Decision on your report: %{decision}'
+      greeting: Hello,
+      body: 'We have reviewed report #%{reference}. Decision: %{decision}.'
+      note_label: Statement of reasons
+      closing: Thank you for helping keep PCMarket safe.
+    decisions:
+      actioned: Action taken
+      dismissed: Report dismissed
+  notification_mailer:
+    footer:
+      reason: You are receiving this email because of activity on your %{app} account.
+      signature: The %{app} team

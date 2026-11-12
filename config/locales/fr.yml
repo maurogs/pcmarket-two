@@ -1,1095 +1,1170 @@
 fr:
   app:
-    name: "PCMarket"
-    tagline: "Achetez et vendez des pièces d'ordinateur"
+    name: PCMarket
+    tagline: Achetez et vendez des pièces d'ordinateur
   announcement:
-    promo: "Livraison offerte dès 75 € — achetez et vendez en toute confiance"
-    links: "Liens rapides"
-    help: "Aide"
-    blog: "Blog"
-    finder: "Configurateur PC"
+    promo: Livraison offerte dès 75 € — achetez et vendez en toute confiance
+    links: Liens rapides
+    help: Aide
+    blog: Blog
+    finder: Configurateur PC
   nav:
-    home: "Accueil"
-    search_placeholder: "Rechercher des pièces d'ordinateur"
-    list_item: "Publier une annonce"
-    sell_to_us: "Vendez-nous votre matériel"
-    wishlist: "Favoris"
-    notifications: "Notifications"
-    cart: "Panier"
-    account: "Compte"
-    menu: "Menu"
-    open_menu: "Ouvrir le menu"
-    close_menu: "Fermer le menu"
-    language: "Langue"
+    home: Accueil
+    search_placeholder: Rechercher des pièces d'ordinateur
+    list_item: Publier une annonce
+    sell_to_us: Vendez-nous votre matériel
+    wishlist: Favoris
+    notifications: Notifications
+    cart: Panier
+    account: Compte
+    menu: Menu
+    open_menu: Ouvrir le menu
+    close_menu: Fermer le menu
+    language: Langue
     theme:
-      toggle: "Changer de thème"
+      toggle: Changer de thème
     categories:
-      label: "Acheter par catégorie"
-      new: "Nouveautés"
-      gaming_pcs: "PC gaming"
-      gpus: "Cartes graphiques"
-      components: "Composants"
-      peripherals: "Périphériques"
-      laptops: "Ordinateurs portables"
-      phones_tablets: "Téléphones et tablettes"
-      consoles: "Consoles"
-      more: "Plus"
-      all_category: "Tout %{category}"
+      label: Acheter par catégorie
+      new: Nouveautés
+      gaming_pcs: PC gaming
+      gpus: Cartes graphiques
+      components: Composants
+      peripherals: Périphériques
+      laptops: Ordinateurs portables
+      phones_tablets: Téléphones et tablettes
+      consoles: Consoles
+      more: Plus
+      all_category: Tout %{category}
   home:
     hero:
-      eyebrow: "Conçu pour les passionnés de PC"
-      title: "Trouvez les pièces. Montez la configuration parfaite."
-      subtitle: "Achetez des composants testés auprès de vendeurs de confiance ou transformez votre matériel inutilisé en argent, au même endroit."
-      cta: "Explorer la marketplace"
+      eyebrow: Conçu pour les passionnés de PC
+      title: Trouvez les pièces. Montez la configuration parfaite.
+      subtitle: Achetez des composants testés auprès de vendeurs de confiance ou transformez votre matériel inutilisé en argent, au même endroit.
+      cta: Explorer la marketplace
   footer:
     newsletter:
-      title: "Restez informé"
-      description: "Offres hebdomadaires, nouveautés et conseils de montage, directement dans votre boîte de réception."
-      label: "Adresse e-mail"
-      placeholder: "vous@exemple.com"
-      button: "S'abonner"
-      note: "Pas de spam. Désabonnement à tout moment."
+      title: Restez informé
+      description: Offres hebdomadaires, nouveautés et conseils de montage, directement dans votre boîte de réception.
+      label: Adresse e-mail
+      placeholder: vous@exemple.com
+      button: S'abonner
+      note: Pas de spam. Désabonnement à tout moment.
     about:
-      title: "À propos"
-      about_us: "Qui sommes-nous"
-      trust_safety: "Confiance et sécurité"
-      blog: "Blog"
+      title: À propos
+      about_us: Qui sommes-nous
+      trust_safety: Confiance et sécurité
+      blog: Blog
     help:
-      title: "Aide"
-      help_centre: "Centre d'aide"
-      contact: "Contact"
-      shipping: "Livraison"
-      returns: "Retours"
+      title: Aide
+      help_centre: Centre d'aide
+      contact: Contact
+      shipping: Livraison
+      returns: Retours
     selling:
-      title: "Vendre"
-      how_to_sell: "Comment vendre"
-      fees: "Frais de vendeur"
-      academy: "Académie des vendeurs"
+      title: Vendre
+      how_to_sell: Comment vendre
+      fees: Frais de vendeur
+      academy: Académie des vendeurs
     legal:
-      label: "Légal"
-      terms: "Conditions"
-      privacy: "Confidentialité"
-      cookies: "Cookies"
-      legal_notice: "Mentions légales"
+      label: Légal
+      terms: Conditions
+      privacy: Confidentialité
+      cookies: Cookies
+      legal_notice: Mentions légales
     social:
-      instagram: "Instagram"
-      youtube: "YouTube"
-      x: "X"
+      instagram: Instagram
+      youtube: YouTube
+      x: X
     copyright: "© %{year} PCMarket. Tous droits réservés."
   flash:
-    dismiss: "Fermer la notification"
+    dismiss: Fermer la notification
   layout:
-    skip_to_content: "Aller au contenu principal"
-    back_to_top: "Retour en haut"
+    skip_to_content: Aller au contenu principal
+    back_to_top: Retour en haut
   locale:
     names:
-      es: "Español"
-      en: "English"
-      fr: "Français"
-      de: "Deutsch"
-      it: "Italiano"
-      pt: "Português"
+      es: Español
+      en: English
+      fr: Français
+      de: Deutsch
+      it: Italiano
+      pt: Português
   countries:
-    es: "Espagne"
-    fr: "France"
-    gb: "Royaume-Uni"
-    de: "Allemagne"
-    it: "Italie"
-    pt: "Portugal"
+    es: Espagne
+    fr: France
+    gb: Royaume-Uni
+    de: Allemagne
+    it: Italie
+    pt: Portugal
   settings:
-    listings_require_approval: "Exiger une approbation avant la publication d'une annonce"
-    commission_percent: "Commission prélevée sur chaque vente (%)"
-    commission_enabled: "Appliquer des commissions sur les ventes"
-    featured_listing_price: "Prix d'une annonce mise en avant"
-    featured_enabled: "Permettre aux vendeurs de mettre en avant leurs annonces"
-    max_images_per_listing: "Nombre maximal d'images par annonce"
-    min_listing_price: "Prix minimum d'une annonce"
-    max_listing_price: "Prix maximum d'une annonce"
-    buyer_protection_days: "Jours de protection de l'acheteur après livraison"
-    support_email: "Adresse e-mail du support"
-    maintenance_mode: "Mettre la place de marché en maintenance"
+    listings_require_approval: Exiger une approbation avant la publication d'une annonce
+    commission_percent: Commission prélevée sur chaque vente (%)
+    commission_enabled: Appliquer des commissions sur les ventes
+    featured_listing_price: Prix d'une annonce mise en avant
+    featured_enabled: Permettre aux vendeurs de mettre en avant leurs annonces
+    max_images_per_listing: Nombre maximal d'images par annonce
+    min_listing_price: Prix minimum d'une annonce
+    max_listing_price: Prix maximum d'une annonce
+    buyer_protection_days: Jours de protection de l'acheteur après livraison
+    support_email: Adresse e-mail du support
+    maintenance_mode: Mettre la place de marché en maintenance
   auth:
     sign_in:
-      title: "Bon retour"
-      subtitle: "Connectez-vous pour gérer vos annonces, commandes et favoris."
-      submit: "Se connecter"
+      title: Bon retour
+      subtitle: Connectez-vous pour gérer vos annonces, commandes et favoris.
+      submit: Se connecter
     sign_up:
-      title: "Créez votre compte"
-      subtitle: "Rejoignez la place de marché et commencez à acheter ou vendre des pièces d'ordinateur."
-      submit: "Créer un compte"
+      title: Créez votre compte
+      subtitle: Rejoignez la place de marché et commencez à acheter ou vendre des pièces d'ordinateur.
+      submit: Créer un compte
     forgot_password:
-      title: "Mot de passe oublié ?"
-      subtitle: "Saisissez votre e-mail et nous vous enverrons un lien de réinitialisation."
-      submit: "Envoyer le lien"
+      title: Mot de passe oublié ?
+      subtitle: Saisissez votre e-mail et nous vous enverrons un lien de réinitialisation.
+      submit: Envoyer le lien
     reset_password:
-      title: "Choisissez un nouveau mot de passe"
-      subtitle: "Utilisez un mot de passe robuste que vous n'avez jamais utilisé."
-      submit: "Changer le mot de passe"
+      title: Choisissez un nouveau mot de passe
+      subtitle: Utilisez un mot de passe robuste que vous n'avez jamais utilisé.
+      submit: Changer le mot de passe
     confirmation:
-      title: "Confirmez votre e-mail"
-      subtitle: "Nous vous renverrons les instructions de confirmation."
-      submit: "Renvoyer la confirmation"
+      title: Confirmez votre e-mail
+      subtitle: Nous vous renverrons les instructions de confirmation.
+      submit: Renvoyer la confirmation
     unlock:
-      title: "Débloquez votre compte"
-      subtitle: "Nous vous enverrons un lien par e-mail pour le débloquer."
-      submit: "Envoyer le lien de déblocage"
+      title: Débloquez votre compte
+      subtitle: Nous vous enverrons un lien par e-mail pour le débloquer.
+      submit: Envoyer le lien de déblocage
     benefits:
-      title: "Achetez et vendez en toute confiance"
-      buyers: "Protection de l'acheteur sur chaque commande"
-      sellers: "Touchez des milliers de passionnés de PC"
-      secure: "Paiements sécurisés et vendeurs vérifiés"
-    google: "Continuer avec Google"
-    remember_me: "Se souvenir de moi"
-    username_hint: "3 à 30 caractères. Lettres, chiffres, tirets et traits de soulignement."
-    or: "ou"
+      title: Achetez et vendez en toute confiance
+      buyers: Protection de l'acheteur sur chaque commande
+      sellers: Touchez des milliers de passionnés de PC
+      secure: Paiements sécurisés et vendeurs vérifiés
+    google: Continuer avec Google
+    remember_me: Se souvenir de moi
+    username_hint: 3 à 30 caractères. Lettres, chiffres, tirets et traits de soulignement.
+    or: ou
     terms:
-      acceptance_html: "J'accepte les %{terms} et la %{privacy}"
-    marketing_opt_in: "Recevoir les offres et actualités de la place de marché"
-    omniauth_failure: "Impossible de vous connecter avec Google. Veuillez réessayer."
-    omniauth_email_not_verified: "Un compte avec cet e-mail existe déjà. Veuillez d'abord vous connecter avec votre mot de passe."
+      acceptance_html: J'accepte les %{terms} et la %{privacy}
+    marketing_opt_in: Recevoir les offres et actualités de la place de marché
+    omniauth_failure: Impossible de vous connecter avec Google. Veuillez réessayer.
+    omniauth_email_not_verified: Un compte avec cet e-mail existe déjà. Veuillez d'abord vous connecter avec votre mot de passe.
   account:
     menu:
       signed_out:
-        sign_in: "Se connecter"
-        sign_up: "Créer un compte"
-      my_orders: "Mes commandes"
-      inbox: "Boîte de réception"
-      wishlist: "Favoris"
-      saved_searches: "Recherches enregistrées"
-      notifications: "Notifications"
-      notification_settings: "Paramètres de notification"
-      settings: "Paramètres du compte"
+        sign_in: Se connecter
+        sign_up: Créer un compte
+      my_orders: Mes commandes
+      inbox: Boîte de réception et offres
+      wishlist: Favoris
+      saved_searches: Recherches enregistrées
+      notifications: Notifications
+      notification_settings: Paramètres de notification
+      settings: Paramètres du compte
       store:
-        title: "Ma boutique"
-        public_profile: "Profil public"
-        seller_dashboard: "Tableau de bord vendeur"
-        listings: "Mes annonces"
-        sales: "Mes ventes"
-        settings: "Paramètres de la boutique"
-      admin_panel: "Panneau d'administration"
-      logout: "Se déconnecter"
+        title: Ma boutique
+        public_profile: Profil public
+        seller_dashboard: Tableau de bord vendeur
+        listings: Mes annonces
+        sales: Mes ventes
+        settings: Paramètres de la boutique
+      admin_panel: Panneau d'administration
+      logout: Se déconnecter
   devise:
     failure:
-      banned: "Votre compte est suspendu. Veuillez contacter le support."
-      deleted: "Ce compte a été supprimé."
+      banned: Votre compte est suspendu. Veuillez contacter le support.
+      deleted: Ce compte a été supprimé.
   pundit:
-    not_authorized: "Vous n'êtes pas autorisé à effectuer cette action."
+    not_authorized: Vous n'êtes pas autorisé à effectuer cette action.
   activerecord:
     models:
-      user: "Utilisateur"
-      store: "Boutique"
-      listing: "Annonce"
+      user: Utilisateur
+      store: Boutique
+      listing: Annonce
     attributes:
       user:
-        username: "Nom d'utilisateur"
-        first_name: "Prénom"
-        last_name: "Nom"
-        phone: "Téléphone"
-        locale: "Langue"
-        country_code: "Pays"
-        marketing_opt_in: "E-mails marketing"
-        terms_accepted: "Acceptation des conditions"
-        role: "Rôle"
+        username: Nom d'utilisateur
+        first_name: Prénom
+        last_name: Nom
+        phone: Téléphone
+        locale: Langue
+        country_code: Pays
+        marketing_opt_in: E-mails marketing
+        terms_accepted: Acceptation des conditions
+        role: Rôle
       store:
-        kind: "Type de vendeur"
-        name: "Nom de la boutique"
-        description: "À propos de votre boutique"
-        logo: "Logo"
-        region: "Province"
-        region_id: "Province"
-        province: "Province"
-        city: "Ville"
-        legal_name: "Raison sociale"
-        tax_id: "Numéro fiscal"
-        address_line: "Adresse"
-        postal_code: "Code postal"
-        phone: "Téléphone"
-        website: "Site web"
-        country_code: "Pays"
+        kind: Type de vendeur
+        name: Nom de la boutique
+        description: À propos de votre boutique
+        logo: Logo
+        region: Province
+        region_id: Province
+        province: Province
+        city: Ville
+        legal_name: Raison sociale
+        tax_id: Numéro fiscal
+        address_line: Adresse
+        postal_code: Code postal
+        phone: Téléphone
+        website: Site web
+        country_code: Pays
       listing:
-        category: "Catégorie"
-        title: "Titre"
-        description: "Description"
-        condition: "État"
-        price_cents: "Prix"
-        compare_at_price_cents: "Prix d'origine"
-        quantity: "Quantité"
-        shipping_mode: "Livraison"
-        shipping_price_cents: "Frais de port"
-        handling_days: "Délai de préparation"
-        region: "Province"
-        region_id: "Province"
-        city: "Ville"
-        postal_code: "Code postal"
-        photos: "Photos"
-        specs: "Caractéristiques"
-        tags: "Étiquettes"
-        seller_tags: "Étiquettes de vendeur"
+        category: Catégorie
+        title: Titre
+        description: Description
+        condition: État
+        price_cents: Prix
+        compare_at_price_cents: Prix d'origine
+        quantity: Quantité
+        shipping_mode: Livraison
+        shipping_price_cents: Frais de port
+        handling_days: Délai de préparation
+        region: Province
+        region_id: Province
+        city: Ville
+        postal_code: Code postal
+        photos: Photos
+        specs: Caractéristiques
+        tags: Étiquettes
+        seller_tags: Étiquettes de vendeur
   errors:
     messages:
-      invalid_spanish_tax_id: "n'est pas un NIF, NIE ou CIF espagnol valide"
-      invalid_image_type: "n'est pas un type d'image pris en charge"
-      image_too_large: "dépasse la taille maximale autorisée"
+      invalid_spanish_tax_id: n'est pas un NIF, NIE ou CIF espagnol valide
+      invalid_image_type: n'est pas un type d'image pris en charge
+      image_too_large: dépasse la taille maximale autorisée
       not_saved:
-        one: "1 erreur a empêché l'enregistrement de %{resource} :"
+        one: '1 erreur a empêché l''enregistrement de %{resource} :'
         other: "%{count} erreurs ont empêché l'enregistrement de %{resource} :"
+      too_many_images: contient trop d'images (maximum 4)
   form:
     errors:
-      heading: "Veuillez corriger les points suivants :"
+      heading: 'Veuillez corriger les points suivants :'
   categories:
     errors:
-      cycle: "Une catégorie ne peut pas être son propre ancêtre."
+      cycle: Une catégorie ne peut pas être son propre ancêtre.
   stores:
     new:
-      title: "Configurez votre boutique de vendeur"
-      subtitle: "Avant de publier votre premier article, dites aux acheteurs qui vous êtes."
+      title: Configurez votre boutique de vendeur
+      subtitle: Avant de publier votre premier article, dites aux acheteurs qui vous êtes.
     edit:
-      title: "Paramètres de la boutique"
-      subtitle: "Gardez vos informations de vendeur à jour."
+      title: Paramètres de la boutique
+      subtitle: Gardez vos informations de vendeur à jour.
     form:
-      kind: "Type de vendeur"
-      individual: "Particulier"
-      individual_hint: "Vous vendez des pièces détachées à titre privé."
-      business: "Professionnel"
-      business_hint: "Vous vendez en tant qu'entreprise ou indépendant."
-      name: "Nom de la boutique"
-      name_hint: "Le nom que les acheteurs voient sur vos annonces."
-      description: "À propos de votre boutique"
-      description_hint: "Expliquez ce que vous vendez et comment vous emballez et expédiez."
-      logo: "Logo"
-      logo_hint: "PNG, JPEG ou WebP, jusqu'à 5 Mo."
-      province: "Province"
-      province_hint: "Seules les provinces espagnoles sont disponibles pour le moment."
-      province_placeholder: "Choisissez une province"
-      city: "Ville"
-      city_placeholder: "ex. Madrid"
-      business_heading: "Informations professionnelles"
-      business_intro: "En vertu du règlement européen sur les services numériques, les vendeurs professionnels doivent afficher leurs informations légales sur leurs annonces. Les acheteurs verront votre raison sociale, votre numéro fiscal et votre adresse."
-      legal_name: "Raison sociale"
-      tax_id: "Numéro fiscal (NIF, NIE ou CIF)"
-      tax_id_hint: "Numéro d'identification fiscale espagnol, par exemple B12345674."
-      address_line: "Adresse"
-      postal_code: "Code postal"
-      postal_code_hint: "Cinq chiffres pour les adresses espagnoles."
-      phone: "Téléphone"
-      website: "Site web"
-      submit: "Créer la boutique"
-      update: "Enregistrer"
-      cancel: "Annuler"
+      kind: Type de vendeur
+      individual: Particulier
+      individual_hint: Vous vendez des pièces détachées à titre privé.
+      business: Professionnel
+      business_hint: Vous vendez en tant qu'entreprise ou indépendant.
+      name: Nom de la boutique
+      name_hint: Le nom que les acheteurs voient sur vos annonces.
+      description: À propos de votre boutique
+      description_hint: Expliquez ce que vous vendez et comment vous emballez et expédiez.
+      logo: Logo
+      logo_hint: PNG, JPEG ou WebP, jusqu'à 5 Mo.
+      province: Province
+      province_hint: Seules les provinces espagnoles sont disponibles pour le moment.
+      province_placeholder: Choisissez une province
+      city: Ville
+      city_placeholder: ex. Madrid
+      business_heading: Informations professionnelles
+      business_intro: En vertu du règlement européen sur les services numériques, les vendeurs professionnels doivent afficher leurs informations légales sur leurs annonces. Les acheteurs verront votre raison sociale, votre numéro fiscal et votre adresse.
+      legal_name: Raison sociale
+      tax_id: Numéro fiscal (NIF, NIE ou CIF)
+      tax_id_hint: Numéro d'identification fiscale espagnol, par exemple B12345674.
+      address_line: Adresse
+      postal_code: Code postal
+      postal_code_hint: Cinq chiffres pour les adresses espagnoles.
+      phone: Téléphone
+      website: Site web
+      submit: Créer la boutique
+      update: Enregistrer
+      cancel: Annuler
     flash:
-      created: "Votre boutique est prête. Vous pouvez publier votre premier article."
-      updated: "Paramètres de la boutique mis à jour."
+      created: Votre boutique est prête. Vous pouvez publier votre premier article.
+      updated: Paramètres de la boutique mis à jour.
     errors:
-      region_country_mismatch: "La province ne correspond pas au pays sélectionné."
+      region_country_mismatch: La province ne correspond pas au pays sélectionné.
   sell:
     listings:
-      title: "Mes annonces"
-      subtitle: "Gérez ce que vous vendez, des brouillons aux articles vendus."
-      new_listing: "Publier un article"
-      untitled: "Annonce sans titre"
-      tabs_label: "Filtrer les annonces par statut"
+      title: Mes annonces
+      subtitle: Gérez ce que vous vendez, des brouillons aux articles vendus.
+      new_listing: Publier un article
+      untitled: Annonce sans titre
+      tabs_label: Filtrer les annonces par statut
       tabs:
-        active: "Actives"
-        pending_review: "En attente de vérification"
-        drafts: "Brouillons"
-        rejected: "Refusées"
-        sold: "Vendues"
-        archived: "Archivées"
+        active: Actives
+        pending_review: En attente de vérification
+        drafts: Brouillons
+        rejected: Refusées
+        sold: Vendues
+        archived: Archivées
       search:
-        label: "Rechercher dans vos annonces"
-        placeholder: "Rechercher par titre"
-        submit: "Rechercher"
-        clear: "Effacer la recherche"
+        label: Rechercher dans vos annonces
+        placeholder: Rechercher par titre
+        submit: Rechercher
+        clear: Effacer la recherche
       table:
-        select: "Sélectionner"
-        listing: "Annonce"
-        price: "Prix"
-        status: "Statut"
-        views: "Vues"
-        favourites: "Favoris"
-        updated: "Mise à jour"
-        actions: "Actions"
+        select: Sélectionner
+        listing: Annonce
+        price: Prix
+        status: Statut
+        views: Vues
+        favourites: Favoris
+        updated: Mise à jour
+        actions: Actions
       actions:
-        edit: "Modifier"
-        archive: "Archiver"
-        republish: "Republier"
-        delete_draft: "Supprimer le brouillon"
+        edit: Modifier
+        archive: Archiver
+        republish: Republier
+        delete_draft: Supprimer le brouillon
       rejected:
-        reason: "Motif : %{reason}"
-        resubmit: "Modifier et renvoyer"
+        reason: 'Motif : %{reason}'
+        resubmit: Modifier et renvoyer
       bulk:
-        select_all: "Tout sélectionner"
-        select_listing: "Sélectionner %{title}"
-        archive_selected: "Archiver la sélection"
-        confirm: "Archiver les annonces sélectionnées ?"
+        select_all: Tout sélectionner
+        select_listing: Sélectionner %{title}
+        archive_selected: Archiver la sélection
+        confirm: Archiver les annonces sélectionnées ?
         archived:
           one: "%{count} annonce archivée."
           other: "%{count} annonces archivées."
-        nothing_selected: "Sélectionnez au moins une annonce à archiver."
+        nothing_selected: Sélectionnez au moins une annonce à archiver.
       empty:
-        title: "Aucune annonce ici pour le moment"
-        body: "Les annonces de cette section apparaîtront ici dès que vous en aurez."
-        cta: "Publier un article"
+        title: Aucune annonce ici pour le moment
+        body: Les annonces de cette section apparaîtront ici dès que vous en aurez.
+        cta: Publier un article
       flash:
-        cannot_republish: "Cette annonce ne peut pas être republiée pour le moment."
+        cannot_republish: Cette annonce ne peut pas être republiée pour le moment.
     new:
-      title: "Publier un article"
-      subtitle: "Cinq étapes rapides. Votre brouillon est enregistré au fur et à mesure."
+      title: Publier un article
+      subtitle: Cinq étapes rapides. Votre brouillon est enregistré au fur et à mesure.
     edit:
-      title: "Modifier l'annonce"
-      subtitle: "Mettez votre annonce à jour. Les modifications sont enregistrées étape par étape."
+      title: Modifier l'annonce
+      subtitle: Mettez votre annonce à jour. Les modifications sont enregistrées étape par étape.
     steps:
-      counter: "Étape %{current} sur %{total}"
-      category: "Catégorie"
-      photos: "Photos"
-      details: "Détails"
-      price: "Prix et livraison"
-      review: "Vérification"
-      back: "Retour"
-      continue: "Continuer"
-      save: "Enregistrer"
-      submit: "Envoyer pour vérification"
-      publish: "Publier l'annonce"
-      published_warning: "Vous modifiez une annonce publiée. Toute modification du titre, de la description, de la catégorie, des caractéristiques ou des photos la renvoie en vérification. Les changements de prix, de quantité et de livraison restent immédiats."
-      delete_draft: "Supprimer le brouillon"
-      archive_listing: "Archiver l'annonce"
-      confirm_delete: "Voulez-vous vraiment continuer ?"
+      counter: Étape %{current} sur %{total}
+      category: Catégorie
+      photos: Photos
+      details: Détails
+      price: Prix et livraison
+      review: Vérification
+      back: Retour
+      continue: Continuer
+      save: Enregistrer
+      submit: Envoyer pour vérification
+      publish: Publier l'annonce
+      published_warning: Vous modifiez une annonce publiée. Toute modification du titre, de la description, de la catégorie, des caractéristiques ou des photos la renvoie en vérification. Les changements de prix, de quantité et de livraison restent immédiats.
+      delete_draft: Supprimer le brouillon
+      archive_listing: Archiver l'annonce
+      confirm_delete: Voulez-vous vraiment continuer ?
     category:
-      title: "Choisissez une catégorie"
-      subtitle: "Commencez par une catégorie large, puis choisissez la plus proche."
-      search_label: "Rechercher des catégories"
-      search_placeholder: "ex. carte graphique"
-      choose_root: "Choisissez une catégorie"
-      choose_child: "Choisissez une sous-catégorie"
-      selected: "Sélectionnée : %{category}"
-      no_results: "Aucune catégorie ne correspond à cette recherche."
-      all_in: "Tout dans %{category}"
+      title: Choisissez une catégorie
+      subtitle: Commencez par une catégorie large, puis choisissez la plus proche.
+      search_label: Rechercher des catégories
+      search_placeholder: ex. carte graphique
+      choose_root: Choisissez une catégorie
+      choose_child: Choisissez une sous-catégorie
+      selected: 'Sélectionnée : %{category}'
+      no_results: Aucune catégorie ne correspond à cette recherche.
+      all_in: Tout dans %{category}
     photos:
-      title: "Ajoutez des photos"
-      subtitle: "Des photos nettes aident les acheteurs à décider. La première apparaît dans les résultats."
-      upload: "Téléverser des photos"
-      upload_hint: "Glissez-déposez les images ici ou choisissez des fichiers. PNG, JPEG, WebP ou HEIC, jusqu'à %{size} chacune."
-      limit: "Vous pouvez ajouter jusqu'à %{max} photos."
-      existing: "Vos photos"
-      no_photos: "Aucune photo pour le moment."
-      primary: "Photo principale"
-      remove: "Retirer"
-      move_up: "Monter"
-      move_down: "Descendre"
-      drag_hint: "Faites glisser les photos pour les réorganiser ou utilisez les flèches."
-      tips_title: "Conseils pour de bonnes photos"
-      tip_1: "Utilisez la lumière naturelle et un fond neutre."
-      tip_2: "Montrez l'article entier, puis des gros plans de l'usure."
-      tip_3: "Incluez la boîte d'origine, les câbles et les accessoires."
-      tip_4: "Évitez les photos de catalogue : les acheteurs veulent voir l'article réel."
+      title: Ajoutez des photos
+      subtitle: Des photos nettes aident les acheteurs à décider. La première apparaît dans les résultats.
+      upload: Téléverser des photos
+      upload_hint: Glissez-déposez les images ici ou choisissez des fichiers. PNG, JPEG, WebP ou HEIC, jusqu'à %{size} chacune.
+      limit: Vous pouvez ajouter jusqu'à %{max} photos.
+      existing: Vos photos
+      no_photos: Aucune photo pour le moment.
+      primary: Photo principale
+      remove: Retirer
+      move_up: Monter
+      move_down: Descendre
+      drag_hint: Faites glisser les photos pour les réorganiser ou utilisez les flèches.
+      tips_title: Conseils pour de bonnes photos
+      tip_1: Utilisez la lumière naturelle et un fond neutre.
+      tip_2: Montrez l'article entier, puis des gros plans de l'usure.
+      tip_3: Incluez la boîte d'origine, les câbles et les accessoires.
+      tip_4: 'Évitez les photos de catalogue : les acheteurs veulent voir l''article réel.'
     details:
-      title: "Décrivez votre article"
-      subtitle: "Des détails précis réduisent les questions et les retours."
-      title_label: "Titre"
-      title_placeholder: "ex. NVIDIA RTX 4070 Ti Super 16 Go"
-      condition_label: "État"
-      description_label: "Description"
-      description_placeholder: "Décrivez l'état, l'âge, le contenu et la raison de la vente."
-      attributes_title: "Caractéristiques"
-      attributes_hint: "Elles aident à filtrer et comparer. Les champs obligatoires sont marqués."
-      required: "Obligatoire"
-      choose: "Choisissez une option"
-      boolean_yes: "Oui"
-      tags_title: "Étiquettes de vendeur"
-      tags_hint: "Choisissez jusqu'à %{max} étiquettes décrivant l'annonce."
-      product_labels_note: "Les étiquettes de produit sont appliquées par notre équipe et ne peuvent pas être choisies ici."
+      title: Décrivez votre article
+      subtitle: Des détails précis réduisent les questions et les retours.
+      title_label: Titre
+      title_placeholder: ex. NVIDIA RTX 4070 Ti Super 16 Go
+      condition_label: État
+      description_label: Description
+      description_placeholder: Décrivez l'état, l'âge, le contenu et la raison de la vente.
+      attributes_title: Caractéristiques
+      attributes_hint: Elles aident à filtrer et comparer. Les champs obligatoires sont marqués.
+      required: Obligatoire
+      choose: Choisissez une option
+      boolean_yes: Oui
+      tags_title: Étiquettes de vendeur
+      tags_hint: Choisissez jusqu'à %{max} étiquettes décrivant l'annonce.
+      product_labels_note: Les étiquettes de produit sont appliquées par notre équipe et ne peuvent pas être choisies ici.
       conditions:
         new_sealed:
-          title: "Neuf (scellé)"
-          description: "Non ouvert, dans son emballage d'origine scellé."
+          title: Neuf (scellé)
+          description: Non ouvert, dans son emballage d'origine scellé.
         new_open_box:
-          title: "Neuf (boîte ouverte)"
-          description: "Jamais utilisé, mais l'emballage a été ouvert."
+          title: Neuf (boîte ouverte)
+          description: Jamais utilisé, mais l'emballage a été ouvert.
         used_like_new:
-          title: "Occasion – comme neuf"
-          description: "Utilisé brièvement, sans traces d'usure visibles."
+          title: Occasion – comme neuf
+          description: Utilisé brièvement, sans traces d'usure visibles.
         used_good:
-          title: "Occasion – bon état"
-          description: "Utilisé, avec de légères traces d'usure sans impact sur le fonctionnement."
+          title: Occasion – bon état
+          description: Utilisé, avec de légères traces d'usure sans impact sur le fonctionnement.
         used_fair:
-          title: "Occasion – état correct"
-          description: "Usure visible, entièrement fonctionnel sauf indication contraire."
+          title: Occasion – état correct
+          description: Usure visible, entièrement fonctionnel sauf indication contraire.
         for_parts:
-          title: "Pour pièces"
-          description: "Ne fonctionne pas ; vendu pour réparation ou pièces."
+          title: Pour pièces
+          description: Ne fonctionne pas ; vendu pour réparation ou pièces.
     price:
-      title: "Prix et livraison"
-      subtitle: "Fixez un prix juste et expliquez comment l'acheteur recevra l'article."
-      price_label: "Prix"
-      price_placeholder: "0,00"
-      compare_at_label: "Prix d'origine (facultatif)"
-      compare_at_hint: "Doit être supérieur au prix de vente. Il apparaît barré."
-      quantity_label: "Quantité"
-      quantity_hint: "Combien d'unités identiques avez-vous ?"
-      quantity_fixed: "Les particuliers publient un article par annonce."
-      offers_label: "Accepter les offres"
-      offers_hint: "Les acheteurs peuvent vous envoyer une offre."
-      shipping_title: "Livraison"
-      shipping_mode_label: "Comment livrerez-vous l'article ?"
-      shipping_price_label: "Frais de port"
-      free_shipping_label: "Livraison gratuite"
-      handling_days_label: "Délai de préparation"
-      handling_days_hint: "Jours ouvrés avant de remettre le colis au transporteur."
-      location_title: "Emplacement de l'article"
-      region_label: "Province"
-      region_placeholder: "Choisissez une province"
-      city_label: "Ville"
-      postal_code_label: "Code postal"
+      title: Prix et livraison
+      subtitle: Fixez un prix juste et expliquez comment l'acheteur recevra l'article.
+      price_label: Prix
+      price_placeholder: '0,00'
+      compare_at_label: Prix d'origine (facultatif)
+      compare_at_hint: Doit être supérieur au prix de vente. Il apparaît barré.
+      quantity_label: Quantité
+      quantity_hint: Combien d'unités identiques avez-vous ?
+      quantity_fixed: Les particuliers publient un article par annonce.
+      offers_label: Accepter les offres
+      offers_hint: Les acheteurs peuvent vous envoyer une offre.
+      shipping_title: Livraison
+      shipping_mode_label: Comment livrerez-vous l'article ?
+      shipping_price_label: Frais de port
+      free_shipping_label: Livraison gratuite
+      handling_days_label: Délai de préparation
+      handling_days_hint: Jours ouvrés avant de remettre le colis au transporteur.
+      location_title: Emplacement de l'article
+      region_label: Province
+      region_placeholder: Choisissez une province
+      city_label: Ville
+      postal_code_label: Code postal
     review:
-      title: "Vérifiez votre annonce"
-      subtitle: "Voyez ce que les acheteurs verront, puis envoyez-la pour vérification."
-      preview_title: "Aperçu acheteur"
-      checklist_title: "Avant l'envoi"
-      checklist_ok: "Tous les champs obligatoires sont remplis."
-      missing: "Il manque : %{field}."
-      go_to_step: "Aller à %{step}"
-      approval_note: "Notre équipe vérifie les annonces avant publication, généralement en moins de 24 heures."
-      publish_note: "Votre annonce sera publiée immédiatement."
-      published_note: "Cette annonce est déjà publiée. Enregistrez vos modifications pour la garder à jour."
-      pending_note: "Cette annonce attend une vérification. Vous pouvez encore la modifier."
+      title: Vérifiez votre annonce
+      subtitle: Voyez ce que les acheteurs verront, puis envoyez-la pour vérification.
+      preview_title: Aperçu acheteur
+      checklist_title: Avant l'envoi
+      checklist_ok: Tous les champs obligatoires sont remplis.
+      missing: 'Il manque : %{field}.'
+      go_to_step: Aller à %{step}
+      approval_note: Notre équipe vérifie les annonces avant publication, généralement en moins de 24 heures.
+      publish_note: Votre annonce sera publiée immédiatement.
+      published_note: Cette annonce est déjà publiée. Enregistrez vos modifications pour la garder à jour.
+      pending_note: Cette annonce attend une vérification. Vous pouvez encore la modifier.
     flash:
-      created: "Brouillon créé. Ajoutez des photos."
-      saved: "Annonce enregistrée."
-      submitted: "Annonce envoyée pour vérification."
-      published: "Annonce publiée."
-      destroyed: "Brouillon supprimé."
-      archived: "Annonce archivée."
+      created: Brouillon créé. Ajoutez des photos.
+      saved: Annonce enregistrée.
+      submitted: Annonce envoyée pour vérification.
+      published: Annonce publiée.
+      destroyed: Brouillon supprimé.
+      archived: Annonce archivée.
     errors:
-      store_required: "Vous avez besoin d'une boutique pour publier des articles."
-
+      store_required: Vous avez besoin d'une boutique pour publier des articles.
   listings:
     errors:
-      price_out_of_range: "Le prix doit être compris entre %{min} et %{max} euros."
-      compare_at_price: "Le prix barré doit être supérieur au prix de vente."
-      required_specs: "Spécifications obligatoires manquantes : %{attributes}."
+      price_out_of_range: Le prix doit être compris entre %{min} et %{max} euros.
+      compare_at_price: Le prix barré doit être supérieur au prix de vente.
+      required_specs: 'Spécifications obligatoires manquantes : %{attributes}.'
       invalid_spec_option: "%{attribute} contient une option indisponible."
-      country_not_launched: "Les annonces ne sont pas encore disponibles dans ce pays."
-      region_country_mismatch: "La région n'appartient pas au pays sélectionné."
-      too_many_photos: "Une annonce peut avoir au maximum %{max} photos."
-      photos_required: "Ajoutez au moins une photo pour continuer."
-      too_many_seller_tags: "Choisissez au maximum %{max} étiquettes de vendeur."
-      quantity_individual: "Les particuliers ne peuvent publier qu’une unité par annonce."
-      rejection_reason_required: "Indiquez le motif du refus."
+      country_not_launched: Les annonces ne sont pas encore disponibles dans ce pays.
+      region_country_mismatch: La région n'appartient pas au pays sélectionné.
+      too_many_photos: Une annonce peut avoir au maximum %{max} photos.
+      photos_required: Ajoutez au moins une photo pour continuer.
+      too_many_seller_tags: Choisissez au maximum %{max} étiquettes de vendeur.
+      quantity_individual: Les particuliers ne peuvent publier qu’une unité par annonce.
+      rejection_reason_required: Indiquez le motif du refus.
     breadcrumb:
-      label: "Fil d'Ariane"
+      label: Fil d'Ariane
     index:
-      title: "Toutes les annonces"
-      search_title: "Résultats pour « %{query} »"
-      search_hint: "Affiche les correspondances pour « %{query} »."
-      search_description: "Annonces correspondant à « %{query} » sur PCMarket."
+      title: Toutes les annonces
+      search_title: Résultats pour « %{query} »
+      search_hint: Affiche les correspondances pour « %{query} ».
+      search_description: Annonces correspondant à « %{query} » sur PCMarket.
       results_count:
         one: "%{count} résultat"
         other: "%{count} résultats"
-      empty_title: "Aucune annonce ne correspond aux filtres"
-      empty_body: "Essayez de retirer un filtre, d'élargir la fourchette de prix ou de chercher autre chose."
-      clear_filters: "Effacer tous les filtres"
-      browse_categories: "Parcourir les catégories"
-      about_category: "À propos de %{category}"
+      empty_title: Aucune annonce ne correspond aux filtres
+      empty_body: Essayez de retirer un filtre, d'élargir la fourchette de prix ou de chercher autre chose.
+      clear_filters: Effacer tous les filtres
+      browse_categories: Parcourir les catégories
+      about_category: À propos de %{category}
     sort:
-      label: "Trier les résultats"
-      best_match: "Meilleure correspondance"
-      newest: "Plus récentes"
-      price_asc: "Prix croissant"
-      price_desc: "Prix décroissant"
-      popular: "Les plus populaires"
+      label: Trier les résultats
+      best_match: Meilleure correspondance
+      newest: Plus récentes
+      price_asc: Prix croissant
+      price_desc: Prix décroissant
+      popular: Les plus populaires
     conditions:
-      new_sealed: "Neuf (scellé)"
-      new_open_box: "Neuf (boîte ouverte)"
-      used_like_new: "Occasion – comme neuf"
-      used_good: "Occasion – bon état"
-      used_fair: "Occasion – état correct"
-      for_parts: "Pour pièces"
+      new_sealed: Neuf (scellé)
+      new_open_box: Neuf (boîte ouverte)
+      used_like_new: Occasion – comme neuf
+      used_good: Occasion – bon état
+      used_fair: Occasion – état correct
+      for_parts: Pour pièces
     shipping_modes:
-      shipping: "Livraison"
-      local_pickup: "Retrait uniquement"
-      shipping_and_pickup: "Livraison ou retrait"
+      shipping: Livraison
+      local_pickup: Retrait uniquement
+      shipping_and_pickup: Livraison ou retrait
     statuses:
-      draft: "Brouillon"
-      pending_review: "En attente de validation"
-      published: "Publiée"
-      rejected: "Refusée"
-      reserved: "Réservée"
-      sold: "Vendue"
-      archived: "Archivée"
+      draft: Brouillon
+      pending_review: En attente de validation
+      published: Publiée
+      rejected: Refusée
+      reserved: Réservée
+      sold: Vendue
+      archived: Archivée
     attribute_groups:
-      cpu: "Processeur"
-      general: "Général"
-      gpu: "Carte graphique"
-      lighting: "Éclairage"
-      memory: "Mémoire"
-      motherboard: "Carte mère"
-      power: "Alimentation"
-      storage: "Stockage"
+      cpu: Processeur
+      general: Général
+      gpu: Carte graphique
+      lighting: Éclairage
+      memory: Mémoire
+      motherboard: Carte mère
+      power: Alimentation
+      storage: Stockage
     specs:
-      "yes": "Oui"
-      "no": "Non"
+      'yes': Oui
+      'no': Non
     filters:
-      title: "Filtres"
-      open: "Filtres (%{count})"
-      close: "Fermer les filtres"
-      apply: "Appliquer les filtres"
-      text_label: "Rechercher dans les résultats"
-      text_placeholder: "ex. RTX 4070"
-      price: "Fourchette de prix"
-      min_price: "Min."
-      max_price: "Max."
-      condition: "État"
+      title: Filtres
+      open: Filtres (%{count})
+      close: Fermer les filtres
+      apply: Appliquer les filtres
+      text_label: Rechercher dans les résultats
+      text_placeholder: ex. RTX 4070
+      price: Fourchette de prix
+      min_price: Min.
+      max_price: Max.
+      condition: État
       show_more:
-        one: "Afficher plus (%{count})"
-        other: "Afficher plus (%{count})"
-      product_labels: "Étiquettes produit"
-      seller_tags: "Étiquettes vendeur"
-      delivery: "Livraison"
-      free_shipping: "Livraison gratuite"
-      region: "Province"
-      all_regions: "Toutes les provinces"
-      remove_filter: "Retirer le filtre : %{filter}"
-      clear_all: "Tout effacer"
+        one: Afficher plus (%{count})
+        other: Afficher plus (%{count})
+      product_labels: Étiquettes produit
+      seller_tags: Étiquettes vendeur
+      delivery: Livraison
+      free_shipping: Livraison gratuite
+      region: Province
+      all_regions: Toutes les provinces
+      remove_filter: 'Retirer le filtre : %{filter}'
+      clear_all: Tout effacer
       applied:
-        q: "Recherche : %{query}"
-        min_price: "À partir de %{value} €"
-        max_price: "Jusqu'à %{value} €"
+        q: 'Recherche : %{query}'
+        min_price: À partir de %{value} €
+        max_price: Jusqu'à %{value} €
     card:
-      verified_seller: "Vendeur vérifié"
-      free_shipping: "Livraison gratuite"
+      verified_seller: Vendeur vérifié
+      free_shipping: Livraison gratuite
     pagination:
-      label: "Pagination"
-      previous: "Précédent"
-      next: "Suivant"
+      label: Pagination
+      previous: Précédent
+      next: Suivant
     show:
-      status_banner: "Cette annonce est %{status}."
-      rejection_reason: "Motif : %{reason}"
-      status_visibility: "Seuls vous et l'équipe PCMarket pouvez voir cette page dans cet état."
-      overview: "Aperçu"
-      condition: "État"
-      location: "Localisation"
+      status_banner: Cette annonce est %{status}.
+      rejection_reason: 'Motif : %{reason}'
+      status_visibility: Seuls vous et l'équipe PCMarket pouvez voir cette page dans cet état.
+      overview: Aperçu
+      condition: État
+      location: Localisation
       specifications:
-        title: "Spécifications"
-        empty: "Le vendeur n'a pas ajouté de spécifications à cette annonce."
+        title: Spécifications
+        empty: Le vendeur n'a pas ajouté de spécifications à cette annonce.
       shipping_returns:
-        title: "Livraison et retours"
-        order_placed: "Commande passée"
-        ships_by: "Expédition avant le"
-        delivered: "Livraison estimée"
-        returns_copy: "Les retours sont acceptés dans les 14 jours suivant la livraison si l'article n'est pas conforme à la description. La protection acheteur vous couvre après la livraison."
+        title: Livraison et retours
+        order_placed: Commande passée
+        ships_by: Expédition avant le
+        delivered: Livraison estimée
+        returns_copy: Les retours sont acceptés dans les 14 jours suivant la livraison si l'article n'est pas conforme à la description. La protection acheteur vous couvre après la livraison.
       ships_within:
-        one: "Expédiée sous %{count} jour ouvré"
-        other: "Expédiée sous %{count} jours ouvrés"
-      buy_now: "Acheter maintenant"
-      add_to_cart: "Ajouter au panier"
-      make_offer: "Faire une offre"
-      message_seller: "Contacter le vendeur"
+        one: Expédiée sous %{count} jour ouvré
+        other: Expédiée sous %{count} jours ouvrés
+      buy_now: Acheter maintenant
+      add_to_cart: Ajouter au panier
+      make_offer: Faire une offre
+      message_seller: Contacter le vendeur
       seller:
-        verified: "Vendeur vérifié"
+        verified: Vendeur vérifié
         rating: "%{rating} (%{count} avis)"
-        no_ratings: "Aucun avis pour l'instant"
-        listings: "Annonces"
-        member_since: "Membre depuis"
-        business_details: "Informations du vendeur professionnel"
-        legal_name: "Raison sociale"
-        tax_id: "Numéro fiscal"
-        address: "Adresse"
-        visit_store: "Voir la boutique"
+        no_ratings: Aucun avis pour l'instant
+        listings: Annonces
+        member_since: Membre depuis
+        business_details: Informations du vendeur professionnel
+        legal_name: Raison sociale
+        tax_id: Numéro fiscal
+        address: Adresse
+        visit_store: Voir la boutique
       buyer_protection:
-        title: "Protection acheteur"
-        body: "Vous êtes couvert pendant %{days} jours après la livraison si l'article n'arrive pas ou n'est pas conforme à la description."
-      similar: "Annonces similaires"
-      more_from_seller: "Autres annonces de ce vendeur"
-      published_on: "Publiée le %{date}"
+        title: Protection acheteur
+        body: Vous êtes couvert pendant %{days} jours après la livraison si l'article n'arrive pas ou n'est pas conforme à la description.
+      similar: Annonces similaires
+      more_from_seller: Autres annonces de ce vendeur
+      published_on: Publiée le %{date}
       shipping:
-        free: "Livraison gratuite"
-        cost: "Livraison %{price}"
-        pickup_only: "Retrait uniquement"
+        free: Livraison gratuite
+        cost: Livraison %{price}
+        pickup_only: Retrait uniquement
       gallery:
         counter: "%{current} sur %{total}"
         counter_template: "%{current} sur %{total}"
-        previous: "Photo précédente"
-        next: "Photo suivante"
-        open: "Ouvrir la galerie en plein écran"
-        close: "Fermer la galerie"
-        show_photo: "Afficher la photo %{number}"
-        empty: "Pas encore de photo"
+        previous: Photo précédente
+        next: Photo suivante
+        open: Ouvrir la galerie en plein écran
+        close: Fermer la galerie
+        show_photo: Afficher la photo %{number}
+        empty: Pas encore de photo
   admin:
-    title: "Administration"
+    title: Administration
     nav:
-      label: "Navigation de l’administration"
-      dashboard: "Tableau de bord"
-      moderation: "File de modération"
-      listings: "Annonces"
-      users: "Utilisateurs"
-      stores: "Boutiques"
-      orders: "Commandes"
-      categories: "Catégories"
-      filters: "Filtres (attributs)"
-      tags: "Étiquettes"
-      countries: "Pays"
-      settings: "Paramètres"
-      feature_flags: "Fonctionnalités expérimentales"
-      legal: "Pages légales"
-      reports: "Rapports"
-      coming_soon: "Bientôt disponible"
-      open_sidebar: "Ouvrir le menu d’administration"
-      close_sidebar: "Fermer le menu d’administration"
+      label: Navigation de l’administration
+      dashboard: Tableau de bord
+      moderation: File de modération
+      listings: Annonces
+      users: Utilisateurs
+      stores: Boutiques
+      orders: Commandes
+      categories: Catégories
+      filters: Filtres (attributs)
+      tags: Étiquettes
+      countries: Pays
+      settings: Paramètres
+      feature_flags: Fonctionnalités expérimentales
+      legal: Pages légales
+      reports: Rapports
+      coming_soon: Bientôt disponible
+      open_sidebar: Ouvrir le menu d’administration
+      close_sidebar: Fermer le menu d’administration
     topbar:
-      search_label: "Rechercher des annonces"
-      search_placeholder: "Rechercher par titre"
-      language: "Langue"
-      back_to_site: "Retour au site"
+      search_label: Rechercher des annonces
+      search_placeholder: Rechercher par titre
+      language: Langue
+      back_to_site: Retour au site
     dashboard:
-      title: "Tableau de bord"
-      subtitle: "Un aperçu rapide du marketplace et de la file de modération."
+      title: Tableau de bord
+      subtitle: Un aperçu rapide du marketplace et de la file de modération.
       kpis:
-        pending_listings: "Annonces en attente"
-        published_today: "Publiées aujourd’hui"
-        published_last_7_days: "Publiées sur 7 jours"
-        new_users_today: "Nouveaux utilisateurs aujourd’hui"
-        new_users_last_7_days: "Nouveaux utilisateurs sur 7 jours"
-        active_stores: "Boutiques actives"
-        published_listings: "Annonces publiées"
+        pending_listings: Annonces en attente
+        published_today: Publiées aujourd’hui
+        published_last_7_days: Publiées sur 7 jours
+        new_users_today: Nouveaux utilisateurs aujourd’hui
+        new_users_last_7_days: Nouveaux utilisateurs sur 7 jours
+        active_stores: Boutiques actives
+        published_listings: Annonces publiées
+        open_reports: Signalements ouverts
       oldest_pending:
-        title: "Annonces en attente les plus anciennes"
-        subtitle: "Les dix annonces qui attendent une révision depuis le plus longtemps."
-        empty: "La file de modération est vide. Rien n’est en attente."
-        listing: "Annonce"
-        seller: "Vendeur"
-        category: "Catégorie"
-        price: "Prix"
-        waiting: "Attente"
-        actions: "Actions"
-        review: "Examiner"
-        waiting_for: "En attente depuis %{time}"
+        title: Annonces en attente les plus anciennes
+        subtitle: Les dix annonces qui attendent une révision depuis le plus longtemps.
+        empty: La file de modération est vide. Rien n’est en attente.
+        listing: Annonce
+        seller: Vendeur
+        category: Catégorie
+        price: Prix
+        waiting: Attente
+        actions: Actions
+        review: Examiner
+        waiting_for: En attente depuis %{time}
     moderation:
       index:
-        title: "File de modération"
-        subtitle: "Examinez les annonces en attente, de la plus ancienne à la plus récente."
-        category: "Catégorie"
-        all_categories: "Toutes les catégories"
-        seller_kind: "Type de vendeur"
-        photos: "Photos"
-        photos_any: "Indifférent"
-        photos_with: "Avec photos"
-        photos_without: "Sans photos"
-        apply: "Appliquer les filtres"
-        clear: "Effacer les filtres"
+        title: File de modération
+        subtitle: Examinez les annonces en attente, de la plus ancienne à la plus récente.
+        category: Catégorie
+        all_categories: Toutes les catégories
+        seller_kind: Type de vendeur
+        photos: Photos
+        photos_any: Indifférent
+        photos_with: Avec photos
+        photos_without: Sans photos
+        apply: Appliquer les filtres
+        clear: Effacer les filtres
         results_count:
           one: "%{count} annonce en attente"
           other: "%{count} annonces en attente"
         table:
-          listing: "Annonce"
-          seller: "Vendeur"
-          price: "Prix"
-          submitted: "Envoyée"
-          actions: "Actions"
-        review: "Examiner"
-        waiting_for: "En attente depuis %{time}"
-        empty_title: "Rien à examiner"
-        empty_body: "Les nouvelles annonces apparaîtront ici dès que les vendeurs les enverront."
+          listing: Annonce
+          seller: Vendeur
+          price: Prix
+          submitted: Envoyée
+          actions: Actions
+        review: Examiner
+        waiting_for: En attente depuis %{time}
+        empty_title: Rien à examiner
+        empty_body: Les nouvelles annonces apparaîtront ici dès que les vendeurs les enverront.
       show:
-        back: "Retour à la file"
-        previous: "En attente précédente"
-        next: "En attente suivante"
-        buyer_preview: "Aperçu acheteur"
-        overview: "Description"
-        condition: "État"
-        location: "Localisation"
-        seller_title: "Vendeur"
-        history_title: "Historique de modération"
-        decision_title: "Décision"
-        approve: "Approuver l’annonce"
-        reject: "Rejeter et prévenir le vendeur"
-        reject_hint: "Choisissez un motif prédéfini et, si vous le souhaitez, ajoutez une note pour le vendeur."
-        reason_label: "Motif du rejet"
-        reason_placeholder: "Ajouter une note pour le vendeur (facultatif)"
+        back: Retour à la file
+        previous: En attente précédente
+        next: En attente suivante
+        buyer_preview: Aperçu acheteur
+        overview: Description
+        condition: État
+        location: Localisation
+        seller_title: Vendeur
+        history_title: Historique de modération
+        decision_title: Décision
+        approve: Approuver l’annonce
+        reject: Rejeter et prévenir le vendeur
+        reject_hint: Choisissez un motif prédéfini et, si vous le souhaitez, ajoutez une note pour le vendeur.
+        reason_label: Motif du rejet
+        reason_placeholder: Ajouter une note pour le vendeur (facultatif)
       filters:
         seller_kinds:
-          all: "Tous les vendeurs"
-          individual: "Particuliers"
-          business: "Entreprises"
+          all: Tous les vendeurs
+          individual: Particuliers
+          business: Entreprises
       reasons:
-        prohibited_item: "Article interdit"
-        misleading_description: "Description trompeuse"
-        poor_photos: "Photos de mauvaise qualité"
-        wrong_category: "Mauvaise catégorie"
-        price_suspicious: "Prix suspect"
-        contact_info_in_listing: "Coordonnées dans l’annonce"
-        duplicate: "Annonce en double"
-        other: "Autre"
+        prohibited_item: Article interdit
+        misleading_description: Description trompeuse
+        poor_photos: Photos de mauvaise qualité
+        wrong_category: Mauvaise catégorie
+        price_suspicious: Prix suspect
+        contact_info_in_listing: Coordonnées dans l’annonce
+        duplicate: Annonce en double
+        other: Autre
       actions:
-        approved: "Approuvée"
-        rejected: "Rejetée"
-        archived: "Archivé"
-        restored: "Restauré"
+        approved: Approuvée
+        rejected: Rejetée
+        archived: Archivé
+        restored: Restauré
       seller:
-        account_age_label: "Ancienneté du compte"
+        account_age_label: Ancienneté du compte
         account_age:
-          one: "Membre depuis %{count} jour"
-          other: "Membre depuis %{count} jours"
-        previous_rejections_label: "Rejets précédents"
+          one: Membre depuis %{count} jour
+          other: Membre depuis %{count} jours
+        previous_rejections_label: Rejets précédents
         previous_rejections:
           one: "%{count} rejet précédent"
           other: "%{count} rejets précédents"
-        verified: "Vérifié"
-        verified_label: "Vérification"
-        unverified: "Non vérifié"
+        verified: Vérifié
+        verified_label: Vérification
+        unverified: Non vérifié
       history:
-        empty: "Aucune décision de modération n’a encore été enregistrée."
+        empty: Aucune décision de modération n’a encore été enregistrée.
       notices:
-        approved: "Annonce approuvée. Le vendeur a été prévenu."
-        rejected: "Annonce rejetée. Le vendeur a été prévenu."
-        reason_required: "Choisissez un motif avant de rejeter l’annonce."
-        invalid_decision: "Cette décision de modération n’est pas valide."
-        already_moderated: "Un autre modérateur a déjà examiné cette annonce."
+        approved: Annonce approuvée. Le vendeur a été prévenu.
+        rejected: Annonce rejetée. Le vendeur a été prévenu.
+        reason_required: Choisissez un motif avant de rejeter l’annonce.
+        invalid_decision: Cette décision de modération n’est pas valide.
+        already_moderated: Un autre modérateur a déjà examiné cette annonce.
       shortcuts:
-        title: "Raccourcis clavier"
-        hint: "Appuyez sur A pour approuver, sur R pour choisir un motif et sur J/K pour passer d’une annonce à l’autre."
-        approve: "A : approuver"
-        reject: "R : aller aux motifs de rejet"
-        next: "J : annonce suivante"
-        previous: "K : annonce précédente"
+        title: Raccourcis clavier
+        hint: Appuyez sur A pour approuver, sur R pour choisir un motif et sur J/K pour passer d’une annonce à l’autre.
+        approve: 'A : approuver'
+        reject: 'R : aller aux motifs de rejet'
+        next: 'J : annonce suivante'
+        previous: 'K : annonce précédente'
+    reports:
+      anonymous: Anonyme
+      'yes': Oui
+      'no': Non
+      store_statuses:
+        active: Active
+        suspended: Suspendue
+      statuses:
+        open: Ouvert
+        in_review: En cours d'examen
+        actioned: Mesure prise
+        dismissed: Rejeté
+      types:
+        listing: Annonce
+        store: Boutique
+        message: Message
+        user: Utilisateur
+      notices:
+        resolved: Signalement résolu et auteur informé.
+        invalid: Ajoutez un exposé des motifs avant de résoudre le signalement.
+      index:
+        title: Signalements
+        subtitle: Examinez les signalements reçus au titre du règlement sur les services numériques, du plus ancien au plus récent.
+        count:
+          one: "%{count} signalement"
+          other: "%{count} signalements"
+        table:
+          report: Signalement
+          item: Élément
+          reason: Motif
+          reporter: Auteur
+          created: Reçu
+          status: Statut
+          actions: Actions
+          open: Ouvrir
+        empty_title: Aucun signalement ne correspond à ces filtres
+        empty_body: Les nouveaux signalements apparaîtront ici.
+      filters:
+        status: Statut
+        reason: Motif
+        type: Type
+        any: Tous
+        apply: Appliquer les filtres
+        clear: Effacer les filtres
+      show:
+        title: Signalement n° %{id}
+        back: Retour aux signalements
+        report_title: Détails du signalement
+        reason: Motif
+        status: Statut
+        reporter: Auteur
+        contact: E-mail de contact
+        reported_item: Élément signalé
+        view_public: Voir la page publique
+        message_sender: Envoyé par %{name}
+        message_hidden: 'Message masqué : %{hidden}'
+        user_banned: 'Compte banni : %{banned}'
+        history_title: Signalements précédents pour cet élément
+        history_empty: Aucun signalement précédent.
+        decision_title: Décision
+        decision_hint: Rédigez un exposé des motifs et choisissez une issue. L'auteur du signalement la recevra par e-mail.
+        note: Exposé des motifs
+        note_placeholder: Expliquez la décision et la mesure prise.
+        dismiss: Rejeter le signalement
+        take_action: Prendre une mesure
+        handled_by: Traité par %{name}
+        action_effect:
+          listing: Prendre une mesure archive l'annonce et prévient le vendeur.
+          store: Prendre une mesure suspend la boutique.
+          message: Prendre une mesure masque le message dans la conversation.
+          user: Prendre une mesure bannit le compte utilisateur.
+      deleted_item: Élément supprimé
   listing_mailer:
     approved:
-      subject: "Votre annonce est en ligne"
-      greeting: "Bonjour %{name},"
-      body: "Bonne nouvelle : nous avons approuvé « %{title} » et elle est désormais visible sur %{app}."
-      cta: "Voir votre annonce"
-      manage: "Modifier votre annonce"
-      closing: "Merci de vendre avec nous."
+      subject: Votre annonce est en ligne
+      greeting: Bonjour %{name},
+      body: 'Bonne nouvelle : nous avons approuvé « %{title} » et elle est désormais visible sur %{app}.'
+      cta: Voir votre annonce
+      manage: Modifier votre annonce
+      closing: Merci de vendre avec nous.
     rejected:
-      subject: "Votre annonce nécessite quelques modifications"
-      greeting: "Bonjour %{name},"
-      body: "Nous avons examiné « %{title} » et elle ne peut pas encore être publiée."
-      reason_label: "Motif"
-      cta: "Modifier et renvoyer"
-      closing: "Corrigez les détails et renvoyez-la. Nous sommes là pour vous aider."
+      subject: Votre annonce nécessite quelques modifications
+      greeting: Bonjour %{name},
+      body: Nous avons examiné « %{title} » et elle ne peut pas encore être publiée.
+      reason_label: Motif
+      cta: Modifier et renvoyer
+      closing: Corrigez les détails et renvoyez-la. Nous sommes là pour vous aider.
     footer:
-      reason: "Vous recevez cet e-mail parce que vous avez une annonce sur %{app}."
-      signature: "L’équipe %{app}"
-
+      reason: Vous recevez cet e-mail parce que vous avez une annonce sur %{app}.
+      signature: L’équipe %{app}
   cart:
-    eyebrow: "Votre panier"
-    title: "Votre panier"
+    eyebrow: Votre panier
+    title: Votre panier
     item_count:
       one: "%{count} article"
       other: "%{count} articles"
-    seller: "Vendu par"
-    shipping_line: "Livraison %{price}"
-    quantity: "Qté"
+    seller: Vendu par
+    shipping_line: Livraison %{price}
+    quantity: Qté
     quantity_value:
       one: "%{count} unité"
       other: "%{count} unités"
-    update: "Mettre à jour"
-    remove: "Retirer"
-    wishlist_placeholder: "Les listes d'envies arrivent bientôt"
-    save_to_wishlist: "Ajouter à ma liste d'envies"
-    checkout: "Passer commande"
-    checkout_as_guest: "Commander en tant qu'invité"
-    log_in: "Se connecter"
-    guest_disabled: "Connectez-vous pour commander. La commande en tant qu'invité est désactivée."
+    update: Mettre à jour
+    remove: Retirer
+    wishlist_placeholder: Les listes d'envies arrivent bientôt
+    save_to_wishlist: Ajouter à ma liste d'envies
+    checkout: Passer commande
+    checkout_as_guest: Commander en tant qu'invité
+    log_in: Se connecter
+    guest_disabled: Connectez-vous pour commander. La commande en tant qu'invité est désactivée.
     errors:
-      guest_disabled: "Connectez-vous ou activez la commande en tant qu'invité pour ajouter des articles à votre panier."
-      invalid_quantity: "Choisissez une quantité d'au moins une unité."
-      own_listing: "Vous ne pouvez pas acheter votre propre annonce."
-      unavailable: "Cette annonce n'est plus disponible."
-      store_vacation: "Ce vendeur est en congés et ne peut pas prendre de commandes pour le moment."
-      out_of_stock: "Cette annonce est épuisée."
-      insufficient_stock: "Le stock est insuffisant pour cette quantité."
+      guest_disabled: Connectez-vous ou activez la commande en tant qu'invité pour ajouter des articles à votre panier.
+      invalid_quantity: Choisissez une quantité d'au moins une unité.
+      own_listing: Vous ne pouvez pas acheter votre propre annonce.
+      unavailable: Cette annonce n'est plus disponible.
+      store_vacation: Ce vendeur est en congés et ne peut pas prendre de commandes pour le moment.
+      out_of_stock: Cette annonce est épuisée.
+      insufficient_stock: Le stock est insuffisant pour cette quantité.
+      offer_invalid: Cette offre n'est plus valide.
     flash:
-      added: "Ajouté à votre panier."
-      updated: "Panier mis à jour."
-      removed: "Article retiré de votre panier."
+      added: Ajouté à votre panier.
+      updated: Panier mis à jour.
+      removed: Article retiré de votre panier.
     unavailable:
-      title: "Articles indisponibles"
+      title: Articles indisponibles
       reasons:
-        own_listing: "Il s'agit de votre propre annonce."
-        store_vacation: "Le vendeur est en congés."
-        out_of_stock: "En rupture de stock."
-        unavailable: "N'est plus disponible."
+        own_listing: Il s'agit de votre propre annonce.
+        store_vacation: Le vendeur est en congés.
+        out_of_stock: En rupture de stock.
+        unavailable: N'est plus disponible.
+        offer_expired: L'offre pour cet article a expiré.
     summary:
-      title: "Récapitulatif de la commande"
-      subtotal: "Sous-total"
-      shipping: "Livraison"
-      total: "Total"
+      title: Récapitulatif de la commande
+      subtotal: Sous-total
+      shipping: Livraison
+      total: Total
     buyer_protection:
-      title: "Protection de l'acheteur"
-      body: "Votre achat est couvert pendant %{days} jours après la livraison. Confirmez la livraison lorsque tout est conforme."
+      title: Protection de l'acheteur
+      body: Votre achat est couvert pendant %{days} jours après la livraison. Confirmez la livraison lorsque tout est conforme.
     empty:
-      title: "Votre panier est vide"
-      body: "Parcourez la place de marché et ajoutez les pièces dont vous avez besoin."
-      cta: "Commencer mes achats"
+      title: Votre panier est vide
+      body: Parcourez la place de marché et ajoutez les pièces dont vous avez besoin.
+      cta: Commencer mes achats
     purchase_blocked:
-      own_listing: "Vous ne pouvez pas acheter votre propre annonce."
-      store_vacation: "Ce vendeur est en congés, cet article ne peut donc pas être acheté pour le moment."
-      guest_disabled: "Connectez-vous pour acheter cet article."
-      out_of_stock: "Cet article est épuisé."
-      unavailable: "Cet article n'est plus disponible."
+      own_listing: Vous ne pouvez pas acheter votre propre annonce.
+      store_vacation: Ce vendeur est en congés, cet article ne peut donc pas être acheté pour le moment.
+      guest_disabled: Connectez-vous pour acheter cet article.
+      out_of_stock: Cet article est épuisé.
+      unavailable: Cet article n'est plus disponible.
+    offer_price: Prix de l'offre
   addresses:
     errors:
-      postal_code_format: "Saisissez un code postal à cinq chiffres."
-      province_required: "Choisissez une province."
-      postal_code_province: "Le code postal ne correspond pas à la province sélectionnée."
-      region_country_mismatch: "La province n'appartient pas au pays sélectionné."
+      postal_code_format: Saisissez un code postal à cinq chiffres.
+      province_required: Choisissez une province.
+      postal_code_province: Le code postal ne correspond pas à la province sélectionnée.
+      region_country_mismatch: La province n'appartient pas au pays sélectionné.
   checkout:
-    eyebrow: "Paiement sécurisé"
-    title: "Commander"
-    subtitle: "Choisissez où envoyer votre commande et comment chaque vendeur doit la livrer."
+    eyebrow: Paiement sécurisé
+    title: Commander
+    subtitle: Choisissez où envoyer votre commande et comment chaque vendeur doit la livrer.
     errors:
-      title: "Nous n'avons pas pu démarrer votre commande"
-      guest_disabled: "Connectez-vous pour commander. La commande en tant qu'invité est désactivée."
-      terms_required: "Acceptez les Conditions et la Politique de confidentialité pour continuer."
-      empty_cart: "Votre panier est vide."
-      address_not_found: "Choisissez une adresse enregistrée ou saisissez-en une nouvelle."
-      unavailable_items: "Certains articles de votre panier ne sont plus disponibles. Vérifiez votre panier et réessayez."
-      out_of_stock: "Un autre acheteur a réservé la dernière unité. Vérifiez votre panier et réessayez."
-      payment_failed: "Le paiement a été refusé. Aucun débit n'a été effectué et vos articles ont été libérés."
-      not_found: "Nous n'avons pas trouvé cette commande."
+      title: Nous n'avons pas pu démarrer votre commande
+      guest_disabled: Connectez-vous pour commander. La commande en tant qu'invité est désactivée.
+      terms_required: Acceptez les Conditions et la Politique de confidentialité pour continuer.
+      empty_cart: Votre panier est vide.
+      address_not_found: Choisissez une adresse enregistrée ou saisissez-en une nouvelle.
+      unavailable_items: Certains articles de votre panier ne sont plus disponibles. Vérifiez votre panier et réessayez.
+      out_of_stock: Un autre acheteur a réservé la dernière unité. Vérifiez votre panier et réessayez.
+      payment_failed: Le paiement a été refusé. Aucun débit n'a été effectué et vos articles ont été libérés.
+      not_found: Nous n'avons pas trouvé cette commande.
     flash:
-      completed: "Paiement reçu. Votre commande est confirmée."
+      completed: Paiement reçu. Votre commande est confirmée.
     address:
-      title: "Adresse de livraison"
-      step: "Étape 1"
-      email: "Adresse e-mail"
-      email_hint: "Nous vous enverrons la confirmation et les mises à jour de la commande ici."
-      saved: "Adresses enregistrées"
-      use_new: "Utiliser une nouvelle adresse"
-      new_title: "Nouvelle adresse"
-      full_name: "Nom complet"
-      line1: "Adresse"
-      line2: "Complément d'adresse (facultatif)"
-      province: "Province"
-      choose_province: "Choisissez une province"
-      city: "Ville"
-      postal_code: "Code postal"
-      phone: "Téléphone"
-      country: "Pays"
-      save_address: "Enregistrer cette adresse pour la prochaine fois"
+      title: Adresse de livraison
+      step: Étape 1
+      email: Adresse e-mail
+      email_hint: Nous vous enverrons la confirmation et les mises à jour de la commande ici.
+      saved: Adresses enregistrées
+      use_new: Utiliser une nouvelle adresse
+      new_title: Nouvelle adresse
+      full_name: Nom complet
+      line1: Adresse
+      line2: Complément d'adresse (facultatif)
+      province: Province
+      choose_province: Choisissez une province
+      city: Ville
+      postal_code: Code postal
+      phone: Téléphone
+      country: Pays
+      save_address: Enregistrer cette adresse pour la prochaine fois
     shipping:
-      title: "Options de livraison"
-      step: "Étape 2"
-      shipping: "Livraison à mon adresse"
-      local_pickup: "Retrait chez le vendeur"
-      free: "Gratuite"
+      title: Options de livraison
+      step: Étape 2
+      shipping: Livraison à mon adresse
+      local_pickup: Retrait chez le vendeur
+      free: Gratuite
     withdrawal:
-      business: "Vendeur professionnel : en tant que consommateur, vous disposez de 14 jours calendaires pour vous rétracter de cet achat à distance, à compter de la réception de l'article."
-      private: "Vendeur particulier : le droit de rétractation légal de l'UE ne s'applique pas à cette vente. La protection de l'acheteur PCMarket s'applique pendant %{days} jours après la livraison."
+      business: 'Vendeur professionnel : en tant que consommateur, vous disposez de 14 jours calendaires pour vous rétracter de cet achat à distance, à compter de la réception de l''article.'
+      private: 'Vendeur particulier : le droit de rétractation légal de l''UE ne s''applique pas à cette vente. La protection de l''acheteur PCMarket s''applique pendant %{days} jours après la livraison.'
     payment:
-      title: "Paiement"
-      step: "Étape 3"
-      fake_title: "Paiement de test"
-      fake_body: "Les paiements sont simulés dans cette phase. Appuyez sur Payer pour finaliser la commande sans être débité."
-      discount: "Code de réduction"
-      discount_placeholder: "Saisissez un code"
-      apply: "Appliquer"
-      coming_soon: "Les codes de réduction arrivent bientôt."
-      pay: "Payer et commander"
+      title: Paiement
+      step: Étape 3
+      fake_title: Paiement de test
+      fake_body: Les paiements sont simulés dans cette phase. Appuyez sur Payer pour finaliser la commande sans être débité.
+      discount: Code de réduction
+      discount_placeholder: Saisissez un code
+      apply: Appliquer
+      coming_soon: Les codes de réduction arrivent bientôt.
+      pay: Payer et commander
     legal:
-      accept: "J'accepte les Conditions et la Politique de confidentialité."
-      notice: "En passant commande, vous confirmez que les informations de livraison sont correctes et que vous avez lu les informations sur le vendeur et la rétractation ci-dessus."
+      accept: J'accepte les Conditions et la Politique de confidentialité.
+      notice: En passant commande, vous confirmez que les informations de livraison sont correctes et que vous avez lu les informations sur le vendeur et la rétractation ci-dessus.
     summary:
-      title: "Récapitulatif de la commande"
-      subtotal: "Sous-total"
-      shipping: "Livraison"
-      total: "Total"
+      title: Récapitulatif de la commande
+      subtotal: Sous-total
+      shipping: Livraison
+      total: Total
     protection:
-      title: "Protection de l'acheteur"
-      body: "Vous avez %{days} jours après la livraison pour confirmer que tout est conforme."
+      title: Protection de l'acheteur
+      body: Vous avez %{days} jours après la livraison pour confirmer que tout est conforme.
     confirmation:
-      title: "Merci — votre commande est confirmée"
-      body: "Une confirmation a été envoyée à %{email}."
+      title: Merci — votre commande est confirmée
+      body: Une confirmation a été envoyée à %{email}.
       sellers:
-        one: "Votre achat a été réparti en %{count} commande auprès d'un vendeur indépendant."
-        other: "Votre achat a été réparti en %{count} commandes auprès de vendeurs indépendants."
-      order: "Commande"
-      total: "Total %{total}"
-      view_order: "Voir la commande"
-      my_orders: "Mes commandes"
-      keep_shopping: "Continuer mes achats"
+        one: Votre achat a été réparti en %{count} commande auprès d'un vendeur indépendant.
+        other: Votre achat a été réparti en %{count} commandes auprès de vendeurs indépendants.
+      order: Commande
+      total: Total %{total}
+      view_order: Voir la commande
+      my_orders: Mes commandes
+      keep_shopping: Continuer mes achats
   orders:
     statuses:
-      pending_payment: "En attente de paiement"
-      paid: "Payée"
-      shipped: "Expédiée"
-      delivered: "Livrée"
-      completed: "Terminée"
-      cancelled: "Annulée"
-      refunded: "Remboursée"
-      disputed: "En litige"
+      pending_payment: En attente de paiement
+      paid: Payée
+      shipped: Expédiée
+      delivered: Livrée
+      completed: Terminée
+      cancelled: Annulée
+      refunded: Remboursée
+      disputed: En litige
     fulfilments:
-      shipping: "Livraison"
-      local_pickup: "Retrait sur place"
+      shipping: Livraison
+      local_pickup: Retrait sur place
     carriers:
-      correos: "Correos"
-      seur: "SEUR"
-      mrw: "MRW"
-      gls: "GLS"
-      dhl: "DHL"
-      ups: "UPS"
-      nacex: "Nacex"
-      ctt: "CTT"
-      other: "Autre"
+      correos: Correos
+      seur: SEUR
+      mrw: MRW
+      gls: GLS
+      dhl: DHL
+      ups: UPS
+      nacex: Nacex
+      ctt: CTT
+      other: Autre
     events:
-      created: "Commande créée"
-      paid: "Paiement reçu"
-      shipped: "Commande expédiée"
-      delivered: "Livraison confirmée"
-      completed: "Commande terminée"
-      cancelled: "Commande annulée"
-      payment_failed: "Paiement refusé"
-      expired: "Réservation expirée"
+      created: Commande créée
+      paid: Paiement reçu
+      shipped: Commande expédiée
+      delivered: Livraison confirmée
+      completed: Commande terminée
+      cancelled: Commande annulée
+      payment_failed: Paiement refusé
+      expired: Réservation expirée
     index:
-      eyebrow: "Vos achats"
-      title: "Mes commandes"
-      subtitle: "Suivez vos livraisons, confirmez la réception et gérez vos achats."
+      eyebrow: Vos achats
+      title: Mes commandes
+      subtitle: Suivez vos livraisons, confirmez la réception et gérez vos achats.
       count:
         one: "%{count} commande"
         other: "%{count} commandes"
       items:
         one: "%{count} article"
         other: "%{count} articles"
-      view: "Voir la commande"
-      empty_title: "Aucune commande pour l'instant"
-      empty_body: "Lorsque vous achèterez quelque chose, vos commandes apparaîtront ici."
-      empty_cta: "Parcourir la place de marché"
+      view: Voir la commande
+      empty_title: Aucune commande pour l'instant
+      empty_body: Lorsque vous achèterez quelque chose, vos commandes apparaîtront ici.
+      empty_cta: Parcourir la place de marché
     show:
-      title: "Commande %{number}"
-      back: "Retour à mes commandes"
-      eyebrow: "Détails de la commande"
-      placed_on: "Passée le %{date}"
-      items: "Articles"
+      title: Commande %{number}
+      back: Retour à mes commandes
+      eyebrow: Détails de la commande
+      placed_on: Passée le %{date}
+      items: Articles
       quantity:
         one: "%{count} unité"
         other: "%{count} unités"
-      subtotal: "Sous-total"
-      shipping: "Livraison"
-      total: "Total"
-      timeline: "Historique du statut"
-      no_events: "Aucune mise à jour pour le moment."
-      delivery: "Livraison"
-      tracking: "Suivi : %{carrier} · %{number}"
-      actions: "Actions"
-      confirm_delivery: "Confirmer la livraison"
-      cancel: "Annuler la commande"
-      cancel_reason: "Motif (facultatif)"
-      cancel_confirm: "Annuler cette commande ?"
-      report_problem: "Signaler un problème"
-      report_problem_hint: "Les litiges seront disponibles ici dans une prochaine mise à jour."
-      protection_title: "Protection de l'acheteur"
-      protection_body: "Vous pouvez signaler un problème jusqu'au %{date}."
+      subtotal: Sous-total
+      shipping: Livraison
+      total: Total
+      timeline: Historique du statut
+      no_events: Aucune mise à jour pour le moment.
+      delivery: Livraison
+      tracking: 'Suivi : %{carrier} · %{number}'
+      actions: Actions
+      confirm_delivery: Confirmer la livraison
+      cancel: Annuler la commande
+      cancel_reason: Motif (facultatif)
+      cancel_confirm: Annuler cette commande ?
+      report_problem: Signaler un problème
+      report_problem_hint: Les litiges seront disponibles ici dans une prochaine mise à jour.
+      protection_title: Protection de l'acheteur
+      protection_body: Vous pouvez signaler un problème jusqu'au %{date}.
     flash:
-      delivery_confirmed: "Livraison confirmée. Merci !"
-      cannot_confirm_delivery: "Cette commande ne peut pas être confirmée pour le moment."
-      cancelled: "Commande annulée."
-      cannot_cancel: "Cette commande ne peut pas être annulée pour le moment."
-      problem_report_placeholder: "Les signalements de problèmes seront bientôt disponibles."
+      delivery_confirmed: Livraison confirmée. Merci !
+      cannot_confirm_delivery: Cette commande ne peut pas être confirmée pour le moment.
+      cancelled: Commande annulée.
+      cannot_cancel: Cette commande ne peut pas être annulée pour le moment.
+      problem_report_placeholder: Les signalements de problèmes seront bientôt disponibles.
   sales:
     index:
-      eyebrow: "Espace vendeur"
-      title: "Mes ventes"
-      subtitle: "Suivez les commandes payées, expédiez-les et gérez les annulations."
+      eyebrow: Espace vendeur
+      title: Mes ventes
+      subtitle: Suivez les commandes payées, expédiez-les et gérez les annulations.
       count:
         one: "%{count} vente"
         other: "%{count} ventes"
-      filters_label: "Filtrer les ventes par statut"
-      all: "Toutes"
+      filters_label: Filtrer les ventes par statut
+      all: Toutes
       items:
         one: "%{count} article"
         other: "%{count} articles"
-      payout: "Votre versement %{amount}"
-      view: "Voir la vente"
-      empty_title: "Aucune vente pour l'instant"
-      empty_body: "Les commandes des acheteurs apparaîtront ici dès qu'elles seront payées."
+      payout: Votre versement %{amount}
+      view: Voir la vente
+      empty_title: Aucune vente pour l'instant
+      empty_body: Les commandes des acheteurs apparaîtront ici dès qu'elles seront payées.
     show:
-      title: "Vente %{number}"
-      back: "Retour à mes ventes"
-      eyebrow: "Détails de la vente"
-      placed_on: "Passée le %{date}"
-      items: "Articles"
+      title: Vente %{number}
+      back: Retour à mes ventes
+      eyebrow: Détails de la vente
+      placed_on: Passée le %{date}
+      items: Articles
       quantity:
         one: "%{count} unité"
         other: "%{count} unités"
-      subtotal: "Sous-total des articles"
-      shipping: "Livraison"
-      commission: "Commission"
-      payout: "Votre versement"
-      timeline: "Historique du statut"
-      no_events: "Aucune mise à jour pour le moment."
-      delivery: "Livraison"
-      tracking: "Suivi : %{carrier} · %{number}"
-      address_locked: "L'adresse de l'acheteur s'affiche une fois le paiement confirmé."
-      ship_title: "Marquer comme expédiée"
-      carrier: "Transporteur"
-      carrier_optional: "Transporteur (facultatif)"
-      choose_carrier: "Choisissez un transporteur"
-      tracking_number: "Numéro de suivi"
-      mark_shipped: "Marquer comme expédiée"
-      cancel_title: "Annuler la vente"
-      cancel_reason: "Motif (facultatif)"
-      cancel: "Annuler la commande"
-      cancel_confirm: "Annuler cette commande et rembourser l'acheteur si nécessaire ?"
+      subtotal: Sous-total des articles
+      shipping: Livraison
+      commission: Commission
+      payout: Votre versement
+      timeline: Historique du statut
+      no_events: Aucune mise à jour pour le moment.
+      delivery: Livraison
+      tracking: 'Suivi : %{carrier} · %{number}'
+      address_locked: L'adresse de l'acheteur s'affiche une fois le paiement confirmé.
+      ship_title: Marquer comme expédiée
+      carrier: Transporteur
+      carrier_optional: Transporteur (facultatif)
+      choose_carrier: Choisissez un transporteur
+      tracking_number: Numéro de suivi
+      mark_shipped: Marquer comme expédiée
+      cancel_title: Annuler la vente
+      cancel_reason: Motif (facultatif)
+      cancel: Annuler la commande
+      cancel_confirm: Annuler cette commande et rembourser l'acheteur si nécessaire ?
     flash:
-      shipped: "Commande marquée comme expédiée."
-      cannot_ship: "Ajoutez un transporteur et un numéro de suivi, ou vérifiez le statut de la commande."
-      cancelled: "Commande annulée."
-      cannot_cancel: "Cette commande ne peut pas être annulée pour le moment."
+      shipped: Commande marquée comme expédiée.
+      cannot_ship: Ajoutez un transporteur et un numéro de suivi, ou vérifiez le statut de la commande.
+      cancelled: Commande annulée.
+      cannot_cancel: Cette commande ne peut pas être annulée pour le moment.
   order_mailer:
     footer:
-      reason: "Vous recevez cet e-mail en raison d'une commande sur %{app}."
-      signature: "L'équipe %{app}"
+      reason: Vous recevez cet e-mail en raison d'une commande sur %{app}.
+      signature: L'équipe %{app}
     details:
-      subtotal: "Sous-total"
-      shipping: "Livraison"
-      total: "Total"
-      tracking: "Suivi : %{carrier} · %{number}"
+      subtotal: Sous-total
+      shipping: Livraison
+      total: Total
+      tracking: 'Suivi : %{carrier} · %{number}'
     buyer_confirmation:
-      subject: "Commande %{number} confirmée"
-      greeting: "Bonjour %{name},"
-      body: "Votre commande %{number} auprès de %{store} est confirmée. Nous vous préviendrons lors de l'expédition."
-      cta: "Voir votre commande"
-      closing: "Merci pour votre achat sur PCMarket."
+      subject: Commande %{number} confirmée
+      greeting: Bonjour %{name},
+      body: Votre commande %{number} auprès de %{store} est confirmée. Nous vous préviendrons lors de l'expédition.
+      cta: Voir votre commande
+      closing: Merci pour votre achat sur PCMarket.
     seller_new_sale:
-      subject: "Nouvelle vente %{number}"
-      greeting: "Bonjour %{name},"
-      body: "Vous avez une nouvelle commande payée %{number}. Merci de la préparer pour l'expédition."
-      cta: "Ouvrir la vente"
-      closing: "Expédiez rapidement pour préserver vos indicateurs de protection de l'acheteur."
+      subject: Nouvelle vente %{number}
+      greeting: Bonjour %{name},
+      body: Vous avez une nouvelle commande payée %{number}. Merci de la préparer pour l'expédition.
+      cta: Ouvrir la vente
+      closing: Expédiez rapidement pour préserver vos indicateurs de protection de l'acheteur.
     order_shipped:
-      subject: "La commande %{number} a été expédiée"
-      greeting: "Bonjour %{name},"
-      body: "Votre commande %{number} auprès de %{store} est en route."
-      cta: "Suivre votre commande"
-      closing: "Confirmez la livraison dès son arrivée."
+      subject: La commande %{number} a été expédiée
+      greeting: Bonjour %{name},
+      body: Votre commande %{number} auprès de %{store} est en route.
+      cta: Suivre votre commande
+      closing: Confirmez la livraison dès son arrivée.
     delivery_confirmed:
-      subject: "Livraison confirmée pour la commande %{number}"
-      greeting: "Bonjour %{name},"
-      body: "L'acheteur a confirmé la livraison de la commande %{number}. Votre versement sera libéré selon le calendrier de la place de marché."
-      cta: "Ouvrir la vente"
-      closing: "Merci de vendre sur PCMarket."
+      subject: Livraison confirmée pour la commande %{number}
+      greeting: Bonjour %{name},
+      body: L'acheteur a confirmé la livraison de la commande %{number}. Votre versement sera libéré selon le calendrier de la place de marché.
+      cta: Ouvrir la vente
+      closing: Merci de vendre sur PCMarket.
     order_cancelled:
-      subject: "Commande %{number} annulée"
-      greeting: "Bonjour,"
-      body: "La commande %{number} a été annulée. Tout paiement encaissé sera remboursé sur le moyen de paiement d'origine."
-      closing: "Si vous avez des questions, contactez le support PCMarket."
+      subject: Commande %{number} annulée
+      greeting: Bonjour,
+      body: La commande %{number} a été annulée. Tout paiement encaissé sera remboursé sur le moyen de paiement d'origine.
+      closing: Si vous avez des questions, contactez le support PCMarket.
   wishlist:
-    title: "Liste d'envies"
-    eyebrow: "Votre compte"
-    subtitle: "Tout ce que vous avez enregistré et les vendeurs que vous suivez."
-    sold: "Vendu"
-    unavailable: "Indisponible"
+    title: Liste d'envies
+    eyebrow: Votre compte
+    subtitle: Tout ce que vous avez enregistré et les vendeurs que vous suivez.
+    sold: Vendu
+    unavailable: Indisponible
     tabs:
-      label: "Sections de la liste d'envies"
-      favourites: "Favoris"
-      following: "Abonnements"
+      label: Sections de la liste d'envies
+      favourites: Favoris
+      following: Abonnements
     favourites:
-      added_on: "Enregistré le %{date}"
-      remove: "Retirer"
-      move_to_basket: "Ajouter au panier"
-      empty_title: "Aucun favori pour le moment"
-      empty_body: "Utilisez le cœur sur une annonce pour la conserver ici."
-      empty_cta: "Parcourir les annonces"
+      added_on: Enregistré le %{date}
+      remove: Retirer
+      move_to_basket: Ajouter au panier
+      empty_title: Aucun favori pour le moment
+      empty_body: Utilisez le cœur sur une annonce pour la conserver ici.
+      empty_cta: Parcourir les annonces
     following:
       followers_count:
         one: "%{count} abonné"
@@ -1097,155 +1172,371 @@ fr:
       listings_count:
         one: "%{count} annonce"
         other: "%{count} annonces"
-      following_since: "Abonné depuis le %{date}"
-      unfollow: "Se désabonner"
-      empty_title: "Vous ne suivez aucune boutique pour le moment"
-      empty_body: "Suivez un vendeur depuis une annonce pour voir ses nouveautés ici."
-      empty_cta: "Parcourir les annonces"
+      following_since: Abonné depuis le %{date}
+      unfollow: Se désabonner
+      empty_title: Vous ne suivez aucune boutique pour le moment
+      empty_body: Suivez un vendeur depuis une annonce pour voir ses nouveautés ici.
+      empty_cta: Parcourir les annonces
   favourites:
     button:
-      add: "Ajouter aux favoris"
-      remove: "Retirer des favoris"
+      add: Ajouter aux favoris
+      remove: Retirer des favoris
     flash:
-      added: "Annonce ajoutée à vos favoris."
-      removed: "Annonce retirée de vos favoris."
+      added: Annonce ajoutée à vos favoris.
+      removed: Annonce retirée de vos favoris.
   follows:
     button:
-      follow: "Suivre la boutique"
-      following: "Abonné"
+      follow: Suivre la boutique
+      following: Abonné
     flash:
-      followed: "Vous suivez maintenant cette boutique."
-      unfollowed: "Vous ne suivez plus cette boutique."
+      followed: Vous suivez maintenant cette boutique.
+      unfollowed: Vous ne suivez plus cette boutique.
   saved_searches:
-    hint: "Enregistrez ces filtres et recevez une alerte dès qu'une annonce correspond."
-    save: "Enregistrer cette recherche"
+    hint: Enregistrez ces filtres et recevez une alerte dès qu'une annonce correspond.
+    save: Enregistrer cette recherche
     index:
-      eyebrow: "Votre compte"
-      title: "Recherches enregistrées"
-      subtitle: "Gardez vos filtres préférés à portée de main et recevez une alerte à chaque nouvelle correspondance."
+      eyebrow: Votre compte
+      title: Recherches enregistrées
+      subtitle: Gardez vos filtres préférés à portée de main et recevez une alerte à chaque nouvelle correspondance.
       count: "%{count} recherche(s) enregistrée(s) sur %{max}"
-      limit_note: "Vous pouvez enregistrer jusqu'à %{max} recherches. Supprimez-en une pour en créer une nouvelle."
-      empty_title: "Aucune recherche enregistrée pour le moment"
-      empty_body: "Lancez une recherche et utilisez le bouton d'enregistrement pour conserver ses filtres ici."
-      empty_cta: "Parcourir les annonces"
+      limit_note: Vous pouvez enregistrer jusqu'à %{max} recherches. Supprimez-en une pour en créer une nouvelle.
+      empty_title: Aucune recherche enregistrée pour le moment
+      empty_body: Lancez une recherche et utilisez le bouton d'enregistrement pour conserver ses filtres ici.
+      empty_cta: Parcourir les annonces
     card:
-      created_on: "Enregistrée le %{date}"
-      no_filters: "Toutes les annonces"
-      name_label: "Nom de la recherche"
-      email_alerts: "Alertes e-mail"
-      frequency: "Fréquence des alertes"
-      save: "Enregistrer les modifications"
-      view_results: "Voir les résultats"
-      delete: "Supprimer"
-      delete_confirm: "Supprimer cette recherche enregistrée ?"
+      created_on: Enregistrée le %{date}
+      no_filters: Toutes les annonces
+      name_label: Nom de la recherche
+      email_alerts: Alertes e-mail
+      frequency: Fréquence des alertes
+      save: Enregistrer les modifications
+      view_results: Voir les résultats
+      delete: Supprimer
+      delete_confirm: Supprimer cette recherche enregistrée ?
     frequency_options:
-      instant: "Immédiat"
-      daily: "Résumé quotidien"
-      weekly: "Résumé hebdomadaire"
+      instant: Immédiat
+      daily: Résumé quotidien
+      weekly: Résumé hebdomadaire
     flash:
-      created: "Recherche enregistrée."
-      updated: "Recherche enregistrée mise à jour."
-      destroyed: "Recherche enregistrée supprimée."
+      created: Recherche enregistrée.
+      updated: Recherche enregistrée mise à jour.
+      destroyed: Recherche enregistrée supprimée.
     names:
-      all: "Toutes les annonces"
-      up_to: "jusqu'à %{price}"
-      from: "à partir de %{price}"
+      all: Toutes les annonces
+      up_to: jusqu'à %{price}
+      from: à partir de %{price}
       between: "%{min} – %{max}"
     errors:
-      limit_reached: "Vous pouvez enregistrer jusqu'à %{max} recherches."
-      invalid_query_params: "Les filtres de recherche ne sont pas valides."
+      limit_reached: Vous pouvez enregistrer jusqu'à %{max} recherches.
+      invalid_query_params: Les filtres de recherche ne sont pas valides.
   notifications:
     index:
-      eyebrow: "Votre compte"
-      title: "Notifications"
-      subtitle: "Suivi des commandes, décisions de modération et alertes de vos recherches enregistrées."
+      eyebrow: Votre compte
+      title: Notifications
+      subtitle: Suivi des commandes, décisions de modération et alertes de vos recherches enregistrées.
       count:
         one: "%{count} notification"
         other: "%{count} notifications"
-      unread: "Non lue"
-      mark_all_read: "Tout marquer comme lu"
-      empty_title: "Vous êtes à jour"
-      empty_body: "Les nouveautés de commandes et les alertes apparaîtront ici."
+      unread: Non lue
+      mark_all_read: Tout marquer comme lu
+      empty_title: Vous êtes à jour
+      empty_body: Les nouveautés de commandes et les alertes apparaîtront ici.
     filters:
-      label: "Filtrer les notifications"
-      unread: "Non lues"
-      all: "Toutes"
+      label: Filtrer les notifications
+      unread: Non lues
+      all: Toutes
     bell:
-      label: "Notifications"
-      title: "Notifications"
+      label: Notifications
+      title: Notifications
       unread_count:
-        one: "1 notification non lue"
+        one: 1 notification non lue
         other: "%{count} notifications non lues"
-      mark_all_read: "Tout marquer comme lu"
-      view_all: "Tout voir"
-      empty: "Aucune notification pour le moment"
+      mark_all_read: Tout marquer comme lu
+      view_all: Tout voir
+      empty: Aucune notification pour le moment
     messages:
-      default: "Vous avez une nouvelle notification."
-      listing_approved: "Votre annonce « %{title} » a été approuvée."
-      listing_rejected: "Votre annonce « %{title} » a été refusée : %{reason}"
-      new_sale: "Vous avez vendu « %{title} » sur la commande %{number} pour %{amount}."
-      order_shipped: "La commande %{number} a été expédiée."
-      order_delivered: "La commande %{number} a été livrée."
-      order_cancelled: "La commande %{number} a été annulée."
+      default: Vous avez une nouvelle notification.
+      listing_approved: Votre annonce « %{title} » a été approuvée.
+      listing_rejected: 'Votre annonce « %{title} » a été refusée : %{reason}'
+      new_sale: Vous avez vendu « %{title} » sur la commande %{number} pour %{amount}.
+      order_shipped: La commande %{number} a été expédiée.
+      order_delivered: La commande %{number} a été livrée.
+      order_cancelled: La commande %{number} a été annulée.
       price_drop: "« %{title} » de %{store_name} coûte désormais %{price}."
       followed_store_new_listing: "%{store_name} a publié « %{title} »."
-      saved_search_match: "Nouvelle correspondance pour « %{name} » : %{title}."
+      saved_search_match: 'Nouvelle correspondance pour « %{name} » : %{title}.'
+      new_message: "%{sender_name} vous a envoyé un message au sujet de « %{title} »."
+      new_offer: Nouvelle offre de %{amount} pour « %{title} ».
+      offer_accepted: Votre offre de %{amount} pour « %{title} » a été acceptée.
+      offer_declined: Votre offre de %{amount} pour « %{title} » a été refusée.
+      offer_countered: Nouvelle contre-offre de %{amount} pour « %{title} ».
+      offer_expired: Votre offre de %{amount} pour « %{title} » a expiré.
+      offer_expiring: Votre offre de %{amount} pour « %{title} » expire bientôt.
     preferences:
-      eyebrow: "Votre compte"
-      title: "Paramètres de notification"
-      subtitle: "Choisissez les nouveautés que vous recevez dans l'application et par e-mail."
-      kind: "Notification"
-      in_app: "Dans l'app"
-      email: "E-mail"
-      save: "Enregistrer les préférences"
-      marketing_note: "Les e-mails marketing ne sont envoyés que si vous y consentez explicitement depuis les paramètres de votre compte."
+      eyebrow: Votre compte
+      title: Paramètres de notification
+      subtitle: Choisissez les nouveautés que vous recevez dans l'application et par e-mail.
+      kind: Notification
+      in_app: Dans l'app
+      email: E-mail
+      save: Enregistrer les préférences
+      marketing_note: Les e-mails marketing ne sont envoyés que si vous y consentez explicitement depuis les paramètres de votre compte.
       kinds:
-        listing_approved: "Annonce approuvée"
-        listing_rejected: "Annonce refusée"
-        new_sale: "Nouvelle vente"
-        order_shipped: "Commande expédiée"
-        order_delivered: "Commande livrée"
-        order_cancelled: "Commande annulée"
-        price_drop: "Baisse de prix"
-        followed_store_new_listing: "Nouveautés des boutiques suivies"
-        saved_search_match: "Correspondances des recherches enregistrées"
+        listing_approved: Annonce approuvée
+        listing_rejected: Annonce refusée
+        new_sale: Nouvelle vente
+        order_shipped: Commande expédiée
+        order_delivered: Commande livrée
+        order_cancelled: Commande annulée
+        price_drop: Baisse de prix
+        followed_store_new_listing: Nouveautés des boutiques suivies
+        saved_search_match: Correspondances des recherches enregistrées
+        new_message: Nouveaux messages
+        new_offer: Nouvelles offres
+        offer_accepted: Offre acceptée
+        offer_declined: Offre refusée
+        offer_countered: Contre-offres
+        offer_expired: Offre expirée
+        offer_expiring: Offre bientôt expirée
       flash:
-        updated: "Préférences de notification mises à jour."
+        updated: Préférences de notification mises à jour.
     flash:
-      all_read: "Toutes les notifications ont été marquées comme lues."
+      all_read: Toutes les notifications ont été marquées comme lues.
     errors:
-      invalid_params: "Les données de la notification ne sont pas valides."
+      invalid_params: Les données de la notification ne sont pas valides.
   email_unsubscribe:
     flash:
-      success: "Vous êtes désabonné de ces e-mails."
-      invalid: "Ce lien de désabonnement est invalide ou a expiré."
+      success: Vous êtes désabonné de ces e-mails.
+      invalid: Ce lien de désabonnement est invalide ou a expiré.
   alert_mailer:
     footer:
-      reason: "Vous recevez cet e-mail car vous avez activé les alertes sur %{app}."
-      unsubscribe: "Se désabonner de ces alertes"
-      signature: "L'équipe %{app}"
+      reason: Vous recevez cet e-mail car vous avez activé les alertes sur %{app}.
+      unsubscribe: Se désabonner de ces alertes
+      signature: L'équipe %{app}
     price_drop:
-      subject: "Baisse de prix : %{title}"
-      greeting: "Bonjour %{name},"
+      subject: 'Baisse de prix : %{title}'
+      greeting: Bonjour %{name},
       body: "%{title} de %{store} coûte désormais %{price}."
-      cta: "Voir l'annonce"
-      closing: "Vous recevez cet e-mail car vous avez enregistré cette annonce."
+      cta: Voir l'annonce
+      closing: Vous recevez cet e-mail car vous avez enregistré cette annonce.
     followed_store_new_listing:
-      subject: "Nouvelles annonces de %{store}"
-      greeting: "Bonjour %{name},"
+      subject: Nouvelles annonces de %{store}
+      greeting: Bonjour %{name},
       body: "%{store} vient de publier de nouvelles annonces."
-      cta: "Voir l'annonce"
-      closing: "Vous recevez cet e-mail car vous suivez cette boutique."
+      cta: Voir l'annonce
+      closing: Vous recevez cet e-mail car vous suivez cette boutique.
     saved_search_match:
-      subject: "Nouvelle correspondance pour %{name}"
-      greeting: "Bonjour %{name},"
-      body: "Une nouvelle annonce correspond à votre recherche enregistrée « %{name} » : %{title}."
-      cta: "Voir l'annonce"
-      closing: "Vous recevez cet e-mail car vous avez activé les alertes pour cette recherche enregistrée."
+      subject: Nouvelle correspondance pour %{name}
+      greeting: Bonjour %{name},
+      body: 'Une nouvelle annonce correspond à votre recherche enregistrée « %{name} » : %{title}.'
+      cta: Voir l'annonce
+      closing: Vous recevez cet e-mail car vous avez activé les alertes pour cette recherche enregistrée.
     saved_search_digest:
-      subject: "Résumé de vos recherches enregistrées"
-      greeting: "Bonjour %{name},"
-      body: "Voici les dernières annonces correspondant à vos recherches enregistrées."
+      subject: Résumé de vos recherches enregistrées
+      greeting: Bonjour %{name},
+      body: Voici les dernières annonces correspondant à vos recherches enregistrées.
       search_heading: "%{name}"
-      cta: "Voir les résultats"
-      closing: "Vous recevez cet e-mail car vous avez activé les alertes pour vos recherches enregistrées."
+      cta: Voir les résultats
+      closing: Vous recevez cet e-mail car vous avez activé les alertes pour vos recherches enregistrées.
+  conversations:
+    errors:
+      self: Vous ne pouvez pas vous envoyer de message.
+      seller_mismatch: Le vendeur n'appartient pas à cette boutique.
+      listing_mismatch: L'annonce n'appartient pas à cette boutique.
+      blocked: Vous ne pouvez pas écrire à cet utilisateur car l'un de vous a bloqué l'autre.
+      rate_limited: Vous pouvez démarrer au maximum %{max} nouvelles conversations par heure. Réessayez plus tard.
+      unavailable: Cette conversation n'est pas disponible.
+    flash:
+      opened: Conversation ouverte.
+      all_read: Toutes les conversations sont marquées comme lues.
+    index:
+      eyebrow: Votre compte
+      title: Boîte de réception et offres
+      subtitle: Négociez avec les acheteurs et les vendeurs, suivez vos offres et gérez les utilisateurs bloqués.
+      mark_all_read: Tout marquer comme lu
+      tabs_label: Sections de la boîte de réception
+      tabs:
+        chats: Discussions
+        offers: Offres
+        blocked: Utilisateurs bloqués
+      no_messages: Pas encore de message
+      empty_chats_title: Pas encore de conversation
+      empty_chats_body: Envoyez un message à un vendeur depuis une annonce ou une boutique pour commencer à négocier.
+      empty_offers_title: Pas encore d'offre
+      empty_offers_body: Les offres que vous faites ou recevez apparaîtront ici.
+      empty_blocked_title: Aucun utilisateur bloqué
+      empty_blocked_body: Les utilisateurs que vous bloquez apparaîtront ici pour pouvoir les débloquer plus tard.
+    show:
+      back: Retour à la boîte de réception
+      composer_placeholder: Écrivez un message…
+      attach_images: Joindre des images
+      send: Envoyer
+      composer_hint: Entrée envoie, Maj+Entrée ajoute une ligne. Jusqu'à 4 images de 10 Mo chacune.
+  messages:
+    flash:
+      sent: Message envoyé.
+    errors:
+      not_participant: Vous ne faites pas partie de cette conversation.
+      blocked: Vous ne pouvez pas envoyer de message à cet utilisateur.
+      rate_limited: Vous pouvez envoyer au maximum %{max} messages toutes les 10 minutes. Réessayez plus tard.
+    safety_warning: Payez uniquement via PCMarket pour conserver la protection des acheteurs. Ne partagez jamais de numéro de téléphone, d'e-mail, de coordonnées bancaires et ne payez pas hors plateforme.
+    read: Lu
+  offers:
+    errors:
+      amount_range: L'offre doit être d'au moins %{min} € et inférieure à %{max} €.
+      self: Vous ne pouvez pas faire d'offre sur votre propre annonce.
+      pending_exists: Vous avez déjà une offre en attente pour cette annonce.
+      counter_mismatch: La contre-offre ne correspond pas à cette annonce.
+      disabled: Les offres ne sont pas disponibles pour le moment.
+      unavailable: Cette annonce n'accepte pas les offres.
+      blocked: Vous ne pouvez pas faire d'offre à ce vendeur.
+      not_pending: Cette offre n'est plus en attente.
+      expired: Cette offre a expiré.
+      not_recipient: Vous ne pouvez pas répondre à cette offre.
+      invalid_decision: Cette décision concernant l'offre n'est pas valide.
+    statuses:
+      pending: En attente
+      accepted: Acceptée
+      declined: Refusée
+      countered: Contre-offerte
+      expired: Expirée
+      withdrawn: Retirée
+    flash:
+      created: Offre envoyée.
+      accept: Offre acceptée.
+      decline: Offre refusée.
+      counter: Contre-offre envoyée.
+    form:
+      title: Faire une offre
+      amount: Votre prix (€)
+      message_placeholder: Ajouter un message au vendeur (facultatif)
+      hint: Les offres doivent représenter au moins 50 % du prix demandé et rester inférieures à celui-ci. Elles expirent après 48 heures.
+    inbox:
+      with: Avec %{name}
+      open: Ouvrir la discussion
+    actions:
+      pending: Offre en attente de %{amount}
+      accept: Accepter
+      decline: Refuser
+      counter_amount: Prix de la contre-offre (€)
+      counter_message: Message (facultatif)
+      counter: Envoyer la contre-offre
+      accepted: Offre acceptée à %{amount}
+      buy: Acheter au prix de l'offre
+    system:
+      created: Offre de %{amount} envoyée.
+      accepted: Offre de %{amount} acceptée.
+      declined: Offre de %{amount} refusée.
+      countered: Contre-offre de %{amount} envoyée.
+      expired: Offre de %{amount} expirée.
+  blocks:
+    errors:
+      self: Vous ne pouvez pas vous bloquer vous-même.
+    flash:
+      created: Utilisateur bloqué.
+      destroyed: Utilisateur débloqué.
+    block: Bloquer
+    unblock: Débloquer
+  reports:
+    link: Signaler
+    reasons:
+      illegal_content: Contenu illégal
+      counterfeit: Produit contrefait
+      stolen_goods: Marchandise volée
+      scam_fraud: Arnaque ou fraude
+      prohibited_item: Article interdit
+      misleading: Informations trompeuses
+      harassment: Harcèlement
+      spam: Spam
+      ip_infringement: Atteinte à la propriété intellectuelle
+      other: Autre
+    errors:
+      invalid_email: Saisissez une adresse e-mail valide.
+      unavailable: Cet élément ne peut pas être signalé.
+    flash:
+      created: Merci. Votre signalement a été reçu et sera examiné.
+    new:
+      eyebrow: Confiance et sécurité
+      title: Signaler cet élément
+      subtitle: Dites-nous ce qui ne va pas. Nous examinons chaque signalement conformément au règlement européen sur les services numériques.
+      reported_item: Élément signalé
+      email: Votre adresse e-mail
+      email_hint: Nous vous enverrons un accusé de réception et la décision finale.
+      reason: Motif
+      reason_placeholder: Choisissez un motif
+      details: Que s'est-il passé ?
+      details_placeholder: Décrivez le problème, avec des liens ou des preuves si possible.
+      details_hint: Entre 20 et 2000 caractères.
+      cancel: Annuler
+      submit: Envoyer le signalement
+      dsa_notice: Nous traitons les signalements selon les règles de notification et d'action du règlement européen sur les services numériques. Les faux signalements peuvent entraîner des restrictions de compte.
+  storefronts:
+    member_since: Membre depuis %{date}
+    report_hint: Un problème avec cette boutique ?
+    listings_title: Annonces de cette boutique
+    empty_title: Aucune annonce active
+    empty_body: Cette boutique n'a aucune annonce publiée pour le moment.
+  message_mailer:
+    new_message:
+      subject: Nouveau message de %{sender}
+      greeting: Bonjour %{name},
+      body: "%{sender} vous a envoyé un message au sujet de « %{title} »."
+      cta: Ouvrir la conversation
+      closing: Vous pouvez répondre depuis votre boîte de réception. Si vous l'avez déjà lu, ignorez cet e-mail.
+  offer_mailer:
+    new_offer:
+      subject: Nouvelle offre pour « %{title} »
+      greeting: Bonjour %{name},
+      body: Vous avez reçu une nouvelle offre de %{amount} pour « %{title} ».
+      cta: Examiner l'offre
+      closing: Les offres expirent après 48 heures.
+    offer_accepted:
+      subject: 'Votre offre a été acceptée : %{title}'
+      greeting: Bonjour %{name},
+      body: Votre offre de %{amount} pour « %{title} » a été acceptée. Vous pouvez désormais acheter à ce prix.
+      cta: Acheter au prix de l'offre
+      closing: Finalisez l'achat depuis la conversation avant l'expiration de l'offre.
+    offer_declined:
+      subject: 'Votre offre a été refusée : %{title}'
+      greeting: Bonjour %{name},
+      body: Votre offre de %{amount} pour « %{title} » a été refusée.
+      cta: Ouvrir la conversation
+      closing: Vous pouvez toujours écrire au vendeur ou faire une autre offre.
+    offer_countered:
+      subject: Nouvelle contre-offre pour « %{title} »
+      greeting: Bonjour %{name},
+      body: Vous avez reçu une contre-offre de %{amount} pour « %{title} ».
+      cta: Examiner la contre-offre
+      closing: Acceptez-la ou refusez-la depuis la conversation.
+    offer_expiring:
+      subject: Votre offre pour « %{title} » expire bientôt
+      greeting: Bonjour %{name},
+      body: L'offre de %{amount} pour « %{title} » expire dans moins de 6 heures.
+      cta: Répondre maintenant
+      closing: Après expiration, vous devrez faire une nouvelle offre.
+    offer_expired:
+      subject: Votre offre pour « %{title} » a expiré
+      greeting: Bonjour %{name},
+      body: L'offre de %{amount} pour « %{title} » a expiré.
+      cta: Ouvrir la conversation
+      closing: Vous pouvez faire une nouvelle offre si l'annonce est toujours disponible.
+  report_mailer:
+    acknowledgement:
+      subject: Nous avons reçu votre signalement
+      greeting: Bonjour,
+      body: Merci pour votre signalement. Nous l'avons enregistré sous la référence n° %{reference} et l'examinerons selon notre processus de notification et d'action.
+      reason_label: Motif
+      closing: Nous vous informerons de la décision par e-mail.
+    decision:
+      subject: 'Décision concernant votre signalement : %{decision}'
+      greeting: Bonjour,
+      body: 'Nous avons examiné le signalement n° %{reference}. Décision : %{decision}.'
+      note_label: Exposé des motifs
+      closing: Merci de nous aider à garder PCMarket sûr.
+    decisions:
+      actioned: Mesure prise
+      dismissed: Signalement rejeté
+  notification_mailer:
+    footer:
+      reason: Vous recevez cet e-mail en raison de l'activité de votre compte %{app}.
+      signature: L'équipe %{app}

@@ -1,0 +1,50 @@
+<% set_meta_tags(title: t("reports.new.title"), noindex: true) %>
+
+<div class="mx-auto max-w-2xl space-y-6">
+  <header>
+    <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("reports.new.eyebrow") %></p>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("reports.new.title") %></h1>
+    <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("reports.new.subtitle") %></p>
+  </header>
+
+  <% if @reportable.present? %>
+    <div class="rounded-2xl border border-border bg-surface p-4 text-sm">
+      <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("reports.new.reported_item") %></p>
+      <p class="mt-1 font-bold text-content"><%= reportable_label(@reportable) %></p>
+    </div>
+  <% end %>
+
+  <%= form_with model: @report, url: reports_path, class: "space-y-4 rounded-2xl border border-border bg-surface p-6" do |form| %>
+    <%= form.hidden_field :reportable_type %>
+    <%= form.hidden_field :reportable_id %>
+
+    <% unless user_signed_in? %>
+      <div>
+        <%= form.label :reporter_email, t("reports.new.email"), class: "block text-sm font-semibold text-content" %>
+        <%= form.email_field :reporter_email, class: "field mt-1.5 w-full", required: true %>
+        <p class="mt-1 text-xs text-muted"><%= t("reports.new.email_hint") %></p>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :reason, t("reports.new.reason"), class: "block text-sm font-semibold text-content" %>
+      <%= form.select :reason,
+                      Report::REASONS.map { |reason| [ t("reports.reasons.#{reason}"), reason ] },
+                      { include_blank: t("reports.new.reason_placeholder") },
+                      class: "field mt-1.5 w-full" %>
+    </div>
+
+    <div>
+      <%= form.label :details, t("reports.new.details"), class: "block text-sm font-semibold text-content" %>
+      <%= form.text_area :details, rows: 6, class: "field mt-1.5 w-full", placeholder: t("reports.new.details_placeholder") %>
+      <p class="mt-1 text-xs text-muted"><%= t("reports.new.details_hint") %></p>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <%= link_to t("reports.new.cancel"), root_path, class: "text-sm font-semibold text-muted hover:text-content" %>
+      <%= form.submit t("reports.new.submit"), class: "btn-primary" %>
+    </div>
+  <% end %>
+
+  <p class="text-xs leading-relaxed text-muted"><%= t("reports.new.dsa_notice") %></p>
+</div>

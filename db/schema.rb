@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_170500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -94,15 +94,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
     t.index ["attribute_definition_id"], name: "index_attribute_options_on_attribute_definition_id"
   end
 
+  create_table "blocks", force: :cascade do |t|
+    t.bigint "blocker_id", null: false
+    t.bigint "blocked_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blocked_id"], name: "index_blocks_on_blocked_id"
+    t.index ["blocker_id", "blocked_id"], name: "index_blocks_on_blocker_id_and_blocked_id", unique: true
+    t.index ["blocker_id"], name: "index_blocks_on_blocker_id"
+  end
+
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "listing_id", null: false
     t.integer "quantity", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "offer_id"
+    t.integer "unit_price_cents"
     t.index ["cart_id", "listing_id"], name: "index_cart_items_on_cart_id_and_listing_id", unique: true
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["listing_id"], name: "index_cart_items_on_listing_id"
+    t.index ["offer_id"], name: "index_cart_items_on_offer_id"
   end
 
   create_table "carts", force: :cascade do |t|
@@ -163,6 +176,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
     t.index ["expires_at"], name: "index_checkouts_on_expires_at"
     t.index ["idempotency_key"], name: "index_checkouts_on_idempotency_key", unique: true
     t.index ["status"], name: "index_checkouts_on_status"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "listing_id"
+    t.bigint "buyer_id", null: false
+    t.bigint "seller_id", null: false
+    t.bigint "store_id", null: false
+    t.datetime "last_message_at"
+    t.integer "buyer_unread_count", default: 0, null: false
+    t.integer "seller_unread_count", default: 0, null: false
+    t.boolean "buyer_archived", default: false, null: false
+    t.boolean "seller_archived", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id", "last_message_at"], name: "index_conversations_on_buyer_id_and_last_message_at"
+    t.index ["buyer_id"], name: "index_conversations_on_buyer_id"
+    t.index ["listing_id", "buyer_id"], name: "index_conversations_on_listing_id_and_buyer_id", unique: true
+    t.index ["listing_id"], name: "index_conversations_on_listing_id"
+    t.index ["seller_id", "last_message_at"], name: "index_conversations_on_seller_id_and_last_message_at"
+    t.index ["seller_id"], name: "index_conversations_on_seller_id"
+    t.index ["store_id", "buyer_id"], name: "index_conversations_on_store_and_buyer_without_listing", unique: true, where: "(listing_id IS NULL)"
+    t.index ["store_id"], name: "index_conversations_on_store_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -307,6 +342,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "conversation_id", null: false
+    t.bigint "sender_id", null: false
+    t.text "body", null: false
+    t.integer "kind", default: 0, null: false
+    t.datetime "read_at"
+    t.datetime "hidden_at"
+    t.boolean "safety_flagged", default: false, null: false
+    t.jsonb "safety_reasons", default: [], null: false
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id", "created_at"], name: "index_messages_on_conversation_id_and_created_at"
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["sender_id", "created_at"], name: "index_messages_on_sender_id_and_created_at"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
   create_table "notification_preferences", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "kind", null: false
@@ -331,6 +384,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
     t.index ["recipient_id", "read_at", "created_at"], name: "index_notifications_on_recipient_id_and_read_at_and_created_at"
     t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
+  end
+
+  create_table "offers", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "buyer_id", null: false
+    t.bigint "conversation_id", null: false
+    t.bigint "offerer_id", null: false
+    t.bigint "counter_offer_id"
+    t.integer "amount_cents", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "expires_at"
+    t.datetime "expiry_reminder_sent_at"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_offers_on_buyer_id"
+    t.index ["conversation_id"], name: "index_offers_on_conversation_id"
+    t.index ["counter_offer_id"], name: "index_offers_on_counter_offer_id"
+    t.index ["listing_id", "buyer_id"], name: "index_offers_on_listing_and_buyer_pending", unique: true, where: "(((status)::text = 'pending'::text) AND (counter_offer_id IS NULL))"
+    t.index ["listing_id"], name: "index_offers_on_listing_id"
+    t.index ["offerer_id"], name: "index_offers_on_offerer_id"
+    t.index ["status", "expires_at"], name: "index_offers_on_status_and_expires_at"
   end
 
   create_table "order_events", force: :cascade do |t|
@@ -417,6 +492,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
     t.datetime "updated_at", null: false
     t.index ["country_code", "code"], name: "index_regions_on_country_code_and_code", unique: true
     t.index ["country_code"], name: "index_regions_on_country_code"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.bigint "reporter_id"
+    t.string "reporter_email"
+    t.string "reportable_type", null: false
+    t.bigint "reportable_id", null: false
+    t.integer "reason", null: false
+    t.text "details", null: false
+    t.integer "status", default: 0, null: false
+    t.text "resolution_note"
+    t.bigint "handled_by_id"
+    t.datetime "handled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["handled_by_id"], name: "index_reports_on_handled_by_id"
+    t.index ["reason"], name: "index_reports_on_reason"
+    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable"
+    t.index ["reporter_id"], name: "index_reports_on_reporter_id"
+    t.index ["status", "created_at"], name: "index_reports_on_status_and_created_at"
   end
 
   create_table "saved_searches", force: :cascade do |t|
@@ -564,13 +659,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
   add_foreign_key "addresses", "regions"
   add_foreign_key "addresses", "users"
   add_foreign_key "attribute_options", "attribute_definitions"
+  add_foreign_key "blocks", "users", column: "blocked_id"
+  add_foreign_key "blocks", "users", column: "blocker_id"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "listings"
+  add_foreign_key "cart_items", "offers"
   add_foreign_key "carts", "users"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "category_attributes", "attribute_definitions"
   add_foreign_key "category_attributes", "categories"
   add_foreign_key "checkouts", "users", column: "buyer_id"
+  add_foreign_key "conversations", "listings"
+  add_foreign_key "conversations", "stores"
+  add_foreign_key "conversations", "users", column: "buyer_id"
+  add_foreign_key "conversations", "users", column: "seller_id"
   add_foreign_key "favourites", "listings"
   add_foreign_key "favourites", "users"
   add_foreign_key "follows", "stores"
@@ -584,8 +686,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
   add_foreign_key "listings", "regions"
   add_foreign_key "listings", "stores"
   add_foreign_key "listings", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "notification_preferences", "users"
   add_foreign_key "notifications", "users", column: "recipient_id"
+  add_foreign_key "offers", "conversations"
+  add_foreign_key "offers", "listings"
+  add_foreign_key "offers", "offers", column: "counter_offer_id"
+  add_foreign_key "offers", "users", column: "buyer_id"
+  add_foreign_key "offers", "users", column: "offerer_id"
   add_foreign_key "order_events", "orders"
   add_foreign_key "order_events", "users", column: "actor_id"
   add_foreign_key "order_items", "listings"
@@ -596,6 +705,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
   add_foreign_key "payouts", "orders"
   add_foreign_key "payouts", "stores"
   add_foreign_key "regions", "countries", column: "country_code", primary_key: "code"
+  add_foreign_key "reports", "users", column: "handled_by_id"
+  add_foreign_key "reports", "users", column: "reporter_id"
   add_foreign_key "saved_searches", "categories"
   add_foreign_key "saved_searches", "users"
   add_foreign_key "stores", "regions"

@@ -1,1095 +1,1170 @@
 it:
   app:
-    name: "PCMarket"
-    tagline: "Compra e vendi componenti per PC"
+    name: PCMarket
+    tagline: Compra e vendi componenti per PC
   announcement:
-    promo: "Spedizione gratuita per ordini superiori a 75 € — compra e vendi in tutta sicurezza"
-    links: "Link rapidi"
-    help: "Aiuto"
-    blog: "Blog"
-    finder: "Configuratore PC"
+    promo: Spedizione gratuita per ordini superiori a 75 € — compra e vendi in tutta sicurezza
+    links: Link rapidi
+    help: Aiuto
+    blog: Blog
+    finder: Configuratore PC
   nav:
-    home: "Home"
-    search_placeholder: "Cerca componenti per PC"
-    list_item: "Pubblica un annuncio"
-    sell_to_us: "Vendici il tuo usato"
-    wishlist: "Preferiti"
-    notifications: "Notifiche"
-    cart: "Carrello"
-    account: "Account"
-    menu: "Menu"
-    open_menu: "Apri il menu"
-    close_menu: "Chiudi il menu"
-    language: "Lingua"
+    home: Home
+    search_placeholder: Cerca componenti per PC
+    list_item: Pubblica un annuncio
+    sell_to_us: Vendici il tuo usato
+    wishlist: Preferiti
+    notifications: Notifiche
+    cart: Carrello
+    account: Account
+    menu: Menu
+    open_menu: Apri il menu
+    close_menu: Chiudi il menu
+    language: Lingua
     theme:
-      toggle: "Cambia tema"
+      toggle: Cambia tema
     categories:
-      label: "Acquista per categoria"
-      new: "Novità"
-      gaming_pcs: "PC gaming"
-      gpus: "Schede grafiche"
-      components: "Componenti"
-      peripherals: "Periferiche"
-      laptops: "Portatili"
-      phones_tablets: "Telefoni e tablet"
-      consoles: "Console"
-      more: "Altro"
-      all_category: "Tutti i %{category}"
+      label: Acquista per categoria
+      new: Novità
+      gaming_pcs: PC gaming
+      gpus: Schede grafiche
+      components: Componenti
+      peripherals: Periferiche
+      laptops: Portatili
+      phones_tablets: Telefoni e tablet
+      consoles: Console
+      more: Altro
+      all_category: Tutti i %{category}
   home:
     hero:
-      eyebrow: "Pensato per gli appassionati di PC"
-      title: "Trova i componenti. Assembla il PC perfetto."
-      subtitle: "Acquista componenti testati da venditori affidabili o trasforma l'hardware che non usi in denaro, tutto in un unico posto."
-      cta: "Esplora il marketplace"
+      eyebrow: Pensato per gli appassionati di PC
+      title: Trova i componenti. Assembla il PC perfetto.
+      subtitle: Acquista componenti testati da venditori affidabili o trasforma l'hardware che non usi in denaro, tutto in un unico posto.
+      cta: Esplora il marketplace
   footer:
     newsletter:
-      title: "Resta aggiornato"
-      description: "Offerte settimanali, novità e consigli per assemblare il PC, direttamente nella tua casella di posta."
-      label: "Indirizzo e-mail"
-      placeholder: "tu@esempio.it"
-      button: "Iscriviti"
-      note: "Niente spam. Disiscriviti quando vuoi."
+      title: Resta aggiornato
+      description: Offerte settimanali, novità e consigli per assemblare il PC, direttamente nella tua casella di posta.
+      label: Indirizzo e-mail
+      placeholder: tu@esempio.it
+      button: Iscriviti
+      note: Niente spam. Disiscriviti quando vuoi.
     about:
-      title: "Chi siamo"
-      about_us: "Chi siamo"
-      trust_safety: "Fiducia e sicurezza"
-      blog: "Blog"
+      title: Chi siamo
+      about_us: Chi siamo
+      trust_safety: Fiducia e sicurezza
+      blog: Blog
     help:
-      title: "Aiuto"
-      help_centre: "Centro assistenza"
-      contact: "Contatti"
-      shipping: "Spedizioni"
-      returns: "Resi"
+      title: Aiuto
+      help_centre: Centro assistenza
+      contact: Contatti
+      shipping: Spedizioni
+      returns: Resi
     selling:
-      title: "Vendere"
-      how_to_sell: "Come vendere"
-      fees: "Commissioni di vendita"
-      academy: "Academy per venditori"
+      title: Vendere
+      how_to_sell: Come vendere
+      fees: Commissioni di vendita
+      academy: Academy per venditori
     legal:
-      label: "Legale"
-      terms: "Termini"
-      privacy: "Privacy"
-      cookies: "Cookie"
-      legal_notice: "Note legali"
+      label: Legale
+      terms: Termini
+      privacy: Privacy
+      cookies: Cookie
+      legal_notice: Note legali
     social:
-      instagram: "Instagram"
-      youtube: "YouTube"
-      x: "X"
+      instagram: Instagram
+      youtube: YouTube
+      x: X
     copyright: "© %{year} PCMarket. Tutti i diritti riservati."
   flash:
-    dismiss: "Chiudi la notifica"
+    dismiss: Chiudi la notifica
   layout:
-    skip_to_content: "Vai al contenuto principale"
-    back_to_top: "Torna su"
+    skip_to_content: Vai al contenuto principale
+    back_to_top: Torna su
   locale:
     names:
-      es: "Español"
-      en: "English"
-      fr: "Français"
-      de: "Deutsch"
-      it: "Italiano"
-      pt: "Português"
+      es: Español
+      en: English
+      fr: Français
+      de: Deutsch
+      it: Italiano
+      pt: Português
   countries:
-    es: "Spagna"
-    fr: "Francia"
-    gb: "Regno Unito"
-    de: "Germania"
-    it: "Italia"
-    pt: "Portogallo"
+    es: Spagna
+    fr: Francia
+    gb: Regno Unito
+    de: Germania
+    it: Italia
+    pt: Portogallo
   settings:
-    listings_require_approval: "Richiedi approvazione prima della pubblicazione di un annuncio"
-    commission_percent: "Commissione applicata a ogni vendita (%)"
-    commission_enabled: "Applica commissioni sulle vendite"
-    featured_listing_price: "Prezzo di un annuncio in evidenza"
-    featured_enabled: "Consenti ai venditori di mettere in evidenza gli annunci"
-    max_images_per_listing: "Numero massimo di immagini per annuncio"
-    min_listing_price: "Prezzo minimo di un annuncio"
-    max_listing_price: "Prezzo massimo di un annuncio"
-    buyer_protection_days: "Giorni di protezione dell'acquirente dopo la consegna"
-    support_email: "Indirizzo e-mail dell'assistenza"
-    maintenance_mode: "Attiva la modalità manutenzione del marketplace"
+    listings_require_approval: Richiedi approvazione prima della pubblicazione di un annuncio
+    commission_percent: Commissione applicata a ogni vendita (%)
+    commission_enabled: Applica commissioni sulle vendite
+    featured_listing_price: Prezzo di un annuncio in evidenza
+    featured_enabled: Consenti ai venditori di mettere in evidenza gli annunci
+    max_images_per_listing: Numero massimo di immagini per annuncio
+    min_listing_price: Prezzo minimo di un annuncio
+    max_listing_price: Prezzo massimo di un annuncio
+    buyer_protection_days: Giorni di protezione dell'acquirente dopo la consegna
+    support_email: Indirizzo e-mail dell'assistenza
+    maintenance_mode: Attiva la modalità manutenzione del marketplace
   auth:
     sign_in:
-      title: "Bentornato"
-      subtitle: "Accedi per gestire annunci, ordini e preferiti."
-      submit: "Accedi"
+      title: Bentornato
+      subtitle: Accedi per gestire annunci, ordini e preferiti.
+      submit: Accedi
     sign_up:
-      title: "Crea il tuo account"
-      subtitle: "Unisciti al marketplace e inizia a comprare o vendere componenti per PC."
-      submit: "Crea account"
+      title: Crea il tuo account
+      subtitle: Unisciti al marketplace e inizia a comprare o vendere componenti per PC.
+      submit: Crea account
     forgot_password:
-      title: "Password dimenticata?"
-      subtitle: "Inserisci la tua e-mail e ti invieremo un link per reimpostarla."
-      submit: "Invia link"
+      title: Password dimenticata?
+      subtitle: Inserisci la tua e-mail e ti invieremo un link per reimpostarla.
+      submit: Invia link
     reset_password:
-      title: "Scegli una nuova password"
-      subtitle: "Usa una password sicura che non hai mai usato prima."
-      submit: "Cambia password"
+      title: Scegli una nuova password
+      subtitle: Usa una password sicura che non hai mai usato prima.
+      submit: Cambia password
     confirmation:
-      title: "Conferma la tua e-mail"
-      subtitle: "Ti invieremo di nuovo le istruzioni di conferma."
-      submit: "Invia di nuovo la conferma"
+      title: Conferma la tua e-mail
+      subtitle: Ti invieremo di nuovo le istruzioni di conferma.
+      submit: Invia di nuovo la conferma
     unlock:
-      title: "Sblocca il tuo account"
-      subtitle: "Ti invieremo un link via e-mail per sbloccarlo."
-      submit: "Invia link di sblocco"
+      title: Sblocca il tuo account
+      subtitle: Ti invieremo un link via e-mail per sbloccarlo.
+      submit: Invia link di sblocco
     benefits:
-      title: "Compra e vendi in tutta sicurezza"
-      buyers: "Protezione acquirenti su ogni ordine"
-      sellers: "Raggiungi migliaia di appassionati di PC"
-      secure: "Pagamenti sicuri e venditori verificati"
-    google: "Continua con Google"
-    remember_me: "Ricordami"
-    username_hint: "Da 3 a 30 caratteri. Lettere, numeri, trattini e trattini bassi."
-    or: "oppure"
+      title: Compra e vendi in tutta sicurezza
+      buyers: Protezione acquirenti su ogni ordine
+      sellers: Raggiungi migliaia di appassionati di PC
+      secure: Pagamenti sicuri e venditori verificati
+    google: Continua con Google
+    remember_me: Ricordami
+    username_hint: Da 3 a 30 caratteri. Lettere, numeri, trattini e trattini bassi.
+    or: oppure
     terms:
-      acceptance_html: "Accetto i %{terms} e l'%{privacy}"
-    marketing_opt_in: "Ricevi offerte e novità dal marketplace"
-    omniauth_failure: "Non siamo riusciti ad accedere con Google. Riprova."
-    omniauth_email_not_verified: "Esiste già un account con questa email. Accedi prima con la tua password."
+      acceptance_html: Accetto i %{terms} e l'%{privacy}
+    marketing_opt_in: Ricevi offerte e novità dal marketplace
+    omniauth_failure: Non siamo riusciti ad accedere con Google. Riprova.
+    omniauth_email_not_verified: Esiste già un account con questa email. Accedi prima con la tua password.
   account:
     menu:
       signed_out:
-        sign_in: "Accedi"
-        sign_up: "Crea account"
-      my_orders: "I miei ordini"
-      inbox: "Posta in arrivo"
-      wishlist: "Preferiti"
-      saved_searches: "Ricerche salvate"
-      notifications: "Notifiche"
-      notification_settings: "Impostazioni delle notifiche"
-      settings: "Impostazioni account"
+        sign_in: Accedi
+        sign_up: Crea account
+      my_orders: I miei ordini
+      inbox: Posta in arrivo e offerte
+      wishlist: Preferiti
+      saved_searches: Ricerche salvate
+      notifications: Notifiche
+      notification_settings: Impostazioni delle notifiche
+      settings: Impostazioni account
       store:
-        title: "Il mio negozio"
-        public_profile: "Profilo pubblico"
-        seller_dashboard: "Dashboard venditore"
-        listings: "I miei annunci"
-        sales: "Le mie vendite"
-        settings: "Impostazioni negozio"
-      admin_panel: "Pannello di amministrazione"
-      logout: "Esci"
+        title: Il mio negozio
+        public_profile: Profilo pubblico
+        seller_dashboard: Dashboard venditore
+        listings: I miei annunci
+        sales: Le mie vendite
+        settings: Impostazioni negozio
+      admin_panel: Pannello di amministrazione
+      logout: Esci
   devise:
     failure:
-      banned: "Il tuo account è sospeso. Contatta l'assistenza."
-      deleted: "Questo account è stato eliminato."
+      banned: Il tuo account è sospeso. Contatta l'assistenza.
+      deleted: Questo account è stato eliminato.
   pundit:
-    not_authorized: "Non sei autorizzato a eseguire questa azione."
+    not_authorized: Non sei autorizzato a eseguire questa azione.
   activerecord:
     models:
-      user: "Utente"
-      store: "Negozio"
-      listing: "Annuncio"
+      user: Utente
+      store: Negozio
+      listing: Annuncio
     attributes:
       user:
-        username: "Nome utente"
-        first_name: "Nome"
-        last_name: "Cognome"
-        phone: "Telefono"
-        locale: "Lingua"
-        country_code: "Paese"
-        marketing_opt_in: "E-mail di marketing"
-        terms_accepted: "Accettazione dei termini"
-        role: "Ruolo"
+        username: Nome utente
+        first_name: Nome
+        last_name: Cognome
+        phone: Telefono
+        locale: Lingua
+        country_code: Paese
+        marketing_opt_in: E-mail di marketing
+        terms_accepted: Accettazione dei termini
+        role: Ruolo
       store:
-        kind: "Tipo di venditore"
-        name: "Nome del negozio"
-        description: "Il tuo negozio"
-        logo: "Logo"
-        region: "Provincia"
-        region_id: "Provincia"
-        province: "Provincia"
-        city: "Città"
-        legal_name: "Ragione sociale"
-        tax_id: "Codice fiscale"
-        address_line: "Indirizzo"
-        postal_code: "Codice postale"
-        phone: "Telefono"
-        website: "Sito web"
-        country_code: "Paese"
+        kind: Tipo di venditore
+        name: Nome del negozio
+        description: Il tuo negozio
+        logo: Logo
+        region: Provincia
+        region_id: Provincia
+        province: Provincia
+        city: Città
+        legal_name: Ragione sociale
+        tax_id: Codice fiscale
+        address_line: Indirizzo
+        postal_code: Codice postale
+        phone: Telefono
+        website: Sito web
+        country_code: Paese
       listing:
-        category: "Categoria"
-        title: "Titolo"
-        description: "Descrizione"
-        condition: "Condizioni"
-        price_cents: "Prezzo"
-        compare_at_price_cents: "Prezzo originale"
-        quantity: "Quantità"
-        shipping_mode: "Consegna"
-        shipping_price_cents: "Spese di spedizione"
-        handling_days: "Tempo di preparazione"
-        region: "Provincia"
-        region_id: "Provincia"
-        city: "Città"
-        postal_code: "Codice postale"
-        photos: "Foto"
-        specs: "Specifiche"
-        tags: "Tag"
-        seller_tags: "Tag venditore"
+        category: Categoria
+        title: Titolo
+        description: Descrizione
+        condition: Condizioni
+        price_cents: Prezzo
+        compare_at_price_cents: Prezzo originale
+        quantity: Quantità
+        shipping_mode: Consegna
+        shipping_price_cents: Spese di spedizione
+        handling_days: Tempo di preparazione
+        region: Provincia
+        region_id: Provincia
+        city: Città
+        postal_code: Codice postale
+        photos: Foto
+        specs: Specifiche
+        tags: Tag
+        seller_tags: Tag venditore
   errors:
     messages:
-      invalid_spanish_tax_id: "non è un NIF, NIE o CIF spagnolo valido"
-      invalid_image_type: "non è un tipo di immagine supportato"
-      image_too_large: "supera la dimensione massima consentita"
+      invalid_spanish_tax_id: non è un NIF, NIE o CIF spagnolo valido
+      invalid_image_type: non è un tipo di immagine supportato
+      image_too_large: supera la dimensione massima consentita
       not_saved:
-        one: "1 errore ha impedito il salvataggio di %{resource}:"
+        one: '1 errore ha impedito il salvataggio di %{resource}:'
         other: "%{count} errori hanno impedito il salvataggio di %{resource}:"
+      too_many_images: ha troppe immagini (massimo 4)
   form:
     errors:
-      heading: "Correggi quanto segue:"
+      heading: 'Correggi quanto segue:'
   categories:
     errors:
-      cycle: "Una categoria non può essere il proprio antenato."
+      cycle: Una categoria non può essere il proprio antenato.
   stores:
     new:
-      title: "Configura il tuo negozio da venditore"
-      subtitle: "Prima di pubblicare il primo articolo, racconta agli acquirenti chi sei."
+      title: Configura il tuo negozio da venditore
+      subtitle: Prima di pubblicare il primo articolo, racconta agli acquirenti chi sei.
     edit:
-      title: "Impostazioni negozio"
-      subtitle: "Mantieni aggiornati i dati del venditore."
+      title: Impostazioni negozio
+      subtitle: Mantieni aggiornati i dati del venditore.
     form:
-      kind: "Tipo di venditore"
-      individual: "Privato"
-      individual_hint: "Vendi ricambi come privato."
-      business: "Azienda"
-      business_hint: "Vendi come azienda o professionista."
-      name: "Nome del negozio"
-      name_hint: "Il nome che gli acquirenti vedono nei tuoi annunci."
-      description: "Il tuo negozio"
-      description_hint: "Spiega cosa vendi e come imballi e spedisci."
-      logo: "Logo"
-      logo_hint: "PNG, JPEG o WebP, fino a 5 MB."
-      province: "Provincia"
-      province_hint: "Per ora sono disponibili solo le province spagnole."
-      province_placeholder: "Scegli una provincia"
-      city: "Città"
-      city_placeholder: "es. Madrid"
-      business_heading: "Dati aziendali"
-      business_intro: "Ai sensi del regolamento europeo sui servizi digitali, i venditori professionali devono mostrare i propri dati legali negli annunci. Gli acquirenti vedranno ragione sociale, codice fiscale e indirizzo."
-      legal_name: "Ragione sociale"
-      tax_id: "Codice fiscale (NIF, NIE o CIF)"
-      tax_id_hint: "Codice di identificazione fiscale spagnolo, ad esempio B12345674."
-      address_line: "Indirizzo"
-      postal_code: "Codice postale"
-      postal_code_hint: "Cinque cifre per gli indirizzi spagnoli."
-      phone: "Telefono"
-      website: "Sito web"
-      submit: "Crea negozio"
-      update: "Salva modifiche"
-      cancel: "Annulla"
+      kind: Tipo di venditore
+      individual: Privato
+      individual_hint: Vendi ricambi come privato.
+      business: Azienda
+      business_hint: Vendi come azienda o professionista.
+      name: Nome del negozio
+      name_hint: Il nome che gli acquirenti vedono nei tuoi annunci.
+      description: Il tuo negozio
+      description_hint: Spiega cosa vendi e come imballi e spedisci.
+      logo: Logo
+      logo_hint: PNG, JPEG o WebP, fino a 5 MB.
+      province: Provincia
+      province_hint: Per ora sono disponibili solo le province spagnole.
+      province_placeholder: Scegli una provincia
+      city: Città
+      city_placeholder: es. Madrid
+      business_heading: Dati aziendali
+      business_intro: Ai sensi del regolamento europeo sui servizi digitali, i venditori professionali devono mostrare i propri dati legali negli annunci. Gli acquirenti vedranno ragione sociale, codice fiscale e indirizzo.
+      legal_name: Ragione sociale
+      tax_id: Codice fiscale (NIF, NIE o CIF)
+      tax_id_hint: Codice di identificazione fiscale spagnolo, ad esempio B12345674.
+      address_line: Indirizzo
+      postal_code: Codice postale
+      postal_code_hint: Cinque cifre per gli indirizzi spagnoli.
+      phone: Telefono
+      website: Sito web
+      submit: Crea negozio
+      update: Salva modifiche
+      cancel: Annulla
     flash:
-      created: "Il tuo negozio è pronto. Ora puoi pubblicare il primo articolo."
-      updated: "Impostazioni del negozio aggiornate."
+      created: Il tuo negozio è pronto. Ora puoi pubblicare il primo articolo.
+      updated: Impostazioni del negozio aggiornate.
     errors:
-      region_country_mismatch: "La provincia non appartiene al paese selezionato."
+      region_country_mismatch: La provincia non appartiene al paese selezionato.
   sell:
     listings:
-      title: "I miei annunci"
-      subtitle: "Gestisci ciò che vendi, dalle bozze agli articoli venduti."
-      new_listing: "Pubblica un articolo"
-      untitled: "Annuncio senza titolo"
-      tabs_label: "Filtra gli annunci per stato"
+      title: I miei annunci
+      subtitle: Gestisci ciò che vendi, dalle bozze agli articoli venduti.
+      new_listing: Pubblica un articolo
+      untitled: Annuncio senza titolo
+      tabs_label: Filtra gli annunci per stato
       tabs:
-        active: "Attivi"
-        pending_review: "In attesa di revisione"
-        drafts: "Bozze"
-        rejected: "Rifiutati"
-        sold: "Venduti"
-        archived: "Archiviati"
+        active: Attivi
+        pending_review: In attesa di revisione
+        drafts: Bozze
+        rejected: Rifiutati
+        sold: Venduti
+        archived: Archiviati
       search:
-        label: "Cerca nei tuoi annunci"
-        placeholder: "Cerca per titolo"
-        submit: "Cerca"
-        clear: "Cancella ricerca"
+        label: Cerca nei tuoi annunci
+        placeholder: Cerca per titolo
+        submit: Cerca
+        clear: Cancella ricerca
       table:
-        select: "Seleziona"
-        listing: "Annuncio"
-        price: "Prezzo"
-        status: "Stato"
-        views: "Visualizzazioni"
-        favourites: "Preferiti"
-        updated: "Aggiornato"
-        actions: "Azioni"
+        select: Seleziona
+        listing: Annuncio
+        price: Prezzo
+        status: Stato
+        views: Visualizzazioni
+        favourites: Preferiti
+        updated: Aggiornato
+        actions: Azioni
       actions:
-        edit: "Modifica"
-        archive: "Archivia"
-        republish: "Ripubblica"
-        delete_draft: "Elimina bozza"
+        edit: Modifica
+        archive: Archivia
+        republish: Ripubblica
+        delete_draft: Elimina bozza
       rejected:
-        reason: "Motivo: %{reason}"
-        resubmit: "Modifica e invia di nuovo"
+        reason: 'Motivo: %{reason}'
+        resubmit: Modifica e invia di nuovo
       bulk:
-        select_all: "Seleziona tutto"
-        select_listing: "Seleziona %{title}"
-        archive_selected: "Archivia selezionati"
-        confirm: "Archiviare gli annunci selezionati?"
+        select_all: Seleziona tutto
+        select_listing: Seleziona %{title}
+        archive_selected: Archivia selezionati
+        confirm: Archiviare gli annunci selezionati?
         archived:
           one: "%{count} annuncio archiviato."
           other: "%{count} annunci archiviati."
-        nothing_selected: "Seleziona almeno un annuncio da archiviare."
+        nothing_selected: Seleziona almeno un annuncio da archiviare.
       empty:
-        title: "Non ci sono ancora annunci qui"
-        body: "Gli annunci di questa sezione appariranno qui quando ne avrai."
-        cta: "Pubblica un articolo"
+        title: Non ci sono ancora annunci qui
+        body: Gli annunci di questa sezione appariranno qui quando ne avrai.
+        cta: Pubblica un articolo
       flash:
-        cannot_republish: "Questo annuncio non può essere ripubblicato in questo momento."
+        cannot_republish: Questo annuncio non può essere ripubblicato in questo momento.
     new:
-      title: "Pubblica un articolo"
-      subtitle: "Cinque passaggi rapidi. La bozza viene salvata man mano."
+      title: Pubblica un articolo
+      subtitle: Cinque passaggi rapidi. La bozza viene salvata man mano.
     edit:
-      title: "Modifica annuncio"
-      subtitle: "Aggiorna il tuo annuncio. Le modifiche vengono salvate passo dopo passo."
+      title: Modifica annuncio
+      subtitle: Aggiorna il tuo annuncio. Le modifiche vengono salvate passo dopo passo.
     steps:
-      counter: "Passaggio %{current} di %{total}"
-      category: "Categoria"
-      photos: "Foto"
-      details: "Dettagli"
-      price: "Prezzo e consegna"
-      review: "Revisione"
-      back: "Indietro"
-      continue: "Continua"
-      save: "Salva modifiche"
-      submit: "Invia per la revisione"
-      publish: "Pubblica annuncio"
-      published_warning: "Stai modificando un annuncio pubblicato. Le modifiche a titolo, descrizione, categoria, specifiche o foto lo rimandano in revisione. Le modifiche a prezzo, quantità e consegna restano attive subito."
-      delete_draft: "Elimina bozza"
-      archive_listing: "Archivia annuncio"
-      confirm_delete: "Vuoi davvero continuare?"
+      counter: Passaggio %{current} di %{total}
+      category: Categoria
+      photos: Foto
+      details: Dettagli
+      price: Prezzo e consegna
+      review: Revisione
+      back: Indietro
+      continue: Continua
+      save: Salva modifiche
+      submit: Invia per la revisione
+      publish: Pubblica annuncio
+      published_warning: Stai modificando un annuncio pubblicato. Le modifiche a titolo, descrizione, categoria, specifiche o foto lo rimandano in revisione. Le modifiche a prezzo, quantità e consegna restano attive subito.
+      delete_draft: Elimina bozza
+      archive_listing: Archivia annuncio
+      confirm_delete: Vuoi davvero continuare?
     category:
-      title: "Scegli una categoria"
-      subtitle: "Inizia da una categoria ampia, poi scegli quella più vicina."
-      search_label: "Cerca categorie"
-      search_placeholder: "es. scheda grafica"
-      choose_root: "Scegli una categoria"
-      choose_child: "Scegli una sottocategoria"
-      selected: "Selezionata: %{category}"
-      no_results: "Nessuna categoria corrisponde alla ricerca."
-      all_in: "Tutto in %{category}"
+      title: Scegli una categoria
+      subtitle: Inizia da una categoria ampia, poi scegli quella più vicina.
+      search_label: Cerca categorie
+      search_placeholder: es. scheda grafica
+      choose_root: Scegli una categoria
+      choose_child: Scegli una sottocategoria
+      selected: 'Selezionata: %{category}'
+      no_results: Nessuna categoria corrisponde alla ricerca.
+      all_in: Tutto in %{category}
     photos:
-      title: "Aggiungi foto"
-      subtitle: "Foto nitide aiutano gli acquirenti a decidere. La prima appare nei risultati."
-      upload: "Carica foto"
-      upload_hint: "Trascina le immagini qui o scegli i file. PNG, JPEG, WebP o HEIC, fino a %{size} ciascuna."
-      limit: "Puoi aggiungere fino a %{max} foto."
-      existing: "Le tue foto"
-      no_photos: "Nessuna foto per ora."
-      primary: "Foto principale"
-      remove: "Rimuovi"
-      move_up: "Sposta su"
-      move_down: "Sposta giù"
-      drag_hint: "Trascina le foto per riordinarle o usa le frecce."
-      tips_title: "Consigli per buone foto"
-      tip_1: "Usa luce naturale e uno sfondo semplice."
-      tip_2: "Mostra l'articolo intero e primi piani dell'usura."
-      tip_3: "Includi scatola originale, cavi e accessori."
-      tip_4: "Evita foto di catalogo: gli acquirenti vogliono vedere l'articolo reale."
+      title: Aggiungi foto
+      subtitle: Foto nitide aiutano gli acquirenti a decidere. La prima appare nei risultati.
+      upload: Carica foto
+      upload_hint: Trascina le immagini qui o scegli i file. PNG, JPEG, WebP o HEIC, fino a %{size} ciascuna.
+      limit: Puoi aggiungere fino a %{max} foto.
+      existing: Le tue foto
+      no_photos: Nessuna foto per ora.
+      primary: Foto principale
+      remove: Rimuovi
+      move_up: Sposta su
+      move_down: Sposta giù
+      drag_hint: Trascina le foto per riordinarle o usa le frecce.
+      tips_title: Consigli per buone foto
+      tip_1: Usa luce naturale e uno sfondo semplice.
+      tip_2: Mostra l'articolo intero e primi piani dell'usura.
+      tip_3: Includi scatola originale, cavi e accessori.
+      tip_4: 'Evita foto di catalogo: gli acquirenti vogliono vedere l''articolo reale.'
     details:
-      title: "Descrivi il tuo articolo"
-      subtitle: "Dettagli precisi riducono domande e resi."
-      title_label: "Titolo"
-      title_placeholder: "es. NVIDIA RTX 4070 Ti Super 16 GB"
-      condition_label: "Condizioni"
-      description_label: "Descrizione"
-      description_placeholder: "Descrivi condizioni, età, cosa è incluso e perché vendi."
-      attributes_title: "Specifiche"
-      attributes_hint: "Aiutano a filtrare e confrontare. I campi obbligatori sono contrassegnati."
-      required: "Obbligatorio"
-      choose: "Scegli un'opzione"
-      boolean_yes: "Sì"
-      tags_title: "Tag venditore"
-      tags_hint: "Scegli fino a %{max} tag che descrivono l'annuncio."
-      product_labels_note: "Le etichette di prodotto sono assegnate dal nostro team e non possono essere scelte qui."
+      title: Descrivi il tuo articolo
+      subtitle: Dettagli precisi riducono domande e resi.
+      title_label: Titolo
+      title_placeholder: es. NVIDIA RTX 4070 Ti Super 16 GB
+      condition_label: Condizioni
+      description_label: Descrizione
+      description_placeholder: Descrivi condizioni, età, cosa è incluso e perché vendi.
+      attributes_title: Specifiche
+      attributes_hint: Aiutano a filtrare e confrontare. I campi obbligatori sono contrassegnati.
+      required: Obbligatorio
+      choose: Scegli un'opzione
+      boolean_yes: Sì
+      tags_title: Tag venditore
+      tags_hint: Scegli fino a %{max} tag che descrivono l'annuncio.
+      product_labels_note: Le etichette di prodotto sono assegnate dal nostro team e non possono essere scelte qui.
       conditions:
         new_sealed:
-          title: "Nuovo (sigillato)"
-          description: "Non aperto, nella confezione originale sigillata."
+          title: Nuovo (sigillato)
+          description: Non aperto, nella confezione originale sigillata.
         new_open_box:
-          title: "Nuovo (confezione aperta)"
-          description: "Mai usato, ma la confezione è stata aperta."
+          title: Nuovo (confezione aperta)
+          description: Mai usato, ma la confezione è stata aperta.
         used_like_new:
-          title: "Usato – come nuovo"
-          description: "Usato poco, senza segni visibili di usura."
+          title: Usato – come nuovo
+          description: Usato poco, senza segni visibili di usura.
         used_good:
-          title: "Usato – buone condizioni"
-          description: "Usato, con lievi segni di usura che non compromettono il funzionamento."
+          title: Usato – buone condizioni
+          description: Usato, con lievi segni di usura che non compromettono il funzionamento.
         used_fair:
-          title: "Usato – condizioni discrete"
-          description: "Usura evidente, pienamente funzionante salvo diversa indicazione."
+          title: Usato – condizioni discrete
+          description: Usura evidente, pienamente funzionante salvo diversa indicazione.
         for_parts:
-          title: "Per ricambi"
-          description: "Non funzionante; venduto per riparazione o ricambi."
+          title: Per ricambi
+          description: Non funzionante; venduto per riparazione o ricambi.
     price:
-      title: "Prezzo e consegna"
-      subtitle: "Imposta un prezzo equo e spiega come riceverà l'articolo l'acquirente."
-      price_label: "Prezzo"
-      price_placeholder: "0,00"
-      compare_at_label: "Prezzo originale (facoltativo)"
-      compare_at_hint: "Deve essere superiore al prezzo di vendita. Viene mostrato barrato."
-      quantity_label: "Quantità"
-      quantity_hint: "Quante unità identiche hai?"
-      quantity_fixed: "I privati pubblicano un articolo per annuncio."
-      offers_label: "Accetta offerte"
-      offers_hint: "Gli acquirenti possono inviarti un'offerta."
-      shipping_title: "Consegna"
-      shipping_mode_label: "Come consegnerai l'articolo?"
-      shipping_price_label: "Spese di spedizione"
-      free_shipping_label: "Spedizione gratuita"
-      handling_days_label: "Tempo di preparazione"
-      handling_days_hint: "Giorni lavorativi prima di affidare il pacco al corriere."
-      location_title: "Posizione dell'articolo"
-      region_label: "Provincia"
-      region_placeholder: "Scegli una provincia"
-      city_label: "Città"
-      postal_code_label: "Codice postale"
+      title: Prezzo e consegna
+      subtitle: Imposta un prezzo equo e spiega come riceverà l'articolo l'acquirente.
+      price_label: Prezzo
+      price_placeholder: '0,00'
+      compare_at_label: Prezzo originale (facoltativo)
+      compare_at_hint: Deve essere superiore al prezzo di vendita. Viene mostrato barrato.
+      quantity_label: Quantità
+      quantity_hint: Quante unità identiche hai?
+      quantity_fixed: I privati pubblicano un articolo per annuncio.
+      offers_label: Accetta offerte
+      offers_hint: Gli acquirenti possono inviarti un'offerta.
+      shipping_title: Consegna
+      shipping_mode_label: Come consegnerai l'articolo?
+      shipping_price_label: Spese di spedizione
+      free_shipping_label: Spedizione gratuita
+      handling_days_label: Tempo di preparazione
+      handling_days_hint: Giorni lavorativi prima di affidare il pacco al corriere.
+      location_title: Posizione dell'articolo
+      region_label: Provincia
+      region_placeholder: Scegli una provincia
+      city_label: Città
+      postal_code_label: Codice postale
     review:
-      title: "Controlla il tuo annuncio"
-      subtitle: "Guarda come lo vedranno gli acquirenti, poi invialo in revisione."
-      preview_title: "Anteprima acquirente"
-      checklist_title: "Prima di inviare"
-      checklist_ok: "Tutti i campi obbligatori sono completi."
-      missing: "Manca: %{field}."
-      go_to_step: "Vai a %{step}"
-      approval_note: "Il nostro team rivede gli annunci prima della pubblicazione, di solito entro 24 ore."
-      publish_note: "Il tuo annuncio sarà pubblicato subito."
-      published_note: "Questo annuncio è già pubblicato. Salva le modifiche per mantenerlo aggiornato."
-      pending_note: "Questo annuncio è in attesa di revisione. Puoi ancora aggiornarlo."
+      title: Controlla il tuo annuncio
+      subtitle: Guarda come lo vedranno gli acquirenti, poi invialo in revisione.
+      preview_title: Anteprima acquirente
+      checklist_title: Prima di inviare
+      checklist_ok: Tutti i campi obbligatori sono completi.
+      missing: 'Manca: %{field}.'
+      go_to_step: Vai a %{step}
+      approval_note: Il nostro team rivede gli annunci prima della pubblicazione, di solito entro 24 ore.
+      publish_note: Il tuo annuncio sarà pubblicato subito.
+      published_note: Questo annuncio è già pubblicato. Salva le modifiche per mantenerlo aggiornato.
+      pending_note: Questo annuncio è in attesa di revisione. Puoi ancora aggiornarlo.
     flash:
-      created: "Bozza creata. Aggiungi le foto."
-      saved: "Annuncio salvato."
-      submitted: "Annuncio inviato per la revisione."
-      published: "Annuncio pubblicato."
-      destroyed: "Bozza eliminata."
-      archived: "Annuncio archiviato."
+      created: Bozza creata. Aggiungi le foto.
+      saved: Annuncio salvato.
+      submitted: Annuncio inviato per la revisione.
+      published: Annuncio pubblicato.
+      destroyed: Bozza eliminata.
+      archived: Annuncio archiviato.
     errors:
-      store_required: "Ti serve un negozio per pubblicare articoli."
-
+      store_required: Ti serve un negozio per pubblicare articoli.
   listings:
     errors:
-      price_out_of_range: "Il prezzo deve essere tra %{min} e %{max} euro."
-      compare_at_price: "Il prezzo barrato deve essere superiore al prezzo di vendita."
-      required_specs: "Specifiche obbligatorie mancanti: %{attributes}."
+      price_out_of_range: Il prezzo deve essere tra %{min} e %{max} euro.
+      compare_at_price: Il prezzo barrato deve essere superiore al prezzo di vendita.
+      required_specs: 'Specifiche obbligatorie mancanti: %{attributes}.'
       invalid_spec_option: "%{attribute} contiene un'opzione non disponibile."
-      country_not_launched: "Gli annunci non sono ancora disponibili in questo Paese."
-      region_country_mismatch: "La regione non appartiene al Paese selezionato."
-      too_many_photos: "Un annuncio può avere al massimo %{max} foto."
-      photos_required: "Aggiungi almeno una foto per continuare."
-      too_many_seller_tags: "Scegli al massimo %{max} tag venditore."
-      quantity_individual: "I privati possono pubblicare una sola unità per annuncio."
-      rejection_reason_required: "Indica il motivo del rifiuto."
+      country_not_launched: Gli annunci non sono ancora disponibili in questo Paese.
+      region_country_mismatch: La regione non appartiene al Paese selezionato.
+      too_many_photos: Un annuncio può avere al massimo %{max} foto.
+      photos_required: Aggiungi almeno una foto per continuare.
+      too_many_seller_tags: Scegli al massimo %{max} tag venditore.
+      quantity_individual: I privati possono pubblicare una sola unità per annuncio.
+      rejection_reason_required: Indica il motivo del rifiuto.
     breadcrumb:
-      label: "Percorso di navigazione"
+      label: Percorso di navigazione
     index:
-      title: "Tutti gli annunci"
-      search_title: "Risultati per «%{query}»"
-      search_hint: "Vengono mostrate le corrispondenze per «%{query}»."
-      search_description: "Annunci corrispondenti a «%{query}» su PCMarket."
+      title: Tutti gli annunci
+      search_title: Risultati per «%{query}»
+      search_hint: Vengono mostrate le corrispondenze per «%{query}».
+      search_description: Annunci corrispondenti a «%{query}» su PCMarket.
       results_count:
         one: "%{count} risultato"
         other: "%{count} risultati"
-      empty_title: "Nessun annuncio corrisponde ai filtri"
-      empty_body: "Prova a rimuovere un filtro, ampliare la fascia di prezzo o cercare altro."
-      clear_filters: "Cancella tutti i filtri"
-      browse_categories: "Sfoglia le categorie"
-      about_category: "Informazioni su %{category}"
+      empty_title: Nessun annuncio corrisponde ai filtri
+      empty_body: Prova a rimuovere un filtro, ampliare la fascia di prezzo o cercare altro.
+      clear_filters: Cancella tutti i filtri
+      browse_categories: Sfoglia le categorie
+      about_category: Informazioni su %{category}
     sort:
-      label: "Ordina i risultati"
-      best_match: "Migliore corrispondenza"
-      newest: "Più recenti"
-      price_asc: "Prezzo: crescente"
-      price_desc: "Prezzo: decrescente"
-      popular: "Più popolari"
+      label: Ordina i risultati
+      best_match: Migliore corrispondenza
+      newest: Più recenti
+      price_asc: 'Prezzo: crescente'
+      price_desc: 'Prezzo: decrescente'
+      popular: Più popolari
     conditions:
-      new_sealed: "Nuovo (sigillato)"
-      new_open_box: "Nuovo (scatola aperta)"
-      used_like_new: "Usato – come nuovo"
-      used_good: "Usato – buone condizioni"
-      used_fair: "Usato – condizioni discrete"
-      for_parts: "Per ricambi"
+      new_sealed: Nuovo (sigillato)
+      new_open_box: Nuovo (scatola aperta)
+      used_like_new: Usato – come nuovo
+      used_good: Usato – buone condizioni
+      used_fair: Usato – condizioni discrete
+      for_parts: Per ricambi
     shipping_modes:
-      shipping: "Spedizione"
-      local_pickup: "Solo ritiro"
-      shipping_and_pickup: "Spedizione o ritiro"
+      shipping: Spedizione
+      local_pickup: Solo ritiro
+      shipping_and_pickup: Spedizione o ritiro
     statuses:
-      draft: "Bozza"
-      pending_review: "In attesa di revisione"
-      published: "Pubblicato"
-      rejected: "Rifiutato"
-      reserved: "Riservato"
-      sold: "Venduto"
-      archived: "Archiviato"
+      draft: Bozza
+      pending_review: In attesa di revisione
+      published: Pubblicato
+      rejected: Rifiutato
+      reserved: Riservato
+      sold: Venduto
+      archived: Archiviato
     attribute_groups:
-      cpu: "Processore"
-      general: "Generale"
-      gpu: "Scheda grafica"
-      lighting: "Illuminazione"
-      memory: "Memoria"
-      motherboard: "Scheda madre"
-      power: "Alimentatore"
-      storage: "Archiviazione"
+      cpu: Processore
+      general: Generale
+      gpu: Scheda grafica
+      lighting: Illuminazione
+      memory: Memoria
+      motherboard: Scheda madre
+      power: Alimentatore
+      storage: Archiviazione
     specs:
-      "yes": "Sì"
-      "no": "No"
+      'yes': Sì
+      'no': 'No'
     filters:
-      title: "Filtri"
-      open: "Filtri (%{count})"
-      close: "Chiudi i filtri"
-      apply: "Applica i filtri"
-      text_label: "Cerca nei risultati"
-      text_placeholder: "es. RTX 4070"
-      price: "Fascia di prezzo"
-      min_price: "Min."
-      max_price: "Max."
-      condition: "Condizione"
+      title: Filtri
+      open: Filtri (%{count})
+      close: Chiudi i filtri
+      apply: Applica i filtri
+      text_label: Cerca nei risultati
+      text_placeholder: es. RTX 4070
+      price: Fascia di prezzo
+      min_price: Min.
+      max_price: Max.
+      condition: Condizione
       show_more:
-        one: "Mostra altro (%{count})"
-        other: "Mostra altro (%{count})"
-      product_labels: "Etichette prodotto"
-      seller_tags: "Etichette venditore"
-      delivery: "Consegna"
-      free_shipping: "Spedizione gratuita"
-      region: "Provincia"
-      all_regions: "Tutte le province"
-      remove_filter: "Rimuovi filtro: %{filter}"
-      clear_all: "Cancella tutto"
+        one: Mostra altro (%{count})
+        other: Mostra altro (%{count})
+      product_labels: Etichette prodotto
+      seller_tags: Etichette venditore
+      delivery: Consegna
+      free_shipping: Spedizione gratuita
+      region: Provincia
+      all_regions: Tutte le province
+      remove_filter: 'Rimuovi filtro: %{filter}'
+      clear_all: Cancella tutto
       applied:
-        q: "Ricerca: %{query}"
-        min_price: "Da %{value} €"
-        max_price: "Fino a %{value} €"
+        q: 'Ricerca: %{query}'
+        min_price: Da %{value} €
+        max_price: Fino a %{value} €
     card:
-      verified_seller: "Venditore verificato"
-      free_shipping: "Spedizione gratuita"
+      verified_seller: Venditore verificato
+      free_shipping: Spedizione gratuita
     pagination:
-      label: "Paginazione"
-      previous: "Precedente"
-      next: "Successivo"
+      label: Paginazione
+      previous: Precedente
+      next: Successivo
     show:
-      status_banner: "Questo annuncio è %{status}."
-      rejection_reason: "Motivo: %{reason}"
-      status_visibility: "Solo tu e il team PCMarket potete vedere questa pagina in questo stato."
-      overview: "Panoramica"
-      condition: "Condizione"
-      location: "Posizione"
+      status_banner: Questo annuncio è %{status}.
+      rejection_reason: 'Motivo: %{reason}'
+      status_visibility: Solo tu e il team PCMarket potete vedere questa pagina in questo stato.
+      overview: Panoramica
+      condition: Condizione
+      location: Posizione
       specifications:
-        title: "Specifiche"
-        empty: "Il venditore non ha aggiunto specifiche a questo annuncio."
+        title: Specifiche
+        empty: Il venditore non ha aggiunto specifiche a questo annuncio.
       shipping_returns:
-        title: "Spedizione e resi"
-        order_placed: "Ordine effettuato"
-        ships_by: "Spedizione entro il"
-        delivered: "Consegna stimata"
-        returns_copy: "I resi sono accettati entro 14 giorni dalla consegna se l'articolo non è come descritto. La protezione acquirenti ti copre dopo la consegna."
+        title: Spedizione e resi
+        order_placed: Ordine effettuato
+        ships_by: Spedizione entro il
+        delivered: Consegna stimata
+        returns_copy: I resi sono accettati entro 14 giorni dalla consegna se l'articolo non è come descritto. La protezione acquirenti ti copre dopo la consegna.
       ships_within:
-        one: "Spedito entro %{count} giorno lavorativo"
-        other: "Spedito entro %{count} giorni lavorativi"
-      buy_now: "Acquista ora"
-      add_to_cart: "Aggiungi al carrello"
-      make_offer: "Fai un'offerta"
-      message_seller: "Contatta il venditore"
+        one: Spedito entro %{count} giorno lavorativo
+        other: Spedito entro %{count} giorni lavorativi
+      buy_now: Acquista ora
+      add_to_cart: Aggiungi al carrello
+      make_offer: Fai un'offerta
+      message_seller: Contatta il venditore
       seller:
-        verified: "Venditore verificato"
+        verified: Venditore verificato
         rating: "%{rating} (%{count} recensioni)"
-        no_ratings: "Ancora nessuna recensione"
-        listings: "Annunci"
-        member_since: "Membro dal"
-        business_details: "Dati del venditore professionista"
-        legal_name: "Ragione sociale"
-        tax_id: "Codice fiscale"
-        address: "Indirizzo"
-        visit_store: "Visita il negozio"
+        no_ratings: Ancora nessuna recensione
+        listings: Annunci
+        member_since: Membro dal
+        business_details: Dati del venditore professionista
+        legal_name: Ragione sociale
+        tax_id: Codice fiscale
+        address: Indirizzo
+        visit_store: Visita il negozio
       buyer_protection:
-        title: "Protezione acquirenti"
-        body: "Sei coperto per %{days} giorni dopo la consegna se l'articolo non arriva o non è come descritto."
-      similar: "Annunci simili"
-      more_from_seller: "Altri annunci di questo venditore"
-      published_on: "Pubblicato il %{date}"
+        title: Protezione acquirenti
+        body: Sei coperto per %{days} giorni dopo la consegna se l'articolo non arriva o non è come descritto.
+      similar: Annunci simili
+      more_from_seller: Altri annunci di questo venditore
+      published_on: Pubblicato il %{date}
       shipping:
-        free: "Spedizione gratuita"
-        cost: "Spedizione %{price}"
-        pickup_only: "Solo ritiro"
+        free: Spedizione gratuita
+        cost: Spedizione %{price}
+        pickup_only: Solo ritiro
       gallery:
         counter: "%{current} di %{total}"
         counter_template: "%{current} di %{total}"
-        previous: "Foto precedente"
-        next: "Foto successiva"
-        open: "Apri la galleria a schermo intero"
-        close: "Chiudi la galleria"
-        show_photo: "Mostra foto %{number}"
-        empty: "Ancora nessuna foto"
+        previous: Foto precedente
+        next: Foto successiva
+        open: Apri la galleria a schermo intero
+        close: Chiudi la galleria
+        show_photo: Mostra foto %{number}
+        empty: Ancora nessuna foto
   admin:
-    title: "Amministrazione"
+    title: Amministrazione
     nav:
-      label: "Navigazione di amministrazione"
-      dashboard: "Dashboard"
-      moderation: "Coda di moderazione"
-      listings: "Annunci"
-      users: "Utenti"
-      stores: "Negozi"
-      orders: "Ordini"
-      categories: "Categorie"
-      filters: "Filtri (attributi)"
-      tags: "Tag"
-      countries: "Paesi"
-      settings: "Impostazioni"
-      feature_flags: "Funzionalità sperimentali"
-      legal: "Pagine legali"
-      reports: "Report"
-      coming_soon: "Prossimamente"
-      open_sidebar: "Apri il menu di amministrazione"
-      close_sidebar: "Chiudi il menu di amministrazione"
+      label: Navigazione di amministrazione
+      dashboard: Dashboard
+      moderation: Coda di moderazione
+      listings: Annunci
+      users: Utenti
+      stores: Negozi
+      orders: Ordini
+      categories: Categorie
+      filters: Filtri (attributi)
+      tags: Tag
+      countries: Paesi
+      settings: Impostazioni
+      feature_flags: Funzionalità sperimentali
+      legal: Pagine legali
+      reports: Report
+      coming_soon: Prossimamente
+      open_sidebar: Apri il menu di amministrazione
+      close_sidebar: Chiudi il menu di amministrazione
     topbar:
-      search_label: "Cerca annunci"
-      search_placeholder: "Cerca per titolo"
-      language: "Lingua"
-      back_to_site: "Torna al sito"
+      search_label: Cerca annunci
+      search_placeholder: Cerca per titolo
+      language: Lingua
+      back_to_site: Torna al sito
     dashboard:
-      title: "Dashboard di amministrazione"
-      subtitle: "Una panoramica rapida del marketplace e della coda di moderazione."
+      title: Dashboard di amministrazione
+      subtitle: Una panoramica rapida del marketplace e della coda di moderazione.
       kpis:
-        pending_listings: "Annunci in attesa"
-        published_today: "Pubblicati oggi"
-        published_last_7_days: "Pubblicati negli ultimi 7 giorni"
-        new_users_today: "Nuovi utenti oggi"
-        new_users_last_7_days: "Nuovi utenti negli ultimi 7 giorni"
-        active_stores: "Negozi attivi"
-        published_listings: "Annunci pubblicati"
+        pending_listings: Annunci in attesa
+        published_today: Pubblicati oggi
+        published_last_7_days: Pubblicati negli ultimi 7 giorni
+        new_users_today: Nuovi utenti oggi
+        new_users_last_7_days: Nuovi utenti negli ultimi 7 giorni
+        active_stores: Negozi attivi
+        published_listings: Annunci pubblicati
+        open_reports: Segnalazioni aperte
       oldest_pending:
-        title: "Annunci in attesa più vecchi"
-        subtitle: "I dieci annunci che aspettano una revisione da più tempo."
-        empty: "La coda di moderazione è vuota. Non c’è nulla in attesa."
-        listing: "Annuncio"
-        seller: "Venditore"
-        category: "Categoria"
-        price: "Prezzo"
-        waiting: "Attesa"
-        actions: "Azioni"
-        review: "Esamina"
-        waiting_for: "In attesa da %{time}"
+        title: Annunci in attesa più vecchi
+        subtitle: I dieci annunci che aspettano una revisione da più tempo.
+        empty: La coda di moderazione è vuota. Non c’è nulla in attesa.
+        listing: Annuncio
+        seller: Venditore
+        category: Categoria
+        price: Prezzo
+        waiting: Attesa
+        actions: Azioni
+        review: Esamina
+        waiting_for: In attesa da %{time}
     moderation:
       index:
-        title: "Coda di moderazione"
-        subtitle: "Esamina gli annunci in attesa, dal più vecchio al più recente."
-        category: "Categoria"
-        all_categories: "Tutte le categorie"
-        seller_kind: "Tipo di venditore"
-        photos: "Foto"
-        photos_any: "Qualsiasi"
-        photos_with: "Con foto"
-        photos_without: "Senza foto"
-        apply: "Applica filtri"
-        clear: "Cancella filtri"
+        title: Coda di moderazione
+        subtitle: Esamina gli annunci in attesa, dal più vecchio al più recente.
+        category: Categoria
+        all_categories: Tutte le categorie
+        seller_kind: Tipo di venditore
+        photos: Foto
+        photos_any: Qualsiasi
+        photos_with: Con foto
+        photos_without: Senza foto
+        apply: Applica filtri
+        clear: Cancella filtri
         results_count:
           one: "%{count} annuncio in attesa"
           other: "%{count} annunci in attesa"
         table:
-          listing: "Annuncio"
-          seller: "Venditore"
-          price: "Prezzo"
-          submitted: "Inviato"
-          actions: "Azioni"
-        review: "Esamina"
-        waiting_for: "In attesa da %{time}"
-        empty_title: "Niente da esaminare"
-        empty_body: "I nuovi annunci appariranno qui quando i venditori li invieranno."
+          listing: Annuncio
+          seller: Venditore
+          price: Prezzo
+          submitted: Inviato
+          actions: Azioni
+        review: Esamina
+        waiting_for: In attesa da %{time}
+        empty_title: Niente da esaminare
+        empty_body: I nuovi annunci appariranno qui quando i venditori li invieranno.
       show:
-        back: "Torna alla coda"
-        previous: "In attesa precedente"
-        next: "In attesa successivo"
-        buyer_preview: "Anteprima acquirente"
-        overview: "Descrizione"
-        condition: "Condizione"
-        location: "Località"
-        seller_title: "Venditore"
-        history_title: "Cronologia della moderazione"
-        decision_title: "Decisione"
-        approve: "Approva annuncio"
-        reject: "Rifiuta e avvisa il venditore"
-        reject_hint: "Scegli un motivo predefinito e, se vuoi, aggiungi una nota per il venditore."
-        reason_label: "Motivo del rifiuto"
-        reason_placeholder: "Aggiungi una nota per il venditore (facoltativa)"
+        back: Torna alla coda
+        previous: In attesa precedente
+        next: In attesa successivo
+        buyer_preview: Anteprima acquirente
+        overview: Descrizione
+        condition: Condizione
+        location: Località
+        seller_title: Venditore
+        history_title: Cronologia della moderazione
+        decision_title: Decisione
+        approve: Approva annuncio
+        reject: Rifiuta e avvisa il venditore
+        reject_hint: Scegli un motivo predefinito e, se vuoi, aggiungi una nota per il venditore.
+        reason_label: Motivo del rifiuto
+        reason_placeholder: Aggiungi una nota per il venditore (facoltativa)
       filters:
         seller_kinds:
-          all: "Tutti i venditori"
-          individual: "Privati"
-          business: "Aziende"
+          all: Tutti i venditori
+          individual: Privati
+          business: Aziende
       reasons:
-        prohibited_item: "Articolo vietato"
-        misleading_description: "Descrizione fuorviante"
-        poor_photos: "Foto scadenti"
-        wrong_category: "Categoria errata"
-        price_suspicious: "Prezzo sospetto"
-        contact_info_in_listing: "Contatti nell’annuncio"
-        duplicate: "Annuncio duplicato"
-        other: "Altro"
+        prohibited_item: Articolo vietato
+        misleading_description: Descrizione fuorviante
+        poor_photos: Foto scadenti
+        wrong_category: Categoria errata
+        price_suspicious: Prezzo sospetto
+        contact_info_in_listing: Contatti nell’annuncio
+        duplicate: Annuncio duplicato
+        other: Altro
       actions:
-        approved: "Approvato"
-        rejected: "Rifiutato"
-        archived: "Archiviato"
-        restored: "Ripristinato"
+        approved: Approvato
+        rejected: Rifiutato
+        archived: Archiviato
+        restored: Ripristinato
       seller:
-        account_age_label: "Anzianità dell’account"
+        account_age_label: Anzianità dell’account
         account_age:
-          one: "Membro da %{count} giorno"
-          other: "Membro da %{count} giorni"
-        previous_rejections_label: "Rifiuti precedenti"
+          one: Membro da %{count} giorno
+          other: Membro da %{count} giorni
+        previous_rejections_label: Rifiuti precedenti
         previous_rejections:
           one: "%{count} rifiuto precedente"
           other: "%{count} rifiuti precedenti"
-        verified: "Verificato"
-        verified_label: "Verifica"
-        unverified: "Non verificato"
+        verified: Verificato
+        verified_label: Verifica
+        unverified: Non verificato
       history:
-        empty: "Non è ancora stata registrata alcuna decisione di moderazione."
+        empty: Non è ancora stata registrata alcuna decisione di moderazione.
       notices:
-        approved: "Annuncio approvato. Il venditore è stato avvisato."
-        rejected: "Annuncio rifiutato. Il venditore è stato avvisato."
-        reason_required: "Scegli un motivo prima di rifiutare l’annuncio."
-        invalid_decision: "Questa decisione di moderazione non è valida."
-        already_moderated: "Un altro moderatore ha già esaminato questo annuncio."
+        approved: Annuncio approvato. Il venditore è stato avvisato.
+        rejected: Annuncio rifiutato. Il venditore è stato avvisato.
+        reason_required: Scegli un motivo prima di rifiutare l’annuncio.
+        invalid_decision: Questa decisione di moderazione non è valida.
+        already_moderated: Un altro moderatore ha già esaminato questo annuncio.
       shortcuts:
-        title: "Scorciatoie da tastiera"
-        hint: "Premi A per approvare, R per scegliere un motivo e J/K per passare da un annuncio all’altro."
-        approve: "A: approva"
-        reject: "R: vai ai motivi di rifiuto"
-        next: "J: annuncio successivo"
-        previous: "K: annuncio precedente"
+        title: Scorciatoie da tastiera
+        hint: Premi A per approvare, R per scegliere un motivo e J/K per passare da un annuncio all’altro.
+        approve: 'A: approva'
+        reject: 'R: vai ai motivi di rifiuto'
+        next: 'J: annuncio successivo'
+        previous: 'K: annuncio precedente'
+    reports:
+      anonymous: Anonimo
+      'yes': Sì
+      'no': 'No'
+      store_statuses:
+        active: Attivo
+        suspended: Sospeso
+      statuses:
+        open: Aperta
+        in_review: In esame
+        actioned: Azione intrapresa
+        dismissed: Respinta
+      types:
+        listing: Annuncio
+        store: Negozio
+        message: Messaggio
+        user: Utente
+      notices:
+        resolved: Segnalazione risolta e autore informato.
+        invalid: Aggiungi una motivazione prima di risolvere la segnalazione.
+      index:
+        title: Segnalazioni
+        subtitle: Esamina le segnalazioni ricevute ai sensi del regolamento sui servizi digitali, dalla più vecchia alla più recente.
+        count:
+          one: "%{count} segnalazione"
+          other: "%{count} segnalazioni"
+        table:
+          report: Segnalazione
+          item: Elemento
+          reason: Motivo
+          reporter: Autore
+          created: Ricevuta
+          status: Stato
+          actions: Azioni
+          open: Apri
+        empty_title: Nessuna segnalazione corrisponde a questi filtri
+        empty_body: Le nuove segnalazioni appariranno qui.
+      filters:
+        status: Stato
+        reason: Motivo
+        type: Tipo
+        any: Qualsiasi
+        apply: Applica filtri
+        clear: Cancella filtri
+      show:
+        title: Segnalazione n. %{id}
+        back: Torna alle segnalazioni
+        report_title: Dettagli della segnalazione
+        reason: Motivo
+        status: Stato
+        reporter: Autore
+        contact: Email di contatto
+        reported_item: Elemento segnalato
+        view_public: Vedi pagina pubblica
+        message_sender: Inviato da %{name}
+        message_hidden: 'Messaggio nascosto: %{hidden}'
+        user_banned: 'Account bannato: %{banned}'
+        history_title: Segnalazioni precedenti per questo elemento
+        history_empty: Nessuna segnalazione precedente.
+        decision_title: Decisione
+        decision_hint: Scrivi una motivazione e scegli un esito. L'autore la riceverà via email.
+        note: Motivazione
+        note_placeholder: Spiega la decisione e l'azione intrapresa.
+        dismiss: Respingi segnalazione
+        take_action: Intraprendi azione
+        handled_by: Gestita da %{name}
+        action_effect:
+          listing: Intraprendere un'azione archivia l'annuncio e avvisa il venditore.
+          store: Intraprendere un'azione sospende il negozio.
+          message: Intraprendere un'azione nasconde il messaggio dalla conversazione.
+          user: Intraprendere un'azione banna l'account utente.
+      deleted_item: Elemento eliminato
   listing_mailer:
     approved:
-      subject: "Il tuo annuncio è ora online"
-      greeting: "Ciao %{name},"
-      body: "Buone notizie: abbiamo approvato «%{title}» ed è ora visibile su %{app}."
-      cta: "Vedi il tuo annuncio"
-      manage: "Modifica il tuo annuncio"
-      closing: "Grazie per vendere con noi."
+      subject: Il tuo annuncio è ora online
+      greeting: Ciao %{name},
+      body: 'Buone notizie: abbiamo approvato «%{title}» ed è ora visibile su %{app}.'
+      cta: Vedi il tuo annuncio
+      manage: Modifica il tuo annuncio
+      closing: Grazie per vendere con noi.
     rejected:
-      subject: "Il tuo annuncio richiede alcune modifiche"
-      greeting: "Ciao %{name},"
-      body: "Abbiamo esaminato «%{title}» e al momento non può essere pubblicato."
-      reason_label: "Motivo"
-      cta: "Modifica e invia di nuovo"
-      closing: "Correggi i dettagli e invialo di nuovo. Siamo qui per aiutarti."
+      subject: Il tuo annuncio richiede alcune modifiche
+      greeting: Ciao %{name},
+      body: Abbiamo esaminato «%{title}» e al momento non può essere pubblicato.
+      reason_label: Motivo
+      cta: Modifica e invia di nuovo
+      closing: Correggi i dettagli e invialo di nuovo. Siamo qui per aiutarti.
     footer:
-      reason: "Ricevi questa email perché hai un annuncio su %{app}."
-      signature: "Il team di %{app}"
-
+      reason: Ricevi questa email perché hai un annuncio su %{app}.
+      signature: Il team di %{app}
   cart:
-    eyebrow: "Il tuo carrello"
-    title: "Il tuo carrello"
+    eyebrow: Il tuo carrello
+    title: Il tuo carrello
     item_count:
       one: "%{count} articolo"
       other: "%{count} articoli"
-    seller: "Venduto da"
-    shipping_line: "Spedizione %{price}"
-    quantity: "Qtà"
+    seller: Venduto da
+    shipping_line: Spedizione %{price}
+    quantity: Qtà
     quantity_value:
       one: "%{count} unità"
       other: "%{count} unità"
-    update: "Aggiorna"
-    remove: "Rimuovi"
-    wishlist_placeholder: "Le liste dei desideri arriveranno presto"
-    save_to_wishlist: "Salva nella lista dei desideri"
-    checkout: "Procedi all'ordine"
-    checkout_as_guest: "Ordina come ospite"
-    log_in: "Accedi"
-    guest_disabled: "Accedi per completare l'ordine. Gli ordini come ospite sono disattivati."
+    update: Aggiorna
+    remove: Rimuovi
+    wishlist_placeholder: Le liste dei desideri arriveranno presto
+    save_to_wishlist: Salva nella lista dei desideri
+    checkout: Procedi all'ordine
+    checkout_as_guest: Ordina come ospite
+    log_in: Accedi
+    guest_disabled: Accedi per completare l'ordine. Gli ordini come ospite sono disattivati.
     errors:
-      guest_disabled: "Accedi o attiva gli ordini come ospite per aggiungere articoli al carrello."
-      invalid_quantity: "Scegli una quantità di almeno una unità."
-      own_listing: "Non puoi acquistare il tuo annuncio."
-      unavailable: "Questo annuncio non è più disponibile."
-      store_vacation: "Questo venditore è in vacanza e al momento non può accettare ordini."
-      out_of_stock: "Questo annuncio è esaurito."
-      insufficient_stock: "Non c'è abbastanza disponibilità per quella quantità."
+      guest_disabled: Accedi o attiva gli ordini come ospite per aggiungere articoli al carrello.
+      invalid_quantity: Scegli una quantità di almeno una unità.
+      own_listing: Non puoi acquistare il tuo annuncio.
+      unavailable: Questo annuncio non è più disponibile.
+      store_vacation: Questo venditore è in vacanza e al momento non può accettare ordini.
+      out_of_stock: Questo annuncio è esaurito.
+      insufficient_stock: Non c'è abbastanza disponibilità per quella quantità.
+      offer_invalid: Questa offerta non è più valida.
     flash:
-      added: "Aggiunto al carrello."
-      updated: "Carrello aggiornato."
-      removed: "Articolo rimosso dal carrello."
+      added: Aggiunto al carrello.
+      updated: Carrello aggiornato.
+      removed: Articolo rimosso dal carrello.
     unavailable:
-      title: "Articoli non disponibili"
+      title: Articoli non disponibili
       reasons:
-        own_listing: "Questo è il tuo annuncio."
-        store_vacation: "Il venditore è in vacanza."
-        out_of_stock: "Esaurito."
-        unavailable: "Non più disponibile."
+        own_listing: Questo è il tuo annuncio.
+        store_vacation: Il venditore è in vacanza.
+        out_of_stock: Esaurito.
+        unavailable: Non più disponibile.
+        offer_expired: L'offerta per questo articolo è scaduta.
     summary:
-      title: "Riepilogo ordine"
-      subtotal: "Totale parziale"
-      shipping: "Spedizione"
-      total: "Totale"
+      title: Riepilogo ordine
+      subtotal: Totale parziale
+      shipping: Spedizione
+      total: Totale
     buyer_protection:
-      title: "Tutela dell'acquirente"
-      body: "Il tuo acquisto è protetto per %{days} giorni dopo la consegna. Conferma la consegna quando tutto arriva come descritto."
+      title: Tutela dell'acquirente
+      body: Il tuo acquisto è protetto per %{days} giorni dopo la consegna. Conferma la consegna quando tutto arriva come descritto.
     empty:
-      title: "Il tuo carrello è vuoto"
-      body: "Esplora il marketplace e aggiungi i componenti che ti servono."
-      cta: "Inizia gli acquisti"
+      title: Il tuo carrello è vuoto
+      body: Esplora il marketplace e aggiungi i componenti che ti servono.
+      cta: Inizia gli acquisti
     purchase_blocked:
-      own_listing: "Non puoi acquistare il tuo annuncio."
-      store_vacation: "Questo venditore è in vacanza, quindi questo articolo al momento non può essere acquistato."
-      guest_disabled: "Accedi per acquistare questo articolo."
-      out_of_stock: "Questo articolo è esaurito."
-      unavailable: "Questo articolo non è più disponibile."
+      own_listing: Non puoi acquistare il tuo annuncio.
+      store_vacation: Questo venditore è in vacanza, quindi questo articolo al momento non può essere acquistato.
+      guest_disabled: Accedi per acquistare questo articolo.
+      out_of_stock: Questo articolo è esaurito.
+      unavailable: Questo articolo non è più disponibile.
+    offer_price: Prezzo dell'offerta
   addresses:
     errors:
-      postal_code_format: "Inserisci un codice postale di cinque cifre."
-      province_required: "Scegli una provincia."
-      postal_code_province: "Il codice postale non corrisponde alla provincia selezionata."
-      region_country_mismatch: "La provincia non appartiene al paese selezionato."
+      postal_code_format: Inserisci un codice postale di cinque cifre.
+      province_required: Scegli una provincia.
+      postal_code_province: Il codice postale non corrisponde alla provincia selezionata.
+      region_country_mismatch: La provincia non appartiene al paese selezionato.
   checkout:
-    eyebrow: "Pagamento sicuro"
-    title: "Completa l'ordine"
-    subtitle: "Scegli dove inviare l'ordine e come ciascun venditore deve consegnarlo."
+    eyebrow: Pagamento sicuro
+    title: Completa l'ordine
+    subtitle: Scegli dove inviare l'ordine e come ciascun venditore deve consegnarlo.
     errors:
-      title: "Non abbiamo potuto avviare il tuo ordine"
-      guest_disabled: "Accedi per completare l'ordine. Gli ordini come ospite sono disattivati."
-      terms_required: "Accetta i Termini e l'Informativa sulla privacy per continuare."
-      empty_cart: "Il tuo carrello è vuoto."
-      address_not_found: "Scegli un indirizzo salvato o inseriscine uno nuovo."
-      unavailable_items: "Alcuni articoli nel carrello non sono più disponibili. Controlla il carrello e riprova."
-      out_of_stock: "Un altro acquirente ha riservato l'ultima unità. Controlla il carrello e riprova."
-      payment_failed: "Il pagamento è stato rifiutato. Non è stato addebitato nulla e i tuoi articoli sono stati rilasciati."
-      not_found: "Non abbiamo trovato quel pagamento."
+      title: Non abbiamo potuto avviare il tuo ordine
+      guest_disabled: Accedi per completare l'ordine. Gli ordini come ospite sono disattivati.
+      terms_required: Accetta i Termini e l'Informativa sulla privacy per continuare.
+      empty_cart: Il tuo carrello è vuoto.
+      address_not_found: Scegli un indirizzo salvato o inseriscine uno nuovo.
+      unavailable_items: Alcuni articoli nel carrello non sono più disponibili. Controlla il carrello e riprova.
+      out_of_stock: Un altro acquirente ha riservato l'ultima unità. Controlla il carrello e riprova.
+      payment_failed: Il pagamento è stato rifiutato. Non è stato addebitato nulla e i tuoi articoli sono stati rilasciati.
+      not_found: Non abbiamo trovato quel pagamento.
     flash:
-      completed: "Pagamento ricevuto. Il tuo ordine è confermato."
+      completed: Pagamento ricevuto. Il tuo ordine è confermato.
     address:
-      title: "Indirizzo di spedizione"
-      step: "Passo 1"
-      email: "Indirizzo e-mail"
-      email_hint: "Qui invieremo la conferma e gli aggiornamenti dell'ordine."
-      saved: "Indirizzi salvati"
-      use_new: "Usa un nuovo indirizzo"
-      new_title: "Nuovo indirizzo"
-      full_name: "Nome completo"
-      line1: "Indirizzo"
-      line2: "Seconda riga (facoltativa)"
-      province: "Provincia"
-      choose_province: "Scegli una provincia"
-      city: "Città"
-      postal_code: "Codice postale"
-      phone: "Telefono"
-      country: "Paese"
-      save_address: "Salva questo indirizzo per la prossima volta"
+      title: Indirizzo di spedizione
+      step: Passo 1
+      email: Indirizzo e-mail
+      email_hint: Qui invieremo la conferma e gli aggiornamenti dell'ordine.
+      saved: Indirizzi salvati
+      use_new: Usa un nuovo indirizzo
+      new_title: Nuovo indirizzo
+      full_name: Nome completo
+      line1: Indirizzo
+      line2: Seconda riga (facoltativa)
+      province: Provincia
+      choose_province: Scegli una provincia
+      city: Città
+      postal_code: Codice postale
+      phone: Telefono
+      country: Paese
+      save_address: Salva questo indirizzo per la prossima volta
     shipping:
-      title: "Opzioni di consegna"
-      step: "Passo 2"
-      shipping: "Spedisci al mio indirizzo"
-      local_pickup: "Ritiro dal venditore"
-      free: "Gratuita"
+      title: Opzioni di consegna
+      step: Passo 2
+      shipping: Spedisci al mio indirizzo
+      local_pickup: Ritiro dal venditore
+      free: Gratuita
     withdrawal:
-      business: "Venditore professionista: come consumatore hai 14 giorni di calendario per recedere da questo acquisto a distanza, a partire dalla ricezione dell'articolo."
-      private: "Venditore privato: il diritto di recesso legale dell'UE non si applica a questa vendita. La tutela dell'acquirente PCMarket si applica per %{days} giorni dopo la consegna."
+      business: 'Venditore professionista: come consumatore hai 14 giorni di calendario per recedere da questo acquisto a distanza, a partire dalla ricezione dell''articolo.'
+      private: 'Venditore privato: il diritto di recesso legale dell''UE non si applica a questa vendita. La tutela dell''acquirente PCMarket si applica per %{days} giorni dopo la consegna.'
     payment:
-      title: "Pagamento"
-      step: "Passo 3"
-      fake_title: "Pagamento di prova"
-      fake_body: "In questa fase i pagamenti sono simulati. Premi Paga per completare l'ordine senza addebiti."
-      discount: "Codice sconto"
-      discount_placeholder: "Inserisci un codice"
-      apply: "Applica"
-      coming_soon: "I codici sconto arriveranno presto."
-      pay: "Paga e invia l'ordine"
+      title: Pagamento
+      step: Passo 3
+      fake_title: Pagamento di prova
+      fake_body: In questa fase i pagamenti sono simulati. Premi Paga per completare l'ordine senza addebiti.
+      discount: Codice sconto
+      discount_placeholder: Inserisci un codice
+      apply: Applica
+      coming_soon: I codici sconto arriveranno presto.
+      pay: Paga e invia l'ordine
     legal:
-      accept: "Accetto i Termini e l'Informativa sulla privacy."
-      notice: "Effettuando l'ordine confermi che i dati di consegna sono corretti e di aver letto le informazioni sul venditore e sul recesso qui sopra."
+      accept: Accetto i Termini e l'Informativa sulla privacy.
+      notice: Effettuando l'ordine confermi che i dati di consegna sono corretti e di aver letto le informazioni sul venditore e sul recesso qui sopra.
     summary:
-      title: "Riepilogo ordine"
-      subtotal: "Totale parziale"
-      shipping: "Spedizione"
-      total: "Totale"
+      title: Riepilogo ordine
+      subtotal: Totale parziale
+      shipping: Spedizione
+      total: Totale
     protection:
-      title: "Tutela dell'acquirente"
-      body: "Hai %{days} giorni dopo la consegna per confermare che tutto sia come descritto."
+      title: Tutela dell'acquirente
+      body: Hai %{days} giorni dopo la consegna per confermare che tutto sia come descritto.
     confirmation:
-      title: "Grazie — il tuo ordine è confermato"
-      body: "Abbiamo inviato una conferma a %{email}."
+      title: Grazie — il tuo ordine è confermato
+      body: Abbiamo inviato una conferma a %{email}.
       sellers:
-        one: "Il tuo acquisto è stato suddiviso in %{count} ordine presso un venditore indipendente."
-        other: "Il tuo acquisto è stato suddiviso in %{count} ordini presso venditori indipendenti."
-      order: "Ordine"
-      total: "Totale %{total}"
-      view_order: "Vedi ordine"
-      my_orders: "I miei ordini"
-      keep_shopping: "Continua gli acquisti"
+        one: Il tuo acquisto è stato suddiviso in %{count} ordine presso un venditore indipendente.
+        other: Il tuo acquisto è stato suddiviso in %{count} ordini presso venditori indipendenti.
+      order: Ordine
+      total: Totale %{total}
+      view_order: Vedi ordine
+      my_orders: I miei ordini
+      keep_shopping: Continua gli acquisti
   orders:
     statuses:
-      pending_payment: "In attesa di pagamento"
-      paid: "Pagato"
-      shipped: "Spedito"
-      delivered: "Consegnato"
-      completed: "Completato"
-      cancelled: "Annullato"
-      refunded: "Rimborsato"
-      disputed: "In contestazione"
+      pending_payment: In attesa di pagamento
+      paid: Pagato
+      shipped: Spedito
+      delivered: Consegnato
+      completed: Completato
+      cancelled: Annullato
+      refunded: Rimborsato
+      disputed: In contestazione
     fulfilments:
-      shipping: "Spedizione"
-      local_pickup: "Ritiro di persona"
+      shipping: Spedizione
+      local_pickup: Ritiro di persona
     carriers:
-      correos: "Correos"
-      seur: "SEUR"
-      mrw: "MRW"
-      gls: "GLS"
-      dhl: "DHL"
-      ups: "UPS"
-      nacex: "Nacex"
-      ctt: "CTT"
-      other: "Altro"
+      correos: Correos
+      seur: SEUR
+      mrw: MRW
+      gls: GLS
+      dhl: DHL
+      ups: UPS
+      nacex: Nacex
+      ctt: CTT
+      other: Altro
     events:
-      created: "Ordine creato"
-      paid: "Pagamento ricevuto"
-      shipped: "Ordine spedito"
-      delivered: "Consegna confermata"
-      completed: "Ordine completato"
-      cancelled: "Ordine annullato"
-      payment_failed: "Pagamento rifiutato"
-      expired: "Prenotazione scaduta"
+      created: Ordine creato
+      paid: Pagamento ricevuto
+      shipped: Ordine spedito
+      delivered: Consegna confermata
+      completed: Ordine completato
+      cancelled: Ordine annullato
+      payment_failed: Pagamento rifiutato
+      expired: Prenotazione scaduta
     index:
-      eyebrow: "I tuoi acquisti"
-      title: "I miei ordini"
-      subtitle: "Segui le consegne, conferma la ricezione e gestisci i tuoi acquisti."
+      eyebrow: I tuoi acquisti
+      title: I miei ordini
+      subtitle: Segui le consegne, conferma la ricezione e gestisci i tuoi acquisti.
       count:
         one: "%{count} ordine"
         other: "%{count} ordini"
       items:
         one: "%{count} articolo"
         other: "%{count} articoli"
-      view: "Vedi ordine"
-      empty_title: "Nessun ordine per ora"
-      empty_body: "Quando acquisterai qualcosa, i tuoi ordini appariranno qui."
-      empty_cta: "Esplora il marketplace"
+      view: Vedi ordine
+      empty_title: Nessun ordine per ora
+      empty_body: Quando acquisterai qualcosa, i tuoi ordini appariranno qui.
+      empty_cta: Esplora il marketplace
     show:
-      title: "Ordine %{number}"
-      back: "Torna ai miei ordini"
-      eyebrow: "Dettagli dell'ordine"
-      placed_on: "Effettuato il %{date}"
-      items: "Articoli"
+      title: Ordine %{number}
+      back: Torna ai miei ordini
+      eyebrow: Dettagli dell'ordine
+      placed_on: Effettuato il %{date}
+      items: Articoli
       quantity:
         one: "%{count} unità"
         other: "%{count} unità"
-      subtotal: "Totale parziale"
-      shipping: "Spedizione"
-      total: "Totale"
-      timeline: "Cronologia dello stato"
-      no_events: "Nessun aggiornamento per ora."
-      delivery: "Consegna"
-      tracking: "Tracciamento: %{carrier} · %{number}"
-      actions: "Azioni"
-      confirm_delivery: "Conferma consegna"
-      cancel: "Annulla ordine"
-      cancel_reason: "Motivo (facoltativo)"
-      cancel_confirm: "Annullare questo ordine?"
-      report_problem: "Segnala un problema"
-      report_problem_hint: "Le contestazioni saranno disponibili qui in un prossimo aggiornamento."
-      protection_title: "Tutela dell'acquirente"
-      protection_body: "Puoi segnalare un problema fino al %{date}."
+      subtotal: Totale parziale
+      shipping: Spedizione
+      total: Totale
+      timeline: Cronologia dello stato
+      no_events: Nessun aggiornamento per ora.
+      delivery: Consegna
+      tracking: 'Tracciamento: %{carrier} · %{number}'
+      actions: Azioni
+      confirm_delivery: Conferma consegna
+      cancel: Annulla ordine
+      cancel_reason: Motivo (facoltativo)
+      cancel_confirm: Annullare questo ordine?
+      report_problem: Segnala un problema
+      report_problem_hint: Le contestazioni saranno disponibili qui in un prossimo aggiornamento.
+      protection_title: Tutela dell'acquirente
+      protection_body: Puoi segnalare un problema fino al %{date}.
     flash:
-      delivery_confirmed: "Consegna confermata. Grazie!"
-      cannot_confirm_delivery: "Questo ordine non può essere confermato in questo momento."
-      cancelled: "Ordine annullato."
-      cannot_cancel: "Questo ordine non può essere annullato in questo momento."
-      problem_report_placeholder: "Le segnalazioni dei problemi saranno disponibili presto."
+      delivery_confirmed: Consegna confermata. Grazie!
+      cannot_confirm_delivery: Questo ordine non può essere confermato in questo momento.
+      cancelled: Ordine annullato.
+      cannot_cancel: Questo ordine non può essere annullato in questo momento.
+      problem_report_placeholder: Le segnalazioni dei problemi saranno disponibili presto.
   sales:
     index:
-      eyebrow: "Area venditore"
-      title: "Le mie vendite"
-      subtitle: "Segui gli ordini pagati, spediscili e gestisci gli annullamenti."
+      eyebrow: Area venditore
+      title: Le mie vendite
+      subtitle: Segui gli ordini pagati, spediscili e gestisci gli annullamenti.
       count:
         one: "%{count} vendita"
         other: "%{count} vendite"
-      filters_label: "Filtra le vendite per stato"
-      all: "Tutte"
+      filters_label: Filtra le vendite per stato
+      all: Tutte
       items:
         one: "%{count} articolo"
         other: "%{count} articoli"
-      payout: "Il tuo incasso %{amount}"
-      view: "Vedi vendita"
-      empty_title: "Nessuna vendita per ora"
-      empty_body: "Gli ordini degli acquirenti appariranno qui non appena saranno pagati."
+      payout: Il tuo incasso %{amount}
+      view: Vedi vendita
+      empty_title: Nessuna vendita per ora
+      empty_body: Gli ordini degli acquirenti appariranno qui non appena saranno pagati.
     show:
-      title: "Vendita %{number}"
-      back: "Torna alle mie vendite"
-      eyebrow: "Dettagli della vendita"
-      placed_on: "Effettuata il %{date}"
-      items: "Articoli"
+      title: Vendita %{number}
+      back: Torna alle mie vendite
+      eyebrow: Dettagli della vendita
+      placed_on: Effettuata il %{date}
+      items: Articoli
       quantity:
         one: "%{count} unità"
         other: "%{count} unità"
-      subtotal: "Totale articoli"
-      shipping: "Spedizione"
-      commission: "Commissione"
-      payout: "Il tuo incasso"
-      timeline: "Cronologia dello stato"
-      no_events: "Nessun aggiornamento per ora."
-      delivery: "Consegna"
-      tracking: "Tracciamento: %{carrier} · %{number}"
-      address_locked: "L'indirizzo dell'acquirente viene mostrato dopo la conferma del pagamento."
-      ship_title: "Segna come spedito"
-      carrier: "Corriere"
-      carrier_optional: "Corriere (facoltativo)"
-      choose_carrier: "Scegli un corriere"
-      tracking_number: "Numero di tracciamento"
-      mark_shipped: "Segna come spedito"
-      cancel_title: "Annulla vendita"
-      cancel_reason: "Motivo (facoltativo)"
-      cancel: "Annulla ordine"
-      cancel_confirm: "Annullare questo ordine e rimborsare l'acquirente se necessario?"
+      subtotal: Totale articoli
+      shipping: Spedizione
+      commission: Commissione
+      payout: Il tuo incasso
+      timeline: Cronologia dello stato
+      no_events: Nessun aggiornamento per ora.
+      delivery: Consegna
+      tracking: 'Tracciamento: %{carrier} · %{number}'
+      address_locked: L'indirizzo dell'acquirente viene mostrato dopo la conferma del pagamento.
+      ship_title: Segna come spedito
+      carrier: Corriere
+      carrier_optional: Corriere (facoltativo)
+      choose_carrier: Scegli un corriere
+      tracking_number: Numero di tracciamento
+      mark_shipped: Segna come spedito
+      cancel_title: Annulla vendita
+      cancel_reason: Motivo (facoltativo)
+      cancel: Annulla ordine
+      cancel_confirm: Annullare questo ordine e rimborsare l'acquirente se necessario?
     flash:
-      shipped: "Ordine segnato come spedito."
-      cannot_ship: "Aggiungi un corriere e un numero di tracciamento, oppure controlla lo stato dell'ordine."
-      cancelled: "Ordine annullato."
-      cannot_cancel: "Questo ordine non può essere annullato in questo momento."
+      shipped: Ordine segnato come spedito.
+      cannot_ship: Aggiungi un corriere e un numero di tracciamento, oppure controlla lo stato dell'ordine.
+      cancelled: Ordine annullato.
+      cannot_cancel: Questo ordine non può essere annullato in questo momento.
   order_mailer:
     footer:
-      reason: "Ricevi questa e-mail per un ordine su %{app}."
-      signature: "Il team di %{app}"
+      reason: Ricevi questa e-mail per un ordine su %{app}.
+      signature: Il team di %{app}
     details:
-      subtotal: "Totale parziale"
-      shipping: "Spedizione"
-      total: "Totale"
-      tracking: "Tracciamento: %{carrier} · %{number}"
+      subtotal: Totale parziale
+      shipping: Spedizione
+      total: Totale
+      tracking: 'Tracciamento: %{carrier} · %{number}'
     buyer_confirmation:
-      subject: "Ordine %{number} confermato"
-      greeting: "Ciao %{name},"
-      body: "Il tuo ordine %{number} presso %{store} è confermato. Ti avviseremo quando sarà spedito."
-      cta: "Vedi il tuo ordine"
-      closing: "Grazie per aver acquistato su PCMarket."
+      subject: Ordine %{number} confermato
+      greeting: Ciao %{name},
+      body: Il tuo ordine %{number} presso %{store} è confermato. Ti avviseremo quando sarà spedito.
+      cta: Vedi il tuo ordine
+      closing: Grazie per aver acquistato su PCMarket.
     seller_new_sale:
-      subject: "Nuova vendita %{number}"
-      greeting: "Ciao %{name},"
-      body: "Hai un nuovo ordine pagato %{number}. Prepara la spedizione."
-      cta: "Apri la vendita"
-      closing: "Spedisci rapidamente per mantenere buoni indicatori di tutela dell'acquirente."
+      subject: Nuova vendita %{number}
+      greeting: Ciao %{name},
+      body: Hai un nuovo ordine pagato %{number}. Prepara la spedizione.
+      cta: Apri la vendita
+      closing: Spedisci rapidamente per mantenere buoni indicatori di tutela dell'acquirente.
     order_shipped:
-      subject: "L'ordine %{number} è stato spedito"
-      greeting: "Ciao %{name},"
-      body: "Il tuo ordine %{number} presso %{store} è in viaggio."
-      cta: "Traccia il tuo ordine"
-      closing: "Conferma la consegna quando arriva."
+      subject: L'ordine %{number} è stato spedito
+      greeting: Ciao %{name},
+      body: Il tuo ordine %{number} presso %{store} è in viaggio.
+      cta: Traccia il tuo ordine
+      closing: Conferma la consegna quando arriva.
     delivery_confirmed:
-      subject: "Consegna confermata per l'ordine %{number}"
-      greeting: "Ciao %{name},"
-      body: "L'acquirente ha confermato la consegna dell'ordine %{number}. Il tuo incasso sarà rilasciato secondo il calendario del marketplace."
-      cta: "Apri la vendita"
-      closing: "Grazie per vendere su PCMarket."
+      subject: Consegna confermata per l'ordine %{number}
+      greeting: Ciao %{name},
+      body: L'acquirente ha confermato la consegna dell'ordine %{number}. Il tuo incasso sarà rilasciato secondo il calendario del marketplace.
+      cta: Apri la vendita
+      closing: Grazie per vendere su PCMarket.
     order_cancelled:
-      subject: "Ordine %{number} annullato"
-      greeting: "Ciao,"
-      body: "L'ordine %{number} è stato annullato. Eventuali pagamenti ricevuti saranno rimborsati sul metodo originale."
-      closing: "Per domande, contatta il supporto PCMarket."
+      subject: Ordine %{number} annullato
+      greeting: Ciao,
+      body: L'ordine %{number} è stato annullato. Eventuali pagamenti ricevuti saranno rimborsati sul metodo originale.
+      closing: Per domande, contatta il supporto PCMarket.
   wishlist:
-    title: "Lista dei desideri"
-    eyebrow: "Il tuo account"
-    subtitle: "Tutto ciò che hai salvato e i venditori che segui."
-    sold: "Venduto"
-    unavailable: "Non disponibile"
+    title: Lista dei desideri
+    eyebrow: Il tuo account
+    subtitle: Tutto ciò che hai salvato e i venditori che segui.
+    sold: Venduto
+    unavailable: Non disponibile
     tabs:
-      label: "Sezioni della lista dei desideri"
-      favourites: "Preferiti"
-      following: "Seguiti"
+      label: Sezioni della lista dei desideri
+      favourites: Preferiti
+      following: Seguiti
     favourites:
-      added_on: "Salvato il %{date}"
-      remove: "Rimuovi"
-      move_to_basket: "Aggiungi al carrello"
-      empty_title: "Nessun preferito per ora"
-      empty_body: "Usa il cuore su qualsiasi annuncio per conservarlo qui."
-      empty_cta: "Sfoglia gli annunci"
+      added_on: Salvato il %{date}
+      remove: Rimuovi
+      move_to_basket: Aggiungi al carrello
+      empty_title: Nessun preferito per ora
+      empty_body: Usa il cuore su qualsiasi annuncio per conservarlo qui.
+      empty_cta: Sfoglia gli annunci
     following:
       followers_count:
         one: "%{count} follower"
@@ -1097,155 +1172,371 @@ it:
       listings_count:
         one: "%{count} annuncio"
         other: "%{count} annunci"
-      following_since: "Segui dal %{date}"
-      unfollow: "Smetti di seguire"
-      empty_title: "Non segui ancora nessun negozio"
-      empty_body: "Segui un venditore da una pagina annuncio per vedere le sue novità qui."
-      empty_cta: "Sfoglia gli annunci"
+      following_since: Segui dal %{date}
+      unfollow: Smetti di seguire
+      empty_title: Non segui ancora nessun negozio
+      empty_body: Segui un venditore da una pagina annuncio per vedere le sue novità qui.
+      empty_cta: Sfoglia gli annunci
   favourites:
     button:
-      add: "Aggiungi ai preferiti"
-      remove: "Rimuovi dai preferiti"
+      add: Aggiungi ai preferiti
+      remove: Rimuovi dai preferiti
     flash:
-      added: "Annuncio aggiunto ai preferiti."
-      removed: "Annuncio rimosso dai preferiti."
+      added: Annuncio aggiunto ai preferiti.
+      removed: Annuncio rimosso dai preferiti.
   follows:
     button:
-      follow: "Segui il negozio"
-      following: "Seguito"
+      follow: Segui il negozio
+      following: Seguito
     flash:
-      followed: "Ora segui questo negozio."
-      unfollowed: "Hai smesso di seguire questo negozio."
+      followed: Ora segui questo negozio.
+      unfollowed: Hai smesso di seguire questo negozio.
   saved_searches:
-    hint: "Salva questi filtri e ricevi un avviso quando arrivano nuovi articoli."
-    save: "Salva questa ricerca"
+    hint: Salva questi filtri e ricevi un avviso quando arrivano nuovi articoli.
+    save: Salva questa ricerca
     index:
-      eyebrow: "Il tuo account"
-      title: "Ricerche salvate"
-      subtitle: "Tieni a portata di mano i tuoi filtri preferiti e ricevi avvisi per ogni nuova corrispondenza."
+      eyebrow: Il tuo account
+      title: Ricerche salvate
+      subtitle: Tieni a portata di mano i tuoi filtri preferiti e ricevi avvisi per ogni nuova corrispondenza.
       count: "%{count} di %{max} ricerche salvate"
-      limit_note: "Puoi salvare fino a %{max} ricerche. Eliminane una per far spazio a una nuova."
-      empty_title: "Nessuna ricerca salvata per ora"
-      empty_body: "Esegui una ricerca e usa il pulsante di salvataggio per conservarne i filtri qui."
-      empty_cta: "Sfoglia gli annunci"
+      limit_note: Puoi salvare fino a %{max} ricerche. Eliminane una per far spazio a una nuova.
+      empty_title: Nessuna ricerca salvata per ora
+      empty_body: Esegui una ricerca e usa il pulsante di salvataggio per conservarne i filtri qui.
+      empty_cta: Sfoglia gli annunci
     card:
-      created_on: "Salvata il %{date}"
-      no_filters: "Tutti gli annunci"
-      name_label: "Nome della ricerca"
-      email_alerts: "Avvisi via email"
-      frequency: "Frequenza degli avvisi"
-      save: "Salva modifiche"
-      view_results: "Vedi risultati"
-      delete: "Elimina"
-      delete_confirm: "Eliminare questa ricerca salvata?"
+      created_on: Salvata il %{date}
+      no_filters: Tutti gli annunci
+      name_label: Nome della ricerca
+      email_alerts: Avvisi via email
+      frequency: Frequenza degli avvisi
+      save: Salva modifiche
+      view_results: Vedi risultati
+      delete: Elimina
+      delete_confirm: Eliminare questa ricerca salvata?
     frequency_options:
-      instant: "Immediato"
-      daily: "Riepilogo giornaliero"
-      weekly: "Riepilogo settimanale"
+      instant: Immediato
+      daily: Riepilogo giornaliero
+      weekly: Riepilogo settimanale
     flash:
-      created: "Ricerca salvata."
-      updated: "Ricerca salvata aggiornata."
-      destroyed: "Ricerca salvata eliminata."
+      created: Ricerca salvata.
+      updated: Ricerca salvata aggiornata.
+      destroyed: Ricerca salvata eliminata.
     names:
-      all: "Tutti gli annunci"
-      up_to: "fino a %{price}"
-      from: "da %{price}"
+      all: Tutti gli annunci
+      up_to: fino a %{price}
+      from: da %{price}
       between: "%{min} – %{max}"
     errors:
-      limit_reached: "Puoi salvare fino a %{max} ricerche."
-      invalid_query_params: "I filtri di ricerca non sono validi."
+      limit_reached: Puoi salvare fino a %{max} ricerche.
+      invalid_query_params: I filtri di ricerca non sono validi.
   notifications:
     index:
-      eyebrow: "Il tuo account"
-      title: "Notifiche"
-      subtitle: "Aggiornamenti sugli ordini, decisioni di moderazione e avvisi dalle tue ricerche salvate."
+      eyebrow: Il tuo account
+      title: Notifiche
+      subtitle: Aggiornamenti sugli ordini, decisioni di moderazione e avvisi dalle tue ricerche salvate.
       count:
         one: "%{count} notifica"
         other: "%{count} notifiche"
-      unread: "Non letta"
-      mark_all_read: "Segna tutto come letto"
-      empty_title: "Sei al passo"
-      empty_body: "Qui compariranno gli aggiornamenti sugli ordini e gli avvisi."
+      unread: Non letta
+      mark_all_read: Segna tutto come letto
+      empty_title: Sei al passo
+      empty_body: Qui compariranno gli aggiornamenti sugli ordini e gli avvisi.
     filters:
-      label: "Filtra le notifiche"
-      unread: "Non lette"
-      all: "Tutte"
+      label: Filtra le notifiche
+      unread: Non lette
+      all: Tutte
     bell:
-      label: "Notifiche"
-      title: "Notifiche"
+      label: Notifiche
+      title: Notifiche
       unread_count:
-        one: "1 notifica non letta"
+        one: 1 notifica non letta
         other: "%{count} notifiche non lette"
-      mark_all_read: "Segna tutto come letto"
-      view_all: "Vedi tutte"
-      empty: "Nessuna notifica per ora"
+      mark_all_read: Segna tutto come letto
+      view_all: Vedi tutte
+      empty: Nessuna notifica per ora
     messages:
-      default: "Hai una nuova notifica."
-      listing_approved: "Il tuo annuncio «%{title}» è stato approvato."
-      listing_rejected: "Il tuo annuncio «%{title}» è stato rifiutato: %{reason}"
-      new_sale: "Hai venduto «%{title}» nell'ordine %{number} per %{amount}."
-      order_shipped: "L'ordine %{number} è stato spedito."
-      order_delivered: "L'ordine %{number} è stato consegnato."
-      order_cancelled: "L'ordine %{number} è stato annullato."
+      default: Hai una nuova notifica.
+      listing_approved: Il tuo annuncio «%{title}» è stato approvato.
+      listing_rejected: 'Il tuo annuncio «%{title}» è stato rifiutato: %{reason}'
+      new_sale: Hai venduto «%{title}» nell'ordine %{number} per %{amount}.
+      order_shipped: L'ordine %{number} è stato spedito.
+      order_delivered: L'ordine %{number} è stato consegnato.
+      order_cancelled: L'ordine %{number} è stato annullato.
       price_drop: "«%{title}» di %{store_name} ora costa %{price}."
       followed_store_new_listing: "%{store_name} ha pubblicato «%{title}»."
-      saved_search_match: "Nuova corrispondenza per «%{name}»: %{title}."
+      saved_search_match: 'Nuova corrispondenza per «%{name}»: %{title}.'
+      new_message: "%{sender_name} ti ha inviato un messaggio su «%{title}»."
+      new_offer: Nuova offerta di %{amount} per «%{title}».
+      offer_accepted: La tua offerta di %{amount} per «%{title}» è stata accettata.
+      offer_declined: La tua offerta di %{amount} per «%{title}» è stata rifiutata.
+      offer_countered: Nuova controfferta di %{amount} per «%{title}».
+      offer_expired: La tua offerta di %{amount} per «%{title}» è scaduta.
+      offer_expiring: La tua offerta di %{amount} per «%{title}» sta per scadere.
     preferences:
-      eyebrow: "Il tuo account"
-      title: "Impostazioni delle notifiche"
-      subtitle: "Scegli quali aggiornamenti ricevere nell'app e via email."
-      kind: "Notifica"
-      in_app: "Nell'app"
-      email: "Email"
-      save: "Salva preferenze"
-      marketing_note: "Le email di marketing vengono inviate solo se le autorizzi esplicitamente dalle impostazioni del tuo account."
+      eyebrow: Il tuo account
+      title: Impostazioni delle notifiche
+      subtitle: Scegli quali aggiornamenti ricevere nell'app e via email.
+      kind: Notifica
+      in_app: Nell'app
+      email: Email
+      save: Salva preferenze
+      marketing_note: Le email di marketing vengono inviate solo se le autorizzi esplicitamente dalle impostazioni del tuo account.
       kinds:
-        listing_approved: "Annuncio approvato"
-        listing_rejected: "Annuncio rifiutato"
-        new_sale: "Nuova vendita"
-        order_shipped: "Ordine spedito"
-        order_delivered: "Ordine consegnato"
-        order_cancelled: "Ordine annullato"
-        price_drop: "Riduzione di prezzo"
-        followed_store_new_listing: "Novità dai negozi seguiti"
-        saved_search_match: "Corrispondenze delle ricerche salvate"
+        listing_approved: Annuncio approvato
+        listing_rejected: Annuncio rifiutato
+        new_sale: Nuova vendita
+        order_shipped: Ordine spedito
+        order_delivered: Ordine consegnato
+        order_cancelled: Ordine annullato
+        price_drop: Riduzione di prezzo
+        followed_store_new_listing: Novità dai negozi seguiti
+        saved_search_match: Corrispondenze delle ricerche salvate
+        new_message: Nuovi messaggi
+        new_offer: Nuove offerte
+        offer_accepted: Offerta accettata
+        offer_declined: Offerta rifiutata
+        offer_countered: Controfferte
+        offer_expired: Offerta scaduta
+        offer_expiring: Offerta in scadenza
       flash:
-        updated: "Preferenze delle notifiche aggiornate."
+        updated: Preferenze delle notifiche aggiornate.
     flash:
-      all_read: "Tutte le notifiche sono state segnate come lette."
+      all_read: Tutte le notifiche sono state segnate come lette.
     errors:
-      invalid_params: "I dati della notifica non sono validi."
+      invalid_params: I dati della notifica non sono validi.
   email_unsubscribe:
     flash:
-      success: "Hai annullato l'iscrizione a queste email."
-      invalid: "Questo link di disiscrizione non è valido o è scaduto."
+      success: Hai annullato l'iscrizione a queste email.
+      invalid: Questo link di disiscrizione non è valido o è scaduto.
   alert_mailer:
     footer:
-      reason: "Ricevi questa email perché hai attivato gli avvisi su %{app}."
-      unsubscribe: "Annulla l'iscrizione a questi avvisi"
-      signature: "Il team di %{app}"
+      reason: Ricevi questa email perché hai attivato gli avvisi su %{app}.
+      unsubscribe: Annulla l'iscrizione a questi avvisi
+      signature: Il team di %{app}
     price_drop:
-      subject: "Riduzione di prezzo: %{title}"
-      greeting: "Ciao %{name},"
+      subject: 'Riduzione di prezzo: %{title}'
+      greeting: Ciao %{name},
       body: "%{title} di %{store} ora costa %{price}."
-      cta: "Vedi l'annuncio"
-      closing: "Ricevi questa email perché hai salvato questo annuncio."
+      cta: Vedi l'annuncio
+      closing: Ricevi questa email perché hai salvato questo annuncio.
     followed_store_new_listing:
-      subject: "Nuovi annunci da %{store}"
-      greeting: "Ciao %{name},"
+      subject: Nuovi annunci da %{store}
+      greeting: Ciao %{name},
       body: "%{store} ha appena pubblicato nuovi annunci."
-      cta: "Vedi l'annuncio"
-      closing: "Ricevi questa email perché segui questo negozio."
+      cta: Vedi l'annuncio
+      closing: Ricevi questa email perché segui questo negozio.
     saved_search_match:
-      subject: "Nuova corrispondenza per %{name}"
-      greeting: "Ciao %{name},"
-      body: "Un nuovo annuncio corrisponde alla tua ricerca salvata «%{name}»: %{title}."
-      cta: "Vedi l'annuncio"
-      closing: "Ricevi questa email perché hai attivato gli avvisi per questa ricerca salvata."
+      subject: Nuova corrispondenza per %{name}
+      greeting: Ciao %{name},
+      body: 'Un nuovo annuncio corrisponde alla tua ricerca salvata «%{name}»: %{title}.'
+      cta: Vedi l'annuncio
+      closing: Ricevi questa email perché hai attivato gli avvisi per questa ricerca salvata.
     saved_search_digest:
-      subject: "Riepilogo delle tue ricerche salvate"
-      greeting: "Ciao %{name},"
-      body: "Ecco gli ultimi annunci che corrispondono alle tue ricerche salvate."
+      subject: Riepilogo delle tue ricerche salvate
+      greeting: Ciao %{name},
+      body: Ecco gli ultimi annunci che corrispondono alle tue ricerche salvate.
       search_heading: "%{name}"
-      cta: "Vedi i risultati"
-      closing: "Ricevi questa email perché hai attivato gli avvisi per le tue ricerche salvate."
+      cta: Vedi i risultati
+      closing: Ricevi questa email perché hai attivato gli avvisi per le tue ricerche salvate.
+  conversations:
+    errors:
+      self: Non puoi inviare messaggi a te stesso.
+      seller_mismatch: Il venditore non appartiene a questo negozio.
+      listing_mismatch: L'annuncio non appartiene a questo negozio.
+      blocked: Non puoi scrivere a questo utente perché uno dei due ha bloccato l'altro.
+      rate_limited: Puoi avviare al massimo %{max} nuove conversazioni all'ora. Riprova più tardi.
+      unavailable: Questa conversazione non è disponibile.
+    flash:
+      opened: Conversazione aperta.
+      all_read: Tutte le conversazioni segnate come lette.
+    index:
+      eyebrow: Il tuo account
+      title: Posta in arrivo e offerte
+      subtitle: Negozia con acquirenti e venditori, segui le tue offerte e gestisci gli utenti bloccati.
+      mark_all_read: Segna tutto come letto
+      tabs_label: Sezioni della posta in arrivo
+      tabs:
+        chats: Chat
+        offers: Offerte
+        blocked: Utenti bloccati
+      no_messages: Ancora nessun messaggio
+      empty_chats_title: Ancora nessuna conversazione
+      empty_chats_body: Scrivi a un venditore da un annuncio o da un negozio per iniziare a negoziare.
+      empty_offers_title: Ancora nessuna offerta
+      empty_offers_body: Le offerte che fai o ricevi appariranno qui.
+      empty_blocked_title: Nessun utente bloccato
+      empty_blocked_body: Gli utenti che blocchi appariranno qui per poterli sbloccare in seguito.
+    show:
+      back: Torna alla posta in arrivo
+      composer_placeholder: Scrivi un messaggio…
+      attach_images: Allega immagini
+      send: Invia
+      composer_hint: Invio invia, Maiusc+Invio aggiunge una riga. Fino a 4 immagini da 10 MB ciascuna.
+  messages:
+    flash:
+      sent: Messaggio inviato.
+    errors:
+      not_participant: Non fai parte di questa conversazione.
+      blocked: Non puoi inviare messaggi a questo utente.
+      rate_limited: Puoi inviare al massimo %{max} messaggi ogni 10 minuti. Riprova più tardi.
+    safety_warning: Paga solo tramite PCMarket per mantenere la Protezione Acquirenti. Non condividere numeri di telefono, email o dati bancari e non pagare fuori dalla piattaforma.
+    read: Letto
+  offers:
+    errors:
+      amount_range: L'offerta deve essere di almeno %{min} € e inferiore a %{max} €.
+      self: Non puoi fare un'offerta sul tuo annuncio.
+      pending_exists: Hai già un'offerta in attesa per questo annuncio.
+      counter_mismatch: La controfferta non corrisponde a questo annuncio.
+      disabled: Le offerte non sono disponibili al momento.
+      unavailable: Questo annuncio non accetta offerte.
+      blocked: Non puoi fare un'offerta a questo venditore.
+      not_pending: Questa offerta non è più in attesa.
+      expired: Questa offerta è scaduta.
+      not_recipient: Non puoi rispondere a questa offerta.
+      invalid_decision: Questa decisione sull'offerta non è valida.
+    statuses:
+      pending: In attesa
+      accepted: Accettata
+      declined: Rifiutata
+      countered: Controffererta
+      expired: Scaduta
+      withdrawn: Ritirata
+    flash:
+      created: Offerta inviata.
+      accept: Offerta accettata.
+      decline: Offerta rifiutata.
+      counter: Controffererta inviata.
+    form:
+      title: Fai un'offerta
+      amount: Il tuo prezzo (€)
+      message_placeholder: Aggiungi un messaggio al venditore (facoltativo)
+      hint: Le offerte devono essere almeno il 50% del prezzo richiesto e inferiori a esso. Scadono dopo 48 ore.
+    inbox:
+      with: Con %{name}
+      open: Apri chat
+    actions:
+      pending: Offerta in attesa di %{amount}
+      accept: Accetta
+      decline: Rifiuta
+      counter_amount: Prezzo della controfferta (€)
+      counter_message: Messaggio (facoltativo)
+      counter: Invia controfferta
+      accepted: Offerta accettata a %{amount}
+      buy: Acquista al prezzo dell'offerta
+    system:
+      created: Offerta di %{amount} inviata.
+      accepted: Offerta di %{amount} accettata.
+      declined: Offerta di %{amount} rifiutata.
+      countered: Controffererta di %{amount} inviata.
+      expired: Offerta di %{amount} scaduta.
+  blocks:
+    errors:
+      self: Non puoi bloccare te stesso.
+    flash:
+      created: Utente bloccato.
+      destroyed: Utente sbloccato.
+    block: Blocca
+    unblock: Sblocca
+  reports:
+    link: Segnala
+    reasons:
+      illegal_content: Contenuto illegale
+      counterfeit: Prodotto contraffatto
+      stolen_goods: Merce rubata
+      scam_fraud: Truffa o frode
+      prohibited_item: Articolo vietato
+      misleading: Informazioni fuorvianti
+      harassment: Molestie
+      spam: Spam
+      ip_infringement: Violazione della proprietà intellettuale
+      other: Altro
+    errors:
+      invalid_email: Inserisci un indirizzo email valido.
+      unavailable: Questo elemento non può essere segnalato.
+    flash:
+      created: Grazie. La tua segnalazione è stata ricevuta e sarà esaminata.
+    new:
+      eyebrow: Fiducia e sicurezza
+      title: Segnala questo elemento
+      subtitle: Dicci cosa non va. Esaminiamo ogni segnalazione secondo il regolamento europeo sui servizi digitali.
+      reported_item: Elemento segnalato
+      email: Il tuo indirizzo email
+      email_hint: Ti invieremo una conferma e la decisione finale.
+      reason: Motivo
+      reason_placeholder: Scegli un motivo
+      details: Cosa è successo?
+      details_placeholder: Descrivi il problema, includendo link o prove se possibile.
+      details_hint: Tra 20 e 2000 caratteri.
+      cancel: Annulla
+      submit: Invia segnalazione
+      dsa_notice: Gestiamo le segnalazioni secondo le regole di notifica e azione del regolamento europeo sui servizi digitali. Le segnalazioni false possono comportare restrizioni dell'account.
+  storefronts:
+    member_since: Membro dal %{date}
+    report_hint: Qualcosa non va in questo negozio?
+    listings_title: Annunci di questo negozio
+    empty_title: Nessun annuncio attivo
+    empty_body: Questo negozio non ha annunci pubblicati al momento.
+  message_mailer:
+    new_message:
+      subject: Nuovo messaggio da %{sender}
+      greeting: Ciao %{name},
+      body: "%{sender} ti ha inviato un messaggio su «%{title}»."
+      cta: Apri la conversazione
+      closing: Puoi rispondere dalla posta in arrivo. Se l'hai già letto, ignora questa email.
+  offer_mailer:
+    new_offer:
+      subject: Nuova offerta per «%{title}»
+      greeting: Ciao %{name},
+      body: Hai ricevuto una nuova offerta di %{amount} per «%{title}».
+      cta: Esamina l'offerta
+      closing: Le offerte scadono dopo 48 ore.
+    offer_accepted:
+      subject: 'La tua offerta è stata accettata: %{title}'
+      greeting: Ciao %{name},
+      body: La tua offerta di %{amount} per «%{title}» è stata accettata. Ora puoi acquistare a quel prezzo.
+      cta: Acquista al prezzo dell'offerta
+      closing: Completa l'acquisto dalla conversazione prima che l'offerta scada.
+    offer_declined:
+      subject: 'La tua offerta è stata rifiutata: %{title}'
+      greeting: Ciao %{name},
+      body: La tua offerta di %{amount} per «%{title}» è stata rifiutata.
+      cta: Apri la conversazione
+      closing: Puoi comunque scrivere al venditore o fare un'altra offerta.
+    offer_countered:
+      subject: Nuova controfferta per «%{title}»
+      greeting: Ciao %{name},
+      body: Hai ricevuto una controfferta di %{amount} per «%{title}».
+      cta: Esamina la controfferta
+      closing: Accettala o rifiutala dalla conversazione.
+    offer_expiring:
+      subject: La tua offerta per «%{title}» sta per scadere
+      greeting: Ciao %{name},
+      body: L'offerta di %{amount} per «%{title}» scade tra meno di 6 ore.
+      cta: Rispondi ora
+      closing: Dopo la scadenza dovrai fare una nuova offerta.
+    offer_expired:
+      subject: La tua offerta per «%{title}» è scaduta
+      greeting: Ciao %{name},
+      body: L'offerta di %{amount} per «%{title}» è scaduta.
+      cta: Apri la conversazione
+      closing: Puoi fare una nuova offerta se l'annuncio è ancora disponibile.
+  report_mailer:
+    acknowledgement:
+      subject: Abbiamo ricevuto la tua segnalazione
+      greeting: Ciao,
+      body: Grazie per la tua segnalazione. L'abbiamo registrata con il riferimento n. %{reference} e la esamineremo secondo il nostro processo di notifica e azione.
+      reason_label: Motivo
+      closing: Ti invieremo un'email con la decisione.
+    decision:
+      subject: 'Decisione sulla tua segnalazione: %{decision}'
+      greeting: Ciao,
+      body: 'Abbiamo esaminato la segnalazione n. %{reference}. Decisione: %{decision}.'
+      note_label: Motivazione
+      closing: Grazie per aiutarci a mantenere PCMarket sicuro.
+    decisions:
+      actioned: Azione intrapresa
+      dismissed: Segnalazione respinta
+  notification_mailer:
+    footer:
+      reason: Ricevi questa email per l'attività del tuo account %{app}.
+      signature: Il team di %{app}

@@ -1,0 +1,9 @@
+<%= t("report_mailer.decision.greeting") %>
+
+<%= t("report_mailer.decision.body",
+      reference: @report.id,
+      decision: t("report_mailer.decisions.#{@report.status}")) %>
+
+<%= t("report_mailer.decision.note_label") %>: <%= @report.resolution_note %>
+
+<%= t("report_mailer.decision.closing") %>

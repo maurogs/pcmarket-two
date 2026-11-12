@@ -8,7 +8,8 @@ class CartItemsController < ApplicationController
 
     result = Carts::AddItem.new(cart: cart,
                                 listing: listing,
-                                quantity: quantity_param).call
+                                quantity: quantity_param,
+                                offer: offer_param).call
 
     if result.success?
       if buy_now?
@@ -46,6 +47,14 @@ class CartItemsController < ApplicationController
 
   def quantity_param
     params.fetch(:quantity, 1).to_i
+  end
+
+  def offer_param
+    return if params[:offer_id].blank?
+
+    raise ActiveRecord::RecordNotFound unless Flipper.enabled?(:offers)
+
+    Offer.find(params[:offer_id])
   end
 
   def buy_now?
