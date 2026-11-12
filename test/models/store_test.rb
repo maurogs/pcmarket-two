@@ -9,7 +9,7 @@ class StoreTest < ActiveSupport::TestCase
     assert_not store.valid?
     assert store.errors[:tax_id].any?
 
-    store.tax_id = "B12345678"
+    store.tax_id = "B12345674"
     assert store.valid?
   end
 
@@ -17,6 +17,15 @@ class StoreTest < ActiveSupport::TestCase
     store = Store.new(user: users(:admin), name: "Solo Bits", kind: :individual)
 
     assert store.valid?
+  end
+
+  test "business postal codes must have five digits in Spain" do
+    store = Store.new(user: users(:admin), name: "Postal Bits", kind: :business,
+                      tax_id: "B12345674", region: regions(:madrid),
+                      city: "Madrid", country_code: "ES", postal_code: "2800")
+
+    assert_not store.valid?(:onboarding)
+    assert store.errors[:postal_code].any?
   end
 
   test "generates a slug from the name" do

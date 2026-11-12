@@ -13,8 +13,8 @@ class ListingPhoto < ApplicationRecord
   end
 
   validates :image,
-            content_type: { in: IMAGE_CONTENT_TYPES },
-            size: { less_than_or_equal_to: IMAGE_MAX_SIZE }
+            content_type: { in: IMAGE_CONTENT_TYPES, message: :invalid_image_type },
+            size: { less_than_or_equal_to: IMAGE_MAX_SIZE, message: :image_too_large }
   validates :position, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validate :within_photo_limit
 

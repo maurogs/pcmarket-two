@@ -6,6 +6,8 @@ class Listing < ApplicationRecord
   extend FriendlyId
 
   STATUSES = %w[draft pending_review published rejected reserved sold archived].freeze
+  WIZARD_STEPS = %w[category photos details price review].freeze
+  MAX_SELLER_TAGS = 5
   # Edits that require a fresh moderation pass; price, quantity and shipping
   # changes deliberately stay live.
   MATERIAL_ATTRIBUTES = %w[title description category_id specs].freeze
@@ -39,27 +41,36 @@ class Listing < ApplicationRecord
     shipping_and_pickup: 2
   }, scopes: false
 
-  validates :title, presence: true, length: { in: 5..140 }
-  validates :description, presence: true, length: { in: 20..10_000 }
+  validates :title, presence: true, length: { in: 5..140 },
+                    unless: :wizard_before_details_step?
+  validates :description, presence: true, length: { in: 20..10_000 },
+                          unless: :wizard_before_details_step?
   validates :slug, presence: true, uniqueness: true
   validates :status, inclusion: { in: STATUSES }
   validates :price_cents, presence: true,
-                          numericality: { only_integer: true, greater_than: 0 }
-  validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+                          numericality: { only_integer: true, greater_than: 0 },
+                          unless: :wizard_before_price_step?
+  validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 },
+                       unless: :wizard_before_price_step?
   validates :shipping_price_cents,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :handling_days, numericality: { only_integer: true, in: 1..10 }
+  validates :handling_days, numericality: { only_integer: true, in: 1..10 },
+                            unless: :wizard_before_price_step?
   validates :views_count,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :favorites_count,
             numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :rejection_reason, presence: true, if: :rejected?
+  validates :region, :city, :postal_code, presence: true, on: %i[price review]
   validate :price_within_settings
   validate :compare_at_price_above_price
   validate :country_is_launched
   validate :region_belongs_to_country
-  validate :required_specs_present, unless: :draft?
+  validate :required_specs_present
   validate :spec_values_are_active_options
+  validate :photos_present, on: %i[photos review]
+  validate :seller_tags_within_limit
+  validate :quantity_allowed_for_store, on: %i[price review]
 
   # Material edits of a live listing go back through moderation in the very
   # same save, so counter callbacks observe a single status change.
@@ -255,6 +266,69 @@ class Listing < ApplicationRecord
     BigDecimal(price_cents) / 100
   end
 
+  def price=(value)
+    self.price_cents = euros_to_cents(value)
+  end
+
+  def compare_at_price
+    return if compare_at_price_cents.nil?
+
+    BigDecimal(compare_at_price_cents) / 100
+  end
+
+  def compare_at_price=(value)
+    self.compare_at_price_cents = euros_to_cents(value)
+  end
+
+  def shipping_price
+    return if shipping_price_cents.nil?
+
+    BigDecimal(shipping_price_cents) / 100
+  end
+
+  def shipping_price=(value)
+    self.shipping_price_cents = euros_to_cents(value)
+  end
+
+  def seller_tag_ids
+    tags.select(&:seller_tag?).map(&:id)
+  end
+
+  def seller_tag_ids=(ids)
+    self.tag_ids = Tag.seller_tags.active.where(id: Array(ids)).pluck(:id)
+  end
+
+  # Fields the review step still needs. Each entry points at the wizard step
+  # that can fix it.
+  def missing_wizard_requirements
+    missing = []
+    missing << { step: "category", attribute: :category } if category.blank?
+    missing << { step: "photos", attribute: :photos } if photos.empty?
+    unless title.present? && title.length.between?(5, 140)
+      missing << { step: "details", attribute: :title }
+    end
+    unless description.present? && description.length.between?(20, 10_000)
+      missing << { step: "details", attribute: :description }
+    end
+    missing << { step: "details", attribute: :condition } if condition.blank?
+    missing << { step: "price", attribute: :price_cents } unless price_cents.to_i.positive?
+    missing << { step: "price", attribute: :region } if region.blank?
+    missing << { step: "price", attribute: :city } if city.blank?
+    missing << { step: "price", attribute: :postal_code } if postal_code.blank?
+
+    if category.present?
+      missing_specs = category.effective_category_attributes.select(&:required?).filter_map do |category_attribute|
+        definition = category_attribute.attribute_definition
+        next if spec_value_present?(definition.key)
+
+        { step: "details", attribute: :specs, label: definition.name }
+      end
+      missing.concat(missing_specs)
+    end
+
+    missing
+  end
+
   def discount_percent
     return if compare_at_price_cents.blank? || price_cents.blank?
     return if compare_at_price_cents <= price_cents
@@ -290,10 +364,43 @@ class Listing < ApplicationRecord
   end
 
   def slug_source
-    "#{title}-#{SecureRandom.hex(3)}"
+    base = title.presence || category&.name.presence || "listing"
+    "#{base}-#{SecureRandom.hex(3)}"
   end
 
   private
+
+  def euros_to_cents(value)
+    return if value.blank?
+
+    (BigDecimal(value.to_s) * 100).round
+  rescue ArgumentError, TypeError
+    nil
+  end
+
+  def wizard_context
+    validation_context&.to_s
+  end
+
+  def wizard_before_details_step?
+    wizard_context_before?("details")
+  end
+
+  def wizard_before_price_step?
+    wizard_context_before?("price")
+  end
+
+  def wizard_context_before?(step)
+    return false unless WIZARD_STEPS.include?(wizard_context)
+
+    WIZARD_STEPS.index(wizard_context) < WIZARD_STEPS.index(step)
+  end
+
+  def wizard_context_at_or_after?(step)
+    return false unless WIZARD_STEPS.include?(wizard_context)
+
+    WIZARD_STEPS.index(wizard_context) >= WIZARD_STEPS.index(step)
+  end
 
   def specs_hash
     (specs || {}).with_indifferent_access
@@ -305,6 +412,7 @@ class Listing < ApplicationRecord
   end
 
   def price_within_settings
+    return if wizard_before_price_step?
     return if price_cents.blank? || !price_cents.is_a?(Numeric)
 
     min = Setting.get(:min_listing_price, 1).to_i * 100
@@ -317,6 +425,7 @@ class Listing < ApplicationRecord
   end
 
   def compare_at_price_above_price
+    return if wizard_before_price_step?
     return if compare_at_price_cents.blank? || price_cents.blank?
     return if compare_at_price_cents > price_cents
 
@@ -339,6 +448,7 @@ class Listing < ApplicationRecord
 
   def required_specs_present
     return if category.blank?
+    return if draft? && !wizard_context_at_or_after?("details")
 
     missing = category.effective_category_attributes
                       .select(&:required?)
@@ -368,6 +478,27 @@ class Listing < ApplicationRecord
                  I18n.t("listings.errors.invalid_spec_option",
                         attribute: definition.name.presence || definition.key))
     end
+  end
+
+  def photos_present
+    return if photos.any?
+
+    errors.add(:photos, I18n.t("listings.errors.photos_required"))
+  end
+
+  def seller_tags_within_limit
+    count = tags.select(&:seller_tag?).size
+    return if count <= MAX_SELLER_TAGS
+
+    errors.add(:tags,
+               I18n.t("listings.errors.too_many_seller_tags", max: MAX_SELLER_TAGS))
+  end
+
+  def quantity_allowed_for_store
+    return unless store&.individual?
+    return if quantity.to_i == 1
+
+    errors.add(:quantity, I18n.t("listings.errors.quantity_individual"))
   end
 
   def material_edit_on_published_listing?

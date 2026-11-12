@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_110300) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_130200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -182,11 +182,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_110300) do
     t.bigint "store_id", null: false
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
-    t.string "title", null: false
-    t.text "description", null: false
+    t.string "title"
+    t.text "description"
     t.string "slug", null: false
     t.integer "condition", default: 0, null: false
-    t.integer "price_cents", null: false
+    t.integer "price_cents"
     t.integer "compare_at_price_cents"
     t.string "currency", default: "EUR", null: false
     t.integer "quantity", default: 1, null: false
@@ -277,7 +277,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_110300) do
     t.integer "followers_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "region_id"
     t.index ["country_code"], name: "index_stores_on_country_code"
+    t.index ["region_id"], name: "index_stores_on_region_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
     t.index ["status"], name: "index_stores_on_status"
     t.index ["user_id"], name: "index_stores_on_user_id", unique: true
@@ -356,5 +358,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_110300) do
   add_foreign_key "listings", "stores"
   add_foreign_key "listings", "users"
   add_foreign_key "regions", "countries", column: "country_code", primary_key: "code"
+  add_foreign_key "stores", "regions"
   add_foreign_key "stores", "users"
 end

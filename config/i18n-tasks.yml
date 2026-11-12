@@ -36,6 +36,14 @@ ignore_unused:
   - "listings.statuses.*"
   - "listings.shipping_modes.*"
   - "listings.attribute_groups.*"
+  - "sell.details.conditions.*"
+  - "stores.form.individual"
+  - "stores.form.business"
+  - "stores.form.individual_hint"
+  - "stores.form.business_hint"
+  - "errors.messages.invalid_spanish_tax_id"
+  - "errors.messages.invalid_image_type"
+  - "errors.messages.image_too_large"
 
 # Devise resolves its failure keys at runtime through devise-i18n, outside
 # config/locales, so i18n-tasks cannot see them.

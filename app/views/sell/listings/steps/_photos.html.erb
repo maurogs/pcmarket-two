@@ -1,0 +1,103 @@
+<%= form_with model: listing,
+              url: sell_listing_path(listing),
+              method: :patch,
+              data: { turbo_frame: "listing_wizard" },
+              html: { multipart: true },
+              class: "space-y-6" do |f| %>
+  <%= hidden_field_tag :step, "photos" %>
+
+  <section class="rounded-2xl border border-border bg-surface p-5 sm:p-6" data-controller="sortable">
+    <h2 class="text-xl font-bold"><%= t("sell.photos.title") %></h2>
+    <p class="mt-1 text-sm text-muted"><%= t("sell.photos.subtitle") %></p>
+
+    <label class="mt-4 flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-border bg-surface-muted px-4 py-10 text-center transition hover:border-primary-400">
+      <svg class="h-9 w-9 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M12 16V4m0 0L7 9m5-5 5 5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round"></path>
+      </svg>
+      <span class="mt-2 text-sm font-semibold text-content"><%= t("sell.photos.upload") %></span>
+      <span class="mt-1 text-xs text-muted"><%= t("sell.photos.upload_hint", size: number_to_human_size(ListingPhoto::IMAGE_MAX_SIZE)) %></span>
+      <%= file_field_tag "listing[images][]",
+                         multiple: true,
+                         direct_upload: true,
+                         accept: ListingPhoto::IMAGE_CONTENT_TYPES.join(","),
+                         class: "sr-only",
+                         data: { sortable_target: "input", action: "change->sortable#preview" } %>
+    </label>
+
+    <p class="mt-2 text-xs text-muted">
+      <%= t("sell.photos.limit", max: Setting.get(:max_images_per_listing, 12)) %>
+    </p>
+
+    <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" data-sortable-target="preview"></div>
+
+    <% if listing.photos.any? %>
+      <p class="mt-5 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.photos.existing") %></p>
+      <div class="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4" data-sortable-target="list">
+        <% listing.photos.each_with_index do |photo, index| %>
+          <div draggable="true"
+               data-sortable-target="item"
+               data-photo-id="<%= photo.id %>"
+               data-action="dragstart->sortable#dragStart dragover->sortable#dragOver dragend->sortable#dragEnd drop->sortable#drop"
+               class="group relative overflow-hidden rounded-xl border border-border bg-surface-muted">
+            <% if photo.image.attached? %>
+              <%= image_tag url_for(photo.image.variant(:thumb)),
+                            alt: "",
+                            width: 320, height: 320,
+                            class: "aspect-square h-full w-full cursor-grab object-cover active:cursor-grabbing" %>
+            <% else %>
+              <div class="flex aspect-square items-center justify-center text-xs text-muted">—</div>
+            <% end %>
+
+            <% if index.zero? %>
+              <span class="absolute left-2 top-2 rounded-full bg-primary-600 px-2 py-0.5 text-[10px] font-bold text-white">
+                <%= t("sell.photos.primary") %>
+              </span>
+            <% end %>
+
+            <div class="absolute inset-x-1 bottom-1 flex items-center justify-between gap-1 rounded-lg bg-surface/90 p-1 backdrop-blur">
+              <div class="flex gap-1">
+                <button type="button"
+                        class="inline-flex h-7 w-7 items-center justify-center rounded-md text-muted transition hover:bg-surface-muted hover:text-content"
+                        aria-label="<%= t("sell.photos.move_up") %>"
+                        data-action="sortable#moveUp">↑</button>
+                <button type="button"
+                        class="inline-flex h-7 w-7 items-center justify-center rounded-md text-muted transition hover:bg-surface-muted hover:text-content"
+                        aria-label="<%= t("sell.photos.move_down") %>"
+                        data-action="sortable#moveDown">↓</button>
+              </div>
+              <label class="inline-flex cursor-pointer items-center gap-1 rounded-md px-1.5 py-1 text-[10px] font-semibold text-danger">
+                <%= check_box_tag "listing[remove_photo_ids][]", photo.id, false,
+                                  class: "h-3.5 w-3.5 rounded border-border text-danger focus:ring-danger" %>
+                <%= t("sell.photos.remove") %>
+              </label>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <p class="mt-2 text-xs text-muted"><%= t("sell.photos.drag_hint") %></p>
+    <% else %>
+      <p class="mt-4 text-sm text-muted"><%= t("sell.photos.no_photos") %></p>
+    <% end %>
+
+    <div data-sortable-target="order"></div>
+  </section>
+
+  <aside class="rounded-2xl border border-border bg-surface p-5">
+    <h2 class="text-sm font-bold"><%= t("sell.photos.tips_title") %></h2>
+    <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-muted">
+      <li><%= t("sell.photos.tip_1") %></li>
+      <li><%= t("sell.photos.tip_2") %></li>
+      <li><%= t("sell.photos.tip_3") %></li>
+      <li><%= t("sell.photos.tip_4") %></li>
+    </ul>
+  </aside>
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <%= link_to t("sell.steps.back"),
+                edit_sell_listing_path(listing, step: "category"),
+                class: "inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-content",
+                data: { turbo_frame: "listing_wizard" } %>
+    <button type="submit" class="btn-primary"><%= t("sell.steps.continue") %></button>
+  </div>
+<% end %>

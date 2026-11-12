@@ -1,0 +1,9 @@
+<% set_meta_tags(title: t("sell.edit.title"), noindex: true) %>
+
+<%= render "sell/listings/wizard",
+           listing: @listing,
+           step: @step,
+           attributes: @attributes,
+           seller_tags: @seller_tags,
+           regions: @regions,
+           root_categories: @root_categories %>

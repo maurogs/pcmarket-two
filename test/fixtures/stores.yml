@@ -19,7 +19,7 @@ suspended_store:
   description: Temporarily suspended storefront.
   kind: business
   legal_name: Suspended Shop SL
-  tax_id: B12345678
+  tax_id: B12345674
   status: suspended
   country_code: ES
   created_at: <%= Time.current %>

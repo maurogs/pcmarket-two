@@ -35,6 +35,18 @@ class ListingPhotoTest < ActiveSupport::TestCase
     assert photo.errors[:image].any?
   end
 
+  test "unsupported content types report a translated message" do
+    photo = create_listing.photos.build
+    photo.image.attach(
+      io: StringIO.new("definitely not an image"),
+      filename: "notes.txt",
+      content_type: "text/plain"
+    )
+
+    assert_not photo.valid?
+    assert_includes photo.errors[:image], I18n.t("errors.messages.invalid_image_type")
+  end
+
   test "images larger than fifteen megabytes are rejected" do
     photo = create_listing.photos.build
     photo.image.attach(

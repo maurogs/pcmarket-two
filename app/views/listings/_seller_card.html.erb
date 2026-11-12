@@ -54,5 +54,32 @@
     </div>
   </dl>
 
+  <% if store.business? && (store.legal_name.present? || store.tax_id.present?) %>
+    <div class="mt-4 rounded-xl border border-border bg-surface-muted p-3 text-xs">
+      <p class="font-semibold uppercase tracking-widest text-muted"><%= t("listings.show.seller.business_details") %></p>
+      <dl class="mt-2 space-y-1">
+        <% if store.legal_name.present? %>
+          <div class="flex justify-between gap-2">
+            <dt class="text-muted"><%= t("listings.show.seller.legal_name") %></dt>
+            <dd class="text-right font-medium text-content"><%= store.legal_name %></dd>
+          </div>
+        <% end %>
+        <% if store.tax_id.present? %>
+          <div class="flex justify-between gap-2">
+            <dt class="text-muted"><%= t("listings.show.seller.tax_id") %></dt>
+            <dd class="text-right font-medium text-content"><%= store.tax_id %></dd>
+          </div>
+        <% end %>
+        <% address = [ store.address_line, [ store.postal_code, store.city ].compact_blank.join(" "), store.province ].compact_blank.join(", ") %>
+        <% if address.present? %>
+          <div class="flex justify-between gap-2">
+            <dt class="text-muted"><%= t("listings.show.seller.address") %></dt>
+            <dd class="text-right font-medium text-content"><%= address %></dd>
+          </div>
+        <% end %>
+      </dl>
+    </div>
+  <% end %>
+
   <%= link_to t("listings.show.seller.visit_store"), "#", class: "btn-accent mt-4 w-full" %>
 </section>

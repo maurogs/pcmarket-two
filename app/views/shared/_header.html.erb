@@ -26,7 +26,7 @@
     </div>
 
     <div class="ml-auto flex items-center gap-0.5 sm:gap-1 md:ml-0">
-      <%= link_to "#", class: "btn-primary hidden md:inline-flex" do %>
+      <%= link_to new_sell_listing_path, class: "btn-primary hidden md:inline-flex" do %>
         <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M12 5v14M5 12h14" stroke-linecap="round"></path>
         </svg>
@@ -91,9 +91,12 @@
             <p class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.menu.store.title") %></p>
             <%= link_to t("account.menu.store.public_profile"), "#", role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.seller_dashboard"), "#", role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.store.listings"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.listings"), new_sell_listing_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.sales"), "#", role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.store.settings"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.settings"),
+                        current_user.store.present? ? edit_store_path : new_store_path,
+                        role: "menuitem",
+                        class: account_menu_item_class %>
 
             <div class="my-1 border-t border-border"></div>
             <% if current_user.admin? %>
@@ -190,7 +193,7 @@
     </div>
 
     <div class="mt-4 flex flex-col gap-2">
-      <%= link_to t("nav.list_item"), "#", class: "btn-primary w-full" %>
+      <%= link_to t("nav.list_item"), new_sell_listing_path, class: "btn-primary w-full" %>
       <%= link_to t("nav.sell_to_us"), "#", class: "btn-accent w-full" %>
     </div>
 

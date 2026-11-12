@@ -1,0 +1,80 @@
+<div class="mx-auto max-w-5xl space-y-6"
+     data-controller="wizard"
+     data-wizard-step-value="<%= wizard_step_index(step) %>"
+     data-wizard-total-value="<%= Listing::WIZARD_STEPS.length %>">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("nav.list_item") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight">
+        <%= listing.persisted? ? t("sell.edit.title") : t("sell.new.title") %>
+      </h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+        <%= listing.persisted? ? t("sell.edit.subtitle") : t("sell.new.subtitle") %>
+      </p>
+    </div>
+
+    <% if listing.persisted? %>
+      <%= button_to(listing.draft? ? t("sell.steps.delete_draft") : t("sell.steps.archive_listing"),
+                    sell_listing_path(listing),
+                    method: :delete,
+                    form: { class: "inline" },
+                    data: { turbo_confirm: t("sell.steps.confirm_delete") },
+                    class: "inline-flex items-center justify-center rounded-xl border border-danger/30 px-3 py-2 text-xs font-semibold text-danger transition hover:bg-danger-soft") %>
+    <% end %>
+  </header>
+
+  <% if listing.published? %>
+    <div class="rounded-2xl border border-warning/40 bg-warning-soft p-4 text-sm text-content">
+      <%= t("sell.steps.published_warning") %>
+    </div>
+  <% end %>
+
+  <%= turbo_frame_tag "listing_wizard" do %>
+    <div class="rounded-2xl border border-border bg-surface p-4 sm:p-5">
+      <div class="flex items-center justify-between gap-3">
+        <p class="text-sm font-semibold" data-wizard-target="progress">
+          <%= t("sell.steps.counter", current: wizard_step_index(step), total: Listing::WIZARD_STEPS.length) %>
+        </p>
+        <p class="text-xs text-muted"><%= wizard_step_label(step) %></p>
+      </div>
+      <div class="mt-2 h-2 overflow-hidden rounded-full bg-surface-muted">
+        <div class="h-full rounded-full bg-primary-600 transition-all"
+             style="width: <%= wizard_step_percent(step) %>%"
+             data-wizard-target="bar"
+             role="progressbar"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             aria-valuenow="<%= wizard_step_percent(step) %>"></div>
+      </div>
+
+      <ol class="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs">
+        <% Listing::WIZARD_STEPS.each_with_index do |wizard_step, index| %>
+          <% current = wizard_step == step %>
+          <% done = index < Listing::WIZARD_STEPS.index(step) %>
+          <li>
+            <% if listing.persisted? %>
+              <%= link_to wizard_step_label(wizard_step),
+                          edit_sell_listing_path(listing, step: wizard_step),
+                          aria: { current: ("step" if current) },
+                          class: "inline-flex items-center gap-1.5 font-semibold transition #{current ? "text-primary-700 dark:text-primary-300" : done ? "text-success" : "text-muted hover:text-content"}" %>
+            <% else %>
+              <span class="inline-flex items-center gap-1.5 font-semibold <%= current ? "text-primary-700 dark:text-primary-300" : "text-muted" %>">
+                <%= wizard_step_label(wizard_step) %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ol>
+    </div>
+
+    <%= render "shared/form_errors", object: listing %>
+
+    <%= render "sell/listings/steps/#{step}",
+               listing: listing,
+               step: step,
+               attributes: attributes,
+               seller_tags: seller_tags,
+               regions: regions,
+               root_categories: root_categories %>
+  <% end %>
+</div>

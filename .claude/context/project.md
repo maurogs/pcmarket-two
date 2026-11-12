@@ -60,11 +60,21 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - View counts increment with `update_column`, throttled by a per-listing session key. `DeliveryEstimate` counts handling days and the 2–4 day carrier window in business days, skipping weekends and starting on the next business day for weekend orders.
 - SEO uses the MetaTags gem for title/description/OG/Twitter defaults and per-page overrides, hreflang alternates for all six locales plus x-default, BreadcrumbList/ItemList/Product+Offer JSON-LD, canonical URLs and `noindex,follow` on filtered or sorted result URLs. Page 2+ result URLs canonicalise to themselves.
 - Active Storage variants use `:mini_magick` (ImageMagick is available; libvips is not), with `card`, `large` and `thumb` variants for listing photos.
+- Store onboarding is a singular `/store` resource (`new/create/edit/update`). Users without a store are redirected there before listing an item. `stores.region_id` links the selected Spanish province; `province` is kept in sync with the region name.
+- Spanish NIF/NIE/CIF numbers are validated by `SpanishTaxIdValidator` (control letters/digits, tolerant of spaces, dots and hyphens). `Store` validates the tax ID globally and requires region/city (plus a five-digit postal code for business stores) in the `:onboarding` context.
+- Business sellers' legal name, tax ID and address are rendered in the public seller card on listing pages, matching the EU DSA trader-transparency notice in the store form.
+- The seller listing flow is `/sell` (`Sell::ListingsController`, RESTful new/create/edit/update/destroy; named `sell_listings` to avoid clashing with the public `listings` routes). Step 1 creates the draft; later steps PATCH `update` with a `step` parameter inside the `listing_wizard` Turbo frame.
+- Wizard steps are `category`, `photos`, `details`, `price` and `review`. `Listing` uses those names as validation contexts; title/description/price/handling/quantity validations are skipped in earlier contexts so a draft can exist before those fields are filled. `title`, `description` and `price_cents` are nullable at database level until the matching step fills them.
+- `Listings::SaveStep` persists attributes, photo uploads/removals/order and saves with the step context. `Listings::Submit` validates the `:review` context, calls the AASM `submit` event and has a TODO hook for the future moderator notification.
+- Photo uploads use Active Storage direct uploads (`@rails/activestorage`), the `sortable` Stimulus controller (native HTML5 drag plus up/down buttons) and the `category_picker`, `character_counter` and `store_kind` helpers. The photo limit comes from `Setting.get(:max_images_per_listing)`, and type/size errors are translated.
+- Sellers can select only seller tags (max 5) through `seller_tag_ids`; product labels remain an admin-only assignment. The offers toggle appears only when the `:offers` Flipper flag is enabled and defaults to `store.allow_offers_default`.
+- `StorePolicy` lets users manage only their own store. `ListingPolicy` allows creation only for confirmed, non-banned users with a non-suspended store; edit/update/destroy are owner-only until the admin panel exists. Owners delete drafts; every other state is archived.
+- The header and account menu point to the real store/listing entry points. "My listings" currently opens the sell flow because there is no seller listings index yet.
 
 
 ## Schema Summary
 - `users`: Devise columns plus `citext username` (unique), names, phone, `role` (0 user / 1 moderator / 2 admin), `locale`, `country_code`, ban/soft-delete timestamps, `provider`/`uid` (unique pair), marketing opt-in, `terms_accepted_at`, confirmation/lock/trackable columns.
-- `stores`: unique `user_id`, `name`, unique `slug`, description, `kind` (individual/business), legal/tax/address fields, `country_code`, `verified_at`, vacation settings, `status` (active/suspended), rating/counter cache columns.
+- `stores`: unique `user_id`, `name`, unique `slug`, description, `kind` (individual/business), `region_id` FK (selected province), legal/tax/address fields, `country_code`, `verified_at`, vacation settings, `status` (active/suspended), rating/counter cache columns.
 - `countries`: unique ISO2 `code`, `active`, `default_locale`, `currency`, `vat_rate`, `position`.
 - `regions`: `country_code` FK to `countries.code`, `name`, `code`, `position`, unique `[country_code, code]`.
 - `settings`: unique `key`, JSONB `value`, `value_type`, `group`, `description_key`.
@@ -73,7 +83,7 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `attribute_options`: `attribute_definition_id`, `value` (unique per definition), translated `label`, `position`, `popular`, `active`.
 - `category_attributes`: `[category_id, attribute_definition_id]` unique pair, `required`, `position`.
 - `tags`: `kind` enum (product_label/seller_tag), translated `name`, `slug` unique per kind, `position`, `active`, `colour`. `listing_tags`: unique `[listing_id, tag_id]` plus a `tag_id` index for reverse lookups.
-- `listings`: store/user/category/region FKs, title, description, unique `slug`, `condition` enum, `price_cents`, `compare_at_price_cents`, `currency`, `quantity`, `specs` jsonb, AASM `status`, moderation/lifecycle timestamps, `country_code`, `city`, `postal_code`, `shipping_mode` enum, shipping fields, `featured_until`, `views_count`, `favorites_count` and the generated `searchable` tsvector. Indexes: unique `slug`, GIN `searchable`, GIN `specs` (jsonb_path_ops), partial published indexes on `[category_id, published_at DESC]`, `published_at DESC` (named `index_listings_on_published_at_published`), `price_cents`, `region_id`, `[store_id, status]`, and a `gin_trgm_ops` GIN index on `title`.
+- `listings`: store/user/category/region FKs, nullable `title`/`description`/`price_cents` while the wizard draft is incomplete, unique `slug`, `condition` enum, `compare_at_price_cents`, `currency`, `quantity`, `specs` jsonb, AASM `status`, moderation/lifecycle timestamps, `country_code`, `city`, `postal_code`, `shipping_mode` enum, shipping fields, `featured_until`, `views_count`, `favorites_count` and the generated `searchable` tsvector. Indexes: unique `slug`, GIN `searchable`, GIN `specs` (jsonb_path_ops), partial published indexes on `[category_id, published_at DESC]`, `published_at DESC` (named `index_listings_on_published_at_published`), `price_cents`, `region_id`, `[store_id, status]`, and a `gin_trgm_ops` GIN index on `title`.
 - `listing_photos`: `listing_id`, `position`, Active Storage `image` with webp variants. `listing_moderations`: `listing_id`, `moderator_id` → users, `action` enum, `reason`. `listing_tags`: join with unique pair and a `tag_id` index.
 - Supporting tables: `friendly_id_slugs`, `active_storage_blobs/attachments/variant_records`, `flipper_features`, `flipper_gates`.
 
@@ -143,6 +153,19 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `test/controllers/{categories,listings,search,navigation}_test.rb`, `test/integration/category_page_performance_test.rb` — result pages, visibility, redirects, SEO and query-count coverage.
 
 - `app/services/listings/moderate.rb` — admin moderation entry point (`approve!`/`reject!`) writing `ListingModeration` logs.
+- `app/services/listings/save_step.rb` — wizard step persistence (attributes, photo uploads/removals/order, step validation context).
+- `app/services/listings/submit.rb` — review validation + AASM `submit` event, with the moderator notification TODO.
+- `app/validators/spanish_tax_id_validator.rb` — NIF/NIE/CIF control-character validation.
+- `app/controllers/stores_controller.rb` — singular store onboarding and settings (`:onboarding` validation context).
+- `app/controllers/sell/listings_controller.rb` — five-step listing wizard, submit and draft/archive deletion.
+- `app/policies/store_policy.rb`, `app/policies/listing_policy.rb` — own-store and owner/create eligibility rules.
+- `app/helpers/sell_helper.rb` — wizard progress labels, condition copy and review field labels.
+- `app/views/stores/` — onboarding/settings form with kind toggle and business legal fields.
+- `app/views/sell/listings/` — wizard shell, progress and the category/photos/details/price/review step partials.
+- `app/views/shared/_form_errors.html.erb` — shared validation summary.
+- `app/javascript/controllers/{wizard,sortable,category_picker,character_counter,store_kind}_controller.js` — wizard progress, photo reordering, category search, counters and business-field toggling.
+- `test/validators/spanish_tax_id_validator_test.rb`, `test/policies/{store,listing}_policy_test.rb`, `test/models/listing_wizard_validation_test.rb` — validator, policy and step-context coverage.
+- `test/integration/{store_onboarding,sell_listings_wizard}_test.rb` — onboarding, wizard happy paths, approval-off, photo limit, compare-at, review and delete/archive coverage.
 - `app/helpers/money_helper.rb` — locale-aware `money(cents, currency:)` using `number_to_currency`.
 - `test/i18n_test.rb` — missing/unused key checks.
 - `test/seeds/catalogue_seeds_test.rb` — catalogue seed counts, idempotency, six-locale coverage and leaf attribute rules.
@@ -154,11 +177,12 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `Procfile.dev`, `bin/dev` — development processes (web + Tailwind watch).
 
 ## Open Items
-- Store dashboard, listings, sales, orders, inbox, wishlist and account-settings links are placeholders (`#`).
+- There is no seller listings index: "My listings" opens `/sell/new` for now. Store dashboard, sales, orders, inbox, wishlist, public store and account-settings links remain placeholders (`#`).
 - The catalogue domain is browsable (category, search, filters and listing detail) but there is no admin UI for it yet.
 - There is no admin UI for `Setting` yet; values are read through `Setting.get`. `Listings::Moderate` is the service the future admin panel will call.
+- `Listings::Submit` has a TODO to enqueue the moderator notification; there is no notification mailer yet.
 - Buy now, add to basket, make an offer, message seller, wishlist and store links are disabled placeholders until their Phase 4+ resources exist.
 - Only ES is launched and only Spanish provinces are accepted by the region filter; FR, GB, DE, IT and PT are inactive catalogue rows.
 - Google OAuth credentials are not configured in development by default; the login button stays hidden until they are.
-- Only `ApplicationPolicy` exists; domain policies arrive with their resources.
 - The newsletter form posts nowhere, the cart badge is a static `0`, and the theme-color meta tags follow the system scheme rather than a manual toggle.
+- Editing a published listing relies on the existing material-edit rule. Sold listings cannot be archived by the AASM state machine, so a "delete" action on a sold listing should be hidden or handled once sales exist.

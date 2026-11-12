@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     resources :listings, only: %i[index show], path: "l"
     get "search", to: "listings#index", as: :search
 
+    resource :store, only: %i[new create edit update]
+    resources :listings, path: "sell", only: %i[new create edit update destroy],
+                         controller: "sell/listings", as: :sell_listings
+
     root "pages#home"
   end
 
