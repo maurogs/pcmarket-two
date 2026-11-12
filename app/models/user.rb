@@ -23,6 +23,14 @@ class User < ApplicationRecord
   has_many :orders, foreign_key: :buyer_id, inverse_of: :buyer, dependent: :nullify
   has_many :checkouts, foreign_key: :buyer_id, inverse_of: :buyer, dependent: :nullify
 
+  has_many :favourites, dependent: :destroy
+  has_many :follows, foreign_key: :follower_id, inverse_of: :follower, dependent: :destroy
+  has_many :followed_stores, through: :follows, source: :store
+  has_many :saved_searches, dependent: :destroy
+  has_many :notifications, foreign_key: :recipient_id, inverse_of: :recipient,
+                           dependent: :delete_all
+  has_many :notification_preferences, dependent: :destroy
+
   enum :role, { user: 0, moderator: 1, admin: 2 }, scopes: false
 
   # Virtual attribute backing the sign-up terms checkbox.

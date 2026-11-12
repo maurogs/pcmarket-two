@@ -236,6 +236,47 @@ class ListingSearchTest < ActiveSupport::TestCase
     assert_equal "price_asc", result.applied_filters.last[:remove_params]["sort"]
   end
 
+  test "normalized_params whitelists category-aware filters and omits the page" do
+    result = search(
+      {
+        "q" => "RTX",
+        "min_price" => "600",
+        "max_price" => "200",
+        "condition" => [ "used_good" ],
+        "specs" => { "gpu_chipset" => [ "nvidia" ], "warranty" => [ "12" ] },
+        "tags" => [ "featured" ],
+        "region" => regions(:madrid).id.to_s,
+        "free_shipping" => "1",
+        "sort" => "price_asc",
+        "page" => "3"
+      },
+      category: @category
+    )
+
+    assert_equal({
+      "q" => "RTX",
+      "min_price" => 200.0,
+      "max_price" => 600.0,
+      "condition" => [ "used_good" ],
+      "specs" => { "gpu_chipset" => [ "nvidia" ] },
+      "tags" => [ "featured" ],
+      "region" => regions(:madrid).id,
+      "free_shipping" => true,
+      "sort" => "price_asc"
+    }, result.normalized_params)
+  end
+
+  test "suggested_name joins the category, spec label and price cap" do
+    I18n.with_locale(:en) do
+      result = search(
+        { "specs" => { "gpu_chipset" => [ "nvidia" ] }, "max_price" => "400" },
+        category: @category
+      )
+
+      assert_equal "Graphics Cards · NVIDIA · up to 400 €", result.suggested_name
+    end
+  end
+
   private
 
   def search(params, category: nil)

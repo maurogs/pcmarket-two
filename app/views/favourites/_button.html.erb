@@ -1,0 +1,13 @@
+<% favourited = local_assigns.fetch(:favourited, false) %>
+<% label = favourited ? t("favourites.button.remove") : t("favourites.button.add") %>
+<div id="<%= favourite_dom_id(listing) %>" class="<%= local_assigns.fetch(:wrapper_class, "inline-flex") %>">
+  <%= button_to listing_favourite_path(listing),
+                method: favourited ? :delete : :post,
+                class: "inline-flex h-8 w-8 items-center justify-center rounded-full border shadow-sm backdrop-blur transition #{favourited ? "border-accent/60 bg-accent-soft text-accent-content" : "border-border/70 bg-surface/90 text-muted hover:text-accent"}",
+                aria: { label: label, pressed: favourited.to_s },
+                title: label do %>
+    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="<%= favourited ? "currentColor" : "none" %>" stroke="currentColor" stroke-width="1.9" aria-hidden="true">
+      <path d="M20.8 5.6a5.2 5.2 0 0 0-7.4 0L12 7l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 21l8.8-8a5.2 5.2 0 0 0 0-7.4Z" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  <% end %>
+</div>

@@ -155,6 +155,9 @@ de:
       my_orders: "Meine Bestellungen"
       inbox: "Posteingang"
       wishlist: "Favoriten"
+      saved_searches: "Gespeicherte Suchen"
+      notifications: "Benachrichtigungen"
+      notification_settings: "Benachrichtigungseinstellungen"
       settings: "Kontoeinstellungen"
       store:
         title: "Mein Shop"
@@ -552,7 +555,6 @@ de:
         min_price: "Ab %{value} €"
         max_price: "Bis %{value} €"
     card:
-      wishlist: "Zu Favoriten hinzufügen"
       verified_seller: "Verifizierter Verkäufer"
       free_shipping: "Kostenloser Versand"
     pagination:
@@ -1071,3 +1073,179 @@ de:
       greeting: "Hallo,"
       body: "Die Bestellung %{number} wurde storniert. Bereits eingezogene Zahlungen werden auf das ursprüngliche Zahlungsmittel erstattet."
       closing: "Bei Fragen wende dich an den PCMarket-Support."
+  wishlist:
+    title: "Merkliste"
+    eyebrow: "Ihr Konto"
+    subtitle: "Alles, was Sie gespeichert haben, und die Verkäufer, denen Sie folgen."
+    sold: "Verkauft"
+    unavailable: "Nicht verfügbar"
+    tabs:
+      label: "Bereiche der Merkliste"
+      favourites: "Favoriten"
+      following: "Gefolgt"
+    favourites:
+      added_on: "Gespeichert am %{date}"
+      remove: "Entfernen"
+      move_to_basket: "In den Warenkorb"
+      empty_title: "Noch keine Favoriten"
+      empty_body: "Tippen Sie bei einem Angebot auf das Herz, um es hier zu speichern."
+      empty_cta: "Angebote entdecken"
+    following:
+      followers_count:
+        one: "%{count} Follower"
+        other: "%{count} Follower"
+      listings_count:
+        one: "%{count} Angebot"
+        other: "%{count} Angebote"
+      following_since: "Folgt seit dem %{date}"
+      unfollow: "Nicht mehr folgen"
+      empty_title: "Sie folgen noch keinem Shop"
+      empty_body: "Folgen Sie einem Verkäufer auf einer Angebotsseite, um seine Neuheiten hier zu sehen."
+      empty_cta: "Angebote entdecken"
+  favourites:
+    button:
+      add: "Zu Favoriten hinzufügen"
+      remove: "Aus Favoriten entfernen"
+    flash:
+      added: "Angebot zu Ihren Favoriten hinzugefügt."
+      removed: "Angebot aus Ihren Favoriten entfernt."
+  follows:
+    button:
+      follow: "Shop folgen"
+      following: "Gefolgt"
+    flash:
+      followed: "Sie folgen jetzt diesem Shop."
+      unfollowed: "Sie folgen diesem Shop nicht mehr."
+  saved_searches:
+    hint: "Speichern Sie diese Filter und erhalten Sie eine Meldung, sobald neue Artikel passen."
+    save: "Diese Suche speichern"
+    index:
+      eyebrow: "Ihr Konto"
+      title: "Gespeicherte Suchen"
+      subtitle: "Halten Sie Ihre Lieblingsfilter bereit und erhalten Sie Meldungen bei neuen Treffern."
+      count: "%{count} von %{max} gespeicherten Suchen"
+      limit_note: "Sie können bis zu %{max} Suchen speichern. Löschen Sie eine, um Platz für eine neue zu schaffen."
+      empty_title: "Noch keine gespeicherten Suchen"
+      empty_body: "Führen Sie eine Suche aus und speichern Sie sie, um ihre Filter hier zu behalten."
+      empty_cta: "Angebote entdecken"
+    card:
+      created_on: "Gespeichert am %{date}"
+      no_filters: "Alle Angebote"
+      name_label: "Name der Suche"
+      email_alerts: "E-Mail-Meldungen"
+      frequency: "Meldungshäufigkeit"
+      save: "Änderungen speichern"
+      view_results: "Ergebnisse ansehen"
+      delete: "Löschen"
+      delete_confirm: "Diese gespeicherte Suche löschen?"
+    frequency_options:
+      instant: "Sofort"
+      daily: "Tägliche Zusammenfassung"
+      weekly: "Wöchentliche Zusammenfassung"
+    flash:
+      created: "Suche gespeichert."
+      updated: "Gespeicherte Suche aktualisiert."
+      destroyed: "Gespeicherte Suche gelöscht."
+    names:
+      all: "Alle Angebote"
+      up_to: "bis %{price}"
+      from: "ab %{price}"
+      between: "%{min} – %{max}"
+    errors:
+      limit_reached: "Sie können bis zu %{max} Suchen speichern."
+      invalid_query_params: "Die Suchfilter sind ungültig."
+  notifications:
+    index:
+      eyebrow: "Ihr Konto"
+      title: "Benachrichtigungen"
+      subtitle: "Bestellupdates, Moderationsentscheidungen und Meldungen zu Ihren gespeicherten Suchen."
+      count:
+        one: "%{count} Benachrichtigung"
+        other: "%{count} Benachrichtigungen"
+      unread: "Ungelesen"
+      mark_all_read: "Alle als gelesen markieren"
+      empty_title: "Sie sind auf dem neuesten Stand"
+      empty_body: "Neue Bestellupdates und Meldungen erscheinen hier."
+    filters:
+      label: "Benachrichtigungen filtern"
+      unread: "Ungelesen"
+      all: "Alle"
+    bell:
+      label: "Benachrichtigungen"
+      title: "Benachrichtigungen"
+      unread_count:
+        one: "1 ungelesene Benachrichtigung"
+        other: "%{count} ungelesene Benachrichtigungen"
+      mark_all_read: "Alle als gelesen markieren"
+      view_all: "Alle ansehen"
+      empty: "Noch keine Benachrichtigungen"
+    messages:
+      default: "Sie haben eine neue Benachrichtigung."
+      listing_approved: "Ihr Angebot „%{title}“ wurde freigegeben."
+      listing_rejected: "Ihr Angebot „%{title}“ wurde abgelehnt: %{reason}"
+      new_sale: "Sie haben „%{title}“ über Bestellung %{number} für %{amount} verkauft."
+      order_shipped: "Bestellung %{number} wurde versandt."
+      order_delivered: "Bestellung %{number} wurde zugestellt."
+      order_cancelled: "Bestellung %{number} wurde storniert."
+      price_drop: "„%{title}“ von %{store_name} kostet jetzt %{price}."
+      followed_store_new_listing: "%{store_name} hat „%{title}“ veröffentlicht."
+      saved_search_match: "Neuer Treffer für „%{name}“: %{title}."
+    preferences:
+      eyebrow: "Ihr Konto"
+      title: "Benachrichtigungseinstellungen"
+      subtitle: "Wählen Sie, welche Updates Sie in der App und per E-Mail erhalten."
+      kind: "Benachrichtigung"
+      in_app: "In der App"
+      email: "E-Mail"
+      save: "Einstellungen speichern"
+      marketing_note: "Marketing-E-Mails werden nur gesendet, wenn Sie dem ausdrücklich in Ihren Kontoeinstellungen zustimmen."
+      kinds:
+        listing_approved: "Angebot freigegeben"
+        listing_rejected: "Angebot abgelehnt"
+        new_sale: "Neuer Verkauf"
+        order_shipped: "Bestellung versandt"
+        order_delivered: "Bestellung zugestellt"
+        order_cancelled: "Bestellung storniert"
+        price_drop: "Preissenkung"
+        followed_store_new_listing: "Neue Angebote gefolgter Shops"
+        saved_search_match: "Treffer gespeicherter Suchen"
+      flash:
+        updated: "Benachrichtigungseinstellungen aktualisiert."
+    flash:
+      all_read: "Alle Benachrichtigungen als gelesen markiert."
+    errors:
+      invalid_params: "Die Benachrichtigungsdaten sind ungültig."
+  email_unsubscribe:
+    flash:
+      success: "Sie wurden von diesen E-Mails abgemeldet."
+      invalid: "Dieser Abmeldelink ist ungültig oder abgelaufen."
+  alert_mailer:
+    footer:
+      reason: "Sie erhalten diese E-Mail, weil Sie Benachrichtigungen für %{app} aktiviert haben."
+      unsubscribe: "Von diesen Benachrichtigungen abmelden"
+      signature: "Ihr %{app}-Team"
+    price_drop:
+      subject: "Preissenkung: %{title}"
+      greeting: "Hallo %{name},"
+      body: "%{title} von %{store} kostet jetzt %{price}."
+      cta: "Angebot ansehen"
+      closing: "Sie erhalten diese E-Mail, weil Sie dieses Angebot gespeichert haben."
+    followed_store_new_listing:
+      subject: "Neue Angebote von %{store}"
+      greeting: "Hallo %{name},"
+      body: "%{store} hat gerade neue Angebote veröffentlicht."
+      cta: "Angebot ansehen"
+      closing: "Sie erhalten diese E-Mail, weil Sie diesem Shop folgen."
+    saved_search_match:
+      subject: "Neuer Treffer für %{name}"
+      greeting: "Hallo %{name},"
+      body: "Ein neues Angebot passt zu Ihrer gespeicherten Suche „%{name}“: %{title}."
+      cta: "Angebot ansehen"
+      closing: "Sie erhalten diese E-Mail, weil Sie Benachrichtigungen für diese gespeicherte Suche aktiviert haben."
+    saved_search_digest:
+      subject: "Zusammenfassung deiner gespeicherten Suchen"
+      greeting: "Hallo %{name},"
+      body: "Hier sind die neuesten Anzeigen, die zu deinen gespeicherten Suchen passen."
+      search_heading: "%{name}"
+      cta: "Ergebnisse ansehen"
+      closing: "Du erhältst diese E-Mail, weil du Benachrichtigungen für deine gespeicherten Suchen aktiviert hast."

@@ -37,6 +37,8 @@ class ListingSearch
     :regions,
     :product_labels,
     :seller_tags,
+    :normalized_params,
+    :suggested_name,
     keyword_init: true
   ) do
     def filtered?
@@ -53,7 +55,8 @@ class ListingSearch
   end
 
   def initialize(raw_params, category: nil)
-    @params = raw_params.to_h.deep_stringify_keys
+    hash = raw_params.respond_to?(:to_h) ? raw_params.to_h : {}
+    @params = hash.deep_stringify_keys
     @explicit_category = category
     @query = normalized_query
     @min_price, @min_cents = normalized_price(:min_price)
@@ -68,17 +71,18 @@ class ListingSearch
     @tag_slugs = normalized_tags
   end
 
+  def self.normalize_params(raw_params, category: nil)
+    new(raw_params, category: category).normalized_params
+  rescue StandardError
+    {}
+  end
+
   def call
-    category = resolve_category
-    @resolved_category = category
-    definitions = category ? category.effective_attribute_definitions : []
-    @filterable_definitions = definitions.select(&:filterable?)
-    @allowed_spec_keys = @filterable_definitions.index_by(&:key)
-    @selected_specs = normalized_specs
-    tags = Tag.active.ordered.to_a
-    @tag_slugs &= tags.map(&:slug)
-    regions = Region.for_country("ES").ordered.to_a
-    @region_id = nil unless regions.any? { |region| region.id == @region_id }
+    normalize_filters!
+    category = @resolved_category
+    definitions = @definitions
+    tags = @tags
+    regions = @regions
 
     relation = filtered_relation(category)
     total_count = relation.count
@@ -107,8 +111,28 @@ class ListingSearch
       max_price: @max_price,
       regions: regions,
       product_labels: tags.select(&:product_label?),
-      seller_tags: tags.select(&:seller_tag?)
+      seller_tags: tags.select(&:seller_tag?),
+      normalized_params: normalized_params,
+      suggested_name: build_suggested_name
     ).tap { |result| result.filtered = filtered? }
+  end
+
+  # Whitelisted, category-aware filters in their normalised string-key form.
+  # This is what a saved search persists (page and default sort are omitted).
+  def normalized_params
+    normalize_filters!
+
+    params = {}
+    params["q"] = @query if @query.present?
+    params["min_price"] = @min_price if @min_price
+    params["max_price"] = @max_price if @max_price
+    params["condition"] = @selected_conditions if @selected_conditions.any?
+    params["specs"] = @selected_specs if @selected_specs.any?
+    params["tags"] = @tag_slugs if @tag_slugs.any?
+    params["region"] = @region_id if @region_id
+    params["free_shipping"] = true if @free_shipping
+    params["sort"] = @sort if @sort != "best_match"
+    params
   end
 
   private
@@ -162,6 +186,77 @@ class ListingSearch
     Category.active.friendly.find(slug)
   rescue ActiveRecord::RecordNotFound
     nil
+  end
+
+  # Resolves the category-aware spec keys, tags and regions exactly once so the
+  # normalised params and the SQL filters can never disagree.
+  def normalize_filters!
+    return if @filters_normalized
+
+    @filters_normalized = true
+    @resolved_category ||= resolve_category
+    @definitions = @resolved_category ? @resolved_category.effective_attribute_definitions : []
+    @filterable_definitions = @definitions.select(&:filterable?)
+    @allowed_spec_keys = @filterable_definitions.index_by(&:key)
+    @selected_specs = normalized_specs
+    @tags = Tag.active.ordered.to_a
+    @tag_slugs &= @tags.map(&:slug)
+    @regions = Region.for_country("ES").ordered.to_a
+    @region_id = nil unless @regions.any? { |region| region.id == @region_id }
+  end
+
+  def build_suggested_name
+    parts = []
+    parts << @resolved_category.name if @resolved_category.present?
+
+    @selected_specs.each do |key, values|
+      definition = @allowed_spec_keys[key]
+      values.each do |value|
+        label = definition&.attribute_options&.find { |option| option.value == value }&.label
+        parts << (label.presence || value)
+      end
+    end
+
+    @tag_slugs.each do |slug|
+      tag = @tags.find { |candidate| candidate.slug == slug }
+      parts << tag.name if tag
+    end
+
+    @selected_conditions.each do |condition|
+      parts << I18n.t("listings.conditions.#{condition}")
+    end
+
+    if @region_id
+      region = @regions.find { |candidate| candidate.id == @region_id }
+      parts << region.name if region
+    end
+
+    parts << "“#{@query}”" if @query.present?
+
+    price_part = suggested_price_part
+    parts = parts.first(price_part ? 5 : 6)
+    parts << price_part if price_part
+
+    return I18n.t("saved_searches.names.all") if parts.empty?
+
+    parts.join(" · ")
+  end
+
+  def suggested_price_part
+    if @min_price && @max_price
+      I18n.t("saved_searches.names.between",
+             min: formatted_price(@min_price), max: formatted_price(@max_price))
+    elsif @min_price
+      I18n.t("saved_searches.names.from", price: formatted_price(@min_price))
+    elsif @max_price
+      I18n.t("saved_searches.names.up_to", price: formatted_price(@max_price))
+    end
+  end
+
+  def formatted_price(value)
+    ActiveSupport::NumberHelper.number_to_currency(
+      value, unit: "€", precision: 0, format: "%n %u"
+    )
   end
 
   # Batch-loads attribute definitions for every category shown on the page so

@@ -35,17 +35,22 @@
 
       <%= link_to t("nav.sell_to_us"), "#", class: "btn-accent ml-2 hidden lg:inline-flex" %>
 
-      <%= link_to "#", class: "icon-button hidden lg:inline-flex", aria: { label: t("nav.wishlist") } do %>
+      <%= link_to wishlist_path, class: "icon-button hidden lg:inline-flex", aria: { label: t("nav.wishlist") } do %>
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <path d="M20.8 5.6a5.2 5.2 0 0 0-7.4 0L12 7l-1.4-1.4a5.2 5.2 0 0 0-7.4 7.4L12 21l8.8-8a5.2 5.2 0 0 0 0-7.4Z" stroke-linecap="round" stroke-linejoin="round"></path>
         </svg>
       <% end %>
 
-      <%= link_to "#", class: "icon-button hidden lg:inline-flex", aria: { label: t("nav.notifications") } do %>
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" stroke-linecap="round" stroke-linejoin="round"></path>
-          <path d="M10 21h4" stroke-linecap="round"></path>
-        </svg>
+      <% if user_signed_in? %>
+        <%= turbo_stream_from current_user, :notifications %>
+        <%= render "shared/notifications_bell", user: current_user, locale: I18n.locale %>
+      <% else %>
+        <%= link_to new_user_session_path, class: "icon-button", aria: { label: t("nav.notifications") } do %>
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9Z" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M10 21h4" stroke-linecap="round"></path>
+          </svg>
+        <% end %>
       <% end %>
 
       <%= link_to cart_path, class: "icon-button relative", aria: { label: t("nav.cart") } do %>
@@ -84,7 +89,10 @@
 
             <%= link_to t("account.menu.my_orders"), orders_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.inbox"), "#", role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.wishlist"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.wishlist"), wishlist_path, role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.saved_searches"), saved_searches_path, role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.notifications"), notifications_path, role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.notification_settings"), notification_preferences_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.settings"), "#", role: "menuitem", class: account_menu_item_class %>
 
             <div class="my-1 border-t border-border"></div>
@@ -200,6 +208,26 @@
     <div class="mt-6 border-t border-border pt-4">
       <%= render "shared/main_nav", mobile: true %>
     </div>
+
+    <% if user_signed_in? %>
+      <div class="mt-6 border-t border-border pt-4">
+        <p class="px-3 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("nav.account") %></p>
+        <ul class="mt-2 space-y-1">
+          <li>
+            <%= link_to t("account.menu.wishlist"), wishlist_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+          </li>
+          <li>
+            <%= link_to t("account.menu.saved_searches"), saved_searches_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+          </li>
+          <li>
+            <%= link_to t("account.menu.notifications"), notifications_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+          </li>
+          <li>
+            <%= link_to t("account.menu.notification_settings"), notification_preferences_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
 
     <div class="mt-6 border-t border-border pt-4">
       <p class="px-3 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("nav.language") %></p>

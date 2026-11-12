@@ -115,10 +115,13 @@
                           cart_items_path,
                           params: { listing_id: @listing.id, quantity: 1, buy_now: true },
                           class: "btn-primary w-full" %>
-            <%= button_to t("listings.show.add_to_cart"),
-                          cart_items_path,
-                          params: { listing_id: @listing.id, quantity: 1 },
-                          class: "btn-accent w-full" %>
+            <div class="flex items-center gap-2">
+              <%= button_to t("listings.show.add_to_cart"),
+                            cart_items_path,
+                            params: { listing_id: @listing.id, quantity: 1 },
+                            class: "btn-accent flex-1" %>
+              <%= render "favourites/button", listing: @listing, favourited: favourited?(@listing) %>
+            </div>
           <% else %>
             <button type="button" disabled aria-disabled="true" title="<%= purchase_blocked_message(blocked) %>" class="btn-primary w-full cursor-not-allowed opacity-60">
               <%= t("listings.show.buy_now") %>

@@ -16,8 +16,21 @@ Rails.application.routes.draw do
                        controllers: { registrations: "users/registrations" }
 
     resources :categories, only: :show, path: "c"
-    resources :listings, only: %i[index show], path: "l"
+    resources :listings, only: %i[index show], path: "l" do
+      resource :favourite, only: %i[create destroy]
+    end
     get "search", to: "listings#index", as: :search
+
+    resource :wishlist, only: :show
+    resources :stores, only: [] do
+      resource :follow, only: %i[create destroy], controller: "follows"
+    end
+    resources :saved_searches, only: %i[index create update destroy],
+                               path: "account/saved_searches"
+    resources :notifications, only: :index
+    resource :notification_read, only: :create, path: "notifications/read"
+    resource :notification_preferences, only: %i[show update], path: "account/notifications"
+    resource :email_unsubscribe, only: %i[show create], path: "unsubscribe"
 
     resource :cart, only: :show
     resources :cart_items, only: %i[create update destroy]

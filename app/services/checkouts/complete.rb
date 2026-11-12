@@ -46,9 +46,22 @@ module Checkouts
     end
 
     def enqueue_emails
-      @checkout.orders.includes(store: :user).find_each do |order|
+      @checkout.orders.includes(:items, store: :user).find_each do |order|
         OrderMailer.buyer_confirmation(order).deliver_later
         OrderMailer.seller_new_sale(order).deliver_later
+        next unless order.paid?
+
+        Notifications.record(
+          recipient: order.store.user,
+          kind: "new_sale",
+          notifiable: order,
+          params: {
+            number: order.number,
+            title: order.items.first&.title,
+            total_cents: order.total_cents,
+            currency: order.currency
+          }
+        )
       end
     end
   end

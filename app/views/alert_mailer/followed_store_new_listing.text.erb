@@ -1,0 +1,13 @@
+<%= t("alert_mailer.followed_store_new_listing.greeting", name: @user.display_name) %>
+
+<%= t("alert_mailer.followed_store_new_listing.body", store: @store.name) %>
+
+<% @listings.each do |listing| %>
+<%= render "alert_mailer/listing_row", listing: listing %>
+<% end %>
+
+<% if @cta_url.present? %>
+<%= t("alert_mailer.followed_store_new_listing.cta") %>: <%= @cta_url %>
+<% end %>
+
+<%= t("alert_mailer.followed_store_new_listing.closing") %>

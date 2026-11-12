@@ -155,6 +155,9 @@ es:
       my_orders: "Mis pedidos"
       inbox: "Bandeja de entrada"
       wishlist: "Favoritos"
+      saved_searches: "Búsquedas guardadas"
+      notifications: "Notificaciones"
+      notification_settings: "Ajustes de notificaciones"
       settings: "Ajustes de la cuenta"
       store:
         title: "Mi tienda"
@@ -552,7 +555,6 @@ es:
         min_price: "Desde %{value} €"
         max_price: "Hasta %{value} €"
     card:
-      wishlist: "Guardar en favoritos"
       verified_seller: "Vendedor verificado"
       free_shipping: "Envío gratis"
     pagination:
@@ -1071,3 +1073,179 @@ es:
       greeting: "Hola:"
       body: "El pedido %{number} se ha cancelado. Cualquier pago realizado se reembolsará al método original."
       closing: "Si tienes dudas, contacta con el soporte de PCMarket."
+  wishlist:
+    title: "Lista de deseos"
+    eyebrow: "Tu cuenta"
+    subtitle: "Todo lo que has guardado y los vendedores que sigues."
+    sold: "Vendido"
+    unavailable: "No disponible"
+    tabs:
+      label: "Secciones de la lista de deseos"
+      favourites: "Favoritos"
+      following: "Siguiendo"
+    favourites:
+      added_on: "Guardado el %{date}"
+      remove: "Quitar"
+      move_to_basket: "Mover al carrito"
+      empty_title: "Aún no tienes favoritos"
+      empty_body: "Usa el corazón de cualquier anuncio para guardarlo aquí."
+      empty_cta: "Explorar anuncios"
+    following:
+      followers_count:
+        one: "%{count} seguidor"
+        other: "%{count} seguidores"
+      listings_count:
+        one: "%{count} anuncio"
+        other: "%{count} anuncios"
+      following_since: "Siguiendo desde el %{date}"
+      unfollow: "Dejar de seguir"
+      empty_title: "Aún no sigues a ninguna tienda"
+      empty_body: "Sigue a un vendedor desde la página de un anuncio para ver sus novedades aquí."
+      empty_cta: "Explorar anuncios"
+  favourites:
+    button:
+      add: "Añadir a favoritos"
+      remove: "Quitar de favoritos"
+    flash:
+      added: "Anuncio añadido a tus favoritos."
+      removed: "Anuncio eliminado de tus favoritos."
+  follows:
+    button:
+      follow: "Seguir tienda"
+      following: "Siguiendo"
+    flash:
+      followed: "Ahora sigues esta tienda."
+      unfollowed: "Has dejado de seguir esta tienda."
+  saved_searches:
+    hint: "Guarda estos filtros y recibe avisos cuando aparezcan nuevos artículos."
+    save: "Guardar esta búsqueda"
+    index:
+      eyebrow: "Tu cuenta"
+      title: "Búsquedas guardadas"
+      subtitle: "Ten a mano tus filtros favoritos y recibe avisos cuando haya nuevas coincidencias."
+      count: "%{count} de %{max} búsquedas guardadas"
+      limit_note: "Puedes guardar hasta %{max} búsquedas. Elimina una para hacer sitio a otra nueva."
+      empty_title: "Aún no tienes búsquedas guardadas"
+      empty_body: "Haz una búsqueda y usa el botón de guardar para conservar sus filtros aquí."
+      empty_cta: "Explorar anuncios"
+    card:
+      created_on: "Guardada el %{date}"
+      no_filters: "Todos los anuncios"
+      name_label: "Nombre de la búsqueda"
+      email_alerts: "Avisos por email"
+      frequency: "Frecuencia de avisos"
+      save: "Guardar cambios"
+      view_results: "Ver resultados"
+      delete: "Eliminar"
+      delete_confirm: "¿Eliminar esta búsqueda guardada?"
+    frequency_options:
+      instant: "Inmediato"
+      daily: "Resumen diario"
+      weekly: "Resumen semanal"
+    flash:
+      created: "Búsqueda guardada."
+      updated: "Búsqueda guardada actualizada."
+      destroyed: "Búsqueda guardada eliminada."
+    names:
+      all: "Todos los anuncios"
+      up_to: "hasta %{price}"
+      from: "desde %{price}"
+      between: "%{min} – %{max}"
+    errors:
+      limit_reached: "Puedes guardar hasta %{max} búsquedas."
+      invalid_query_params: "Los filtros de búsqueda no son válidos."
+  notifications:
+    index:
+      eyebrow: "Tu cuenta"
+      title: "Notificaciones"
+      subtitle: "Actualizaciones de pedidos, decisiones de moderación y avisos de tus búsquedas guardadas."
+      count:
+        one: "%{count} notificación"
+        other: "%{count} notificaciones"
+      unread: "Sin leer"
+      mark_all_read: "Marcar todo como leído"
+      empty_title: "Estás al día"
+      empty_body: "Aquí aparecerán las novedades de pedidos y los avisos."
+    filters:
+      label: "Filtrar notificaciones"
+      unread: "Sin leer"
+      all: "Todas"
+    bell:
+      label: "Notificaciones"
+      title: "Notificaciones"
+      unread_count:
+        one: "1 notificación sin leer"
+        other: "%{count} notificaciones sin leer"
+      mark_all_read: "Marcar todo como leído"
+      view_all: "Ver todas"
+      empty: "Aún no hay notificaciones"
+    messages:
+      default: "Tienes una nueva notificación."
+      listing_approved: "Tu anuncio «%{title}» ha sido aprobado."
+      listing_rejected: "Tu anuncio «%{title}» ha sido rechazado: %{reason}"
+      new_sale: "Has vendido «%{title}» en el pedido %{number} por %{amount}."
+      order_shipped: "El pedido %{number} se ha enviado."
+      order_delivered: "El pedido %{number} se ha entregado."
+      order_cancelled: "El pedido %{number} se ha cancelado."
+      price_drop: "«%{title}» de %{store_name} ahora cuesta %{price}."
+      followed_store_new_listing: "%{store_name} ha publicado «%{title}»."
+      saved_search_match: "Nueva coincidencia para «%{name}»: %{title}."
+    preferences:
+      eyebrow: "Tu cuenta"
+      title: "Ajustes de notificaciones"
+      subtitle: "Elige qué novedades recibes en la app y por email."
+      kind: "Notificación"
+      in_app: "En la app"
+      email: "Email"
+      save: "Guardar preferencias"
+      marketing_note: "Los emails de marketing solo se envían si los autorizas expresamente desde los ajustes de tu cuenta."
+      kinds:
+        listing_approved: "Anuncio aprobado"
+        listing_rejected: "Anuncio rechazado"
+        new_sale: "Nueva venta"
+        order_shipped: "Pedido enviado"
+        order_delivered: "Pedido entregado"
+        order_cancelled: "Pedido cancelado"
+        price_drop: "Bajada de precio"
+        followed_store_new_listing: "Novedades de tiendas que sigues"
+        saved_search_match: "Coincidencias de búsquedas guardadas"
+      flash:
+        updated: "Preferencias de notificaciones actualizadas."
+    flash:
+      all_read: "Todas las notificaciones marcadas como leídas."
+    errors:
+      invalid_params: "Los datos de la notificación no son válidos."
+  email_unsubscribe:
+    flash:
+      success: "Te has dado de baja de estos emails."
+      invalid: "Este enlace de baja no es válido o ha caducado."
+  alert_mailer:
+    footer:
+      reason: "Recibes este correo porque activaste las alertas en %{app}."
+      unsubscribe: "Darse de baja de estas alertas"
+      signature: "El equipo de %{app}"
+    price_drop:
+      subject: "Bajada de precio: %{title}"
+      greeting: "Hola, %{name}:"
+      body: "%{title} de %{store} ahora cuesta %{price}."
+      cta: "Ver el anuncio"
+      closing: "Recibes este correo porque guardaste este anuncio."
+    followed_store_new_listing:
+      subject: "Nuevos anuncios de %{store}"
+      greeting: "Hola, %{name}:"
+      body: "%{store} acaba de publicar nuevos anuncios."
+      cta: "Ver el anuncio"
+      closing: "Recibes este correo porque sigues esta tienda."
+    saved_search_match:
+      subject: "Nueva coincidencia para %{name}"
+      greeting: "Hola, %{name}:"
+      body: "Un nuevo anuncio coincide con tu búsqueda guardada «%{name}»: %{title}."
+      cta: "Ver el anuncio"
+      closing: "Recibes este correo porque activaste las alertas de esta búsqueda guardada."
+    saved_search_digest:
+      subject: "Resumen de tus búsquedas guardadas"
+      greeting: "Hola, %{name}:"
+      body: "Estos son los últimos anuncios que coinciden con tus búsquedas guardadas."
+      search_heading: "%{name}"
+      cta: "Ver los resultados"
+      closing: "Recibes este correo porque activaste las alertas de tus búsquedas guardadas."

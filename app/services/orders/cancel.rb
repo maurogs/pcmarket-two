@@ -55,6 +55,15 @@ module Orders
       end
       recipient ||= @order.checkout.recipient_email
 
+      if recipient.is_a?(User)
+        Notifications.record(
+          recipient: recipient,
+          kind: "order_cancelled",
+          notifiable: @order,
+          params: { number: @order.number }
+        )
+      end
+
       OrderMailer.order_cancelled(@order, recipient: recipient).deliver_later if recipient.present?
     end
   end

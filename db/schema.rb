@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_160400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -178,6 +178,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
     t.index ["position"], name: "index_countries_on_position"
   end
 
+  create_table "favourites", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "listing_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_favourites_on_listing_id"
+    t.index ["user_id", "listing_id"], name: "index_favourites_on_user_id_and_listing_id", unique: true
+    t.index ["user_id"], name: "index_favourites_on_user_id"
+  end
+
   create_table "flipper_features", force: :cascade do |t|
     t.string "key", null: false
     t.datetime "created_at", null: false
@@ -192,6 +202,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["feature_key", "key", "value"], name: "index_flipper_gates_on_feature_key_and_key_and_value", unique: true
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.bigint "follower_id", null: false
+    t.bigint "store_id", null: false
+    t.datetime "last_notified_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id", "store_id"], name: "index_follows_on_follower_id_and_store_id", unique: true
+    t.index ["follower_id"], name: "index_follows_on_follower_id"
+    t.index ["store_id", "last_notified_at"], name: "index_follows_on_store_id_and_last_notified_at"
+    t.index ["store_id"], name: "index_follows_on_store_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -285,6 +307,32 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
+  create_table "notification_preferences", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "kind", null: false
+    t.boolean "in_app", default: true, null: false
+    t.boolean "email", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "kind"], name: "index_notification_preferences_on_user_id_and_kind", unique: true
+    t.index ["user_id"], name: "index_notification_preferences_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "recipient_id", null: false
+    t.string "kind", null: false
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.jsonb "params", default: {}, null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind"], name: "index_notifications_on_kind"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["recipient_id", "read_at", "created_at"], name: "index_notifications_on_recipient_id_and_read_at_and_created_at"
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
+  end
+
   create_table "order_events", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.bigint "actor_id"
@@ -369,6 +417,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
     t.datetime "updated_at", null: false
     t.index ["country_code", "code"], name: "index_regions_on_country_code_and_code", unique: true
     t.index ["country_code"], name: "index_regions_on_country_code"
+  end
+
+  create_table "saved_searches", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name", null: false
+    t.jsonb "query_params", default: {}, null: false
+    t.bigint "category_id"
+    t.boolean "email_alerts", default: true, null: false
+    t.string "frequency", default: "daily", null: false
+    t.datetime "last_notified_at"
+    t.bigint "last_matched_listing_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_saved_searches_on_category_id"
+    t.index ["last_matched_listing_id"], name: "index_saved_searches_on_last_matched_listing_id"
+    t.index ["user_id", "frequency"], name: "index_saved_searches_on_user_id_and_frequency"
+    t.index ["user_id"], name: "index_saved_searches_on_user_id"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -506,6 +571,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
   add_foreign_key "category_attributes", "attribute_definitions"
   add_foreign_key "category_attributes", "categories"
   add_foreign_key "checkouts", "users", column: "buyer_id"
+  add_foreign_key "favourites", "listings"
+  add_foreign_key "favourites", "users"
+  add_foreign_key "follows", "stores"
+  add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "listing_moderations", "listings"
   add_foreign_key "listing_moderations", "users", column: "moderator_id"
   add_foreign_key "listing_photos", "listings"
@@ -515,6 +584,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
   add_foreign_key "listings", "regions"
   add_foreign_key "listings", "stores"
   add_foreign_key "listings", "users"
+  add_foreign_key "notification_preferences", "users"
+  add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "order_events", "orders"
   add_foreign_key "order_events", "users", column: "actor_id"
   add_foreign_key "order_items", "listings"
@@ -525,6 +596,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
   add_foreign_key "payouts", "orders"
   add_foreign_key "payouts", "stores"
   add_foreign_key "regions", "countries", column: "country_code", primary_key: "code"
+  add_foreign_key "saved_searches", "categories"
+  add_foreign_key "saved_searches", "users"
   add_foreign_key "stores", "regions"
   add_foreign_key "stores", "users"
 end

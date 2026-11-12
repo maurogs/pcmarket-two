@@ -155,6 +155,9 @@ it:
       my_orders: "I miei ordini"
       inbox: "Posta in arrivo"
       wishlist: "Preferiti"
+      saved_searches: "Ricerche salvate"
+      notifications: "Notifiche"
+      notification_settings: "Impostazioni delle notifiche"
       settings: "Impostazioni account"
       store:
         title: "Il mio negozio"
@@ -552,7 +555,6 @@ it:
         min_price: "Da %{value} €"
         max_price: "Fino a %{value} €"
     card:
-      wishlist: "Salva nei preferiti"
       verified_seller: "Venditore verificato"
       free_shipping: "Spedizione gratuita"
     pagination:
@@ -1071,3 +1073,179 @@ it:
       greeting: "Ciao,"
       body: "L'ordine %{number} è stato annullato. Eventuali pagamenti ricevuti saranno rimborsati sul metodo originale."
       closing: "Per domande, contatta il supporto PCMarket."
+  wishlist:
+    title: "Lista dei desideri"
+    eyebrow: "Il tuo account"
+    subtitle: "Tutto ciò che hai salvato e i venditori che segui."
+    sold: "Venduto"
+    unavailable: "Non disponibile"
+    tabs:
+      label: "Sezioni della lista dei desideri"
+      favourites: "Preferiti"
+      following: "Seguiti"
+    favourites:
+      added_on: "Salvato il %{date}"
+      remove: "Rimuovi"
+      move_to_basket: "Aggiungi al carrello"
+      empty_title: "Nessun preferito per ora"
+      empty_body: "Usa il cuore su qualsiasi annuncio per conservarlo qui."
+      empty_cta: "Sfoglia gli annunci"
+    following:
+      followers_count:
+        one: "%{count} follower"
+        other: "%{count} follower"
+      listings_count:
+        one: "%{count} annuncio"
+        other: "%{count} annunci"
+      following_since: "Segui dal %{date}"
+      unfollow: "Smetti di seguire"
+      empty_title: "Non segui ancora nessun negozio"
+      empty_body: "Segui un venditore da una pagina annuncio per vedere le sue novità qui."
+      empty_cta: "Sfoglia gli annunci"
+  favourites:
+    button:
+      add: "Aggiungi ai preferiti"
+      remove: "Rimuovi dai preferiti"
+    flash:
+      added: "Annuncio aggiunto ai preferiti."
+      removed: "Annuncio rimosso dai preferiti."
+  follows:
+    button:
+      follow: "Segui il negozio"
+      following: "Seguito"
+    flash:
+      followed: "Ora segui questo negozio."
+      unfollowed: "Hai smesso di seguire questo negozio."
+  saved_searches:
+    hint: "Salva questi filtri e ricevi un avviso quando arrivano nuovi articoli."
+    save: "Salva questa ricerca"
+    index:
+      eyebrow: "Il tuo account"
+      title: "Ricerche salvate"
+      subtitle: "Tieni a portata di mano i tuoi filtri preferiti e ricevi avvisi per ogni nuova corrispondenza."
+      count: "%{count} di %{max} ricerche salvate"
+      limit_note: "Puoi salvare fino a %{max} ricerche. Eliminane una per far spazio a una nuova."
+      empty_title: "Nessuna ricerca salvata per ora"
+      empty_body: "Esegui una ricerca e usa il pulsante di salvataggio per conservarne i filtri qui."
+      empty_cta: "Sfoglia gli annunci"
+    card:
+      created_on: "Salvata il %{date}"
+      no_filters: "Tutti gli annunci"
+      name_label: "Nome della ricerca"
+      email_alerts: "Avvisi via email"
+      frequency: "Frequenza degli avvisi"
+      save: "Salva modifiche"
+      view_results: "Vedi risultati"
+      delete: "Elimina"
+      delete_confirm: "Eliminare questa ricerca salvata?"
+    frequency_options:
+      instant: "Immediato"
+      daily: "Riepilogo giornaliero"
+      weekly: "Riepilogo settimanale"
+    flash:
+      created: "Ricerca salvata."
+      updated: "Ricerca salvata aggiornata."
+      destroyed: "Ricerca salvata eliminata."
+    names:
+      all: "Tutti gli annunci"
+      up_to: "fino a %{price}"
+      from: "da %{price}"
+      between: "%{min} – %{max}"
+    errors:
+      limit_reached: "Puoi salvare fino a %{max} ricerche."
+      invalid_query_params: "I filtri di ricerca non sono validi."
+  notifications:
+    index:
+      eyebrow: "Il tuo account"
+      title: "Notifiche"
+      subtitle: "Aggiornamenti sugli ordini, decisioni di moderazione e avvisi dalle tue ricerche salvate."
+      count:
+        one: "%{count} notifica"
+        other: "%{count} notifiche"
+      unread: "Non letta"
+      mark_all_read: "Segna tutto come letto"
+      empty_title: "Sei al passo"
+      empty_body: "Qui compariranno gli aggiornamenti sugli ordini e gli avvisi."
+    filters:
+      label: "Filtra le notifiche"
+      unread: "Non lette"
+      all: "Tutte"
+    bell:
+      label: "Notifiche"
+      title: "Notifiche"
+      unread_count:
+        one: "1 notifica non letta"
+        other: "%{count} notifiche non lette"
+      mark_all_read: "Segna tutto come letto"
+      view_all: "Vedi tutte"
+      empty: "Nessuna notifica per ora"
+    messages:
+      default: "Hai una nuova notifica."
+      listing_approved: "Il tuo annuncio «%{title}» è stato approvato."
+      listing_rejected: "Il tuo annuncio «%{title}» è stato rifiutato: %{reason}"
+      new_sale: "Hai venduto «%{title}» nell'ordine %{number} per %{amount}."
+      order_shipped: "L'ordine %{number} è stato spedito."
+      order_delivered: "L'ordine %{number} è stato consegnato."
+      order_cancelled: "L'ordine %{number} è stato annullato."
+      price_drop: "«%{title}» di %{store_name} ora costa %{price}."
+      followed_store_new_listing: "%{store_name} ha pubblicato «%{title}»."
+      saved_search_match: "Nuova corrispondenza per «%{name}»: %{title}."
+    preferences:
+      eyebrow: "Il tuo account"
+      title: "Impostazioni delle notifiche"
+      subtitle: "Scegli quali aggiornamenti ricevere nell'app e via email."
+      kind: "Notifica"
+      in_app: "Nell'app"
+      email: "Email"
+      save: "Salva preferenze"
+      marketing_note: "Le email di marketing vengono inviate solo se le autorizzi esplicitamente dalle impostazioni del tuo account."
+      kinds:
+        listing_approved: "Annuncio approvato"
+        listing_rejected: "Annuncio rifiutato"
+        new_sale: "Nuova vendita"
+        order_shipped: "Ordine spedito"
+        order_delivered: "Ordine consegnato"
+        order_cancelled: "Ordine annullato"
+        price_drop: "Riduzione di prezzo"
+        followed_store_new_listing: "Novità dai negozi seguiti"
+        saved_search_match: "Corrispondenze delle ricerche salvate"
+      flash:
+        updated: "Preferenze delle notifiche aggiornate."
+    flash:
+      all_read: "Tutte le notifiche sono state segnate come lette."
+    errors:
+      invalid_params: "I dati della notifica non sono validi."
+  email_unsubscribe:
+    flash:
+      success: "Hai annullato l'iscrizione a queste email."
+      invalid: "Questo link di disiscrizione non è valido o è scaduto."
+  alert_mailer:
+    footer:
+      reason: "Ricevi questa email perché hai attivato gli avvisi su %{app}."
+      unsubscribe: "Annulla l'iscrizione a questi avvisi"
+      signature: "Il team di %{app}"
+    price_drop:
+      subject: "Riduzione di prezzo: %{title}"
+      greeting: "Ciao %{name},"
+      body: "%{title} di %{store} ora costa %{price}."
+      cta: "Vedi l'annuncio"
+      closing: "Ricevi questa email perché hai salvato questo annuncio."
+    followed_store_new_listing:
+      subject: "Nuovi annunci da %{store}"
+      greeting: "Ciao %{name},"
+      body: "%{store} ha appena pubblicato nuovi annunci."
+      cta: "Vedi l'annuncio"
+      closing: "Ricevi questa email perché segui questo negozio."
+    saved_search_match:
+      subject: "Nuova corrispondenza per %{name}"
+      greeting: "Ciao %{name},"
+      body: "Un nuovo annuncio corrisponde alla tua ricerca salvata «%{name}»: %{title}."
+      cta: "Vedi l'annuncio"
+      closing: "Ricevi questa email perché hai attivato gli avvisi per questa ricerca salvata."
+    saved_search_digest:
+      subject: "Riepilogo delle tue ricerche salvate"
+      greeting: "Ciao %{name},"
+      body: "Ecco gli ultimi annunci che corrispondono alle tue ricerche salvate."
+      search_heading: "%{name}"
+      cta: "Vedi i risultati"
+      closing: "Ricevi questa email perché hai attivato gli avvisi per le tue ricerche salvate."

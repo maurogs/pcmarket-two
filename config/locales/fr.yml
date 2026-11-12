@@ -155,6 +155,9 @@ fr:
       my_orders: "Mes commandes"
       inbox: "Boîte de réception"
       wishlist: "Favoris"
+      saved_searches: "Recherches enregistrées"
+      notifications: "Notifications"
+      notification_settings: "Paramètres de notification"
       settings: "Paramètres du compte"
       store:
         title: "Ma boutique"
@@ -552,7 +555,6 @@ fr:
         min_price: "À partir de %{value} €"
         max_price: "Jusqu'à %{value} €"
     card:
-      wishlist: "Ajouter aux favoris"
       verified_seller: "Vendeur vérifié"
       free_shipping: "Livraison gratuite"
     pagination:
@@ -1071,3 +1073,179 @@ fr:
       greeting: "Bonjour,"
       body: "La commande %{number} a été annulée. Tout paiement encaissé sera remboursé sur le moyen de paiement d'origine."
       closing: "Si vous avez des questions, contactez le support PCMarket."
+  wishlist:
+    title: "Liste d'envies"
+    eyebrow: "Votre compte"
+    subtitle: "Tout ce que vous avez enregistré et les vendeurs que vous suivez."
+    sold: "Vendu"
+    unavailable: "Indisponible"
+    tabs:
+      label: "Sections de la liste d'envies"
+      favourites: "Favoris"
+      following: "Abonnements"
+    favourites:
+      added_on: "Enregistré le %{date}"
+      remove: "Retirer"
+      move_to_basket: "Ajouter au panier"
+      empty_title: "Aucun favori pour le moment"
+      empty_body: "Utilisez le cœur sur une annonce pour la conserver ici."
+      empty_cta: "Parcourir les annonces"
+    following:
+      followers_count:
+        one: "%{count} abonné"
+        other: "%{count} abonnés"
+      listings_count:
+        one: "%{count} annonce"
+        other: "%{count} annonces"
+      following_since: "Abonné depuis le %{date}"
+      unfollow: "Se désabonner"
+      empty_title: "Vous ne suivez aucune boutique pour le moment"
+      empty_body: "Suivez un vendeur depuis une annonce pour voir ses nouveautés ici."
+      empty_cta: "Parcourir les annonces"
+  favourites:
+    button:
+      add: "Ajouter aux favoris"
+      remove: "Retirer des favoris"
+    flash:
+      added: "Annonce ajoutée à vos favoris."
+      removed: "Annonce retirée de vos favoris."
+  follows:
+    button:
+      follow: "Suivre la boutique"
+      following: "Abonné"
+    flash:
+      followed: "Vous suivez maintenant cette boutique."
+      unfollowed: "Vous ne suivez plus cette boutique."
+  saved_searches:
+    hint: "Enregistrez ces filtres et recevez une alerte dès qu'une annonce correspond."
+    save: "Enregistrer cette recherche"
+    index:
+      eyebrow: "Votre compte"
+      title: "Recherches enregistrées"
+      subtitle: "Gardez vos filtres préférés à portée de main et recevez une alerte à chaque nouvelle correspondance."
+      count: "%{count} recherche(s) enregistrée(s) sur %{max}"
+      limit_note: "Vous pouvez enregistrer jusqu'à %{max} recherches. Supprimez-en une pour en créer une nouvelle."
+      empty_title: "Aucune recherche enregistrée pour le moment"
+      empty_body: "Lancez une recherche et utilisez le bouton d'enregistrement pour conserver ses filtres ici."
+      empty_cta: "Parcourir les annonces"
+    card:
+      created_on: "Enregistrée le %{date}"
+      no_filters: "Toutes les annonces"
+      name_label: "Nom de la recherche"
+      email_alerts: "Alertes e-mail"
+      frequency: "Fréquence des alertes"
+      save: "Enregistrer les modifications"
+      view_results: "Voir les résultats"
+      delete: "Supprimer"
+      delete_confirm: "Supprimer cette recherche enregistrée ?"
+    frequency_options:
+      instant: "Immédiat"
+      daily: "Résumé quotidien"
+      weekly: "Résumé hebdomadaire"
+    flash:
+      created: "Recherche enregistrée."
+      updated: "Recherche enregistrée mise à jour."
+      destroyed: "Recherche enregistrée supprimée."
+    names:
+      all: "Toutes les annonces"
+      up_to: "jusqu'à %{price}"
+      from: "à partir de %{price}"
+      between: "%{min} – %{max}"
+    errors:
+      limit_reached: "Vous pouvez enregistrer jusqu'à %{max} recherches."
+      invalid_query_params: "Les filtres de recherche ne sont pas valides."
+  notifications:
+    index:
+      eyebrow: "Votre compte"
+      title: "Notifications"
+      subtitle: "Suivi des commandes, décisions de modération et alertes de vos recherches enregistrées."
+      count:
+        one: "%{count} notification"
+        other: "%{count} notifications"
+      unread: "Non lue"
+      mark_all_read: "Tout marquer comme lu"
+      empty_title: "Vous êtes à jour"
+      empty_body: "Les nouveautés de commandes et les alertes apparaîtront ici."
+    filters:
+      label: "Filtrer les notifications"
+      unread: "Non lues"
+      all: "Toutes"
+    bell:
+      label: "Notifications"
+      title: "Notifications"
+      unread_count:
+        one: "1 notification non lue"
+        other: "%{count} notifications non lues"
+      mark_all_read: "Tout marquer comme lu"
+      view_all: "Tout voir"
+      empty: "Aucune notification pour le moment"
+    messages:
+      default: "Vous avez une nouvelle notification."
+      listing_approved: "Votre annonce « %{title} » a été approuvée."
+      listing_rejected: "Votre annonce « %{title} » a été refusée : %{reason}"
+      new_sale: "Vous avez vendu « %{title} » sur la commande %{number} pour %{amount}."
+      order_shipped: "La commande %{number} a été expédiée."
+      order_delivered: "La commande %{number} a été livrée."
+      order_cancelled: "La commande %{number} a été annulée."
+      price_drop: "« %{title} » de %{store_name} coûte désormais %{price}."
+      followed_store_new_listing: "%{store_name} a publié « %{title} »."
+      saved_search_match: "Nouvelle correspondance pour « %{name} » : %{title}."
+    preferences:
+      eyebrow: "Votre compte"
+      title: "Paramètres de notification"
+      subtitle: "Choisissez les nouveautés que vous recevez dans l'application et par e-mail."
+      kind: "Notification"
+      in_app: "Dans l'app"
+      email: "E-mail"
+      save: "Enregistrer les préférences"
+      marketing_note: "Les e-mails marketing ne sont envoyés que si vous y consentez explicitement depuis les paramètres de votre compte."
+      kinds:
+        listing_approved: "Annonce approuvée"
+        listing_rejected: "Annonce refusée"
+        new_sale: "Nouvelle vente"
+        order_shipped: "Commande expédiée"
+        order_delivered: "Commande livrée"
+        order_cancelled: "Commande annulée"
+        price_drop: "Baisse de prix"
+        followed_store_new_listing: "Nouveautés des boutiques suivies"
+        saved_search_match: "Correspondances des recherches enregistrées"
+      flash:
+        updated: "Préférences de notification mises à jour."
+    flash:
+      all_read: "Toutes les notifications ont été marquées comme lues."
+    errors:
+      invalid_params: "Les données de la notification ne sont pas valides."
+  email_unsubscribe:
+    flash:
+      success: "Vous êtes désabonné de ces e-mails."
+      invalid: "Ce lien de désabonnement est invalide ou a expiré."
+  alert_mailer:
+    footer:
+      reason: "Vous recevez cet e-mail car vous avez activé les alertes sur %{app}."
+      unsubscribe: "Se désabonner de ces alertes"
+      signature: "L'équipe %{app}"
+    price_drop:
+      subject: "Baisse de prix : %{title}"
+      greeting: "Bonjour %{name},"
+      body: "%{title} de %{store} coûte désormais %{price}."
+      cta: "Voir l'annonce"
+      closing: "Vous recevez cet e-mail car vous avez enregistré cette annonce."
+    followed_store_new_listing:
+      subject: "Nouvelles annonces de %{store}"
+      greeting: "Bonjour %{name},"
+      body: "%{store} vient de publier de nouvelles annonces."
+      cta: "Voir l'annonce"
+      closing: "Vous recevez cet e-mail car vous suivez cette boutique."
+    saved_search_match:
+      subject: "Nouvelle correspondance pour %{name}"
+      greeting: "Bonjour %{name},"
+      body: "Une nouvelle annonce correspond à votre recherche enregistrée « %{name} » : %{title}."
+      cta: "Voir l'annonce"
+      closing: "Vous recevez cet e-mail car vous avez activé les alertes pour cette recherche enregistrée."
+    saved_search_digest:
+      subject: "Résumé de vos recherches enregistrées"
+      greeting: "Bonjour %{name},"
+      body: "Voici les dernières annonces correspondant à vos recherches enregistrées."
+      search_heading: "%{name}"
+      cta: "Voir les résultats"
+      closing: "Vous recevez cet e-mail car vous avez activé les alertes pour vos recherches enregistrées."

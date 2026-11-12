@@ -1,0 +1,12 @@
+<div style="border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 14px; margin: 12px 0;">
+  <a href="<%= listing_url(listing, locale: @locale) %>"
+     style="font-size: 14px; font-weight: 600; color: #312e81; text-decoration: none;">
+    <%= listing.title %>
+  </a>
+  <p style="margin: 4px 0 0; font-size: 14px; color: #0f172a;">
+    <%= number_to_currency(listing.price_cents.to_i / 100.0, unit: "€") %>
+    <% if listing.store.present? %>
+      <span style="color: #52607a;">· <%= listing.store.name %></span>
+    <% end %>
+  </p>
+</div>

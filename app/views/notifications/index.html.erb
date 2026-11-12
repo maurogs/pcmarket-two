@@ -1,0 +1,69 @@
+<% set_meta_tags(title: t("notifications.index.title"), noindex: true) %>
+
+<div class="space-y-6">
+  <header class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("notifications.index.eyebrow") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("notifications.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("notifications.index.subtitle") %></p>
+    </div>
+    <p class="text-sm text-muted"><%= t("notifications.index.count", count: @inbox.total_count) %></p>
+  </header>
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <nav aria-label="<%= t("notifications.filters.label") %>">
+      <ul class="flex flex-wrap items-center gap-1.5">
+        <% NotificationInbox::FILTERS.each do |filter| %>
+          <% current = @inbox.filter == filter %>
+          <li>
+            <%= link_to notifications_path(filter: filter),
+                        aria: { current: ("page" if current) },
+                        class: "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition #{current ? "border-primary-600 bg-primary-600 text-white" : "border-border bg-surface text-muted hover:border-primary-400 hover:text-primary-700 dark:hover:text-primary-300"}" do %>
+              <span><%= t("notifications.filters.#{filter}") %></span>
+              <% if filter == "unread" && @inbox.unread_count.positive? %>
+                <span class="inline-flex min-w-5 items-center justify-center rounded-full px-1.5 py-0.5 text-[11px] font-bold leading-none <%= current ? "bg-white/20 text-white" : "bg-accent-soft text-accent-content" %>">
+                  <%= @inbox.unread_count %>
+                </span>
+              <% end %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+
+    <% if @inbox.unread_count.positive? %>
+      <%= button_to t("notifications.index.mark_all_read"),
+                    notification_read_path,
+                    class: "btn-accent px-3 py-2 text-xs" %>
+    <% end %>
+  </div>
+
+  <% if @inbox.notifications.any? %>
+    <ul class="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
+      <% @inbox.notifications.each do |notification| %>
+        <% unread = notification_unread?(notification) %>
+        <li class="flex items-start gap-3 p-4 <%= "bg-primary-50/60 dark:bg-primary-900/20" if unread %>">
+          <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full <%= unread ? "bg-accent" : "bg-transparent" %>" aria-hidden="true"></span>
+          <div class="min-w-0 flex-1">
+            <p class="text-sm text-content">
+              <%= link_to notification_message(notification),
+                          notification_path(notification),
+                          class: "font-medium hover:text-primary-700 dark:hover:text-primary-300" %>
+            </p>
+            <p class="mt-1 text-xs text-muted"><%= l(notification.created_at, format: :short) %></p>
+          </div>
+          <% if unread %>
+            <span class="sr-only"><%= t("notifications.index.unread") %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= pagy_nav(@inbox.pagy) %>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <h2 class="text-lg font-bold"><%= t("notifications.index.empty_title") %></h2>
+      <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("notifications.index.empty_body") %></p>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,80 @@
+<% set_meta_tags(title: t("saved_searches.index.title"), noindex: true) %>
+
+<div class="space-y-6">
+  <header class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("saved_searches.index.eyebrow") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("saved_searches.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("saved_searches.index.subtitle") %></p>
+    </div>
+    <p class="text-sm text-muted"><%= t("saved_searches.index.count", count: @saved_searches.size, max: SavedSearch::MAX_PER_USER) %></p>
+  </header>
+
+  <% if @saved_searches.any? %>
+    <ul class="space-y-3">
+      <% @saved_searches.each do |saved_search| %>
+        <li class="rounded-2xl border border-border bg-surface p-5">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div class="min-w-0">
+              <h2 class="text-lg font-extrabold text-content"><%= saved_search.name %></h2>
+              <p class="mt-1 text-xs text-muted">
+                <%= t("saved_searches.card.created_on", date: l(saved_search.created_at.to_date, format: :long)) %>
+                <span aria-hidden="true">·</span>
+                <%= saved_search.category&.name || t("saved_searches.card.no_filters") %>
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <%= link_to t("saved_searches.card.view_results"),
+                          search_path(saved_search.to_search_params),
+                          class: "btn-accent px-3 py-2 text-xs" %>
+              <%= button_to t("saved_searches.card.delete"),
+                            saved_search_path(saved_search),
+                            method: :delete,
+                            form: { data: { turbo_confirm: t("saved_searches.card.delete_confirm") } },
+                            class: "rounded-lg border border-border bg-surface px-3 py-2 text-xs font-semibold text-danger transition hover:bg-danger-soft" %>
+            </div>
+          </div>
+
+          <%= form_with model: saved_search, method: :patch, class: "mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" do |form| %>
+            <div>
+              <%= form.label :name, t("saved_searches.card.name_label"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+              <%= form.text_field :name, class: "field mt-1.5" %>
+            </div>
+
+            <div class="flex items-end">
+              <label class="inline-flex items-center gap-2 text-sm font-medium text-content">
+                <%= form.check_box :email_alerts, class: "h-4 w-4 rounded border-border text-primary-600" %>
+                <span><%= t("saved_searches.card.email_alerts") %></span>
+              </label>
+            </div>
+
+            <div>
+              <%= form.label :frequency, t("saved_searches.card.frequency"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+              <%= form.select :frequency,
+                              SavedSearch::FREQUENCIES.map { |frequency| [ saved_search_frequency_label(frequency), frequency ] },
+                              {},
+                              class: "field mt-1.5" %>
+            </div>
+
+            <div class="flex items-end">
+              <%= form.submit t("saved_searches.card.save"), class: "btn-primary w-full" %>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+
+    <p class="text-xs text-muted"><%= t("saved_searches.index.limit_note", max: SavedSearch::MAX_PER_USER) %></p>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <h2 class="text-lg font-bold"><%= t("saved_searches.index.empty_title") %></h2>
+      <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("saved_searches.index.empty_body") %></p>
+      <div class="mt-5 flex justify-center">
+        <%= link_to t("saved_searches.index.empty_cta"), root_path, class: "btn-primary" %>
+      </div>
+    </div>
+
+    <p class="text-xs text-muted"><%= t("saved_searches.index.limit_note", max: SavedSearch::MAX_PER_USER) %></p>
+  <% end %>
+</div>

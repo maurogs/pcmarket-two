@@ -1,0 +1,12 @@
+<%= t("alert_mailer.price_drop.greeting", name: @user.display_name) %>
+
+<%= t("alert_mailer.price_drop.body",
+      title: @listing.title,
+      store: @listing.store&.name,
+      price: number_to_currency(@listing.price_cents.to_i / 100.0, unit: "€")) %>
+
+<%= render "alert_mailer/listing_row", listing: @listing %>
+
+<%= t("alert_mailer.price_drop.cta") %>: <%= @cta_url %>
+
+<%= t("alert_mailer.price_drop.closing") %>

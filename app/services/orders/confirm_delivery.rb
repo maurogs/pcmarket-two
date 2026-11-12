@@ -25,6 +25,12 @@ module Orders
 
       if ends_at.present?
         OrderMailer.delivery_confirmed(@order).deliver_later
+        Notifications.record(
+          recipient: @order.store.user,
+          kind: "order_delivered",
+          notifiable: @order,
+          params: { number: @order.number }
+        )
         AutoCompleteOrderJob.set(wait_until: ends_at).perform_later(@order)
       end
 

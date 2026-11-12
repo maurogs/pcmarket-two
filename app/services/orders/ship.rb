@@ -30,7 +30,15 @@ module Orders
         shipped = true
       end
 
-      OrderMailer.order_shipped(@order).deliver_later if shipped
+      if shipped
+        OrderMailer.order_shipped(@order).deliver_later
+        Notifications.record(
+          recipient: @order.buyer,
+          kind: "order_shipped",
+          notifiable: @order,
+          params: { number: @order.number }
+        )
+      end
       shipped
     end
 

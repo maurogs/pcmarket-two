@@ -57,6 +57,16 @@ module Listings
     def deliver_notification(action)
       mail = action == :approved ? ListingMailer.approved(listing) : ListingMailer.rejected(listing)
       mail.deliver_later
+
+      Notifications.record(
+        recipient: listing.seller,
+        kind: "listing_#{action}",
+        notifiable: listing,
+        params: {
+          title: listing.title,
+          reason: action == :rejected ? listing.rejection_reason : nil
+        }
+      )
     end
   end
 end

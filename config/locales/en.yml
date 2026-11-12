@@ -155,6 +155,9 @@ en:
       my_orders: "My orders"
       inbox: "Inbox"
       wishlist: "Wishlist"
+      saved_searches: "Saved searches"
+      notifications: "Notifications"
+      notification_settings: "Notification settings"
       settings: "Account settings"
       store:
         title: "My store"
@@ -552,7 +555,6 @@ en:
         min_price: "From €%{value}"
         max_price: "Up to €%{value}"
     card:
-      wishlist: "Save to favourites"
       verified_seller: "Verified seller"
       free_shipping: "Free shipping"
     pagination:
@@ -1071,3 +1073,179 @@ en:
       greeting: "Hello,"
       body: "Order %{number} has been cancelled. Any payment taken will be refunded to the original method."
       closing: "If you have questions, contact PCMarket support."
+  wishlist:
+    title: "Wishlist"
+    eyebrow: "Your account"
+    subtitle: "Everything you saved and the sellers you follow."
+    sold: "Sold"
+    unavailable: "Unavailable"
+    tabs:
+      label: "Wishlist sections"
+      favourites: "Favourites"
+      following: "Following"
+    favourites:
+      added_on: "Saved on %{date}"
+      remove: "Remove"
+      move_to_basket: "Move to basket"
+      empty_title: "No favourites yet"
+      empty_body: "Use the heart on any listing to keep it here."
+      empty_cta: "Browse listings"
+    following:
+      followers_count:
+        one: "%{count} follower"
+        other: "%{count} followers"
+      listings_count:
+        one: "%{count} listing"
+        other: "%{count} listings"
+      following_since: "Following since %{date}"
+      unfollow: "Unfollow"
+      empty_title: "You are not following any stores yet"
+      empty_body: "Follow a seller from a listing page to see their new items here."
+      empty_cta: "Browse listings"
+  favourites:
+    button:
+      add: "Add to favourites"
+      remove: "Remove from favourites"
+    flash:
+      added: "Listing added to your favourites."
+      removed: "Listing removed from your favourites."
+  follows:
+    button:
+      follow: "Follow store"
+      following: "Following"
+    flash:
+      followed: "You are now following this store."
+      unfollowed: "You stopped following this store."
+  saved_searches:
+    hint: "Save these filters and get alerts when new items match."
+    save: "Save this search"
+    index:
+      eyebrow: "Your account"
+      title: "Saved searches"
+      subtitle: "Keep your favourite filters close and get alerts when new matches appear."
+      count: "%{count} of %{max} saved searches"
+      limit_note: "You can save up to %{max} searches. Delete one to make room for a new search."
+      empty_title: "No saved searches yet"
+      empty_body: "Run a search and use the save button to keep its filters here."
+      empty_cta: "Browse listings"
+    card:
+      created_on: "Saved on %{date}"
+      no_filters: "All listings"
+      name_label: "Search name"
+      email_alerts: "Email alerts"
+      frequency: "Alert frequency"
+      save: "Save changes"
+      view_results: "View results"
+      delete: "Delete"
+      delete_confirm: "Delete this saved search?"
+    frequency_options:
+      instant: "Instant"
+      daily: "Daily digest"
+      weekly: "Weekly digest"
+    flash:
+      created: "Search saved."
+      updated: "Saved search updated."
+      destroyed: "Saved search deleted."
+    names:
+      all: "All listings"
+      up_to: "up to %{price}"
+      from: "from %{price}"
+      between: "%{min} – %{max}"
+    errors:
+      limit_reached: "You can save up to %{max} searches."
+      invalid_query_params: "The search filters are not valid."
+  notifications:
+    index:
+      eyebrow: "Your account"
+      title: "Notifications"
+      subtitle: "Order updates, moderation decisions and alerts from your saved searches."
+      count:
+        one: "%{count} notification"
+        other: "%{count} notifications"
+      unread: "Unread"
+      mark_all_read: "Mark all as read"
+      empty_title: "You are all caught up"
+      empty_body: "New order updates and alerts will appear here."
+    filters:
+      label: "Filter notifications"
+      unread: "Unread"
+      all: "All"
+    bell:
+      label: "Notifications"
+      title: "Notifications"
+      unread_count:
+        one: "1 unread notification"
+        other: "%{count} unread notifications"
+      mark_all_read: "Mark all as read"
+      view_all: "View all"
+      empty: "No notifications yet"
+    messages:
+      default: "You have a new notification."
+      listing_approved: "Your listing “%{title}” was approved."
+      listing_rejected: "Your listing “%{title}” was rejected: %{reason}"
+      new_sale: "You sold “%{title}” on order %{number} for %{amount}."
+      order_shipped: "Order %{number} has been shipped."
+      order_delivered: "Order %{number} has been delivered."
+      order_cancelled: "Order %{number} has been cancelled."
+      price_drop: "“%{title}” from %{store_name} now costs %{price}."
+      followed_store_new_listing: "%{store_name} published “%{title}”."
+      saved_search_match: "New match for “%{name}”: %{title}."
+    preferences:
+      eyebrow: "Your account"
+      title: "Notification settings"
+      subtitle: "Choose which updates you receive in the app and by email."
+      kind: "Notification"
+      in_app: "In app"
+      email: "Email"
+      save: "Save preferences"
+      marketing_note: "Marketing emails are only sent when you explicitly opt in from your account settings."
+      kinds:
+        listing_approved: "Listing approved"
+        listing_rejected: "Listing rejected"
+        new_sale: "New sale"
+        order_shipped: "Order shipped"
+        order_delivered: "Order delivered"
+        order_cancelled: "Order cancelled"
+        price_drop: "Price drop"
+        followed_store_new_listing: "New listings from followed stores"
+        saved_search_match: "Saved search matches"
+      flash:
+        updated: "Notification preferences updated."
+    flash:
+      all_read: "All notifications marked as read."
+    errors:
+      invalid_params: "The notification data is not valid."
+  email_unsubscribe:
+    flash:
+      success: "You have been unsubscribed from these emails."
+      invalid: "This unsubscribe link is invalid or has expired."
+  alert_mailer:
+    footer:
+      reason: "You are receiving this email because you enabled alerts on %{app}."
+      unsubscribe: "Unsubscribe from these alerts"
+      signature: "The %{app} team"
+    price_drop:
+      subject: "Price drop: %{title}"
+      greeting: "Hello %{name},"
+      body: "%{title} from %{store} is now %{price}."
+      cta: "View the listing"
+      closing: "You are receiving this email because you saved this listing."
+    followed_store_new_listing:
+      subject: "New listings from %{store}"
+      greeting: "Hello %{name},"
+      body: "%{store} has just published new listings."
+      cta: "View the listing"
+      closing: "You are receiving this email because you follow this store."
+    saved_search_match:
+      subject: "New match for %{name}"
+      greeting: "Hello %{name},"
+      body: "A new listing matches your saved search “%{name}”: %{title}."
+      cta: "View the listing"
+      closing: "You are receiving this email because you enabled alerts for this saved search."
+    saved_search_digest:
+      subject: "Your saved search digest"
+      greeting: "Hello %{name},"
+      body: "Here are the latest listings that match your saved searches."
+      search_heading: "%{name}"
+      cta: "View the results"
+      closing: "You are receiving this email because you enabled alerts for your saved searches."

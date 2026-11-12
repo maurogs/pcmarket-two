@@ -25,6 +25,7 @@ class Listing < ApplicationRecord
   has_many :moderations, class_name: "ListingModeration", dependent: :destroy
   has_many :cart_items, dependent: :destroy
   has_many :order_items, dependent: :restrict_with_error
+  has_many :favourites, dependent: :destroy
 
   friendly_id :slug_source, use: %i[slugged history]
 
@@ -82,6 +83,8 @@ class Listing < ApplicationRecord
   before_destroy :remember_counter_snapshot
   after_commit :sync_listing_counters, on: %i[create update destroy]
   after_commit :bump_search_cache_version, on: %i[create update destroy]
+  after_commit :enqueue_publication_jobs, on: %i[create update], if: :published_now?
+  after_update_commit :enqueue_price_drop_notifications, if: :price_dropped_for_favourites?
 
   pg_search_scope :search_text,
                   against: :title,
@@ -398,6 +401,22 @@ class Listing < ApplicationRecord
     published? && store&.active? && seller && !seller.banned? && !seller.soft_deleted?
   end
 
+  # True when a price edit lowers the price of a live listing with favouriters.
+  def price_dropped_for_favourites?
+    return false unless published?
+    return false if price_cents.blank?
+
+    previous, current = saved_change_to_price_cents
+    previous.present? && current.present? && current < previous
+  end
+
+  # True when this commit moved the listing into the published state. Publishes
+  # that come from a restock release (reserved -> published) are excluded.
+  def published_now?
+    previous, current = saved_change_to_status
+    current == "published" && previous != "reserved"
+  end
+
   # Owners, moderators and admins may inspect their own non-public listings.
   def visible_to?(user)
     return true if owner_or_staff?(user)
@@ -631,5 +650,15 @@ class Listing < ApplicationRecord
 
   def bump_search_cache_version
     Rails.cache.write(SEARCH_CACHE_VERSION_KEY, Time.current.to_f)
+  end
+
+  def enqueue_price_drop_notifications
+    previous, current = saved_change_to_price_cents
+    Favourites::PriceDropJob.perform_later(id, previous, current)
+  end
+
+  def enqueue_publication_jobs
+    Follows::NewListingJob.perform_later(id)
+    SavedSearches::MatchListingJob.perform_later(id)
   end
 end
