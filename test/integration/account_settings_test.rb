@@ -186,4 +186,34 @@ class AccountSettingsTest < ActionDispatch::IntegrationTest
       assert_nil Accounts::ExportToken.verify(token)
     end
   end
+
+  test "the data export download requires the signed-in owner" do
+    token = Accounts::ExportToken.generate(@user)
+    sign_out @user
+
+    get account_data_export_path(locale: :en, token: token)
+
+    assert_redirected_to new_user_session_path(locale: :en)
+
+    sign_in users(:seller_two)
+
+    get account_data_export_path(locale: :en, token: token)
+
+    assert_redirected_to root_path(locale: :en)
+    assert_equal I18n.t("account.privacy.flash.invalid_link", locale: :en), flash[:alert]
+  end
+
+  test "account deletion keeps store and category listing counters consistent" do
+    store = @user.store
+    category = categories(:gpus)
+    create_listing!(store: store, seller: @user, category: category,
+                    title: "Counter check listing", price_cents: 12_345,
+                    specs: { gpu_chipset: "nvidia" })
+
+    post account_deletion_path(locale: :en), params: { current_password: "Password123!" }
+
+    assert_equal "archived", Listing.find_by(title: "Counter check listing").status
+    assert_equal Listing.published.where(store_id: store.id).count, store.reload.listings_count
+    assert_equal Listing.published.where(category_id: category.id).count, category.reload.listings_count
+  end
 end

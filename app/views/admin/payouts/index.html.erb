@@ -1,0 +1,77 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.title") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.payouts.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("admin.payouts.index.subtitle") %></p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <p class="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-muted"><%= t("admin.payouts.index.count", count: @query.pagy.count) %></p>
+      <%= link_to t("admin.common.export_csv"), admin_payouts_path(request.query_parameters.merge(format: :csv)), class: "btn-accent" %>
+    </div>
+  </header>
+
+  <%= form_with url: admin_payouts_path, method: :get, scope: nil, class: "rounded-2xl border border-border bg-surface px-4 py-4" do %>
+    <div class="flex flex-wrap items-end gap-3">
+      <div class="min-w-0 flex-1">
+        <%= label_tag :q, t("admin.payouts.filters.search"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= search_field_tag :q, @query.filters[:q], placeholder: t("admin.payouts.filters.search_placeholder"), class: "field mt-1.5" %>
+      </div>
+      <div>
+        <%= label_tag :status, t("admin.payouts.filters.status"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :status, options_for_select([[t("admin.common.any"), ""]] + Admin::PayoutQuery::FILTERABLE_STATUSES.map { |s| [admin_payout_status_label(s), s] }, @query.filters[:status]), class: "field mt-1.5" %>
+      </div>
+      <div>
+        <%= label_tag :store_id, t("admin.payouts.filters.store"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :store_id, options_for_select([[t("admin.common.any"), ""]] + @query.stores.map { |s| [s.name, s.id] }, @query.filters[:store_id]), class: "field mt-1.5" %>
+      </div>
+      <div>
+        <%= label_tag :per_page, t("admin.common.per_page"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :per_page, options_for_select(Admin::Filterable::PER_PAGE_OPTIONS, @query.per_page), class: "field mt-1.5", onchange: "this.form.requestSubmit()" %>
+      </div>
+      <%= submit_tag t("admin.common.apply"), class: "btn-primary" %>
+      <%= link_to t("admin.common.clear"), admin_payouts_path, class: "btn-accent" %>
+    </div>
+  <% end %>
+
+  <% if @query.records.any? %>
+    <div class="overflow-x-auto rounded-2xl border border-border bg-surface">
+      <table class="min-w-full divide-y divide-border text-sm">
+        <thead class="bg-surface-muted text-left text-xs font-semibold uppercase tracking-widest text-muted">
+          <tr>
+            <th class="px-4 py-3"><%= t("admin.payouts.table.order") %></th>
+            <th class="px-4 py-3"><%= t("admin.payouts.table.store") %></th>
+            <th class="px-4 py-3"><%= t("admin.payouts.table.amount") %></th>
+            <th class="px-4 py-3"><%= t("admin.payouts.table.status") %></th>
+            <th class="px-4 py-3"><%= t("admin.payouts.table.transfer") %></th>
+            <th class="px-4 py-3"><%= t("admin.payouts.table.error") %></th>
+            <th class="px-4 py-3 text-right"><%= t("admin.common.actions") %></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <% @query.records.each do |payout| %>
+            <tr>
+              <td class="px-4 py-3"><%= payout.order ? link_to(payout.order.number, admin_order_path(payout.order), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300") : "—" %></td>
+              <td class="px-4 py-3 text-muted"><%= payout.store&.name %></td>
+              <td class="whitespace-nowrap px-4 py-3 font-semibold"><%= money(payout.amount_cents, currency: "EUR") %></td>
+              <td class="px-4 py-3"><span class="rounded-full border px-2 py-0.5 text-xs font-semibold <%= admin_status_badge_class(payout.status) %>"><%= admin_payout_status_label(payout.status) %></span></td>
+              <td class="px-4 py-3 font-mono text-xs text-muted"><%= payout.stripe_transfer_id.presence || "—" %></td>
+              <td class="px-4 py-3 text-xs text-danger"><%= payout.error %></td>
+              <td class="px-4 py-3 text-right">
+                <% unless payout.paid? %>
+                  <%= button_to t("admin.payouts.table.retry"), admin_payout_retry_path(payout), method: :post, class: "btn-accent text-xs" %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= pagy_nav(@query.pagy) %>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <h2 class="text-lg font-bold"><%= t("admin.payouts.index.empty_title") %></h2>
+      <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("admin.payouts.index.empty_body") %></p>
+    </div>
+  <% end %>
+</div>

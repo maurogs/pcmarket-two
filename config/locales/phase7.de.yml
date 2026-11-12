@@ -1,0 +1,637 @@
+---
+de:
+  admin:
+    common:
+      any: Alle
+      'yes': Ja
+      'no': Nein
+      none: Keine
+      from: Von
+      to: Bis
+      per_page: Pro Seite
+      apply: Filter anwenden
+      clear: Filter zurücksetzen
+      export_csv: CSV exportieren
+      actions: Aktionen
+      view: Ansehen
+      edit: Bearbeiten
+      cancel: Abbrechen
+      save: Änderungen speichern
+    listings:
+      untitled: Unbenanntes Inserat
+      index:
+        title: Inserate
+        subtitle: Alle Inserate des Marktplatzes suchen, filtern und verwalten.
+        count:
+          one: "%{count} Inserat"
+          other: "%{count} Inserate"
+        empty_title: Keine Inserate passen zu diesen Filtern
+        empty_body: Setzen Sie die Filter zurück oder erweitern Sie den Zeitraum.
+      filters:
+        title: Erweiterte Filter
+        search: Suchen
+        search_placeholder: Titel, ID oder Slug
+        status: Status
+        category: Kategorie (mit Unterkategorien)
+        seller: Verkäufer
+        store_kind: Shop-Typ
+        condition: Artikelzustand
+        price_min: Mindestpreis (€)
+        price_max: Höchstpreis (€)
+        featured: Hervorgehoben
+        has_reports: Hat Meldungen
+      table:
+        select: Inserat auswählen
+        listing: Inserat
+        seller: Verkäufer
+        store: Shop
+        price: Preis
+        status: Status
+        views: Aufrufe / Favoriten
+        created: Erstellt
+        actions: Aktionen
+      bulk:
+        select_all: Alle auswählen
+        operation: Sammelaktion
+        operations:
+          approve: Genehmigen
+          reject: Ablehnen
+          archive: Archivieren
+          label: Produktlabel zuweisen
+          feature: Hervorheben
+        reason: Grund
+        reason_placeholder: Ablehnungsgrund
+        label: Produktlabel
+        days: Tage
+        submit: Auf Auswahl anwenden
+        none_selected: Wählen Sie mindestens ein Inserat aus.
+        admins_only: Nur Administratoren dürfen Inserate labeln oder hervorheben.
+        done: "%{count} Inserate aktualisiert (%{skipped} übersprungen)."
+      show:
+        back: Zurück zu den Inseraten
+        public_page: Öffentliche Seite
+        overview: Übersicht
+        condition: Artikelzustand
+        location: Standort
+        quantity: Menge
+        featured_until: Hervorgehoben bis
+        stats_title: Aktivität
+        views: Aufrufe
+        favourites: Favoriten
+        orders: Bestellungen
+        reports: Meldungen
+        orders_title: Bestellungen
+        orders_empty: Dieses Inserat hat noch keine Bestellungen.
+        reports_title: Meldungen
+        reports_empty: Gegen dieses Inserat liegen keine Meldungen vor.
+        history_title: Moderationsverlauf
+        history_empty: Noch keine Moderationsentscheidungen.
+        seller_title: Verkäufer
+        actions_title: Aktionen
+        approve: Inserat genehmigen
+        reject_note: Notiz für den Verkäufer hinzufügen (optional)
+        reject: Ablehnen und Verkäufer benachrichtigen
+        archive: Inserat archivieren
+        restore: Inserat wiederherstellen
+        feature: Bis zu diesem Datum hervorheben
+        delete: Endgültig löschen
+        delete_confirm: Dieses Inserat endgültig löschen? Das kann nicht rückgängig
+          gemacht werden.
+        delete_blocked: Dieses Inserat hat Bestellungen und kann nicht endgültig gelöscht
+          werden.
+        labels_title: Produktlabels
+        save_labels: Labels speichern
+      edit:
+        back: Zurück zum Inserat
+        title: Inserat bearbeiten
+        subtitle: Administratoren können alle Felder bearbeiten. Wesentliche Änderungen
+          lösen erneut eine Moderation aus.
+        category: Kategorie
+        featured_until: Hervorgehoben bis
+      flash:
+        updated: Inserat aktualisiert.
+        not_deletable: Nur Entwürfe oder archivierte Inserate ohne Bestellungen können
+          endgültig gelöscht werden.
+        destroyed: Inserat endgültig gelöscht.
+        approved: Inserat genehmigt.
+        already_moderated: Dieses Inserat wartet nicht mehr auf Moderation.
+        reason_required: Wählen Sie einen Ablehnungsgrund.
+        rejected: Inserat abgelehnt und Verkäufer benachrichtigt.
+        cannot_archive: Dieses Inserat kann im aktuellen Zustand nicht archiviert
+          werden.
+        archived: Inserat archiviert.
+        cannot_restore: Dieses Inserat kann im aktuellen Zustand nicht wiederhergestellt
+          werden.
+        restored: Inserat wiederhergestellt.
+        invalid_feature_date: Wählen Sie ein gültiges Enddatum für die Hervorhebung.
+        featured: Inserat hervorgehoben.
+        labels_updated: Produktlabels aktualisiert.
+      csv:
+        id: ID
+        title: Titel
+        status: Status
+        seller: Verkäufer
+        store: Shop
+        category: Kategorie
+        price: Preis (€)
+        views: Aufrufe
+        favourites: Favoriten
+        created_at: Erstellt am
+      statuses:
+        draft: Entwurf
+        pending_review: Prüfung ausstehend
+        published: Veröffentlicht
+        rejected: Abgelehnt
+        reserved: Reserviert
+        sold: Verkauft
+        archived: Archiviert
+    users:
+      never_signed_in: Nie angemeldet
+      index:
+        title: Benutzer
+        subtitle: Konten suchen, Aktivitäten prüfen und administrative Aktionen ausführen.
+        count:
+          one: "%{count} Benutzer"
+          other: "%{count} Benutzer"
+        empty_title: Keine Benutzer passen zu diesen Filtern
+        empty_body: Versuchen Sie eine andere Suche oder setzen Sie die Filter zurück.
+      filters:
+        title: Erweiterte Filter
+        search: Suchen
+        search_placeholder: E-Mail, Benutzername oder Name
+        role: Rolle
+        status: Status
+        has_store: Hat einen Shop
+        last_sign_in_from: Anmeldung von
+        last_sign_in_to: Anmeldung bis
+      table:
+        user: Benutzer
+        email: E-Mail
+        role: Rolle
+        status: Status
+        store: Shop
+        last_sign_in: Letzte Anmeldung
+        created: Registriert
+      show:
+        back: Zurück zu den Benutzern
+        impersonate: Als dieser Benutzer anmelden
+        profile_title: Profil
+        role: Rolle
+        status: Status
+        locale: Sprache
+        country: Land
+        phone: Telefon
+        created: Registriert
+        ban_reason: 'Sperrgrund: %{reason}'
+        sign_in_title: Anmeldeaktivität
+        sign_in_count: Anmeldungen
+        last_sign_in: Letzte Anmeldung
+        last_ip: Letzte IP
+        confirmed_at: E-Mail bestätigt
+        unconfirmed: Nicht bestätigt
+        store_title: Shop
+        no_store: Dieser Benutzer hat keinen Shop.
+        orders_title: Bestellungen
+        as_buyer: Als Käufer
+        as_seller: Als Verkäufer
+        listings_title: Inserate
+        reviews_title: Geschriebene Bewertungen
+        review_rating: "%{rating}/5"
+        reports_title: Meldungen gegen diesen Benutzer
+        audit_title: Audit-Protokoll
+        role_title: Rolle
+        change_role: Rolle ändern
+        moderation_title: Moderation
+        unban: Konto entsperren
+        ban: Konto sperren
+        ban_reason_placeholder: Grund, den der Benutzer sieht (erforderlich)
+        confirm: E-Mail manuell bestätigen
+        resend_confirmation: Bestätigungs-E-Mail erneut senden
+        reset_password: Passwort-Reset-E-Mail senden
+        deletion_title: Konto löschen
+        deletion_hint: Löscht und anonymisiert das Konto und archiviert seine Inserate.
+        delete: Konto löschen
+        delete_confirm: Dieses Konto löschen und anonymisieren? Das kann nicht rückgängig
+          gemacht werden.
+      edit:
+        back: Zurück zum Benutzer
+        title: Benutzer bearbeiten
+        subtitle: Profilfelder aktualisieren. Rollenänderungen werden separat verwaltet.
+        first_name: Vorname
+        last_name: Nachname
+        username: Benutzername
+        email: E-Mail
+        phone: Telefon
+        locale: Sprache
+        country: Ländercode
+        marketing_opt_in: Marketing-E-Mails
+      flash:
+        updated: Benutzer aktualisiert.
+        banned: Konto gesperrt und Inserate archiviert.
+        ban_failed: Das Konto konnte nicht gesperrt werden. Prüfen Sie den Grund.
+        unbanned: Konto entsperrt.
+        role_changed: Rolle aktualisiert.
+        role_change_failed: Diese Rollenänderung ist nicht erlaubt.
+        confirmed: E-Mail bestätigt.
+        already_confirmed: Diese E-Mail ist bereits bestätigt.
+        confirmation_resent: Bestätigungs-E-Mail gesendet.
+        password_reset_sent: Passwort-Reset-E-Mail gesendet.
+        deleted: Konto gelöscht und anonymisiert.
+      csv:
+        id: ID
+        username: Benutzername
+        email: E-Mail
+        role: Rolle
+        status: Status
+        stores: Shop
+        sign_in_count: Anmeldungen
+        last_sign_in_at: Letzte Anmeldung
+        created_at: Registriert am
+      roles:
+        user: Käufer
+        moderator: Moderator
+        admin: Administrator
+      statuses:
+        active: Aktiv
+        banned: Gesperrt
+        deleted: Gelöscht
+        unconfirmed: Unbestätigt
+    stores:
+      index:
+        title: Shops
+        subtitle: Verkäufershops, rechtliche Angaben, Auszahlungen und Bewertungen
+          prüfen.
+        count:
+          one: "%{count} Shop"
+          other: "%{count} Shops"
+        empty_title: Keine Shops passen zu diesen Filtern
+        empty_body: Versuchen Sie eine andere Suche oder setzen Sie die Filter zurück.
+      filters:
+        title: Erweiterte Filter
+        search: Suchen
+        search_placeholder: Shopname, Slug, Firmenname oder E-Mail
+        kind: Typ
+        status: Status
+        verified: Verifiziert
+        payouts_ready: Auszahlungen bereit
+        vacation: Urlaubsmodus
+        rating_min: Mindestbewertung
+        rating_max: Höchstbewertung
+      table:
+        store: Shop
+        owner: Inhaber
+        kind: Typ
+        status: Status
+        verified: Verifiziert
+        payouts: Auszahlungen
+        rating: Bewertung
+        listings: Inserate
+      show:
+        back: Zurück zu den Shops
+        public_page: Öffentlicher Shop
+        details_title: Shop-Details
+        owner: Inhaber
+        email: E-Mail
+        location: Standort
+        website: Website
+        vacation: Urlaubsmodus
+        created: Erstellt
+        legal_title: Rechtliche Angaben
+        legal_name: Firmenname
+        tax_id: Steuernummer
+        address: Adresse
+        phone: Telefon
+        stats_title: Leistung
+        listings: Inserate
+        followers: Follower
+        sales: Abgeschlossene Verkäufe
+        revenue: Umsatz
+        payouts_title: Auszahlungen
+        payouts_status: Stripe-Auszahlungen aktiviert
+        listings_title: Neueste Inserate
+        reviews_title: Bewertungen
+        review_rating: "%{rating}/5"
+        hide_review: Ausblenden
+        unhide_review: Anzeigen
+        followers_title: Follower
+        verification_title: Verifizierung
+        verified_on: Verifiziert am %{date}
+        not_verified: Dieser Shop ist noch nicht verifiziert.
+        verify: Shop verifizieren
+        unverify: Verifizierung entfernen
+        suspension_title: Sperrung
+        suspended_hint: Der Shop ist gesperrt und seine Inserate sind ausgeblendet.
+        reactivate: Shop reaktivieren
+        reason_placeholder: Grund, den der Verkäufer sieht (erforderlich)
+        suspend: Shop sperren
+      edit:
+        back: Zurück zum Shop
+        title: Shop bearbeiten
+        name: Name
+        kind: Typ
+        description: Beschreibung
+        legal_name: Firmenname
+        tax_id: Steuernummer
+        address_line: Adresse
+        city: Stadt
+        region: Provinz
+        region_placeholder: Provinz wählen
+        postal_code: Postleitzahl
+        country_code: Ländercode
+        phone: Telefon
+        website: Website
+        handling_days: Bearbeitungstage
+        return_policy: Rückgabebedingungen
+        shipping_policy: Versandbedingungen
+        allow_offers_default: Angebote standardmäßig aktiviert
+      flash:
+        updated: Shop aktualisiert.
+        verified: Shop verifiziert.
+        unverified: Verifizierung entfernt.
+        suspended: Shop gesperrt und Verkäufer benachrichtigt.
+        reason_required: Ein Sperrgrund ist erforderlich.
+        reactivated: Shop reaktiviert.
+        review_hidden: Bewertung ausgeblendet.
+        review_unhidden: Bewertung wieder sichtbar.
+      kinds:
+        individual: Privatperson
+        business: Unternehmen
+      statuses:
+        active: Aktiv
+        suspended: Gesperrt
+      review_statuses:
+        visible: Sichtbar
+        hidden: Ausgeblendet
+      csv:
+        id: ID
+        name: Name
+        owner: Inhaber
+        kind: Typ
+        status: Status
+        verified: Verifiziert
+        payouts_ready: Auszahlungen bereit
+        rating: Bewertung
+        listings: Inserate
+        created_at: Erstellt am
+    orders:
+      guest_buyer: Gastkäufer
+      system_actor: System
+      index:
+        title: Bestellungen
+        subtitle: Bestellungen suchen, Zahlungen prüfen und im Namen von Käufern oder
+          Verkäufern handeln.
+        count:
+          one: "%{count} Bestellung"
+          other: "%{count} Bestellungen"
+        empty_title: Keine Bestellungen passen zu diesen Filtern
+        empty_body: Versuchen Sie eine andere Bestellnummer oder erweitern Sie den
+          Zeitraum.
+      filters:
+        title: Erweiterte Filter
+        search: Suchen
+        search_placeholder: Bestellnummer
+        status: Status
+        store: Shop
+        buyer_id: Käufer-ID
+        fulfilment: Lieferung
+        amount_min: Mindestbetrag (€)
+        amount_max: Höchstbetrag (€)
+        disputed: Strittig
+      table:
+        number: Bestellung
+        status: Status
+        buyer: Käufer
+        store: Shop
+        fulfilment: Lieferung
+        total: Gesamt
+        commission: Provision
+        created: Erstellt
+      show:
+        back: Zurück zu den Bestellungen
+        summary_title: Übersicht
+        buyer: Käufer
+        email: E-Mail
+        store: Shop
+        tracking: Sendungsverfolgung
+        items_title: Artikel
+        item: Artikel
+        quantity: Menge
+        unit_price: Stückpreis
+        line_total: Zeilensumme
+        subtotal: Zwischensumme
+        shipping: Versand
+        commission: Provision
+        total: Gesamt
+        payment_title: Zahlung und Auszahlung
+        payment_intent: PaymentIntent
+        open_in_stripe: In Stripe öffnen
+        payout_title: Auszahlung
+        messages_title: Nachrichten
+        messages_link: Unterhaltung Nr. %{id} öffnen
+        timeline_title: Verlauf
+        notes_title: Interne Notizen
+        notes_hint: Nur Mitarbeitende können diese Notizen lesen.
+        actions_title: Aktionen
+        carrier: Versanddienst
+        tracking_number: Sendungsnummer
+        mark_shipped: Als versendet markieren
+        mark_delivered: Als zugestellt markieren
+        mark_completed: Als abgeschlossen markieren
+        cancel_reason: Stornogrund
+        cancel_refund: Stornieren und erstatten
+        cancel_confirm: Diese Bestellung stornieren und den Käufer erstatten?
+        refund_amount: Betrag (€)
+        partial_refund: Teilweise Erstattung
+        dispute_title: Strittige Bestellung
+        dispute_note: Entscheidungsnotiz (optional)
+        refund_buyer: Käufer erstatten
+        release_seller: An Verkäufer freigeben
+        add_note_title: Interne Notiz hinzufügen
+        note_placeholder: Notiz für das Support-Team schreiben
+        add_note: Notiz hinzufügen
+      flash:
+        shipped: Bestellung als versendet markiert.
+        ship_failed: Bestellung konnte nicht als versendet markiert werden. Prüfen
+          Sie Versanddienst und Sendungsnummer.
+        delivered: Bestellung als zugestellt markiert.
+        deliver_failed: Bestellung konnte nicht als zugestellt markiert werden.
+        completed: Bestellung abgeschlossen und Auszahlung freigegeben.
+        complete_failed: Bestellung konnte nicht abgeschlossen werden.
+        cancelled: Bestellung storniert und gegebenenfalls erstattet.
+        cancel_failed: Bestellung konnte nicht storniert werden.
+        refunded: Erstattung durchgeführt.
+        refund_failed: Erstattung konnte nicht durchgeführt werden. Prüfen Sie den
+          Betrag.
+        dispute_resolved: Streitfall gelöst.
+        dispute_failed: Streitfall konnte nicht gelöst werden.
+        note_added: Notiz hinzugefügt.
+        note_failed: Notiz konnte nicht gespeichert werden.
+      csv:
+        number: Bestellung
+        status: Status
+        buyer: Käufer
+        store: Shop
+        subtotal: Zwischensumme (€)
+        shipping: Versand (€)
+        commission: Provision (€)
+        total: Gesamt (€)
+        currency: Währung
+        created_at: Erstellt am
+    payouts:
+      index:
+        title: Auszahlungen
+        subtitle: Verkäuferüberweisungen verfolgen und fehlgeschlagene Auszahlungen
+          wiederholen.
+        count:
+          one: "%{count} Auszahlung"
+          other: "%{count} Auszahlungen"
+        empty_title: Keine Auszahlungen passen zu diesen Filtern
+        empty_body: Auszahlungen erscheinen, sobald eine Bestellung abgeschlossen
+          ist.
+      filters:
+        search: Suchen
+        search_placeholder: Bestellnummer
+        status: Status
+        store: Shop
+      table:
+        order: Bestellung
+        store: Shop
+        amount: Betrag
+        status: Status
+        transfer: Transfer-ID
+        error: Fehler
+        retry: Überweisung wiederholen
+      flash:
+        retried: Auszahlung wiederholt.
+        retry_failed: Auszahlung konnte nicht wiederholt werden.
+      csv:
+        id: ID
+        order: Bestellung
+        store: Shop
+        amount: Betrag (€)
+        status: Status
+        transfer: Transfer-ID
+        created_at: Erstellt am
+      statuses:
+        pending: Ausstehend
+        paid: Bezahlt
+        failed: Fehlgeschlagen
+    audit_logs:
+      system: System
+      deleted_item: Gelöschtes Element
+      review: Bewertung Nr. %{id}
+      payout: Auszahlung Nr. %{id}
+      index:
+        title: Audit-Protokoll
+        subtitle: Jede administrative Änderung mit Akteur und Anfragedetails.
+        count:
+          one: "%{count} Eintrag"
+          other: "%{count} Einträge"
+        empty_title: Keine Audit-Einträge
+        empty_body: Administrative Aktionen werden hier protokolliert.
+      filters:
+        actor: Akteur
+        type: Elementtyp
+        action: Aktion
+      table:
+        created: Wann
+        actor: Akteur
+        action: Aktion
+        item: Element
+        ip: IP
+      types:
+        listing: Inserat
+        store: Shop
+        user: Benutzer
+        order: Bestellung
+        review: Bewertung
+        payout: Auszahlung
+        admin_audit_log: Audit-Eintrag
+      actions:
+        listing:
+          approved: Inserat genehmigt
+          rejected: Inserat abgelehnt
+          archived: Inserat archiviert
+          restored: Inserat wiederhergestellt
+          updated: Inserat aktualisiert
+          destroyed: Inserat gelöscht
+          featured: Inserat hervorgehoben
+          labelled: Labels zugewiesen
+          bulk: Sammelaktion für Inserate
+        user:
+          updated: Benutzer aktualisiert
+          role_changed: Rolle geändert
+          banned: Benutzer gesperrt
+          unbanned: Benutzer entsperrt
+          confirmed: E-Mail bestätigt
+          confirmation_resent: Bestätigung erneut gesendet
+          password_reset_requested: Passwort-Reset angefordert
+          deleted: Benutzer gelöscht
+        store:
+          updated: Shop aktualisiert
+          verified: Shop verifiziert
+          unverified: Verifizierung entfernt
+          suspended: Shop gesperrt
+          reactivated: Shop reaktiviert
+        review:
+          hidden: Bewertung ausgeblendet
+          unhidden: Bewertung angezeigt
+        order:
+          shipped: Bestellung versendet
+          delivered: Bestellung zugestellt
+          completed: Bestellung abgeschlossen
+          cancelled: Bestellung storniert
+          partial_refunded: Teilweise Erstattung
+          dispute_resolved: Streitfall gelöst
+          note_added: Interne Notiz hinzugefügt
+        payout:
+          retried: Auszahlung wiederholt
+        impersonation:
+          started: Identitätswechsel gestartet
+          stopped: Identitätswechsel beendet
+    impersonation:
+      banner: Sie sind als %{name} angemeldet.
+      stop: Identitätswechsel beenden
+      started: Sie navigieren jetzt als %{name}.
+      stopped: Identitätswechsel beendet.
+      cannot: Dieses Konto kann nicht übernommen werden.
+      not_impersonating: Es ist kein Identitätswechsel aktiv.
+      payment_blocked: Zahlungseinstellungen sind während des Identitätswechsels nicht
+        verfügbar.
+    dashboard:
+      sparkline:
+        title: Bestellungen der letzten 30 Tage
+        subtitle: Bestellungen pro Tag
+        from: Von
+        to: Bis
+      kpis:
+        gmv_7d_cents: Handelsvolumen (7 Tage)
+        gmv_30d_cents: Handelsvolumen (30 Tage)
+        orders_7d: Bestellungen (7 Tage)
+        commission_30d_cents: Provision (30 Tage)
+        open_disputes: Offene Streitfälle
+        failed_payouts: Fehlgeschlagene Auszahlungen
+    nav:
+      payouts: Auszahlungen
+      audit_log: Audit-Protokoll
+  admin_mailer:
+    user_banned:
+      subject: Ihr PCMarket-Konto wurde gesperrt
+      title: Konto gesperrt
+      greeting: Hallo %{name},
+      body: Ein Administrator hat Ihr Konto gesperrt. Sie können sich nicht mehr anmelden
+        und nicht mehr auf PCMarket verkaufen.
+      closing: Wenn Sie dies für einen Fehler halten, antworten Sie auf diese E-Mail
+        und unser Team prüft den Fall.
+    store_suspended:
+      subject: Ihr Shop wurde gesperrt
+      title: Shop gesperrt
+      greeting: Hallo %{name},
+      body: Ihr Shop „%{store}“ wurde gesperrt. Seine Inserate bleiben während der
+        Sperrung auf dem Marktplatz ausgeblendet.
+      closing: Wenn Sie dies für einen Fehler halten, antworten Sie auf diese E-Mail
+        und unser Team prüft den Fall.
+  orders:
+    events:
+      partial_refund: Teilweise Erstattung durchgeführt
+      refunded: Bestellung erstattet

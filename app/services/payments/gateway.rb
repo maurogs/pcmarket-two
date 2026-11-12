@@ -13,7 +13,7 @@ module Payments
       raise NotImplementedError
     end
 
-    def refund(order:)
+    def refund(order:, amount_cents: nil)
       raise NotImplementedError
     end
 

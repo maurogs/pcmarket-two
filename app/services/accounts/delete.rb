@@ -19,11 +19,15 @@ module Accounts
     def call
       return failure("account.deletion.open_orders") if open_orders?
 
+      affected = []
       User.transaction do
-        archive_listings
+        affected = archive_listings
         purge_attachments
         anonymise
       end
+
+      recompute_counters(affected)
+      refresh_store_counter
 
       Result.new(success: true)
     end
@@ -39,18 +43,52 @@ module Accounts
     end
 
     def archive_listings
-      user.listings.where.not(status: "sold").update_all(
-        status: "archived",
-        archived_at: Time.current,
-        updated_at: Time.current
-      )
+      affected = []
 
+      user.listings.where.not(status: "sold").find_each do |listing|
+        next unless listing.may_archive?
+
+        affected << [ listing.store_id, listing.category_id ]
+        begin
+          listing.archive!
+        rescue ActiveRecord::RecordInvalid
+          listing.archive_without_validation!
+        end
+      end
+
+      affected
+    end
+
+    def refresh_store_counter
       return if user.store.blank?
 
       user.store.update_columns(
-        listings_count: Listing.visible.where(store_id: user.store.id).count,
+        listings_count: Listing.published.where(store_id: user.store.id).count,
         updated_at: Time.current
       )
+    end
+
+    # Archiving through the model already maintains both counters, but the
+    # batch is recomputed as well so a partially failed run can never leave a
+    # stale denormalised count behind.
+    def recompute_counters(pairs)
+      store_ids = pairs.map(&:first).compact.uniq
+      category_ids = pairs.map(&:last).compact.uniq
+      return if store_ids.empty? && category_ids.empty?
+
+      if store_ids.any?
+        counts = Listing.where(store_id: store_ids, status: "published").group(:store_id).count
+        store_ids.each do |store_id|
+          Store.where(id: store_id).update_all(listings_count: counts[store_id] || 0)
+        end
+      end
+
+      return if category_ids.empty?
+
+      counts = Listing.where(category_id: category_ids, status: "published").group(:category_id).count
+      category_ids.each do |category_id|
+        Category.where(id: category_id).update_all(listings_count: counts[category_id] || 0)
+      end
     end
 
     def purge_attachments

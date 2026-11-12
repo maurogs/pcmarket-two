@@ -118,6 +118,13 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Vacation mode adds `stores.vacation_until`; `Stores::VacationAutoOffJob` is scheduled for the return date and re-checks the stored date before switching mode off.
 - Account settings use the `/account` namespace: profile/security (`/account/profile`), addresses, notification preferences, privacy and signed data-export downloads. Deletion (`Accounts::Delete`) requires password or typed username for OAuth accounts, blocks paid/shipped orders, soft-deletes/anonymises the user, purges the avatar and archives listings while keeping orders/reviews for retention.
 - Admins/reviewers: policy objects are `ReviewPolicy`, `AccountPolicy`, `AddressPolicy` and `Sell::DashboardPolicy`. All Phase 6 copy lives in `config/locales/phase6.*.yml` with the same nested structure as the existing locale files.
+- Phase 7a adds the staff management screens under `/admin`: listings (filters, sortable tables, CSV, bulk approve/reject/archive/label/feature, full editor reusing the wizard fields, permanent deletion limited to drafts/archived listings without orders), users (staff-readable, admin-mutated: role changes with self-demotion and last-admin guards, ban/unban, confirmation/password-reset emails, soft delete, impersonation), stores (verify/unverify, suspend/reactivate, review visibility, edit), orders (ship/deliver/complete/cancel/refund/dispute/notes), payouts (retry) and the audit log.
+- Admin index queries share `Admin::Filterable` (safe parameter normalisation, whitelisted sort columns, Pagy with 25/50/100 per page) and `Admin::CsvExport` (50k row cap). Controllers only render; business rules live in `Admin::BanUser`, `Admin::ChangeUserRole`, `Admin::SuspendStore`, `Admin::BulkListingAction`, `Admin::ShipOrder`, `Admin::DeliverOrder`, `Admin::CancelOrder`, `Admin::PartialRefund`, `Admin::ResolveDispute` or the existing services (moderation, account deletion, payouts).
+- `AdminAuditLog` stores every staff mutation (actor, action, polymorphic auditable, JSONB change payload, IP, user agent) through the `Admin::Auditable` controller concern. The column is `changes_data` because Active Record reserves `changes`; the model exposes `changes`/`changes=`.
+- `OrderNote` holds staff-only internal order notes. Order now has a `resolve` AASM transition (`disputed → completed`) used by the dispute-release action. Partial refunds pass an explicit amount to `Payments::Gateway#refund`.
+- Impersonation signs the admin in as the target user and keeps `session[:impersonator_id]`; a persistent banner offers a stop button. Impersonated sessions receive a 404 in the admin area and are redirected away from payment settings. Start/stop are audit-logged and admins cannot impersonate admins or themselves.
+- `Accounts::Delete` archives with model callbacks and recomputes affected store/category counters after the transaction; legacy rows that no longer satisfy validation are archived through `Listing#archive_without_validation!` so the counter callbacks still run. The signed GDPR export download now requires the signed-in owner in addition to the signed token.
+- All Phase 7a copy lives in `config/locales/phase7.*.yml`; dynamic status/role/action prefixes are ignored by i18n-tasks.
 
 
 
@@ -145,6 +152,8 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `offers`: listing/buyer/conversation/offerer FKs, `amount_cents`, string AASM `status`, `expires_at`, `expiry_reminder_sent_at`, optional `counter_offer_id` self-FK, `message`; partial unique pending offer per `[listing_id, buyer_id]` and `[status, expires_at]` index. `blocks`: unique `[blocker_id, blocked_id]`. `reports`: optional `reporter_id`, `reporter_email`, polymorphic `reportable`, integer `reason`/`status` enums, `details`, `resolution_note`, optional `handled_by_id`, `handled_at`; indexes on `[status, created_at]` and `reason`.
 - `cart_items` additionally carries optional `offer_id` and `unit_price_cents` so an accepted offer price flows through the cart, checkout and order snapshots.
 - `reviews`: unique `order_id`, `reviewer_id`/`store_id` FKs, `rating` (1–5), `body`, optional `seller_reply`/`seller_replied_at`, `status` enum (visible/hidden). `listing_views`: unique `[listing_id, date]`, `views`; `users` has an `unconfirmed_email` index backing Devise reconfirmable.
+- `admin_audit_logs`: optional `actor_id` FK, `action`, polymorphic `auditable_type`/`auditable_id`, JSONB `changes_data`, `ip`, `user_agent`, `created_at`; indexes on `[auditable_type, auditable_id]`, `[action, created_at]` and `created_at`.
+- `order_notes`: `order_id`/`author_id` FKs, `body`, timestamps; index on `[order_id, created_at]`. Internal only (never exposed to buyers or sellers).
 - Supporting tables: `friendly_id_slugs`, `active_storage_blobs/attachments/variant_records`, `flipper_features`, `flipper_gates`.
 
 ## Listing state machine (AASM on `listings.status`)
@@ -291,6 +300,15 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `app/policies/{review,account,address}_policy.rb`, `app/policies/sell/dashboard_policy.rb` — Phase 6 authorisation.
 - `app/views/{account,storefronts,sell/dashboards,store/vacations}/**/*`, `app/views/reviews/_form.html.erb`, `app/views/sell/shared/_nav.html.erb` — account settings, public store tabs, analytics dashboard/chart, vacation and review forms.
 - `config/locales/phase6.{es,en,fr,de,it,pt}.yml` — Phase 6 translations (same nested structure in all six locales).
+- `config/locales/phase7.{es,en,fr,de,it,pt}.yml` — Phase 7a admin translations (common controls, listings/users/stores/orders/payouts/audit, impersonation, mailers).
+- `app/queries/admin/{filterable,listing_query,user_query,store_query,order_query,payout_query,audit_log_query}.rb` — shared admin filtering/sorting/pagination and the per-screen query objects.
+- `app/services/admin/{csv_export,bulk_listing_action,ban_user,change_user_role,suspend_store,ship_order,deliver_order,cancel_order,partial_refund,resolve_dispute}.rb` — admin batch and mutation rules.
+- `app/controllers/concerns/admin/auditable.rb`, `app/models/{admin_audit_log,order_note}.rb` — audit trail writer and internal order notes.
+- `app/controllers/admin/{listings,users,stores,orders,payouts,audit_logs,impersonations}_controller.rb` plus the singular action controllers (`listing_*`, `user_*`, `store_*`, `order_*`, `payout_retries`) — RESTful admin resources.
+- `app/policies/admin/{listing,user,store,order,payout,audit_log}_policy.rb` — staff read vs admin mutation rules.
+- `app/views/admin/{listings,users,stores,orders,payouts,audit_logs}/**/*`, `app/views/shared/_impersonation_banner.html.erb` — admin tables, filters, bulk bars, detail screens and the impersonation banner.
+- `app/mailers/admin_mailer.rb`, `app/views/admin_mailer/**/*` — translated ban and store-suspension emails.
+- `test/integration/{admin_listings,admin_users,admin_stores,admin_orders,admin_audit_logs,admin_impersonation}_test.rb` — Phase 7a access, filter, CSV, action, audit and impersonation coverage.
 - `app/helpers/{conversations,offers,reports}_helper.rb` — localized event text, offer/status labels and reportable previews.
 - `test/models/{conversation,message,offer}_test.rb`, `test/services/messages/safety_scanner_test.rb`, `test/jobs/messages/email_notification_job_test.rb`, `test/mailers/{message,offer,report}_mailer_test.rb`, `test/integration/{conversations,offers,reports}_test.rb` — Phase 5b coverage.
 - `test/fixtures/{categories,attribute_definitions,attribute_options,category_attributes,tags,listings,regions}.yml` — catalogue fixtures.
@@ -306,7 +324,7 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 
 ## Open Items
 - The seller listings index, dashboard, vacation mode, account settings, public storefront and reviews are in place. Remaining placeholder links are the marketing/newsletter actions and the order problem-report flow.
-- The admin area has a dashboard, a moderation queue and the DSA report queue. Admin screens for listings, users, stores, orders, categories, filters/attributes, tags, countries, settings and legal pages are still placeholders (disabled “coming soon” sidebar rows).
+- The admin area now has a dashboard with commercial KPIs, a moderation queue, the DSA report queue and full management screens for listings, users, stores, orders, payouts and the audit log. Categories, attributes/filters, tags, countries, settings and legal-page CRUD remain disabled “coming soon” sidebar rows for a later phase.
 - The catalogue domain is fully browsable and the moderation review page reuses the public buyer preview, but the catalogue CRUD screens (categories, attributes, tags, countries) are not built.
 - `Setting` values are still read and written through `Setting.get`/`Setting.set`; the admin settings screen is a placeholder.
 - `Listings::Submit` still has a TODO to enqueue the moderator notification on submission. Seller approval/rejection emails now exist through `ListingMailer`.

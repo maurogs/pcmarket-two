@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_180400) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_190100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -61,6 +61,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_180400) do
     t.index ["region_id"], name: "index_addresses_on_region_id"
     t.index ["user_id", "default"], name: "index_addresses_on_user_id_and_default"
     t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
+  create_table "admin_audit_logs", force: :cascade do |t|
+    t.bigint "actor_id"
+    t.string "action", null: false
+    t.string "auditable_type", null: false
+    t.bigint "auditable_id", null: false
+    t.jsonb "changes_data", default: {}, null: false
+    t.string "ip"
+    t.string "user_agent"
+    t.datetime "created_at", null: false
+    t.index ["action", "created_at"], name: "index_admin_audit_logs_on_action_and_created_at"
+    t.index ["actor_id"], name: "index_admin_audit_logs_on_actor_id"
+    t.index ["auditable_type", "auditable_id"], name: "index_admin_audit_logs_on_auditable_type_and_auditable_id"
+    t.index ["created_at"], name: "index_admin_audit_logs_on_created_at"
   end
 
   create_table "attribute_definitions", force: :cascade do |t|
@@ -447,6 +462,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_180400) do
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
+  create_table "order_notes", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "author_id", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_order_notes_on_author_id"
+    t.index ["order_id", "created_at"], name: "index_order_notes_on_order_id_and_created_at"
+    t.index ["order_id"], name: "index_order_notes_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.bigint "checkout_id", null: false
     t.bigint "buyer_id"
@@ -691,6 +717,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_180400) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "regions"
   add_foreign_key "addresses", "users"
+  add_foreign_key "admin_audit_logs", "users", column: "actor_id"
   add_foreign_key "attribute_options", "attribute_definitions"
   add_foreign_key "blocks", "users", column: "blocked_id"
   add_foreign_key "blocks", "users", column: "blocker_id"
@@ -733,6 +760,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_180400) do
   add_foreign_key "order_events", "users", column: "actor_id"
   add_foreign_key "order_items", "listings"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_notes", "orders"
+  add_foreign_key "order_notes", "users", column: "author_id"
   add_foreign_key "orders", "checkouts"
   add_foreign_key "orders", "stores"
   add_foreign_key "orders", "users", column: "buyer_id"

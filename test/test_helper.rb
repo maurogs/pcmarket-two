@@ -137,6 +137,34 @@ module MarketplaceTestHelpers
       }.merge(attrs)
     )
   end
+
+  def create_order!(buyer: users(:confirmed), store: stores(:confirmed_store),
+                    status: "paid", total_cents: 10_000, commission_cents: 0,
+                    fulfilment: "shipping", **attrs)
+    checkout = Checkout.create!(
+      buyer: buyer,
+      email: buyer&.email || "guest@example.com",
+      status: status == "pending_payment" ? "pending" : "paid",
+      payment_intent_id: "pi_test_#{SecureRandom.hex(4)}",
+      shipping_address: default_address_attributes.stringify_keys
+    )
+
+    Order.create!(
+      {
+        checkout: checkout,
+        buyer: buyer,
+        store: store,
+        status: status,
+        paid_at: status == "pending_payment" ? nil : Time.current,
+        subtotal_cents: total_cents,
+        shipping_cents: 0,
+        commission_cents: commission_cents,
+        total_cents: total_cents,
+        currency: "EUR",
+        fulfilment: fulfilment
+      }.merge(attrs)
+    )
+  end
 end
 
 module ActiveSupport

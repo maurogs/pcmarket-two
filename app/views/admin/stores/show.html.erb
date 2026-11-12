@@ -1,0 +1,143 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div class="min-w-0">
+      <%= link_to t("admin.stores.show.back"), admin_stores_path, class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+      <h1 class="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl"><%= @store.name %></h1>
+      <p class="mt-1 text-sm text-muted">#<%= @store.id %> · <%= admin_store_kind_label(@store.kind) %> · <%= admin_store_status_label(@store.status) %></p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <%= link_to t("admin.common.edit"), edit_admin_store_path(@store), class: "btn-primary" %>
+      <%= link_to t("admin.stores.show.public_page"), storefront_path(@store), class: "btn-accent" %>
+    </div>
+  </header>
+
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
+    <div class="min-w-0 space-y-6">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.stores.show.details_title") %></h2>
+        <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.owner") %></dt><dd class="mt-1 font-semibold"><%= link_to @store.user.display_name, admin_user_path(@store.user), class: "text-primary-700 hover:underline dark:text-primary-300" %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.email") %></dt><dd class="mt-1 break-all"><%= @store.user.email %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.location") %></dt><dd class="mt-1"><%= [@store.city, @store.region&.name, @store.country_code].compact.join(", ") %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.website") %></dt><dd class="mt-1 break-all"><%= @store.website.presence || "—" %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.vacation") %></dt><dd class="mt-1"><%= @store.vacation_mode? ? t("admin.common.yes") : t("admin.common.no") %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.created") %></dt><dd class="mt-1"><%= l(@store.created_at, format: :long) %></dd></div>
+        </dl>
+        <% if @store.description.present? %>
+          <div class="mt-4 rounded-xl bg-surface-muted p-4 text-sm"><%= simple_format(h(@store.description)) %></div>
+        <% end %>
+      </section>
+
+      <% if @store.business? %>
+        <section class="rounded-2xl border border-border bg-surface p-5">
+          <h2 class="text-lg font-bold"><%= t("admin.stores.show.legal_title") %></h2>
+          <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.legal_name") %></dt><dd class="mt-1 font-semibold"><%= @store.legal_name.presence || "—" %></dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.tax_id") %></dt><dd class="mt-1 font-semibold"><%= @store.tax_id.presence || "—" %></dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.address") %></dt><dd class="mt-1"><%= [@store.address_line, @store.postal_code, @store.city].compact_blank.join(", ") %></dd></div>
+            <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.phone") %></dt><dd class="mt-1"><%= @store.phone.presence || "—" %></dd></div>
+          </dl>
+        </section>
+      <% end %>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.stores.show.stats_title") %></h2>
+        <dl class="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+          <div class="rounded-xl bg-surface-muted p-3"><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.listings") %></dt><dd class="mt-1 text-xl font-extrabold"><%= @store.listings_count %></dd></div>
+          <div class="rounded-xl bg-surface-muted p-3"><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.followers") %></dt><dd class="mt-1 text-xl font-extrabold"><%= @store.followers_count %></dd></div>
+          <div class="rounded-xl bg-surface-muted p-3"><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.sales") %></dt><dd class="mt-1 text-xl font-extrabold"><%= @completed_orders %></dd></div>
+          <div class="rounded-xl bg-surface-muted p-3"><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.stores.show.revenue") %></dt><dd class="mt-1 text-xl font-extrabold"><%= money(@sales_total_cents, currency: "EUR") %></dd></div>
+        </dl>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.stores.show.payouts_title") %></h2>
+        <p class="mt-1 text-sm text-muted">
+          <%= t("admin.stores.show.payouts_status") %>:
+          <strong><%= @store.payouts_enabled? ? t("admin.common.yes") : t("admin.common.no") %></strong>
+          · Stripe: <strong><%= @store.stripe_account_id.presence || "—" %></strong>
+        </p>
+        <ul class="mt-3 divide-y divide-border text-sm">
+          <% @payouts.each do |payout| %>
+            <li class="flex flex-wrap items-center justify-between gap-2 py-2">
+              <span><%= payout.order&.number %> · <%= money(payout.amount_cents, currency: "EUR") %></span>
+              <span class="rounded-full border px-2 py-0.5 text-xs font-semibold <%= admin_status_badge_class(payout.status) %>"><%= admin_payout_status_label(payout.status) %></span>
+            </li>
+          <% end %>
+          <% if @payouts.empty? %><li class="py-2 text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.stores.show.listings_title") %></h2>
+        <ul class="mt-3 divide-y divide-border text-sm">
+          <% @listings.each do |listing| %>
+            <li class="flex flex-wrap items-center justify-between gap-2 py-2">
+              <%= link_to listing.title, admin_listing_path(listing), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+              <span class="text-muted"><%= admin_listing_status_label(listing.status) %></span>
+            </li>
+          <% end %>
+          <% if @listings.empty? %><li class="py-2 text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.stores.show.reviews_title") %></h2>
+        <ul class="mt-3 divide-y divide-border text-sm">
+          <% @reviews.each do |review| %>
+            <li class="flex flex-wrap items-center justify-between gap-3 py-2">
+              <span class="min-w-0">
+                <span class="font-semibold"><%= t("admin.stores.show.review_rating", rating: review.rating) %></span>
+                <span class="block text-muted"><%= review.body.truncate(100) %></span>
+              </span>
+              <span class="flex items-center gap-2">
+                <span class="rounded-full border px-2 py-0.5 text-xs font-semibold <%= admin_status_badge_class(review.status) %>"><%= t("admin.stores.review_statuses.#{review.status}") %></span>
+                <% if review.visible? %>
+                  <%= button_to t("admin.stores.show.hide_review"), admin_store_review_visibility_path(@store, review), method: :post, class: "btn-accent text-xs" %>
+                <% else %>
+                  <%= button_to t("admin.stores.show.unhide_review"), admin_store_review_visibility_path(@store, review), method: :delete, class: "btn-accent text-xs" %>
+                <% end %>
+              </span>
+            </li>
+          <% end %>
+          <% if @reviews.empty? %><li class="py-2 text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.stores.show.followers_title") %></h2>
+        <ul class="mt-3 flex flex-wrap gap-2 text-sm">
+          <% @followers.each do |follower| %>
+            <li class="rounded-full border border-border bg-surface-muted px-3 py-1"><%= link_to follower.display_name, admin_user_path(follower), class: "font-semibold hover:underline" %></li>
+          <% end %>
+          <% if @followers.empty? %><li class="text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="space-y-4">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.stores.show.verification_title") %></h2>
+        <p class="mt-1 text-sm text-muted"><%= @store.verified? ? t("admin.stores.show.verified_on", date: l(@store.verified_at, format: :long)) : t("admin.stores.show.not_verified") %></p>
+        <% if @store.verified? %>
+          <%= button_to t("admin.stores.show.unverify"), admin_store_verification_path(@store), method: :delete, class: "btn-accent mt-3 w-full" %>
+        <% else %>
+          <%= button_to t("admin.stores.show.verify"), admin_store_verification_path(@store), method: :post, class: "btn-primary mt-3 w-full" %>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.stores.show.suspension_title") %></h2>
+        <% if @store.suspended? %>
+          <p class="mt-1 text-sm text-muted"><%= t("admin.stores.show.suspended_hint") %></p>
+          <%= button_to t("admin.stores.show.reactivate"), admin_store_suspension_path(@store), method: :delete, class: "btn-primary mt-3 w-full" %>
+        <% else %>
+          <%= form_with url: admin_store_suspension_path(@store), method: :post, scope: nil, class: "mt-3 space-y-2" do %>
+            <%= text_area_tag :reason, nil, rows: 3, placeholder: t("admin.stores.show.reason_placeholder"), class: "field" %>
+            <%= submit_tag t("admin.stores.show.suspend"), class: "btn-accent w-full" %>
+          <% end %>
+        <% end %>
+      </section>
+    </aside>
+  </div>
+</div>

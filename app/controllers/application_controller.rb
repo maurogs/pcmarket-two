@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   around_action :switch_locale
   before_action :merge_guest_cart
-  helper_method :current_cart
+  helper_method :current_cart, :impersonating?
 
   rescue_from Pundit::NotAuthorizedError do
     respond_to do |format|
@@ -60,6 +60,12 @@ class ApplicationController < ActionController::Base
     end
 
     cookies.delete(:cart_token)
+  end
+
+  # True while an admin is browsing as another user. Impersonated sessions can
+  # never reach staff screens or payment-setting pages.
+  def impersonating?
+    session[:impersonator_id].present?
   end
 
   def default_url_options

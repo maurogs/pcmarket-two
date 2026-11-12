@@ -1,0 +1,37 @@
+<div class="space-y-6">
+  <header>
+    <%= link_to t("admin.stores.edit.back"), admin_store_path(@store), class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.stores.edit.title") %></h1>
+  </header>
+
+  <%= form_with model: @store, url: admin_store_path(@store), method: :patch, class: "space-y-6" do |f| %>
+    <%= render "shared/form_errors", object: @store %>
+
+    <section class="grid gap-4 rounded-2xl border border-border bg-surface p-5 sm:grid-cols-2 sm:p-6">
+      <div><%= f.label :name, t("admin.stores.edit.name"), class: "text-sm font-semibold" %><%= f.text_field :name, class: "field mt-1.5" %></div>
+      <div><%= f.label :kind, t("admin.stores.edit.kind"), class: "text-sm font-semibold" %><%= f.select :kind, Store.kinds.keys.map { |k| [admin_store_kind_label(k), k] }, {}, class: "field mt-1.5" %></div>
+      <div class="sm:col-span-2"><%= f.label :description, t("admin.stores.edit.description"), class: "text-sm font-semibold" %><%= f.text_area :description, rows: 4, class: "field mt-1.5" %></div>
+      <div><%= f.label :legal_name, t("admin.stores.edit.legal_name"), class: "text-sm font-semibold" %><%= f.text_field :legal_name, class: "field mt-1.5" %></div>
+      <div><%= f.label :tax_id, t("admin.stores.edit.tax_id"), class: "text-sm font-semibold" %><%= f.text_field :tax_id, class: "field mt-1.5" %></div>
+      <div><%= f.label :address_line, t("admin.stores.edit.address_line"), class: "text-sm font-semibold" %><%= f.text_field :address_line, class: "field mt-1.5" %></div>
+      <div><%= f.label :city, t("admin.stores.edit.city"), class: "text-sm font-semibold" %><%= f.text_field :city, class: "field mt-1.5" %></div>
+      <div>
+        <%= f.label :region_id, t("admin.stores.edit.region"), class: "text-sm font-semibold" %>
+        <%= f.collection_select :region_id, @regions, :id, :name, { include_blank: t("admin.stores.edit.region_placeholder") }, class: "field mt-1.5" %>
+      </div>
+      <div><%= f.label :postal_code, t("admin.stores.edit.postal_code"), class: "text-sm font-semibold" %><%= f.text_field :postal_code, class: "field mt-1.5" %></div>
+      <div><%= f.label :country_code, t("admin.stores.edit.country_code"), class: "text-sm font-semibold" %><%= f.text_field :country_code, maxlength: 2, class: "field mt-1.5 uppercase" %></div>
+      <div><%= f.label :phone, t("admin.stores.edit.phone"), class: "text-sm font-semibold" %><%= f.telephone_field :phone, class: "field mt-1.5" %></div>
+      <div><%= f.label :website, t("admin.stores.edit.website"), class: "text-sm font-semibold" %><%= f.url_field :website, class: "field mt-1.5" %></div>
+      <div><%= f.label :handling_days, t("admin.stores.edit.handling_days"), class: "text-sm font-semibold" %><%= f.number_field :handling_days, min: 1, max: 10, class: "field mt-1.5" %></div>
+      <div class="sm:col-span-2"><%= f.label :return_policy, t("admin.stores.edit.return_policy"), class: "text-sm font-semibold" %><%= f.text_area :return_policy, rows: 4, class: "field mt-1.5" %></div>
+      <div class="sm:col-span-2"><%= f.label :shipping_policy, t("admin.stores.edit.shipping_policy"), class: "text-sm font-semibold" %><%= f.text_area :shipping_policy, rows: 4, class: "field mt-1.5" %></div>
+      <label class="flex items-center gap-3 text-sm"><%= f.check_box :allow_offers_default, class: "h-5 w-5 rounded border-border text-primary-600" %><span><%= t("admin.stores.edit.allow_offers_default") %></span></label>
+    </section>
+
+    <div class="flex flex-wrap items-center justify-end gap-2">
+      <%= link_to t("admin.common.cancel"), admin_store_path(@store), class: "btn-accent" %>
+      <%= submit_tag t("admin.common.save"), class: "btn-primary" %>
+    </div>
+  <% end %>
+</div>

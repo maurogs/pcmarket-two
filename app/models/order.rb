@@ -12,6 +12,7 @@ class Order < ApplicationRecord
 
   has_many :items, class_name: "OrderItem", dependent: :destroy, inverse_of: :order
   has_many :events, class_name: "OrderEvent", dependent: :destroy, inverse_of: :order
+  has_many :notes, class_name: "OrderNote", dependent: :destroy, inverse_of: :order
   has_one :payout, dependent: :destroy
   has_one :review, dependent: :destroy
 
@@ -69,6 +70,12 @@ class Order < ApplicationRecord
 
     event :open_dispute do
       transitions from: %i[paid shipped delivered completed], to: :disputed
+    end
+
+    # Staff decision on a dispute: release the funds to the seller.
+    event :resolve do
+      before { self.completed_at ||= Time.current }
+      transitions from: :disputed, to: :completed
     end
   end
 

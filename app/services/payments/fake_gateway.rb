@@ -18,7 +18,7 @@ module Payments
                  error: nil)
     end
 
-    def refund(order:)
+    def refund(order:, amount_cents: nil)
       Result.new(success: true,
                  payment_intent_id: order.checkout.payment_intent_id,
                  error: nil)

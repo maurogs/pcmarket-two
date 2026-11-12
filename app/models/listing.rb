@@ -306,6 +306,17 @@ class Listing < ApplicationRecord
     self.tag_ids = Tag.seller_tags.active.where(id: Array(ids)).pluck(:id)
   end
 
+  # Product labels are an admin-only kind of tag. Editing them keeps the
+  # seller's own tags intact.
+  def product_label_ids
+    tags.select(&:product_label?).map(&:id)
+  end
+
+  def product_label_ids=(ids)
+    label_ids = Tag.product_labels.active.where(id: Array(ids)).pluck(:id)
+    self.tag_ids = (seller_tag_ids + label_ids).uniq
+  end
+
   # Fields the review step still needs. Each entry points at the wizard step
   # that can fix it.
   def missing_wizard_requirements
@@ -435,6 +446,18 @@ class Listing < ApplicationRecord
     return unless persisted? && status == "published" && approval_required?
 
     update!(status: "pending_review")
+  end
+
+  # Archives a listing even when legacy rows no longer satisfy the full
+  # validation set (for example an old published listing without specs). The
+  # regular save still fires the counter callbacks that keep the denormalised
+  # store and category counts correct.
+  def archive_without_validation!
+    return false unless may_archive?
+
+    self.status = "archived"
+    self.archived_at = Time.current
+    save(validate: false)
   end
 
   def slug_source

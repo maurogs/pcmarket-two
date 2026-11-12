@@ -1,0 +1,626 @@
+---
+en:
+  admin:
+    common:
+      any: Any
+      'yes': 'Yes'
+      'no': 'No'
+      none: None
+      from: From
+      to: To
+      per_page: Per page
+      apply: Apply filters
+      clear: Clear filters
+      export_csv: Export CSV
+      actions: Actions
+      view: View
+      edit: Edit
+      cancel: Cancel
+      save: Save changes
+    listings:
+      untitled: Untitled listing
+      index:
+        title: Listings
+        subtitle: Search, filter and manage every listing on the marketplace.
+        count:
+          one: "%{count} listing"
+          other: "%{count} listings"
+        empty_title: No listings match these filters
+        empty_body: Try clearing the filters or widening the date range.
+      filters:
+        title: Advanced filters
+        search: Search
+        search_placeholder: Title, ID or slug
+        status: Status
+        category: Category (with subcategories)
+        seller: Seller
+        store_kind: Store type
+        condition: Condition
+        price_min: Min price (€)
+        price_max: Max price (€)
+        featured: Featured
+        has_reports: Has reports
+      table:
+        select: Select listing
+        listing: Listing
+        seller: Seller
+        store: Store
+        price: Price
+        status: Status
+        views: Views / favourites
+        created: Created
+        actions: Actions
+      bulk:
+        select_all: Select all
+        operation: Bulk action
+        operations:
+          approve: Approve
+          reject: Reject
+          archive: Archive
+          label: Assign product label
+          feature: Feature
+        reason: Reason
+        reason_placeholder: Rejection reason
+        label: Product label
+        days: Days
+        submit: Apply to selected
+        none_selected: Select at least one listing.
+        admins_only: Only administrators can label or feature listings.
+        done: "%{count} listings updated (%{skipped} skipped)."
+      show:
+        back: Back to listings
+        public_page: Public page
+        overview: Overview
+        condition: Condition
+        location: Location
+        quantity: Quantity
+        featured_until: Featured until
+        stats_title: Activity
+        views: Views
+        favourites: Favourites
+        orders: Orders
+        reports: Reports
+        orders_title: Orders
+        orders_empty: This listing has no orders yet.
+        reports_title: Reports
+        reports_empty: No reports have been filed against this listing.
+        history_title: Moderation history
+        history_empty: No moderation decisions yet.
+        seller_title: Seller
+        actions_title: Actions
+        approve: Approve listing
+        reject_note: Add a note for the seller (optional)
+        reject: Reject and notify seller
+        archive: Archive listing
+        restore: Restore listing
+        feature: Feature until this date
+        delete: Delete permanently
+        delete_confirm: Delete this listing permanently? This cannot be undone.
+        delete_blocked: This listing has orders and cannot be deleted permanently.
+        labels_title: Product labels
+        save_labels: Save labels
+      edit:
+        back: Back to listing
+        title: Edit listing
+        subtitle: Administrators can edit any field. Material changes still trigger
+          a new moderation pass.
+        category: Category
+        featured_until: Featured until
+      flash:
+        updated: Listing updated.
+        not_deletable: Only drafts or archived listings without orders can be deleted
+          permanently.
+        destroyed: Listing deleted permanently.
+        approved: Listing approved.
+        already_moderated: This listing is no longer waiting for moderation.
+        reason_required: Choose a rejection reason.
+        rejected: Listing rejected and the seller notified.
+        cannot_archive: This listing cannot be archived in its current state.
+        archived: Listing archived.
+        cannot_restore: This listing cannot be restored in its current state.
+        restored: Listing restored.
+        invalid_feature_date: Choose a valid featured-until date.
+        featured: Listing featured.
+        labels_updated: Product labels updated.
+      csv:
+        id: ID
+        title: Title
+        status: Status
+        seller: Seller
+        store: Store
+        category: Category
+        price: Price (€)
+        views: Views
+        favourites: Favourites
+        created_at: Created at
+      statuses:
+        draft: Draft
+        pending_review: Pending review
+        published: Published
+        rejected: Rejected
+        reserved: Reserved
+        sold: Sold
+        archived: Archived
+    users:
+      never_signed_in: Never signed in
+      index:
+        title: Users
+        subtitle: Search accounts, review their activity and apply administrative
+          actions.
+        count:
+          one: "%{count} user"
+          other: "%{count} users"
+        empty_title: No users match these filters
+        empty_body: Try another search term or clear the filters.
+      filters:
+        title: Advanced filters
+        search: Search
+        search_placeholder: Email, username or name
+        role: Role
+        status: Status
+        has_store: Has a store
+        last_sign_in_from: Signed in from
+        last_sign_in_to: Signed in to
+      table:
+        user: User
+        email: Email
+        role: Role
+        status: Status
+        store: Store
+        last_sign_in: Last sign-in
+        created: Created
+      show:
+        back: Back to users
+        impersonate: Log in as this user
+        profile_title: Profile
+        role: Role
+        status: Status
+        locale: Language
+        country: Country
+        phone: Phone
+        created: Registered
+        ban_reason: 'Ban reason: %{reason}'
+        sign_in_title: Sign-in activity
+        sign_in_count: Sign-ins
+        last_sign_in: Last sign-in
+        last_ip: Last IP
+        confirmed_at: Email confirmed
+        unconfirmed: Not confirmed
+        store_title: Store
+        no_store: This user does not have a store.
+        orders_title: Orders
+        as_buyer: As buyer
+        as_seller: As seller
+        listings_title: Listings
+        reviews_title: Reviews written
+        review_rating: "%{rating}/5"
+        reports_title: Reports against this user
+        audit_title: Audit log
+        role_title: Role
+        change_role: Change role
+        moderation_title: Moderation
+        unban: Unban account
+        ban: Ban account
+        ban_reason_placeholder: Reason shown to the user (required)
+        confirm: Confirm email manually
+        resend_confirmation: Resend confirmation email
+        reset_password: Send password reset email
+        deletion_title: Delete account
+        deletion_hint: Soft-deletes and anonymises the account, and archives its listings.
+        delete: Delete account
+        delete_confirm: Delete and anonymise this account? This cannot be undone.
+      edit:
+        back: Back to user
+        title: Edit user
+        subtitle: Update the profile fields. Role changes are handled separately.
+        first_name: First name
+        last_name: Last name
+        username: Username
+        email: Email
+        phone: Phone
+        locale: Language
+        country: Country code
+        marketing_opt_in: Marketing emails
+      flash:
+        updated: User updated.
+        banned: Account banned and listings archived.
+        ban_failed: The account could not be banned. Check the reason.
+        unbanned: Account unbanned.
+        role_changed: Role updated.
+        role_change_failed: That role change is not allowed.
+        confirmed: Email confirmed.
+        already_confirmed: This email is already confirmed.
+        confirmation_resent: Confirmation email sent.
+        password_reset_sent: Password reset email sent.
+        deleted: Account deleted and anonymised.
+      csv:
+        id: ID
+        username: Username
+        email: Email
+        role: Role
+        status: Status
+        stores: Store
+        sign_in_count: Sign-ins
+        last_sign_in_at: Last sign-in
+        created_at: Created at
+      roles:
+        user: Buyer
+        moderator: Moderator
+        admin: Administrator
+      statuses:
+        active: Active
+        banned: Banned
+        deleted: Deleted
+        unconfirmed: Unconfirmed
+    stores:
+      index:
+        title: Stores
+        subtitle: Review seller storefronts, legal information, payouts and ratings.
+        count:
+          one: "%{count} store"
+          other: "%{count} stores"
+        empty_title: No stores match these filters
+        empty_body: Try another search term or clear the filters.
+      filters:
+        title: Advanced filters
+        search: Search
+        search_placeholder: Store name, slug, legal name or email
+        kind: Type
+        status: Status
+        verified: Verified
+        payouts_ready: Payouts ready
+        vacation: Vacation mode
+        rating_min: Min rating
+        rating_max: Max rating
+      table:
+        store: Store
+        owner: Owner
+        kind: Type
+        status: Status
+        verified: Verified
+        payouts: Payouts
+        rating: Rating
+        listings: Listings
+      show:
+        back: Back to stores
+        public_page: Public storefront
+        details_title: Store details
+        owner: Owner
+        email: Email
+        location: Location
+        website: Website
+        vacation: Vacation mode
+        created: Created
+        legal_title: Legal information
+        legal_name: Legal name
+        tax_id: Tax ID
+        address: Address
+        phone: Phone
+        stats_title: Performance
+        listings: Listings
+        followers: Followers
+        sales: Completed sales
+        revenue: Revenue
+        payouts_title: Payouts
+        payouts_status: Stripe payouts enabled
+        listings_title: Recent listings
+        reviews_title: Reviews
+        review_rating: "%{rating}/5"
+        hide_review: Hide
+        unhide_review: Show
+        followers_title: Followers
+        verification_title: Verification
+        verified_on: Verified on %{date}
+        not_verified: This store has not been verified yet.
+        verify: Verify store
+        unverify: Remove verification
+        suspension_title: Suspension
+        suspended_hint: The storefront is suspended and its listings are hidden.
+        reactivate: Reactivate store
+        reason_placeholder: Reason shown to the seller (required)
+        suspend: Suspend store
+      edit:
+        back: Back to store
+        title: Edit store
+        name: Name
+        kind: Type
+        description: Description
+        legal_name: Legal name
+        tax_id: Tax ID
+        address_line: Address
+        city: City
+        region: Province
+        region_placeholder: Choose a province
+        postal_code: Postal code
+        country_code: Country code
+        phone: Phone
+        website: Website
+        handling_days: Handling days
+        return_policy: Return policy
+        shipping_policy: Shipping policy
+        allow_offers_default: Offers enabled by default
+      flash:
+        updated: Store updated.
+        verified: Store verified.
+        unverified: Store verification removed.
+        suspended: Store suspended and the seller notified.
+        reason_required: A suspension reason is required.
+        reactivated: Store reactivated.
+        review_hidden: Review hidden.
+        review_unhidden: Review visible again.
+      kinds:
+        individual: Individual
+        business: Business
+      statuses:
+        active: Active
+        suspended: Suspended
+      review_statuses:
+        visible: Visible
+        hidden: Hidden
+      csv:
+        id: ID
+        name: Name
+        owner: Owner
+        kind: Type
+        status: Status
+        verified: Verified
+        payouts_ready: Payouts ready
+        rating: Rating
+        listings: Listings
+        created_at: Created at
+    orders:
+      guest_buyer: Guest buyer
+      system_actor: System
+      index:
+        title: Orders
+        subtitle: Search orders, inspect payments and act on behalf of buyers or sellers.
+        count:
+          one: "%{count} order"
+          other: "%{count} orders"
+        empty_title: No orders match these filters
+        empty_body: Try another order number or widen the date range.
+      filters:
+        title: Advanced filters
+        search: Search
+        search_placeholder: Order number
+        status: Status
+        store: Store
+        buyer_id: Buyer ID
+        fulfilment: Fulfilment
+        amount_min: Min total (€)
+        amount_max: Max total (€)
+        disputed: Disputed
+      table:
+        number: Order
+        status: Status
+        buyer: Buyer
+        store: Store
+        fulfilment: Fulfilment
+        total: Total
+        commission: Commission
+        created: Created
+      show:
+        back: Back to orders
+        summary_title: Summary
+        buyer: Buyer
+        email: Email
+        store: Store
+        tracking: Tracking
+        items_title: Items
+        item: Item
+        quantity: Qty
+        unit_price: Unit price
+        line_total: Line total
+        subtotal: Subtotal
+        shipping: Shipping
+        commission: Commission
+        total: Total
+        payment_title: Payment and payout
+        payment_intent: PaymentIntent
+        open_in_stripe: Open in Stripe
+        payout_title: Payout
+        messages_title: Messages
+        messages_link: Open conversation
+        timeline_title: Timeline
+        notes_title: Internal notes
+        notes_hint: Only staff can read these notes.
+        actions_title: Actions
+        carrier: Carrier
+        tracking_number: Tracking number
+        mark_shipped: Mark as shipped
+        mark_delivered: Mark as delivered
+        mark_completed: Mark as completed
+        cancel_reason: Cancellation reason
+        cancel_refund: Cancel and refund
+        cancel_confirm: Cancel this order and refund the buyer?
+        refund_amount: Amount (€)
+        partial_refund: Partial refund
+        dispute_title: Disputed order
+        dispute_note: Decision note (optional)
+        refund_buyer: Refund buyer
+        release_seller: Release to seller
+        add_note_title: Add internal note
+        note_placeholder: Write a note for the support team
+        add_note: Add note
+      flash:
+        shipped: Order marked as shipped.
+        ship_failed: The order could not be marked as shipped. Check the carrier and
+          tracking number.
+        delivered: Order marked as delivered.
+        deliver_failed: The order could not be marked as delivered.
+        completed: Order completed and payout released.
+        complete_failed: The order could not be completed.
+        cancelled: Order cancelled and refunded when applicable.
+        cancel_failed: The order could not be cancelled.
+        refunded: Refund issued.
+        refund_failed: The refund could not be issued. Check the amount.
+        dispute_resolved: Dispute resolved.
+        dispute_failed: The dispute could not be resolved.
+        note_added: Note added.
+        note_failed: The note could not be saved.
+      csv:
+        number: Order
+        status: Status
+        buyer: Buyer
+        store: Store
+        subtotal: Subtotal (€)
+        shipping: Shipping (€)
+        commission: Commission (€)
+        total: Total (€)
+        currency: Currency
+        created_at: Created at
+    payouts:
+      index:
+        title: Payouts
+        subtitle: Track seller transfers and retry failed payouts.
+        count:
+          one: "%{count} payout"
+          other: "%{count} payouts"
+        empty_title: No payouts match these filters
+        empty_body: Payouts appear once an order is completed.
+      filters:
+        search: Search
+        search_placeholder: Order number
+        status: Status
+        store: Store
+      table:
+        order: Order
+        store: Store
+        amount: Amount
+        status: Status
+        transfer: Transfer ID
+        error: Error
+        retry: Retry transfer
+      flash:
+        retried: Payout retried.
+        retry_failed: The payout could not be retried.
+      csv:
+        id: ID
+        order: Order
+        store: Store
+        amount: Amount (€)
+        status: Status
+        transfer: Transfer ID
+        created_at: Created at
+      statuses:
+        pending: Pending
+        paid: Paid
+        failed: Failed
+    audit_logs:
+      system: System
+      deleted_item: Deleted item
+      review: Review
+      payout: Payout
+      index:
+        title: Audit log
+        subtitle: Every administrative mutation, with its actor and request details.
+        count:
+          one: "%{count} entry"
+          other: "%{count} entries"
+        empty_title: No audit entries
+        empty_body: Administrative actions will be recorded here.
+      filters:
+        actor: Actor
+        type: Item type
+        action: Action
+      table:
+        created: When
+        actor: Actor
+        action: Action
+        item: Item
+        ip: IP
+      types:
+        listing: Listing
+        store: Store
+        user: User
+        order: Order
+        review: Review
+        payout: Payout
+        admin_audit_log: Audit entry
+      actions:
+        listing:
+          approved: Listing approved
+          rejected: Listing rejected
+          archived: Listing archived
+          restored: Listing restored
+          updated: Listing updated
+          destroyed: Listing deleted
+          featured: Listing featured
+          labelled: Labels assigned
+          bulk: Bulk listing action
+        user:
+          updated: User updated
+          role_changed: Role changed
+          banned: User banned
+          unbanned: User unbanned
+          confirmed: Email confirmed
+          confirmation_resent: Confirmation resent
+          password_reset_requested: Password reset requested
+          deleted: User deleted
+        store:
+          updated: Store updated
+          verified: Store verified
+          unverified: Verification removed
+          suspended: Store suspended
+          reactivated: Store reactivated
+        review:
+          hidden: Review hidden
+          unhidden: Review shown
+        order:
+          shipped: Order shipped
+          delivered: Order delivered
+          completed: Order completed
+          cancelled: Order cancelled
+          partial_refunded: Partial refund
+          dispute_resolved: Dispute resolved
+          note_added: Internal note added
+        payout:
+          retried: Payout retried
+        impersonation:
+          started: Impersonation started
+          stopped: Impersonation stopped
+    impersonation:
+      banner: You are signed in as %{name}.
+      stop: Stop impersonating
+      started: You are now browsing as %{name}.
+      stopped: Impersonation stopped.
+      cannot: That account cannot be impersonated.
+      not_impersonating: No impersonation session is active.
+      payment_blocked: Payment settings are unavailable while impersonating.
+    dashboard:
+      sparkline:
+        title: Orders in the last 30 days
+        subtitle: Daily order count
+        from: From
+        to: To
+      kpis:
+        gmv_7d_cents: GMV (7 days)
+        gmv_30d_cents: GMV (30 days)
+        orders_7d: Orders (7 days)
+        commission_30d_cents: Commission earned (30 days)
+        open_disputes: Open disputes
+        failed_payouts: Failed payouts
+    nav:
+      payouts: Payouts
+      audit_log: Audit log
+  admin_mailer:
+    user_banned:
+      subject: Your PCMarket account has been suspended
+      title: Account suspended
+      greeting: Hello %{name},
+      body: An administrator has suspended your account. You can no longer sign in
+        or sell on PCMarket.
+      closing: If you believe this is a mistake, reply to this email and our team
+        will review it.
+    store_suspended:
+      subject: Your storefront has been suspended
+      title: Store suspended
+      greeting: Hello %{name},
+      body: Your store "%{store}" has been suspended. Its listings are hidden from
+        the marketplace while the suspension is active.
+      closing: If you believe this is a mistake, reply to this email and our team
+        will review it.
+  orders:
+    events:
+      partial_refund: Partial refund issued
+      refunded: Order refunded

@@ -24,17 +24,24 @@ module Payments
       Result.new(success: false, error: e.message)
     end
 
-    def refund(order:)
+    def refund(order:, amount_cents: nil)
       payment_intent_id = order.checkout.payment_intent_id
       return Result.new(success: false, error: "missing_payment_intent") if payment_intent_id.blank?
+
+      amount = amount_cents.presence || order.total_cents
+      idempotency_key = if amount_cents.present?
+        "partial_refund_order_#{order.id}_#{amount}"
+      else
+        "refund_order_#{order.id}"
+      end
 
       Stripe::Refund.create(
         {
           payment_intent: payment_intent_id,
-          amount: order.total_cents,
+          amount: amount,
           metadata: { order_id: order.id }
         },
-        idempotency_key: "refund_order_#{order.id}"
+        idempotency_key: idempotency_key
       )
 
       Result.new(success: true, payment_intent_id: payment_intent_id, error: nil)

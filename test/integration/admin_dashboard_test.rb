@@ -35,4 +35,14 @@ class AdminDashboardTest < ActionDispatch::IntegrationTest
     assert_includes response.body, listings(:pending_gpu).title
     assert_includes response.body, I18n.t("admin.dashboard.oldest_pending.title", locale: :en)
   end
+
+  test "the dashboard shows the new commercial KPIs and the orders sparkline" do
+    get admin_root_path(locale: :en)
+
+    assert_response :success
+    assert_includes response.body, %(data-kpi="gmv_7d_cents")
+    assert_includes response.body, %(data-kpi="open_disputes")
+    assert_includes response.body, %(data-kpi="failed_payouts")
+    assert_select "svg[role='img'] title", text: I18n.t("admin.dashboard.sparkline.title", locale: :en)
+  end
 end

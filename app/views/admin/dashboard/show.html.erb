@@ -13,10 +13,30 @@
       <% Admin::DashboardStats::KPI_KEYS.each do |key| %>
         <li class="rounded-2xl border border-border bg-surface p-4">
           <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= admin_kpi_label(key) %></p>
-          <p data-kpi="<%= key %>" class="mt-2 text-3xl font-extrabold tracking-tight text-content"><%= @stats.public_send(key) %></p>
+          <p data-kpi="<%= key %>" class="mt-2 text-3xl font-extrabold tracking-tight text-content"><%= admin_kpi_value(key, @stats.public_send(key)) %></p>
         </li>
       <% end %>
     </ul>
+  </section>
+
+  <section class="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <h2 class="text-lg font-bold"><%= t("admin.dashboard.sparkline.title") %></h2>
+      <p class="text-sm text-muted"><%= t("admin.dashboard.sparkline.subtitle") %></p>
+    </div>
+    <div class="mt-4 text-primary-600 dark:text-primary-300">
+      <%= admin_sparkline(@stats.orders_series) %>
+    </div>
+    <dl class="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-muted">
+      <div>
+        <dt class="inline font-semibold"><%= t("admin.dashboard.sparkline.from") %></dt>
+        <dd class="inline"><%= l(@stats.orders_series.first[:date], format: :short) %></dd>
+      </div>
+      <div>
+        <dt class="inline font-semibold"><%= t("admin.dashboard.sparkline.to") %></dt>
+        <dd class="inline"><%= l(@stats.orders_series.last[:date], format: :short) %></dd>
+      </div>
+    </dl>
   </section>
 
   <section class="overflow-hidden rounded-2xl border border-border bg-surface">

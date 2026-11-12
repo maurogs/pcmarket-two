@@ -99,6 +99,53 @@ Rails.application.routes.draw do
       resource :dashboard, only: :show, controller: "dashboard"
       resources :listing_reviews, only: %i[index show update], path: "moderation"
       resources :reports, only: %i[index show update]
+
+      resources :listings, only: %i[index show edit update destroy] do
+        resource :approval, only: :create, controller: "listing_approvals"
+        resource :rejection, only: :create, controller: "listing_rejections"
+        resource :archival, only: :create, controller: "listing_archivals"
+        resource :restoration, only: :create, controller: "listing_restorations"
+        resource :feature, only: :create, controller: "listing_features"
+        resource :label, only: :create, controller: "listing_labels"
+      end
+      resources :listing_bulk_actions, only: :create, path: "listings/bulk"
+
+      resources :users, only: %i[index show edit update] do
+        resource :ban, only: %i[create destroy], controller: "user_bans"
+        resource :role, only: :create, controller: "user_roles"
+        resource :confirmation, only: :create, controller: "user_confirmations"
+        resource :confirmation_resend, only: :create, controller: "user_confirmation_resends"
+        resource :password_reset, only: :create, controller: "user_password_resets"
+        resource :deletion, only: :create, controller: "user_deletions"
+      end
+
+      resources :stores, only: %i[index show edit update] do
+        resource :verification, only: %i[create destroy], controller: "store_verifications"
+        resource :suspension, only: %i[create destroy], controller: "store_suspensions"
+        resources :reviews, only: [] do
+          resource :visibility, only: %i[create destroy],
+                                controller: "store_review_visibilities"
+        end
+      end
+
+      resources :orders, only: %i[index show] do
+        resource :shipment, only: :create, controller: "order_shipments"
+        resource :delivery, only: :create, controller: "order_deliveries"
+        resource :completion, only: :create, controller: "order_completions"
+        resource :cancellation, only: :create, controller: "order_cancellations"
+        resource :refund, only: :create, controller: "order_refunds"
+        resource :dispute_resolution, only: :create,
+                                      controller: "order_dispute_resolutions"
+        resources :notes, only: :create, controller: "order_notes"
+      end
+
+      resources :payouts, only: :index do
+        resource :retry, only: :create, controller: "payout_retries"
+      end
+
+      resources :audit_logs, only: :index
+      resource :impersonation, only: %i[create destroy], controller: "impersonations"
+
       root to: "dashboard#show"
     end
 

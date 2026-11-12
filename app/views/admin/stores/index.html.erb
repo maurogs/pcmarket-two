@@ -1,0 +1,112 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.title") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.stores.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("admin.stores.index.subtitle") %></p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <p class="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-muted"><%= t("admin.stores.index.count", count: @query.pagy.count) %></p>
+      <%= link_to t("admin.common.export_csv"), admin_stores_path(request.query_parameters.merge(format: :csv)), class: "btn-accent" %>
+    </div>
+  </header>
+
+  <%= form_with url: admin_stores_path, method: :get, scope: nil, class: "rounded-2xl border border-border bg-surface px-4 py-4" do %>
+    <div class="flex flex-wrap items-end gap-3">
+      <div class="min-w-0 flex-1">
+        <%= label_tag :q, t("admin.stores.filters.search"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= search_field_tag :q, @query.filters[:q], placeholder: t("admin.stores.filters.search_placeholder"), class: "field mt-1.5" %>
+      </div>
+      <div>
+        <%= label_tag :per_page, t("admin.common.per_page"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :per_page, options_for_select(Admin::Filterable::PER_PAGE_OPTIONS, @query.per_page), class: "field mt-1.5", onchange: "this.form.requestSubmit()" %>
+      </div>
+      <%= submit_tag t("admin.common.apply"), class: "btn-primary" %>
+      <%= link_to t("admin.common.clear"), admin_stores_path, class: "btn-accent" %>
+    </div>
+
+    <details class="mt-4 rounded-xl border border-border bg-surface-muted/60 px-4 py-3" <%= "open" if admin_filters_active?(@query.filters) %>>
+      <summary class="cursor-pointer text-sm font-semibold text-content"><%= t("admin.stores.filters.title") %></summary>
+      <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <%= label_tag :kind, t("admin.stores.filters.kind"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :kind, options_for_select([[t("admin.common.any"), ""]] + Admin::StoreQuery::STORE_KINDS.map { |k| [admin_store_kind_label(k), k] }, @query.filters[:kind]), class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :status, t("admin.stores.filters.status"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :status, options_for_select([[t("admin.common.any"), ""]] + Admin::StoreQuery::STORE_STATUSES.map { |s| [admin_store_status_label(s), s] }, @query.filters[:status]), class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :verified, t("admin.stores.filters.verified"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :verified, options_for_select([[t("admin.common.any"), ""], [t("admin.common.yes"), "true"], [t("admin.common.no"), "false"]], @query.filters[:verified].nil? ? "" : @query.filters[:verified].to_s), class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :payouts_ready, t("admin.stores.filters.payouts_ready"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :payouts_ready, options_for_select([[t("admin.common.any"), ""], [t("admin.common.yes"), "true"], [t("admin.common.no"), "false"]], @query.filters[:payouts_ready].nil? ? "" : @query.filters[:payouts_ready].to_s), class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :vacation, t("admin.stores.filters.vacation"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :vacation, options_for_select([[t("admin.common.any"), ""], [t("admin.common.yes"), "true"], [t("admin.common.no"), "false"]], @query.filters[:vacation].nil? ? "" : @query.filters[:vacation].to_s), class: "field mt-1.5" %>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <%= label_tag :rating_min, t("admin.stores.filters.rating_min"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= number_field_tag :rating_min, @query.filters[:rating_min], step: "0.1", min: 0, max: 5, class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= label_tag :rating_max, t("admin.stores.filters.rating_max"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= number_field_tag :rating_max, @query.filters[:rating_max], step: "0.1", min: 0, max: 5, class: "field mt-1.5" %>
+          </div>
+        </div>
+      </div>
+    </details>
+  <% end %>
+
+  <% if @query.records.any? %>
+    <div class="overflow-x-auto rounded-2xl border border-border bg-surface">
+      <table class="min-w-full divide-y divide-border text-sm">
+        <thead class="bg-surface-muted text-left text-xs font-semibold uppercase tracking-widest text-muted">
+          <tr>
+            <th scope="col" class="px-4 py-3"><%= admin_sort_link(t("admin.stores.table.store"), "name", query: @query, path: :admin_stores_path) %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.stores.table.owner") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.stores.table.kind") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.stores.table.status") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.stores.table.verified") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.stores.table.payouts") %></th>
+            <th scope="col" class="px-4 py-3"><%= admin_sort_link(t("admin.stores.table.rating"), "rating", query: @query, path: :admin_stores_path) %></th>
+            <th scope="col" class="px-4 py-3"><%= admin_sort_link(t("admin.stores.table.listings"), "listings", query: @query, path: :admin_stores_path) %></th>
+            <th scope="col" class="px-4 py-3 text-right"><%= t("admin.common.actions") %></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <% @query.records.each do |store| %>
+            <tr class="align-middle">
+              <td class="px-4 py-3">
+                <%= link_to store.name, admin_store_path(store), class: "font-semibold text-content underline-offset-2 hover:underline" %>
+                <p class="text-xs text-muted">#<%= store.id %></p>
+              </td>
+              <td class="px-4 py-3 text-muted"><%= store.user&.display_name %></td>
+              <td class="whitespace-nowrap px-4 py-3 text-muted"><%= admin_store_kind_label(store.kind) %></td>
+              <td class="whitespace-nowrap px-4 py-3">
+                <span class="rounded-full border px-2 py-0.5 text-xs font-semibold <%= admin_status_badge_class(store.status) %>"><%= admin_store_status_label(store.status) %></span>
+              </td>
+              <td class="px-4 py-3"><%= store.verified? ? t("admin.common.yes") : t("admin.common.no") %></td>
+              <td class="px-4 py-3"><%= store.payouts_enabled? ? t("admin.common.yes") : t("admin.common.no") %></td>
+              <td class="px-4 py-3 font-semibold"><%= store.rating_average %> (<%= store.ratings_count %>)</td>
+              <td class="px-4 py-3 text-muted"><%= store.listings_count %></td>
+              <td class="whitespace-nowrap px-4 py-3 text-right">
+                <%= link_to t("admin.common.view"), admin_store_path(store), class: "font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= pagy_nav(@query.pagy) %>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <h2 class="text-lg font-bold"><%= t("admin.stores.index.empty_title") %></h2>
+      <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("admin.stores.index.empty_body") %></p>
+    </div>
+  <% end %>
+</div>

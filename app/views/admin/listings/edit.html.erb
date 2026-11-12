@@ -1,0 +1,102 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <%= link_to t("admin.listings.edit.back"), admin_listing_path(@listing), class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.listings.edit.title") %></h1>
+      <p class="mt-2 text-sm text-muted"><%= t("admin.listings.edit.subtitle") %></p>
+    </div>
+  </header>
+
+  <%= form_with model: @listing, url: admin_listing_path(@listing), method: :patch, class: "space-y-6" do |f| %>
+    <%= render "shared/form_errors", object: @listing %>
+
+    <section class="space-y-4 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <%= f.label :category_id, t("admin.listings.edit.category"), class: "text-sm font-semibold text-content" %>
+          <%= f.collection_select :category_id, @categories, :id, :name,
+                                  {}, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= f.label :featured_until, t("admin.listings.edit.featured_until"), class: "text-sm font-semibold text-content" %>
+          <%= f.date_field :featured_until, class: "field mt-1.5" %>
+        </div>
+      </div>
+    </section>
+
+    <%= render "sell/listings/steps/details_fields",
+               f: f, listing: @listing, attributes: @attributes, seller_tags: @seller_tags %>
+
+    <section class="space-y-5 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+      <h2 class="text-lg font-bold"><%= t("sell.price.title") %></h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <%= f.label :price, t("sell.price.price_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.number_field :price, step: "0.01", min: 0, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= f.label :compare_at_price, t("sell.price.compare_at_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.number_field :compare_at_price, step: "0.01", min: 0, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= f.label :quantity, t("sell.price.quantity_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.number_field :quantity, min: 0, step: 1, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= f.label :handling_days, t("sell.price.handling_days_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.number_field :handling_days, min: 1, max: 10, step: 1, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= f.label :shipping_mode, t("sell.price.shipping_mode_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.select :shipping_mode, Listing.shipping_modes.keys.map { |m| [shipping_mode_label(m), m] }, {}, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= f.label :shipping_price, t("sell.price.shipping_price_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.number_field :shipping_price, step: "0.01", min: 0, class: "field mt-1.5" %>
+        </div>
+        <label class="flex items-center gap-3 text-sm">
+          <%= f.check_box :free_shipping, class: "h-5 w-5 rounded border-border text-primary-600" %>
+          <span><%= t("sell.price.free_shipping_label") %></span>
+        </label>
+        <label class="flex items-center gap-3 text-sm">
+          <%= f.check_box :allow_offers, class: "h-5 w-5 rounded border-border text-primary-600" %>
+          <span><%= t("sell.price.offers_label") %></span>
+        </label>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div>
+          <%= f.label :region_id, t("sell.price.region_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.collection_select :region_id, @regions, :id, :name, { include_blank: t("sell.price.region_placeholder") }, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= f.label :city, t("sell.price.city_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.text_field :city, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= f.label :postal_code, t("sell.price.postal_code_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.text_field :postal_code, class: "field mt-1.5" %>
+        </div>
+      </div>
+    </section>
+
+    <section class="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+      <h2 class="text-lg font-bold"><%= t("admin.listings.show.labels_title") %></h2>
+      <div class="mt-3 flex flex-wrap gap-3">
+        <% @product_labels.each do |tag| %>
+          <label class="flex items-center gap-2 rounded-full border border-border bg-surface-muted px-3 py-1.5 text-sm">
+            <%= check_box_tag "listing[product_label_ids][]", tag.id, @listing.product_label_ids.include?(tag.id),
+                              id: "product_label_#{tag.id}",
+                              class: "h-4 w-4 rounded border-border text-primary-600" %>
+            <span><%= tag.name %></span>
+          </label>
+        <% end %>
+      </div>
+    </section>
+
+    <div class="flex flex-wrap items-center justify-end gap-2">
+      <%= link_to t("admin.common.cancel"), admin_listing_path(@listing), class: "btn-accent" %>
+      <%= submit_tag t("admin.common.save"), class: "btn-primary" %>
+    </div>
+  <% end %>
+</div>
