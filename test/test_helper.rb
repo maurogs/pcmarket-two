@@ -167,6 +167,33 @@ module MarketplaceTestHelpers
   end
 end
 
+module ApiTestHelpers
+  def issue_api_session(user = users(:confirmed), platform: "ios", device_name: "Test device")
+    ApiSession.issue!(user: user, platform: platform, device_name: device_name)
+  end
+
+  def api_headers(token, locale: nil)
+    headers = {
+      "Authorization" => "Bearer #{token}",
+      "Accept" => "application/json"
+    }
+    headers["Accept-Language"] = locale if locale
+    headers
+  end
+
+  def json
+    JSON.parse(response.body)
+  end
+
+  def json_data
+    json.fetch("data")
+  end
+
+  def json_meta
+    json.fetch("meta")
+  end
+end
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
@@ -186,6 +213,11 @@ end
 
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include ApiTestHelpers
+
+  setup do
+    Rack::Attack.reset!
+  end
 
   prepend ModernBrowserRequests
 end

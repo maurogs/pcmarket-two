@@ -1,0 +1,36 @@
+de:
+  api:
+    errors:
+      unauthorized: "Bitte melde dich an, um fortzufahren."
+      forbidden: "Du darfst diese Aktion nicht ausführen."
+      not_found: "Diese Ressource wurde nicht gefunden."
+      validation_failed: "Bitte prüfe die übermittelten Daten."
+      rate_limited: "Zu viele Anfragen. Bitte versuche es später erneut."
+      conflict: "Diese Aktion ist nicht mehr verfügbar."
+      feature_disabled: "Diese Funktion ist nicht verfügbar."
+      required: "ist erforderlich"
+      invalid_signed_id: "Die hochgeladene Datei ist ungültig."
+    auth:
+      invalid_credentials: "E-Mail-Adresse oder Passwort ist falsch."
+      banned: "Dein Konto ist gesperrt. Bitte kontaktiere den Support."
+      deleted: "Dieses Konto wurde gelöscht."
+      locked: "Dein Konto ist vorübergehend gesperrt."
+      unconfirmed: "Bestätige deine E-Mail-Adresse, bevor du dich anmeldest."
+      confirmation_sent: "Wir haben dir eine Bestätigungs-E-Mail geschickt."
+      invalid_refresh_token: "Das Refresh-Token ist ungültig oder abgelaufen."
+      invalid_google_token: "Dein Google-Konto konnte nicht verifiziert werden."
+      email_unverified: "Deine Google-E-Mail-Adresse ist nicht verifiziert."
+      password_reset_sent: "Wenn ein Konto mit dieser E-Mail existiert, erhältst du Anweisungen zum Zurücksetzen des Passworts."
+    checkout:
+      payment_setup_failed: "Die Zahlung konnte nicht vorbereitet werden. Bitte versuche es erneut."
+    me:
+      cannot_delete: "Du kannst dein Konto nicht löschen, solange offene Bestellungen bestehen."
+    sell:
+      archive_instead: "Nur Entwürfe können gelöscht werden. Archiviere dieses Angebot stattdessen."
+  settings:
+    api_require_confirmation: "E-Mail-Bestätigung für API-Benutzer verlangen"
+  offers:
+    errors:
+      not_offerer: "Nur die Person, die das Angebot gemacht hat, kann es zurückziehen."
+    system:
+      withdrawn: "Angebot über %{amount} zurückgezogen."

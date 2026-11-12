@@ -24,6 +24,33 @@ module Payments
       Result.new(success: false, error: e.message)
     end
 
+    # The mobile PaymentSheet requires a Customer and a short-lived ephemeral
+    # key created with the same API version as the client SDK.
+    def create_customer(user:)
+      customer = Stripe::Customer.create(
+        {
+          email: user.email,
+          metadata: { user_id: user.id }
+        },
+        idempotency_key: "customer_user_#{user.id}"
+      )
+
+      CustomerResult.new(success: true, customer_id: customer.id, error: nil)
+    rescue Stripe::StripeError => e
+      CustomerResult.new(success: false, error: e.message)
+    end
+
+    def create_ephemeral_key(customer_id:)
+      key = Stripe::EphemeralKey.create(
+        { customer: customer_id },
+        stripe_version: Stripe.api_version
+      )
+
+      EphemeralKeyResult.new(success: true, secret: key.secret, error: nil)
+    rescue Stripe::StripeError => e
+      EphemeralKeyResult.new(success: false, error: e.message)
+    end
+
     def refund(order:, amount_cents: nil)
       payment_intent_id = order.checkout.payment_intent_id
       return Result.new(success: false, error: "missing_payment_intent") if payment_intent_id.blank?

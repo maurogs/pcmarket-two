@@ -48,22 +48,33 @@ module SavedSearches
       return relation if listing.price_cents.nil?
 
       price = listing.price_cents.to_i
-      min_sql = numeric_expression("min_price")
-      max_sql = numeric_expression("max_price")
-
-      relation = relation.where("#{min_sql} IS NULL OR #{min_sql} <= ?", price)
-      relation.where("#{max_sql} IS NULL OR #{max_sql} >= ?", price)
-    end
-
-    # Returns the euros expression in cents, or NULL for empty/malformed values
-    # so the SQL cast can never raise on user-supplied jsonb.
-    def numeric_expression(key)
-      <<~SQL.squish
-        CASE
-          WHEN (query_params->>'#{key}') ~ '^[0-9]+([.][0-9]+){0,1}$'
-          THEN ((query_params->>'#{key}')::numeric * 100)
-        END
-      SQL
+      relation.where(
+        <<~SQL.squish,
+          (CASE
+            WHEN (query_params->>'min_price') ~ '^[0-9]+([.][0-9]+){0,1}$'
+            THEN ((query_params->>'min_price')::numeric * 100)
+          END) IS NULL
+          OR
+          (CASE
+            WHEN (query_params->>'min_price') ~ '^[0-9]+([.][0-9]+){0,1}$'
+            THEN ((query_params->>'min_price')::numeric * 100)
+          END) <= ?
+        SQL
+        price
+      ).where(
+        <<~SQL.squish,
+          (CASE
+            WHEN (query_params->>'max_price') ~ '^[0-9]+([.][0-9]+){0,1}$'
+            THEN ((query_params->>'max_price')::numeric * 100)
+          END) IS NULL
+          OR
+          (CASE
+            WHEN (query_params->>'max_price') ~ '^[0-9]+([.][0-9]+){0,1}$'
+            THEN ((query_params->>'max_price')::numeric * 100)
+          END) >= ?
+        SQL
+        price
+      )
     end
 
     def process(search)

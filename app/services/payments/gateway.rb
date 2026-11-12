@@ -9,7 +9,27 @@ module Payments
       end
     end
 
+    CustomerResult = Struct.new(:success, :customer_id, :error, keyword_init: true) do
+      def success?
+        success
+      end
+    end
+
+    EphemeralKeyResult = Struct.new(:success, :secret, :error, keyword_init: true) do
+      def success?
+        success
+      end
+    end
+
     def create_payment(checkout:)
+      raise NotImplementedError
+    end
+
+    def create_customer(user:)
+      raise NotImplementedError
+    end
+
+    def create_ephemeral_key(customer_id:)
       raise NotImplementedError
     end
 

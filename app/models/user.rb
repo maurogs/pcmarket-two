@@ -27,6 +27,9 @@ class User < ApplicationRecord
   has_many :orders, foreign_key: :buyer_id, inverse_of: :buyer, dependent: :nullify
   has_many :checkouts, foreign_key: :buyer_id, inverse_of: :buyer, dependent: :nullify
 
+  has_many :api_sessions, dependent: :destroy
+  has_many :device_tokens, dependent: :destroy
+
   has_many :favourites, dependent: :destroy
   has_many :follows, foreign_key: :follower_id, inverse_of: :follower, dependent: :destroy
   has_many :followed_stores, through: :follows, source: :store

@@ -61,6 +61,14 @@ class Offer < ApplicationRecord
     end
   end
 
+  def self.cents_from_amount(value)
+    return if value.blank?
+
+    (BigDecimal(value.to_s) * 100).round
+  rescue ArgumentError, TypeError
+    nil
+  end
+
   def seller_side?
     offerer_id != buyer_id
   end

@@ -33,7 +33,7 @@ module Admin
     end
 
     def settings_params
-      params.require(:settings).permit!.to_h
+      params.require(:settings).permit(*Setting.pluck(:key).map(&:to_sym)).to_h
     end
   end
 end

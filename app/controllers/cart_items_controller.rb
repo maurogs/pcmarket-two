@@ -25,14 +25,13 @@ class CartItemsController < ApplicationController
   def update
     item = current_cart.items.find(params[:id])
     authorize item, :update?
-    quantity = quantity_param
+    result = Carts::UpdateItem.new(item: item, quantity: quantity_param).call
 
-    if quantity.positive? && item.update(quantity: quantity)
-      redirect_to cart_path, notice: t("cart.flash.updated")
-    elsif quantity <= 0 && item.destroy
-      redirect_to cart_path, notice: t("cart.flash.removed")
+    if result.success?
+      notice = result.removed ? t("cart.flash.removed") : t("cart.flash.updated")
+      redirect_to cart_path, notice: notice
     else
-      redirect_to cart_path, alert: item.errors.full_messages.first
+      redirect_to cart_path, alert: result.errors.first
     end
   end
 

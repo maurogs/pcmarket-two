@@ -12,6 +12,7 @@ require "digest"
 # selection set, and options that would return nothing are disabled.
 class ListingSearch
   PER_PAGE = 24
+  PER_PAGE_MAX = 50
   SORTS = %w[best_match newest price_asc price_desc popular].freeze
   FACET_CACHE_TTL = 5.minutes
 
@@ -65,6 +66,7 @@ class ListingSearch
     swap_prices_if_inverted
     @sort = normalized_sort
     @page = normalized_page
+    @per_page = normalized_per_page
     @region_id = normalized_region
     @free_shipping = ActiveModel::Type::Boolean.new.cast(@params["free_shipping"]).present?
     @selected_conditions = normalized_conditions
@@ -175,8 +177,8 @@ class ListingSearch
   end
 
   def build_pagy(total_count)
-    last_page = [ (total_count.to_f / PER_PAGE).ceil, 1 ].max
-    Pagy.new(count: total_count, page: [ @page, last_page ].min, limit: PER_PAGE)
+    last_page = [ (total_count.to_f / @per_page).ceil, 1 ].max
+    Pagy.new(count: total_count, page: [ @page, last_page ].min, limit: @per_page)
   end
 
   def resolve_category
@@ -340,6 +342,18 @@ class ListingSearch
     value && value.positive? ? value : 1
   end
 
+  # The HTML results keep the historical 24 cards per page. API clients can
+  # request a smaller/larger page up to the shared public limit of 50.
+  def normalized_per_page
+    raw = @params["per_page"]
+    return PER_PAGE unless raw.is_a?(String) || raw.is_a?(Numeric)
+
+    value = Integer(raw, exception: false)
+    return PER_PAGE if value.nil? || value <= 0
+
+    [ value, PER_PAGE_MAX ].min
+  end
+
   def normalized_region
     raw = @params["region"]
     return unless raw.is_a?(String) || raw.is_a?(Numeric)
@@ -422,7 +436,7 @@ class ListingSearch
     sql = "WITH filtered AS MATERIALIZED (#{ids_sql}) #{union_sql}"
 
     facets = { conditions: empty_condition_counts, attributes: {} }
-    ActiveRecord::Base.connection.exec_query(sql).each do |row|
+    ActiveRecord::Base.connection.exec_query(Arel.sql(sql)).each do |row|
       if row["facet_type"] == "condition"
         facets[:conditions][row["option_value"]] = row["total"].to_i
       else

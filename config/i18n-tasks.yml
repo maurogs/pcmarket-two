@@ -128,6 +128,11 @@ ignore_unused:
   - "buyback.quote.questions.*"
   - "buyback_mailer.events.*"
   - "errors.messages.invalid_iban"
+  - "api.errors.*"
+  - "api.auth.*"
+  - "api.checkout.*"
+  - "api.me.*"
+  - "api.sell.*"
 
 # Devise resolves its failure keys at runtime through devise-i18n, outside
 # config/locales, so i18n-tasks cannot see them.

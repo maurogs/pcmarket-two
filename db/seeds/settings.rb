@@ -2,6 +2,7 @@
 
 settings = [
   { key: "support_email",             value: "support@pcmarket.example", value_type: "string", group: "general", description_key: "settings.support_email" },
+  { key: "api_require_confirmation",  value: true,  value_type: "boolean", group: "general",    description_key: "settings.api_require_confirmation" },
   { key: "listings_require_approval", value: true,  value_type: "boolean", group: "listings",    description_key: "settings.listings_require_approval" },
   { key: "max_images_per_listing",    value: 12,    value_type: "integer", group: "listings",    description_key: "settings.max_images_per_listing" },
   { key: "min_listing_price",         value: 1,     value_type: "integer", group: "listings",    description_key: "settings.min_listing_price" },

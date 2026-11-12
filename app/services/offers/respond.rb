@@ -21,12 +21,15 @@ module Offers
     def call
       return failure("offers.errors.not_pending") unless @offer.pending?
       return failure("offers.errors.expired") if @offer.expired_by_time?
-      return failure("offers.errors.not_recipient") unless @offer.recipient&.id == @actor.id
+      unless @decision == "withdraw"
+        return failure("offers.errors.not_recipient") unless @offer.recipient&.id == @actor.id
+      end
 
       case @decision
       when "accept" then accept
       when "decline" then decline
       when "counter" then counter
+      when "withdraw" then withdraw
       else failure("offers.errors.invalid_decision")
       end
     rescue ActiveRecord::RecordInvalid => e
@@ -76,6 +79,20 @@ module Offers
         notify(@offer.offerer, "offer_countered", counter)
       end
       Result.new(success: true, offer: counter, errors: [])
+    end
+
+    # The party who made the offer can retract it while it is still pending.
+    def withdraw
+      return failure("offers.errors.not_offerer") unless @offer.offerer_id == @actor.id
+
+      Offer.transaction do
+        @offer.with_lock do
+          @offer.withdraw!
+          post_event("offers.system.withdrawn")
+        end
+      end
+
+      Result.new(success: true, offer: @offer, errors: [])
     end
 
     def post_event(key, amount_cents: @offer.amount_cents)

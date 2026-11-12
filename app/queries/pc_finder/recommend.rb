@@ -29,9 +29,10 @@ module PcFinder
       end
     end
 
-    def initialize(criteria, page: nil)
+    def initialize(criteria, page: nil, per_page: nil)
       @criteria = criteria
       @page = normalise_page(page)
+      @per_page = normalise_per_page(per_page)
     end
 
     def call
@@ -41,9 +42,9 @@ module PcFinder
       relation = base_relation(category)
       total = relation.count
       pagy = Pagy.new(count: total, page: [ @page, last_page(total) ].min,
-                      limit: PER_PAGE)
+                      limit: @per_page)
 
-      Result.new(listings: relation.offset(pagy.offset).limit(PER_PAGE).to_a,
+      Result.new(listings: relation.offset(pagy.offset).limit(@per_page).to_a,
                  pagy: pagy, criteria: @criteria)
     end
 
@@ -84,7 +85,7 @@ module PcFinder
     end
 
     def empty_result
-      Result.new(listings: [], pagy: Pagy.new(count: 0, page: 1, limit: PER_PAGE),
+      Result.new(listings: [], pagy: Pagy.new(count: 0, page: 1, limit: @per_page),
                  criteria: @criteria)
     end
 
@@ -93,8 +94,15 @@ module PcFinder
       page.positive? ? page : 1
     end
 
+    def normalise_per_page(value)
+      per_page = value.to_i
+      return PER_PAGE unless per_page.positive?
+
+      [ per_page, 50 ].min
+    end
+
     def last_page(total)
-      [ (total.to_f / PER_PAGE).ceil, 1 ].max
+      [ (total.to_f / @per_page).ceil, 1 ].max
     end
   end
 end

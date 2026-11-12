@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_220300) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_230200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -86,6 +86,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_220300) do
     t.index ["actor_id"], name: "index_admin_audit_logs_on_actor_id"
     t.index ["auditable_type", "auditable_id"], name: "index_admin_audit_logs_on_auditable_type_and_auditable_id"
     t.index ["created_at"], name: "index_admin_audit_logs_on_created_at"
+  end
+
+  create_table "api_sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "token_digest", null: false
+    t.string "refresh_token_digest", null: false
+    t.string "device_name"
+    t.string "platform", default: "other", null: false
+    t.string "app_version"
+    t.datetime "last_used_at"
+    t.datetime "expires_at", null: false
+    t.datetime "refresh_expires_at", null: false
+    t.datetime "revoked_at"
+    t.string "ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["refresh_token_digest"], name: "index_api_sessions_on_refresh_token_digest", unique: true
+    t.index ["token_digest"], name: "index_api_sessions_on_token_digest", unique: true
+    t.index ["user_id", "revoked_at"], name: "index_api_sessions_on_user_id_and_revoked_at"
+    t.index ["user_id"], name: "index_api_sessions_on_user_id"
   end
 
   create_table "attribute_definitions", force: :cascade do |t|
@@ -341,6 +361,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_220300) do
     t.datetime "updated_at", null: false
     t.index ["active", "tier"], name: "index_cpu_tiers_on_active_and_tier"
     t.index ["pattern"], name: "index_cpu_tiers_on_pattern", unique: true
+  end
+
+  create_table "device_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "api_session_id"
+    t.string "platform", default: "other", null: false
+    t.string "token", null: false
+    t.datetime "last_seen_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["api_session_id"], name: "index_device_tokens_on_api_session_id"
+    t.index ["token"], name: "index_device_tokens_on_token", unique: true
+    t.index ["user_id", "platform"], name: "index_device_tokens_on_user_id_and_platform"
+    t.index ["user_id"], name: "index_device_tokens_on_user_id"
   end
 
   create_table "favourites", force: :cascade do |t|
@@ -870,11 +904,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_220300) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_customer_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id", unique: true, where: "(stripe_customer_id IS NOT NULL)"
     t.index ["unconfirmed_email"], name: "index_users_on_unconfirmed_email"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -898,6 +934,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_220300) do
   add_foreign_key "addresses", "regions"
   add_foreign_key "addresses", "users"
   add_foreign_key "admin_audit_logs", "users", column: "actor_id"
+  add_foreign_key "api_sessions", "users"
   add_foreign_key "attribute_options", "attribute_definitions"
   add_foreign_key "blocks", "users", column: "blocked_id"
   add_foreign_key "blocks", "users", column: "blocker_id"
@@ -918,6 +955,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_220300) do
   add_foreign_key "conversations", "users", column: "buyer_id"
   add_foreign_key "conversations", "users", column: "seller_id"
   add_foreign_key "cookie_consents", "users"
+  add_foreign_key "device_tokens", "api_sessions"
+  add_foreign_key "device_tokens", "users"
   add_foreign_key "favourites", "listings"
   add_foreign_key "favourites", "users"
   add_foreign_key "follows", "stores"

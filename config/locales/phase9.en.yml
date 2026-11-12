@@ -1,0 +1,36 @@
+en:
+  api:
+    errors:
+      unauthorized: "Please sign in to continue."
+      forbidden: "You are not allowed to do that."
+      not_found: "We could not find that resource."
+      validation_failed: "Please check the submitted data."
+      rate_limited: "Too many requests. Please try again later."
+      conflict: "That action is no longer available."
+      feature_disabled: "This feature is not available."
+      required: "is required"
+      invalid_signed_id: "The uploaded file is not valid."
+    auth:
+      invalid_credentials: "Incorrect email address or password."
+      banned: "Your account is suspended. Please contact support."
+      deleted: "This account has been deleted."
+      locked: "Your account is temporarily locked."
+      unconfirmed: "Confirm your email address before signing in."
+      confirmation_sent: "We have sent you a confirmation email."
+      invalid_refresh_token: "The refresh token is invalid or has expired."
+      invalid_google_token: "We could not verify your Google account."
+      email_unverified: "Your Google email address is not verified."
+      password_reset_sent: "If an account exists for that email, you will receive password reset instructions."
+    checkout:
+      payment_setup_failed: "We could not prepare the payment. Please try again."
+    me:
+      cannot_delete: "You cannot delete your account while you have open orders."
+    sell:
+      archive_instead: "Only drafts can be deleted. Archive this listing instead."
+  settings:
+    api_require_confirmation: "Require email confirmation for API users"
+  offers:
+    errors:
+      not_offerer: "Only the person who made the offer can withdraw it."
+    system:
+      withdrawn: "Offer of %{amount} withdrawn."

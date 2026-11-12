@@ -51,10 +51,6 @@ class OffersController < ApplicationController
   end
 
   def amount_cents_param
-    return if params[:amount].blank?
-
-    (BigDecimal(params[:amount].to_s) * 100).round
-  rescue ArgumentError, TypeError
-    nil
+    Offer.cents_from_amount(params[:amount])
   end
 end

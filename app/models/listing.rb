@@ -243,11 +243,12 @@ class Listing < ApplicationRecord
       values = Array(raw_values).map(&:to_s).reject(&:empty?)
       next relation if values.empty?
 
-      clauses = Array.new(values.size, "(specs @> ?::jsonb OR specs @> ?::jsonb)")
-      binds = values.flat_map do |value|
-        [ { key => value }.to_json, { key => [ value ] }.to_json ]
+      scopes = values.map do |value|
+        all.where("specs @> ?::jsonb OR specs @> ?::jsonb",
+                  { key => value }.to_json, { key => [ value ] }.to_json)
       end
-      relation.where("(#{clauses.join(' OR ')})", *binds)
+      combined = scopes.reduce { |left, right| left.or(right) }
+      relation.where(combined.arel.constraints.reduce(:and))
     end
   end
 

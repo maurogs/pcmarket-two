@@ -10,6 +10,100 @@ Rails.application.routes.draw do
   # Stripe posts here without a locale prefix and verifies signatures itself.
   post "webhooks/stripe", to: "webhooks/stripe#create", as: :stripe_webhook
 
+  # Human-readable API documentation. Only this page loads the Redoc bundle.
+  get "api/docs", to: "api/docs#show", as: :api_docs
+
+  # Versioned JSON API for the native apps. It lives outside the locale scope:
+  # clients negotiate locale with Accept-Language instead of URL prefixes.
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resource :current_session, only: :destroy, path: "sessions/current",
+                                 controller: "current_sessions"
+      resources :sessions, only: %i[index create destroy]
+      resource :session_refresh, only: :create
+      resources :registrations, only: :create
+      resource :password_reset, only: :create
+      resources :google_sessions, only: :create
+      resource :me, only: %i[show update destroy], controller: "me"
+      resources :device_tokens, only: %i[create destroy]
+
+      # Public catalogue.
+      resources :categories, only: %i[index show]
+      resources :attribute_definitions, only: :index
+      resources :tags, only: :index
+      resources :regions, only: :index
+      resources :countries, only: :index
+      resources :listings, only: %i[index show]
+      resources :stores, only: :show do
+        resources :listings, only: :index, controller: "store_listings"
+        resources :reviews, only: :index, controller: "store_reviews"
+      end
+      namespace :pc_finder do
+        resources :games, only: :index
+        resources :recommendations, only: :index
+      end
+      resources :legal_pages, only: :show, param: :kind
+      resource :public_settings, only: :show, path: "settings/public",
+                                 controller: "public_settings"
+
+      # Buyer.
+      resources :favourites, only: %i[index create destroy]
+      resources :follows, only: %i[index create destroy]
+      resources :saved_searches, only: %i[index create update destroy]
+      resource :cart, only: :show, controller: "carts"
+      resources :cart_items, only: %i[create update destroy]
+      resources :addresses, only: %i[index create update destroy]
+      resources :checkouts, only: %i[create show]
+      resources :orders, only: %i[index show] do
+        resource :review, only: %i[create update], controller: "reviews"
+        resource :delivery_confirmation, only: :create,
+                                         controller: "order_delivery_confirmations"
+        resource :cancellation, only: :create,
+                                controller: "order_cancellations"
+        resource :problem_report, only: :create,
+                                  controller: "order_problem_reports"
+      end
+
+      # Seller.
+      resource :my_store, only: %i[show create update], path: "store",
+                          controller: "my_stores"
+      resource :vacation, only: %i[show update], controller: "store_vacations"
+      resource :stripe_connect, only: :create, controller: "stripe_connects"
+      resources :direct_uploads, only: :create
+
+      namespace :sell do
+        resources :listings, only: %i[index create update destroy] do
+          resource :submission, only: :create, controller: "submissions"
+          resource :archival, only: :create, controller: "archivals"
+          resource :republication, only: :create, controller: "republications"
+        end
+        resources :orders, only: %i[index show] do
+          resource :shipment, only: :create, controller: "order_shipments"
+          resource :cancellation, only: :create, controller: "order_cancellations"
+        end
+        resource :analytics, only: :show, controller: "analytics"
+      end
+
+      # Messaging.
+      resources :conversations, only: %i[index show create] do
+        resources :messages, only: %i[index create]
+        resource :read, only: :create, controller: "conversation_reads"
+      end
+      resources :offers, only: %i[create update]
+      resources :blocks, only: %i[index create destroy]
+      resources :reports, only: :create
+
+      # Notifications.
+      resources :notifications, only: :index do
+        resource :read, only: :create, controller: "notification_reads"
+      end
+      resource :notification_read_all, only: :create,
+             path: "notifications/read_all", controller: "notification_read_alls"
+      resource :notification_unread_count, only: :show,
+             path: "notifications/unread_count", controller: "notification_unread_counts"
+    end
+  end
+
   # All HTML routes are available with an optional locale prefix (e.g. /en, /fr).
   scope "(:locale)", locale: /es|en|fr|de|it|pt/ do
     devise_for :users, skip: :omniauth_callbacks,

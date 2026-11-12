@@ -105,23 +105,7 @@ module Sell
     end
 
     def build_listing
-      store = current_user.store
-      region = store.region ||
-               Region.find_by(country_code: store.country_code, name: store.province)
-
-      current_user.listings.build(
-        store: store,
-        seller: current_user,
-        country_code: store.country_code.presence || "ES",
-        currency: "EUR",
-        region: region,
-        city: store.city,
-        postal_code: store.postal_code,
-        quantity: 1,
-        handling_days: 3,
-        shipping_mode: :shipping,
-        allow_offers: store.allow_offers_default
-      )
+      Sell::BuildListing.new(user: current_user).call
     end
 
     def set_listing

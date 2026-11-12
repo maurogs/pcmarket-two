@@ -118,7 +118,8 @@ module Admin
 
     def order_sql
       column = sort_options.fetch(sort, sort_options.fetch(default_sort))
-      Arel.sql("#{column} #{direction.upcase}")
+      column = Arel::Nodes::SqlLiteral.new(column.to_s)
+      direction == "asc" ? column.asc : column.desc
     end
   end
 end

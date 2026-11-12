@@ -107,3 +107,7 @@ group :test do
   # Stub outbound HTTP calls (Stripe) in tests without network access
   gem "webmock"
 end
+
+gem "alba", "~> 4.0"
+gem "rack-cors", "~> 3.0"
+gem "googleauth", "~> 1.17"

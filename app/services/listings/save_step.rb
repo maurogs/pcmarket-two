@@ -5,11 +5,13 @@ module Listings
   # The listing is always validated against its step context so later steps do
   # not block earlier ones.
   class SaveStep
-    def initialize(listing:, step:, attributes: {}, images: [], photo_order: [], remove_photo_ids: [])
+    def initialize(listing:, step:, attributes: {}, images: [], photo_signed_ids: [],
+                   photo_order: [], remove_photo_ids: [])
       @listing = listing
       @step = step.to_s
       @attributes = attributes
       @images = Array(images).compact_blank
+      @photo_signed_ids = Array(photo_signed_ids).compact_blank
       @photo_order = Array(photo_order).compact_blank
       @remove_photo_ids = Array(remove_photo_ids).compact_blank
     end
@@ -37,7 +39,8 @@ module Listings
 
     private
 
-    attr_reader :listing, :step, :attributes, :images, :photo_order, :remove_photo_ids
+    attr_reader :listing, :step, :attributes, :images, :photo_signed_ids,
+                :photo_order, :remove_photo_ids
 
     def remove_photos
       return if remove_photo_ids.empty?
@@ -46,11 +49,22 @@ module Listings
     end
 
     def attach_images
-      return true if images.empty?
+      return true if images.empty? && photo_signed_ids.empty?
       return too_many_photos_error unless within_photo_limit?
 
       images.each do |image|
-        photo = listing.photos.build(image: image)
+        photo = listing.photos.build
+        photo.image.attach(image)
+        next if photo.save
+
+        photo.errors.full_messages.each { |message| listing.errors.add(:base, message) }
+        raise ActiveRecord::Rollback
+      end
+
+      photo_signed_ids.each do |signed_id|
+        blob = ActiveStorage::Blob.find_signed!(signed_id)
+        photo = listing.photos.build
+        photo.image.attach(blob)
         next if photo.save
 
         photo.errors.full_messages.each { |message| listing.errors.add(:base, message) }
@@ -58,13 +72,16 @@ module Listings
       end
 
       true
+    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      listing.errors.add(:base, I18n.t("api.errors.invalid_signed_id"))
+      false
     end
 
     def within_photo_limit?
       max = Setting.get(:max_images_per_listing, 12).to_i
       return true if max <= 0
 
-      listing.photos.size + images.size <= max
+      listing.photos.size + images.size + photo_signed_ids.size <= max
     end
 
     def too_many_photos_error
