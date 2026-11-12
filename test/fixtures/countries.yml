@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+spain:
+  code: ES
+  active: true
+  default_locale: es
+  currency: EUR
+  vat_rate: 21
+  position: 1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+france:
+  code: FR
+  active: false
+  default_locale: fr
+  currency: EUR
+  vat_rate: 20
+  position: 2
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

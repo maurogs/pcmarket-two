@@ -88,3 +88,103 @@ en:
       de: "Deutsch"
       it: "Italiano"
       pt: "Português"
+  countries:
+    es: "Spain"
+    fr: "France"
+    gb: "United Kingdom"
+    de: "Germany"
+    it: "Italy"
+    pt: "Portugal"
+  settings:
+    listings_require_approval: "Require approval before a listing goes live"
+    commission_percent: "Commission charged on each sale (%)"
+    commission_enabled: "Charge commissions on sales"
+    featured_listing_price: "Price of a featured listing"
+    featured_enabled: "Allow sellers to feature listings"
+    max_images_per_listing: "Maximum images per listing"
+    min_listing_price: "Minimum listing price"
+    max_listing_price: "Maximum listing price"
+    buyer_protection_days: "Days a buyer is protected after delivery"
+    support_email: "Support email address"
+    maintenance_mode: "Put the marketplace in maintenance mode"
+  auth:
+    sign_in:
+      title: "Welcome back"
+      subtitle: "Sign in to manage your listings, orders and favourites."
+      submit: "Sign in"
+    sign_up:
+      title: "Create your account"
+      subtitle: "Join the marketplace and start buying or selling PC parts."
+      submit: "Create account"
+    forgot_password:
+      title: "Forgot your password?"
+      subtitle: "Enter your email and we'll send you a reset link."
+      submit: "Send reset link"
+    reset_password:
+      title: "Choose a new password"
+      subtitle: "Pick a strong password you haven't used before."
+      submit: "Change password"
+    confirmation:
+      title: "Confirm your email"
+      subtitle: "We'll send the confirmation instructions again."
+      submit: "Resend confirmation"
+    unlock:
+      title: "Unlock your account"
+      subtitle: "We'll email you a link to unlock it."
+      submit: "Send unlock link"
+    benefits:
+      title: "Buy and sell with confidence"
+      buyers: "Buyer protection on every order"
+      sellers: "Reach thousands of PC enthusiasts"
+      secure: "Secure payments and verified sellers"
+    google: "Continue with Google"
+    remember_me: "Remember me"
+    username_hint: "3–30 characters. Letters, numbers, hyphens and underscores."
+    or: "or"
+    terms:
+      acceptance_html: "I accept the %{terms} and the %{privacy}"
+    marketing_opt_in: "Send me deals and marketplace news"
+    omniauth_failure: "We couldn't sign you in with Google. Please try again."
+  account:
+    menu:
+      signed_out:
+        sign_in: "Log in"
+        sign_up: "Create account"
+      my_orders: "My orders"
+      inbox: "Inbox"
+      wishlist: "Wishlist"
+      settings: "Account settings"
+      store:
+        title: "My store"
+        public_profile: "Public profile"
+        seller_dashboard: "Seller dashboard"
+        listings: "My listings"
+        sales: "My sales"
+        settings: "Store settings"
+      admin_panel: "Admin panel"
+      logout: "Log out"
+  devise:
+    failure:
+      banned: "Your account has been suspended. Please contact support."
+      deleted: "This account has been deleted."
+  pundit:
+    not_authorized: "You are not allowed to perform that action."
+  activerecord:
+    models:
+      user: "User"
+    attributes:
+      user:
+        username: "Username"
+        first_name: "First name"
+        last_name: "Last name"
+        phone: "Phone"
+        locale: "Language"
+        country_code: "Country"
+        marketing_opt_in: "Marketing emails"
+        terms_accepted: "Terms acceptance"
+        role: "Role"
+  errors:
+    messages:
+      not_saved:
+        one: "1 error prevented this %{resource} from being saved:"
+        other: "%{count} errors prevented this %{resource} from being saved:"

@@ -88,3 +88,103 @@ it:
       de: "Deutsch"
       it: "Italiano"
       pt: "Português"
+  countries:
+    es: "Spagna"
+    fr: "Francia"
+    gb: "Regno Unito"
+    de: "Germania"
+    it: "Italia"
+    pt: "Portogallo"
+  settings:
+    listings_require_approval: "Richiedi approvazione prima della pubblicazione di un annuncio"
+    commission_percent: "Commissione applicata a ogni vendita (%)"
+    commission_enabled: "Applica commissioni sulle vendite"
+    featured_listing_price: "Prezzo di un annuncio in evidenza"
+    featured_enabled: "Consenti ai venditori di mettere in evidenza gli annunci"
+    max_images_per_listing: "Numero massimo di immagini per annuncio"
+    min_listing_price: "Prezzo minimo di un annuncio"
+    max_listing_price: "Prezzo massimo di un annuncio"
+    buyer_protection_days: "Giorni di protezione dell'acquirente dopo la consegna"
+    support_email: "Indirizzo e-mail dell'assistenza"
+    maintenance_mode: "Attiva la modalità manutenzione del marketplace"
+  auth:
+    sign_in:
+      title: "Bentornato"
+      subtitle: "Accedi per gestire annunci, ordini e preferiti."
+      submit: "Accedi"
+    sign_up:
+      title: "Crea il tuo account"
+      subtitle: "Unisciti al marketplace e inizia a comprare o vendere componenti per PC."
+      submit: "Crea account"
+    forgot_password:
+      title: "Password dimenticata?"
+      subtitle: "Inserisci la tua e-mail e ti invieremo un link per reimpostarla."
+      submit: "Invia link"
+    reset_password:
+      title: "Scegli una nuova password"
+      subtitle: "Usa una password sicura che non hai mai usato prima."
+      submit: "Cambia password"
+    confirmation:
+      title: "Conferma la tua e-mail"
+      subtitle: "Ti invieremo di nuovo le istruzioni di conferma."
+      submit: "Invia di nuovo la conferma"
+    unlock:
+      title: "Sblocca il tuo account"
+      subtitle: "Ti invieremo un link via e-mail per sbloccarlo."
+      submit: "Invia link di sblocco"
+    benefits:
+      title: "Compra e vendi in tutta sicurezza"
+      buyers: "Protezione acquirenti su ogni ordine"
+      sellers: "Raggiungi migliaia di appassionati di PC"
+      secure: "Pagamenti sicuri e venditori verificati"
+    google: "Continua con Google"
+    remember_me: "Ricordami"
+    username_hint: "Da 3 a 30 caratteri. Lettere, numeri, trattini e trattini bassi."
+    or: "oppure"
+    terms:
+      acceptance_html: "Accetto i %{terms} e l'%{privacy}"
+    marketing_opt_in: "Ricevi offerte e novità dal marketplace"
+    omniauth_failure: "Non siamo riusciti ad accedere con Google. Riprova."
+  account:
+    menu:
+      signed_out:
+        sign_in: "Accedi"
+        sign_up: "Crea account"
+      my_orders: "I miei ordini"
+      inbox: "Posta in arrivo"
+      wishlist: "Preferiti"
+      settings: "Impostazioni account"
+      store:
+        title: "Il mio negozio"
+        public_profile: "Profilo pubblico"
+        seller_dashboard: "Dashboard venditore"
+        listings: "I miei annunci"
+        sales: "Le mie vendite"
+        settings: "Impostazioni negozio"
+      admin_panel: "Pannello di amministrazione"
+      logout: "Esci"
+  devise:
+    failure:
+      banned: "Il tuo account è sospeso. Contatta l'assistenza."
+      deleted: "Questo account è stato eliminato."
+  pundit:
+    not_authorized: "Non sei autorizzato a eseguire questa azione."
+  activerecord:
+    models:
+      user: "Utente"
+    attributes:
+      user:
+        username: "Nome utente"
+        first_name: "Nome"
+        last_name: "Cognome"
+        phone: "Telefono"
+        locale: "Lingua"
+        country_code: "Paese"
+        marketing_opt_in: "E-mail di marketing"
+        terms_accepted: "Accettazione dei termini"
+        role: "Ruolo"
+  errors:
+    messages:
+      not_saved:
+        one: "1 errore ha impedito il salvataggio di %{resource}:"
+        other: "%{count} errori hanno impedito il salvataggio di %{resource}:"

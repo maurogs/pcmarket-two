@@ -1,0 +1,70 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+confirmed:
+  username: mauro
+  email: mauro@example.com
+  encrypted_password: <%= BCrypt::Password.create("Password123!", cost: 4) %>
+  first_name: Mauro
+  last_name: Ruiz
+  role: user
+  locale: es
+  country_code: ES
+  confirmed_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+admin:
+  username: admin_fixture
+  email: admin@example.com
+  encrypted_password: <%= BCrypt::Password.create("Password123!", cost: 4) %>
+  first_name: Ada
+  last_name: Admin
+  role: admin
+  locale: es
+  country_code: ES
+  confirmed_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+seller_two:
+  username: seller_two
+  email: seller2@example.com
+  encrypted_password: <%= BCrypt::Password.create("Password123!", cost: 4) %>
+  first_name: Sofia
+  last_name: Seller
+  role: user
+  locale: es
+  country_code: ES
+  confirmed_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+banned:
+  username: banned_user
+  email: banned@example.com
+  encrypted_password: <%= BCrypt::Password.create("Password123!", cost: 4) %>
+  role: user
+  locale: es
+  country_code: ES
+  confirmed_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  banned_at: <%= Time.current %>
+  ban_reason: Spam
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+deleted:
+  username: deleted_user
+  email: deleted@example.com
+  encrypted_password: <%= BCrypt::Password.create("Password123!", cost: 4) %>
+  role: user
+  locale: es
+  country_code: ES
+  confirmed_at: <%= Time.current %>
+  terms_accepted_at: <%= Time.current %>
+  deleted_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

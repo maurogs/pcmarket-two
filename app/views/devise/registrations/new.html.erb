@@ -1,0 +1,48 @@
+<%= render layout: "devise/shared/auth_layout",
+           locals: { title: t("auth.sign_up.title"), subtitle: t("auth.sign_up.subtitle") } do %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-4" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div>
+      <%= f.label :username, class: "block text-sm font-medium text-content" %>
+      <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "field mt-1.5" %>
+      <p class="mt-1 text-xs text-muted"><%= t("auth.username_hint") %></p>
+    </div>
+
+    <div>
+      <%= f.label :email, class: "block text-sm font-medium text-content" %>
+      <%= f.email_field :email, autocomplete: "email", class: "field mt-1.5" %>
+    </div>
+
+    <div>
+      <%= f.label :password, class: "block text-sm font-medium text-content" %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "field mt-1.5" %>
+      <% if @minimum_password_length %>
+        <p class="mt-1 text-xs text-muted"><%= t("devise.shared.minimum_password_length", count: @minimum_password_length) %></p>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :password_confirmation, class: "block text-sm font-medium text-content" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "field mt-1.5" %>
+    </div>
+
+    <div class="flex items-start gap-2">
+      <%= f.check_box :terms_accepted, class: "mt-0.5 h-4 w-4 rounded border-border text-primary-600 focus:ring-primary-500" %>
+      <%= f.label :terms_accepted, class: "text-sm text-muted" do %>
+        <%= t("auth.terms.acceptance_html",
+              terms: link_to(t("footer.legal.terms"), "#", class: "font-semibold text-primary-600 underline hover:text-primary-700 dark:text-primary-300"),
+              privacy: link_to(t("footer.legal.privacy"), "#", class: "font-semibold text-primary-600 underline hover:text-primary-700 dark:text-primary-300")) %>
+      <% end %>
+    </div>
+
+    <label class="flex items-start gap-2 text-sm text-muted">
+      <%= f.check_box :marketing_opt_in, class: "mt-0.5 h-4 w-4 rounded border-border text-primary-600 focus:ring-primary-500" %>
+      <span><%= t("auth.marketing_opt_in") %></span>
+    </label>
+
+    <%= f.submit t("auth.sign_up.submit"), class: "btn-primary w-full" %>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+<% end %>

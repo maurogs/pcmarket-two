@@ -57,12 +57,59 @@
         <span class="absolute -right-0.5 -top-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold leading-none text-on-accent" aria-hidden="true">0</span>
       <% end %>
 
-      <%= link_to "#", class: "icon-button hidden lg:inline-flex", aria: { label: t("nav.account") } do %>
-        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-          <circle cx="12" cy="8" r="4"></circle>
-          <path d="M4 21a8 8 0 0 1 16 0" stroke-linecap="round"></path>
-        </svg>
-      <% end %>
+      <% account_menu_item_class = "flex w-full items-center rounded-lg px-3 py-2 text-left text-sm text-content transition hover:bg-surface-muted focus:bg-surface-muted" %>
+      <div data-controller="dropdown" class="relative">
+        <button type="button"
+                data-dropdown-target="trigger"
+                data-action="dropdown#toggle keydown->dropdown#triggerKeydown"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-label="<%= t("nav.account") %>"
+                class="icon-button">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21a8 8 0 0 1 16 0" stroke-linecap="round"></path>
+          </svg>
+        </button>
+
+        <div data-dropdown-target="menu"
+             role="menu"
+             aria-label="<%= t("nav.account") %>"
+             class="absolute right-0 z-50 mt-2 hidden w-64 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-xl">
+          <% if user_signed_in? %>
+            <div class="border-b border-border px-3 py-2">
+              <p class="truncate text-sm font-semibold text-content"><%= current_user.display_name %></p>
+              <p class="truncate text-xs text-muted"><%= current_user.email %></p>
+            </div>
+
+            <%= link_to t("account.menu.my_orders"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.inbox"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.wishlist"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.settings"), "#", role: "menuitem", class: account_menu_item_class %>
+
+            <div class="my-1 border-t border-border"></div>
+            <p class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.menu.store.title") %></p>
+            <%= link_to t("account.menu.store.public_profile"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.seller_dashboard"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.listings"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.sales"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.settings"), "#", role: "menuitem", class: account_menu_item_class %>
+
+            <div class="my-1 border-t border-border"></div>
+            <% if current_user.admin? %>
+              <%= link_to t("account.menu.admin_panel"), "#", role: "menuitem", class: account_menu_item_class %>
+            <% end %>
+            <%= button_to t("account.menu.logout"),
+                          destroy_user_session_path(locale: I18n.locale),
+                          method: :delete,
+                          role: "menuitem",
+                          class: account_menu_item_class %>
+          <% else %>
+            <%= link_to t("account.menu.signed_out.sign_in"), new_user_session_path(locale: I18n.locale), role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.signed_out.sign_up"), new_user_registration_path(locale: I18n.locale), role: "menuitem", class: account_menu_item_class %>
+          <% end %>
+        </div>
+      </div>
 
       <button type="button"
               data-controller="theme"

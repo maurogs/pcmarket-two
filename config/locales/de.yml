@@ -88,3 +88,103 @@ de:
       de: "Deutsch"
       it: "Italiano"
       pt: "Português"
+  countries:
+    es: "Spanien"
+    fr: "Frankreich"
+    gb: "Vereinigtes Königreich"
+    de: "Deutschland"
+    it: "Italien"
+    pt: "Portugal"
+  settings:
+    listings_require_approval: "Freigabe verlangen, bevor ein Angebot online geht"
+    commission_percent: "Provision pro Verkauf (%)"
+    commission_enabled: "Provisionen auf Verkäufe erheben"
+    featured_listing_price: "Preis für ein hervorgehobenes Angebot"
+    featured_enabled: "Verkäufern erlauben, Angebote hervorzuheben"
+    max_images_per_listing: "Maximale Bilder pro Angebot"
+    min_listing_price: "Mindestpreis eines Angebots"
+    max_listing_price: "Höchstpreis eines Angebots"
+    buyer_protection_days: "Tage Käuferschutz nach der Lieferung"
+    support_email: "Support-E-Mail-Adresse"
+    maintenance_mode: "Marktplatz in den Wartungsmodus versetzen"
+  auth:
+    sign_in:
+      title: "Willkommen zurück"
+      subtitle: "Melde dich an, um Angebote, Bestellungen und Favoriten zu verwalten."
+      submit: "Anmelden"
+    sign_up:
+      title: "Konto erstellen"
+      subtitle: "Tritt dem Marktplatz bei und kaufe oder verkaufe PC-Teile."
+      submit: "Konto erstellen"
+    forgot_password:
+      title: "Passwort vergessen?"
+      subtitle: "Gib deine E-Mail ein und wir senden dir einen Link zum Zurücksetzen."
+      submit: "Link senden"
+    reset_password:
+      title: "Neues Passwort wählen"
+      subtitle: "Wähle ein sicheres Passwort, das du noch nicht verwendet hast."
+      submit: "Passwort ändern"
+    confirmation:
+      title: "E-Mail bestätigen"
+      subtitle: "Wir senden dir die Bestätigungsanweisungen erneut."
+      submit: "Bestätigung erneut senden"
+    unlock:
+      title: "Konto entsperren"
+      subtitle: "Wir senden dir per E-Mail einen Link zum Entsperren."
+      submit: "Entsperrlink senden"
+    benefits:
+      title: "Sicher kaufen und verkaufen"
+      buyers: "Käuferschutz bei jeder Bestellung"
+      sellers: "Tausende PC-Enthusiasten erreichen"
+      secure: "Sichere Zahlungen und verifizierte Verkäufer"
+    google: "Weiter mit Google"
+    remember_me: "Angemeldet bleiben"
+    username_hint: "3 bis 30 Zeichen. Buchstaben, Zahlen, Bindestriche und Unterstriche."
+    or: "oder"
+    terms:
+      acceptance_html: "Ich akzeptiere die %{terms} und die %{privacy}"
+    marketing_opt_in: "Angebote und Neuigkeiten vom Marktplatz erhalten"
+    omniauth_failure: "Die Anmeldung mit Google ist fehlgeschlagen. Bitte versuche es erneut."
+  account:
+    menu:
+      signed_out:
+        sign_in: "Anmelden"
+        sign_up: "Konto erstellen"
+      my_orders: "Meine Bestellungen"
+      inbox: "Posteingang"
+      wishlist: "Favoriten"
+      settings: "Kontoeinstellungen"
+      store:
+        title: "Mein Shop"
+        public_profile: "Öffentliches Profil"
+        seller_dashboard: "Verkäufer-Dashboard"
+        listings: "Meine Angebote"
+        sales: "Meine Verkäufe"
+        settings: "Shop-Einstellungen"
+      admin_panel: "Admin-Bereich"
+      logout: "Abmelden"
+  devise:
+    failure:
+      banned: "Dein Konto wurde gesperrt. Bitte wende dich an den Support."
+      deleted: "Dieses Konto wurde gelöscht."
+  pundit:
+    not_authorized: "Du bist nicht berechtigt, diese Aktion auszuführen."
+  activerecord:
+    models:
+      user: "Benutzer"
+    attributes:
+      user:
+        username: "Benutzername"
+        first_name: "Vorname"
+        last_name: "Nachname"
+        phone: "Telefon"
+        locale: "Sprache"
+        country_code: "Land"
+        marketing_opt_in: "Marketing-E-Mails"
+        terms_accepted: "Zustimmung zu den Bedingungen"
+        role: "Rolle"
+  errors:
+    messages:
+      not_saved:
+        one: "1 Fehler verhinderte das Speichern von %{resource}:"
+        other: "%{count} Fehler verhinderten das Speichern von %{resource}:"

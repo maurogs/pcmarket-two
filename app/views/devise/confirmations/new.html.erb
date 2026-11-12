@@ -1,0 +1,19 @@
+<%= render layout: "devise/shared/auth_layout",
+           locals: { title: t("auth.confirmation.title"), subtitle: t("auth.confirmation.subtitle") } do %>
+  <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, class: "space-y-4" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div>
+      <%= f.label :email, class: "block text-sm font-medium text-content" %>
+      <%= f.email_field :email,
+                        autofocus: true,
+                        autocomplete: "email",
+                        value: resource.email,
+                        class: "field mt-1.5" %>
+    </div>
+
+    <%= f.submit t("auth.confirmation.submit"), class: "btn-primary w-full" %>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+<% end %>

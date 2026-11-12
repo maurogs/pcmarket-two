@@ -23,6 +23,17 @@ search:
     - app/assets/builds
 
 # Referenced dynamically by the locale switcher and category nav in the layout.
+# Country names are resolved from the code, setting descriptions are rendered
+# by the admin UI, and Devise resolves its failure keys at runtime.
 ignore_unused:
   - "locale.names.*"
   - "nav.categories.*"
+  - "countries.*"
+  - "settings.*"
+  - "devise.failure.*"
+  - "activerecord.*"
+
+# Devise resolves its failure keys at runtime through devise-i18n, outside
+# config/locales, so i18n-tasks cannot see them.
+ignore_missing:
+  - "devise.*"

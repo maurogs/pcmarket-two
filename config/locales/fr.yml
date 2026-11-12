@@ -88,3 +88,103 @@ fr:
       de: "Deutsch"
       it: "Italiano"
       pt: "Português"
+  countries:
+    es: "Espagne"
+    fr: "France"
+    gb: "Royaume-Uni"
+    de: "Allemagne"
+    it: "Italie"
+    pt: "Portugal"
+  settings:
+    listings_require_approval: "Exiger une approbation avant la publication d'une annonce"
+    commission_percent: "Commission prélevée sur chaque vente (%)"
+    commission_enabled: "Appliquer des commissions sur les ventes"
+    featured_listing_price: "Prix d'une annonce mise en avant"
+    featured_enabled: "Permettre aux vendeurs de mettre en avant leurs annonces"
+    max_images_per_listing: "Nombre maximal d'images par annonce"
+    min_listing_price: "Prix minimum d'une annonce"
+    max_listing_price: "Prix maximum d'une annonce"
+    buyer_protection_days: "Jours de protection de l'acheteur après livraison"
+    support_email: "Adresse e-mail du support"
+    maintenance_mode: "Mettre la place de marché en maintenance"
+  auth:
+    sign_in:
+      title: "Bon retour"
+      subtitle: "Connectez-vous pour gérer vos annonces, commandes et favoris."
+      submit: "Se connecter"
+    sign_up:
+      title: "Créez votre compte"
+      subtitle: "Rejoignez la place de marché et commencez à acheter ou vendre des pièces d'ordinateur."
+      submit: "Créer un compte"
+    forgot_password:
+      title: "Mot de passe oublié ?"
+      subtitle: "Saisissez votre e-mail et nous vous enverrons un lien de réinitialisation."
+      submit: "Envoyer le lien"
+    reset_password:
+      title: "Choisissez un nouveau mot de passe"
+      subtitle: "Utilisez un mot de passe robuste que vous n'avez jamais utilisé."
+      submit: "Changer le mot de passe"
+    confirmation:
+      title: "Confirmez votre e-mail"
+      subtitle: "Nous vous renverrons les instructions de confirmation."
+      submit: "Renvoyer la confirmation"
+    unlock:
+      title: "Débloquez votre compte"
+      subtitle: "Nous vous enverrons un lien par e-mail pour le débloquer."
+      submit: "Envoyer le lien de déblocage"
+    benefits:
+      title: "Achetez et vendez en toute confiance"
+      buyers: "Protection de l'acheteur sur chaque commande"
+      sellers: "Touchez des milliers de passionnés de PC"
+      secure: "Paiements sécurisés et vendeurs vérifiés"
+    google: "Continuer avec Google"
+    remember_me: "Se souvenir de moi"
+    username_hint: "3 à 30 caractères. Lettres, chiffres, tirets et traits de soulignement."
+    or: "ou"
+    terms:
+      acceptance_html: "J'accepte les %{terms} et la %{privacy}"
+    marketing_opt_in: "Recevoir les offres et actualités de la place de marché"
+    omniauth_failure: "Impossible de vous connecter avec Google. Veuillez réessayer."
+  account:
+    menu:
+      signed_out:
+        sign_in: "Se connecter"
+        sign_up: "Créer un compte"
+      my_orders: "Mes commandes"
+      inbox: "Boîte de réception"
+      wishlist: "Favoris"
+      settings: "Paramètres du compte"
+      store:
+        title: "Ma boutique"
+        public_profile: "Profil public"
+        seller_dashboard: "Tableau de bord vendeur"
+        listings: "Mes annonces"
+        sales: "Mes ventes"
+        settings: "Paramètres de la boutique"
+      admin_panel: "Panneau d'administration"
+      logout: "Se déconnecter"
+  devise:
+    failure:
+      banned: "Votre compte est suspendu. Veuillez contacter le support."
+      deleted: "Ce compte a été supprimé."
+  pundit:
+    not_authorized: "Vous n'êtes pas autorisé à effectuer cette action."
+  activerecord:
+    models:
+      user: "Utilisateur"
+    attributes:
+      user:
+        username: "Nom d'utilisateur"
+        first_name: "Prénom"
+        last_name: "Nom"
+        phone: "Téléphone"
+        locale: "Langue"
+        country_code: "Pays"
+        marketing_opt_in: "E-mails marketing"
+        terms_accepted: "Acceptation des conditions"
+        role: "Rôle"
+  errors:
+    messages:
+      not_saved:
+        one: "1 erreur a empêché l'enregistrement de %{resource} :"
+        other: "%{count} erreurs ont empêché l'enregistrement de %{resource} :"

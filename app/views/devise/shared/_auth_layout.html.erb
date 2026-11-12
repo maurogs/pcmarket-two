@@ -1,0 +1,42 @@
+<div class="mx-auto grid max-w-5xl overflow-hidden rounded-3xl border border-border bg-surface shadow-sm lg:grid-cols-2">
+  <aside class="relative flex flex-col justify-between gap-10 bg-primary-700 p-8 text-white sm:p-10">
+    <div class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10 blur-3xl" aria-hidden="true"></div>
+
+    <div class="relative">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-primary-200"><%= t("app.name") %></p>
+      <h2 class="mt-4 text-2xl font-extrabold tracking-tight"><%= t("auth.benefits.title") %></h2>
+
+      <ul class="mt-6 space-y-4 text-sm text-primary-100">
+        <li class="flex gap-3">
+          <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span><%= t("auth.benefits.buyers") %></span>
+        </li>
+        <li class="flex gap-3">
+          <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span><%= t("auth.benefits.sellers") %></span>
+        </li>
+        <li class="flex gap-3">
+          <svg class="mt-0.5 h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span><%= t("auth.benefits.secure") %></span>
+        </li>
+      </ul>
+    </div>
+
+    <p class="relative text-xs text-primary-200"><%= t("app.tagline") %></p>
+  </aside>
+
+  <section class="p-6 sm:p-10">
+    <h1 class="text-2xl font-extrabold tracking-tight text-content"><%= title %></h1>
+    <p class="mt-2 text-sm text-muted"><%= subtitle %></p>
+
+    <div class="mt-6">
+      <%= yield %>
+    </div>
+  </section>
+</div>

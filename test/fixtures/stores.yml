@@ -1,0 +1,26 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+confirmed_store:
+  user: confirmed
+  name: Mauro's PC Parts
+  slug: mauro-s-pc-parts
+  description: Verified components from a trusted seller.
+  kind: individual
+  status: active
+  country_code: ES
+  verified_at: <%= Time.current %>
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+suspended_store:
+  user: seller_two
+  name: Suspended Shop
+  slug: suspended-shop
+  description: Temporarily suspended storefront.
+  kind: business
+  legal_name: Suspended Shop SL
+  tax_id: B12345678
+  status: suspended
+  country_code: ES
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

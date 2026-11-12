@@ -1,0 +1,24 @@
+<%= render layout: "devise/shared/auth_layout",
+           locals: { title: t("auth.reset_password.title"), subtitle: t("auth.reset_password.subtitle") } do %>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "space-y-4" }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= f.hidden_field :reset_password_token %>
+
+    <div>
+      <%= f.label :password, class: "block text-sm font-medium text-content" %>
+      <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "field mt-1.5" %>
+      <% if @minimum_password_length %>
+        <p class="mt-1 text-xs text-muted"><%= t("devise.shared.minimum_password_length", count: @minimum_password_length) %></p>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :password_confirmation, class: "block text-sm font-medium text-content" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "field mt-1.5" %>
+    </div>
+
+    <%= f.submit t("auth.reset_password.submit"), class: "btn-primary w-full" %>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+<% end %>
