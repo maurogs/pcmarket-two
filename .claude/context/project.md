@@ -63,13 +63,24 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Store onboarding is a singular `/store` resource (`new/create/edit/update`). Users without a store are redirected there before listing an item. `stores.region_id` links the selected Spanish province; `province` is kept in sync with the region name.
 - Spanish NIF/NIE/CIF numbers are validated by `SpanishTaxIdValidator` (control letters/digits, tolerant of spaces, dots and hyphens). `Store` validates the tax ID globally and requires region/city (plus a five-digit postal code for business stores) in the `:onboarding` context.
 - Business sellers' legal name, tax ID and address are rendered in the public seller card on listing pages, matching the EU DSA trader-transparency notice in the store form.
-- The seller listing flow is `/sell` (`Sell::ListingsController`, RESTful new/create/edit/update/destroy; named `sell_listings` to avoid clashing with the public `listings` routes). Step 1 creates the draft; later steps PATCH `update` with a `step` parameter inside the `listing_wizard` Turbo frame.
+- The seller listing flow is `/sell` (`Sell::ListingsController`, RESTful index/new/create/edit/update/destroy; named `sell_listings` to avoid clashing with the public `listings` routes). Step 1 creates the draft; later steps PATCH `update` with a `step` parameter inside the `listing_wizard` Turbo frame.
 - Wizard steps are `category`, `photos`, `details`, `price` and `review`. `Listing` uses those names as validation contexts; title/description/price/handling/quantity validations are skipped in earlier contexts so a draft can exist before those fields are filled. `title`, `description` and `price_cents` are nullable at database level until the matching step fills them.
 - `Listings::SaveStep` persists attributes, photo uploads/removals/order and saves with the step context. `Listings::Submit` validates the `:review` context, calls the AASM `submit` event and has a TODO hook for the future moderator notification.
 - Photo uploads use Active Storage direct uploads (`@rails/activestorage`), the `sortable` Stimulus controller (native HTML5 drag plus up/down buttons) and the `category_picker`, `character_counter` and `store_kind` helpers. The photo limit comes from `Setting.get(:max_images_per_listing)`, and type/size errors are translated.
 - Sellers can select only seller tags (max 5) through `seller_tag_ids`; product labels remain an admin-only assignment. The offers toggle appears only when the `:offers` Flipper flag is enabled and defaults to `store.allow_offers_default`.
 - `StorePolicy` lets users manage only their own store. `ListingPolicy` allows creation only for confirmed, non-banned users with a non-suspended store; edit/update/destroy are owner-only until the admin panel exists. Owners delete drafts; every other state is archived.
-- The header and account menu point to the real store/listing entry points. "My listings" currently opens the sell flow because there is no seller listings index yet.
+- The seller listings index is `GET /sell` (`Sell::ListingsController#index`). `Sell::ListingCollection` owns the tab/status mapping (active = published + reserved; pending_review, drafts, rejected, sold, archived), the single grouped status COUNT for the tab badges, the case-insensitive title filter (`ILIKE` + `sanitize_sql_like`) and Pagy pagination at 20 per page. Invalid tabs fall back to active and invalid pages clamp to the last page. The index renders a desktop table and mobile cards, with thumbnail (`:thumb`), price, status badge, views, favourites, updated date and archive/republish/delete-draft actions; checkboxes sit outside the bulk form via the HTML `form` attribute and the `bulk_select` Stimulus controller only drives select-all.
+- Batch and state-transition operations are separate RESTful resources: `POST /sell/bulk-archive` (`Sell::BulkArchivesController`, `Sell::BulkArchive`) and `POST /sell/:listing_id/republish` (`Sell::ListingRepublishesController`). `Sell::BulkArchive` scopes ids to `current_user.listings`, ignores other sellers and archives only records where `may_archive?`. `ListingPolicy#republish?` mirrors `update?` (owner-only); republish uses the existing `submit`/`published` flash copy and redirects to the index.
+- Deleting a draft via `Sell::ListingsController#destroy` returns to the drafts tab, and archiving any other state returns to the archived tab. Sold listings expose no archive action because AASM does not allow it.
+- The header and account menu point to the real store/listing entry points. "My listings" opens `sell_listings_path`; the admin panel entry opens `admin_root_path` for admins and moderators; the store dashboard, sales, orders, inbox and wishlist remain placeholders.
+- The admin area lives under the optional locale scope at `/admin`: a singular dashboard and the RESTful `listing_reviews` resource at `/admin/moderation`. Flipper's UI stays at the locale-less `/admin/flipper` mount. `Admin::BaseController` uses the dedicated admin layout, Devise authentication and a staff check that raises `ActiveRecord::RecordNotFound` for non-staff accounts, so regular users see a 404 rather than a 403.
+- The admin shell has its own sidebar and top bar (listing search, six-locale switcher, back-to-site link and account menu) and deliberately omits the public header, footer and announcement bar. The sidebar lists every planned section, but only Dashboard, Moderation queue and Feature flags link anywhere; the rest render as disabled "coming soon" rows.
+- `Admin::DashboardStats` caches the dashboard COUNT metrics for 60 seconds under `admin/dashboard/stats`. The dashboard table shows the ten oldest pending listings (`submitted_at ASC NULLS LAST, id ASC`).
+- The moderation queue is owned by `Admin::ModerationQueue`: pending-only, category-descendant, seller-kind, photo-EXISTS and title filters, Pagy at 20 per page, the category options, the applied filters and the oldest/next/previous lookups used by the dashboard and review page. `Admin::SellerProfile` supplies account age, previous rejected moderations and the store's verified flag, batching rejection counts for the index.
+- Admin policies subclass `Admin::ApplicationPolicy`: dashboard and listing moderation are available to staff, while the future user and setting screens are admin-only placeholders. The moderation controller authorises through `Admin::ListingPolicy`.
+- `Listings::Moderate` performs the pending check, AASM transition and moderation log inside `listing.with_lock`; a second moderator receives `nil` with no duplicate log or email. Emails are enqueued only after the lock transaction returns successfully.
+- `ListingModeration::REJECTION_REASONS` lists the eight predefined reasons. `ListingModeration.compose_reason` translates the selected code in the seller's locale and joins it to the optional note with an em dash; the combined text is stored on both `listings.rejection_reason` and `listing_moderations.reason`.
+- `ListingMailer#approved`/`#rejected` render HTML and text in the seller's locale through `I18n.with_locale`, pass the locale explicitly to listing/edit URLs and use the inline-styled `listing_mailer` layout. The dashboard/review UI uses the `moderation_shortcuts` Stimulus controller (A, R, J/K) and ignores keys while typing.
 
 
 ## Schema Summary
@@ -157,32 +168,48 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `app/services/listings/submit.rb` — review validation + AASM `submit` event, with the moderator notification TODO.
 - `app/validators/spanish_tax_id_validator.rb` — NIF/NIE/CIF control-character validation.
 - `app/controllers/stores_controller.rb` — singular store onboarding and settings (`:onboarding` validation context).
-- `app/controllers/sell/listings_controller.rb` — five-step listing wizard, submit and draft/archive deletion.
+- `app/controllers/sell/listings_controller.rb` — seller listings index, five-step listing wizard, submit and draft/archive deletion.
+- `app/queries/sell/listing_collection.rb` — seller listing tabs, grouped tab counts, title filter and Pagy pagination.
+- `app/services/sell/bulk_archive.rb`, `app/controllers/sell/bulk_archives_controller.rb` — owner-scoped batch archive (`POST /sell/bulk-archive`).
+- `app/controllers/sell/listing_republishes_controller.rb` — owner-only republish transition (`POST /sell/:listing_id/republish`).
+- `app/controllers/admin/{base,dashboard,listing_reviews}_controller.rb` — staff-only shell, dashboard and the moderation queue/preview/decision resource.
+- `app/queries/admin/{dashboard_stats,moderation_queue,seller_profile}.rb` — cached KPI counts and dashboard rows, the filtered pending queue with pagination/neighbours, and seller-level moderation facts.
+- `app/policies/admin/{application,dashboard,listing,user,setting}_policy.rb` — staff/admin policy hierarchy.
+- `app/helpers/admin_helper.rb` — sidebar items (real links vs disabled placeholders), KPI/reason/action labels and nav classes.
+- `app/views/layouts/admin.html.erb`, `app/views/admin/shared/{_sidebar,_topbar}.html.erb` — noindex admin shell with drawer sidebar, search, locale switcher and account menu.
+- `app/views/admin/dashboard/show.html.erb`, `app/views/admin/listing_reviews/{index,show,_queue_row,_queue_card,_thumbnail}.html.erb` — KPI cards, oldest pending table, filtered queue and review page.
+- `app/mailers/listing_mailer.rb`, `app/views/layouts/listing_mailer.{html,text}.erb`, `app/views/listing_mailer/{approved,rejected}.{html,text}.erb` — locale-aware approval/rejection emails with an inline-styled branded layout.
+- `test/mailers/previews/listing_mailer_preview.rb` — Letter Opener previews for the moderation emails.
+- `app/javascript/controllers/moderation_shortcuts_controller.js` — A/R/J/K keyboard shortcuts, disabled while typing.
 - `app/policies/store_policy.rb`, `app/policies/listing_policy.rb` — own-store and owner/create eligibility rules.
 - `app/helpers/sell_helper.rb` — wizard progress labels, condition copy and review field labels.
 - `app/views/stores/` — onboarding/settings form with kind toggle and business legal fields.
-- `app/views/sell/listings/` — wizard shell, progress and the category/photos/details/price/review step partials.
+- `app/views/sell/listings/` — seller index (tabs, table, mobile cards, bulk bar), wizard shell, progress and the category/photos/details/price/review step partials.
 - `app/views/shared/_form_errors.html.erb` — shared validation summary.
-- `app/javascript/controllers/{wizard,sortable,category_picker,character_counter,store_kind}_controller.js` — wizard progress, photo reordering, category search, counters and business-field toggling.
+- `app/javascript/controllers/{wizard,sortable,category_picker,character_counter,store_kind,bulk_select}_controller.js` — wizard progress, photo reordering, category search, counters, business-field toggling and seller bulk selection.
 - `test/validators/spanish_tax_id_validator_test.rb`, `test/policies/{store,listing}_policy_test.rb`, `test/models/listing_wizard_validation_test.rb` — validator, policy and step-context coverage.
-- `test/integration/{store_onboarding,sell_listings_wizard}_test.rb` — onboarding, wizard happy paths, approval-off, photo limit, compare-at, review and delete/archive coverage.
+- `test/integration/{store_onboarding,sell_listings_wizard,sell_listings_index}_test.rb` — onboarding, wizard happy paths, approval-off, photo limit, compare-at, review, seller tabs/filter/bulk/republish and delete/archive coverage.
 - `app/helpers/money_helper.rb` — locale-aware `money(cents, currency:)` using `number_to_currency`.
 - `test/i18n_test.rb` — missing/unused key checks.
 - `test/seeds/catalogue_seeds_test.rb` — catalogue seed counts, idempotency, six-locale coverage and leaf attribute rules.
 - `test/models/{user,store,country,setting,category,listing,listing_photo,tag}_test.rb` — domain model coverage.
 - `test/services/listings/moderate_test.rb`, `test/helpers/money_helper_test.rb` — service and helper coverage.
 - `test/integration/{registrations,sessions,flipper_access,omniauth_callbacks}_test.rb` — auth and Flipper access flows.
+- `test/integration/{admin_access,admin_dashboard,admin_moderation}_test.rb` — staff 404/redirect rules, KPI values, queue filters, review content, approve/reject, concurrency and emails.
+- `test/policies/admin/listing_policy_test.rb`, `test/mailers/listing_mailer_test.rb` — staff policy rules and locale-aware moderation emails; `test/mailers/previews/` holds the mailer preview.
+- `test/services/listings/moderate_test.rb` — moderation transitions, emails and the double-moderation guard.
 - `test/controllers/{pages,layout}_controller_test.rb` — locale routing, detection and shell rendering.
 - `test/fixtures/{categories,attribute_definitions,attribute_options,category_attributes,tags,listings,regions}.yml` — catalogue fixtures.
 - `Procfile.dev`, `bin/dev` — development processes (web + Tailwind watch).
 
 ## Open Items
-- There is no seller listings index: "My listings" opens `/sell/new` for now. Store dashboard, sales, orders, inbox, wishlist, public store and account-settings links remain placeholders (`#`).
-- The catalogue domain is browsable (category, search, filters and listing detail) but there is no admin UI for it yet.
-- There is no admin UI for `Setting` yet; values are read through `Setting.get`. `Listings::Moderate` is the service the future admin panel will call.
-- `Listings::Submit` has a TODO to enqueue the moderator notification; there is no notification mailer yet.
+- The seller listings index is in place; store dashboard, sales, orders, inbox, wishlist, public store and account-settings links remain placeholders (`#`).
+- The admin area now has a dashboard and a moderation queue. Admin screens for listings, users, stores, orders, categories, filters/attributes, tags, countries, settings, legal pages and reports are still placeholders (disabled “coming soon” sidebar rows).
+- The catalogue domain is fully browsable and the moderation review page reuses the public buyer preview, but the catalogue CRUD screens (categories, attributes, tags, countries) are not built.
+- `Setting` values are still read and written through `Setting.get`/`Setting.set`; the admin settings screen is a placeholder.
+- `Listings::Submit` still has a TODO to enqueue the moderator notification on submission. Seller approval/rejection emails now exist through `ListingMailer`.
 - Buy now, add to basket, make an offer, message seller, wishlist and store links are disabled placeholders until their Phase 4+ resources exist.
 - Only ES is launched and only Spanish provinces are accepted by the region filter; FR, GB, DE, IT and PT are inactive catalogue rows.
 - Google OAuth credentials are not configured in development by default; the login button stays hidden until they are.
 - The newsletter form posts nowhere, the cart badge is a static `0`, and the theme-color meta tags follow the system scheme rather than a manual toggle.
-- Editing a published listing relies on the existing material-edit rule. Sold listings cannot be archived by the AASM state machine, so a "delete" action on a sold listing should be hidden or handled once sales exist.
+- Editing a published listing relies on the existing material-edit rule. Sold listings cannot be archived by the AASM state machine, so the seller index shows them without an archive action until sales exist.

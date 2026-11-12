@@ -1,0 +1,49 @@
+<aside data-drawer-target="panel"
+       id="admin-sidebar"
+       role="dialog"
+       aria-modal="true"
+       aria-label="<%= t("admin.nav.label") %>"
+       class="fixed inset-y-0 left-0 z-50 hidden w-72 shrink-0 overflow-y-auto border-r border-border bg-surface p-4 md:sticky md:top-0 md:flex md:h-screen md:w-64 md:flex-col">
+  <div class="flex items-center justify-between gap-2">
+    <%= link_to admin_root_path, class: "flex min-w-0 items-center gap-2" do %>
+      <svg class="h-9 w-9 shrink-0" viewBox="0 0 36 36" aria-hidden="true">
+        <rect width="36" height="36" rx="11" class="fill-primary-600"></rect>
+        <path d="M11 25V11h7.4a4.6 4.6 0 0 1 0 9.2H15.8" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+        <circle cx="24.8" cy="24.4" r="2.4" class="fill-accent"></circle>
+      </svg>
+      <span class="min-w-0">
+        <span class="block truncate text-base font-extrabold tracking-tight text-content"><%= t("app.name") %></span>
+        <span class="block text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.title") %></span>
+      </span>
+    <% end %>
+
+    <button type="button" data-action="drawer#close" class="icon-button md:hidden" aria-label="<%= t("admin.nav.close_sidebar") %>">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </div>
+
+  <nav aria-label="<%= t("admin.nav.label") %>" class="mt-6 flex-1">
+    <ul class="space-y-1">
+      <% admin_nav_items.each do |item| %>
+        <% active = admin_nav_item_active?(item) %>
+        <li>
+          <% if item[:path].present? %>
+            <%= link_to t("admin.nav.#{item[:key]}"),
+                        item[:path],
+                        aria: { current: (active ? "page" : nil) },
+                        class: admin_nav_item_classes(active) %>
+          <% else %>
+            <span aria-disabled="true"
+                  title="<%= t("admin.nav.coming_soon") %>"
+                  class="flex cursor-not-allowed items-center justify-between gap-2 rounded-xl px-3 py-2 text-sm font-medium text-muted opacity-50">
+              <span><%= t("admin.nav.#{item[:key]}") %></span>
+              <span class="text-[10px] font-semibold uppercase tracking-wide"><%= t("admin.nav.coming_soon") %></span>
+            </span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</aside>

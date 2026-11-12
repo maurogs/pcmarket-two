@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#080d18" media="(prefers-color-scheme: dark)">
+    <meta name="application-name" content="<%= t("app.name") %>">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%# Applies the persisted/system theme before first paint to avoid a flash. %>
+    <script>
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (error) {}
+      })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <title><%= t("admin.title") %> · <%= t("app.name") %></title>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body id="top" class="min-h-screen bg-canvas text-content">
+    <a href="#main-content"
+       class="sr-only rounded-xl bg-primary-600 px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60]">
+      <%= t("layout.skip_to_content") %>
+    </a>
+
+    <div data-controller="drawer" class="min-h-screen">
+      <div class="flex min-h-screen">
+        <%= render "admin/shared/sidebar" %>
+
+        <div data-drawer-target="overlay"
+             data-action="click->drawer#close"
+             class="fixed inset-0 z-40 hidden bg-slate-950/60 backdrop-blur-sm md:hidden"
+             aria-hidden="true"></div>
+
+        <div class="flex min-w-0 flex-1 flex-col">
+          <%= render "admin/shared/topbar" %>
+
+          <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-7xl flex-1 px-4 py-8 focus:outline-none sm:px-6 lg:px-8">
+            <%= render "shared/flash" %>
+            <%= yield %>
+          </main>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

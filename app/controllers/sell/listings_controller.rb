@@ -6,6 +6,10 @@ module Sell
     before_action :ensure_store
     before_action :set_listing, only: %i[edit update destroy]
 
+    def index
+      @collection = Sell::ListingCollection.new(user: current_user, params: params).call
+    end
+
     def new
       @listing = build_listing
       authorize @listing
@@ -49,10 +53,10 @@ module Sell
 
       if @listing.draft?
         @listing.destroy!
-        redirect_to new_sell_listing_path, notice: t("sell.flash.destroyed")
+        redirect_to sell_listings_path(tab: "drafts"), notice: t("sell.flash.destroyed")
       else
         @listing.archive!
-        redirect_to listing_path(@listing), notice: t("sell.flash.archived")
+        redirect_to sell_listings_path(tab: "archived"), notice: t("sell.flash.archived")
       end
     end
 

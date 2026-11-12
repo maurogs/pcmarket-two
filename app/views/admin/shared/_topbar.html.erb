@@ -1,0 +1,107 @@
+<header class="sticky top-0 z-30 border-b border-border bg-surface/95 backdrop-blur">
+  <div class="flex flex-wrap items-center gap-2 px-4 py-3 sm:px-6 lg:px-8">
+    <button type="button"
+            data-drawer-target="toggle"
+            data-action="drawer#open"
+            aria-controls="admin-sidebar"
+            aria-expanded="false"
+            aria-label="<%= t("admin.nav.open_sidebar") %>"
+            class="icon-button md:hidden">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"></path>
+      </svg>
+    </button>
+
+    <div class="order-last w-full min-w-0 sm:order-none sm:w-auto sm:max-w-sm sm:flex-1">
+      <%= form_with url: admin_listing_reviews_path, method: :get, role: "search", scope: nil, class: "w-full" do %>
+        <label for="admin-search" class="sr-only"><%= t("admin.topbar.search_label") %></label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-muted">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+            </svg>
+          </span>
+          <%= search_field_tag :q,
+                               params[:q],
+                               id: "admin-search",
+                               placeholder: t("admin.topbar.search_placeholder"),
+                               autocomplete: "off",
+                               class: "field pl-10" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="ml-auto flex items-center gap-1">
+      <div data-controller="dropdown" class="relative">
+        <button type="button"
+                data-dropdown-target="trigger"
+                data-action="dropdown#toggle keydown->dropdown#triggerKeydown"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-label="<%= t("admin.topbar.language") %>"
+                class="icon-button gap-1.5 px-2">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" stroke-linecap="round"></path>
+          </svg>
+          <span class="hidden text-xs font-semibold sm:inline"><%= t("locale.names.#{I18n.locale}") %></span>
+        </button>
+
+        <div data-dropdown-target="menu"
+             role="menu"
+             aria-label="<%= t("admin.topbar.language") %>"
+             class="absolute right-0 z-50 mt-2 hidden w-44 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-xl">
+          <% I18n.available_locales.each do |locale| %>
+            <%= link_to t("locale.names.#{locale}"),
+                        url_for(locale: locale),
+                        role: "menuitem",
+                        lang: locale,
+                        hreflang: locale,
+                        aria: { current: ("true" if locale == I18n.locale) },
+                        class: "flex items-center justify-between rounded-lg px-3 py-2 text-sm text-content transition hover:bg-surface-muted #{locale == I18n.locale ? "font-semibold text-primary-700 dark:text-primary-300" : ""}" %>
+          <% end %>
+        </div>
+      </div>
+
+      <%= link_to root_path, class: "icon-button gap-1.5 px-2", aria: { label: t("admin.topbar.back_to_site") } do %>
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M10 6 4 12l6 6M4 12h16" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span class="hidden text-xs font-semibold lg:inline"><%= t("admin.topbar.back_to_site") %></span>
+      <% end %>
+
+      <% menu_item_class = "flex w-full items-center rounded-lg px-3 py-2 text-left text-sm text-content transition hover:bg-surface-muted focus:bg-surface-muted" %>
+      <div data-controller="dropdown" class="relative">
+        <button type="button"
+                data-dropdown-target="trigger"
+                data-action="dropdown#toggle keydown->dropdown#triggerKeydown"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                aria-label="<%= current_user.display_name %>"
+                class="icon-button gap-2 px-2">
+          <span class="hidden max-w-32 truncate text-xs font-semibold sm:inline"><%= current_user.display_name %></span>
+          <svg class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21a8 8 0 0 1 16 0" stroke-linecap="round"></path>
+          </svg>
+        </button>
+
+        <div data-dropdown-target="menu"
+             role="menu"
+             aria-label="<%= current_user.display_name %>"
+             class="absolute right-0 z-50 mt-2 hidden w-64 overflow-hidden rounded-xl border border-border bg-surface p-1 shadow-xl">
+          <div class="border-b border-border px-3 py-2">
+            <p class="truncate text-sm font-semibold text-content"><%= current_user.display_name %></p>
+            <p class="truncate text-xs text-muted"><%= current_user.email %></p>
+          </div>
+          <%= button_to t("account.menu.logout"),
+                        destroy_user_session_path(locale: I18n.locale),
+                        method: :delete,
+                        role: "menuitem",
+                        class: menu_item_class %>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

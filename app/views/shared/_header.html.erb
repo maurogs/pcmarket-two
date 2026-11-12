@@ -91,7 +91,7 @@
             <p class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.menu.store.title") %></p>
             <%= link_to t("account.menu.store.public_profile"), "#", role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.seller_dashboard"), "#", role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.store.listings"), new_sell_listing_path, role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.listings"), sell_listings_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.sales"), "#", role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.settings"),
                         current_user.store.present? ? edit_store_path : new_store_path,
@@ -99,8 +99,8 @@
                         class: account_menu_item_class %>
 
             <div class="my-1 border-t border-border"></div>
-            <% if current_user.admin? %>
-              <%= link_to t("account.menu.admin_panel"), "#", role: "menuitem", class: account_menu_item_class %>
+            <% if current_user.admin? || current_user.moderator? %>
+              <%= link_to t("account.menu.admin_panel"), admin_root_path, role: "menuitem", class: account_menu_item_class %>
             <% end %>
             <%= button_to t("account.menu.logout"),
                           destroy_user_session_path(locale: I18n.locale),

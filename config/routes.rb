@@ -17,8 +17,23 @@ Rails.application.routes.draw do
     get "search", to: "listings#index", as: :search
 
     resource :store, only: %i[new create edit update]
-    resources :listings, path: "sell", only: %i[new create edit update destroy],
-                         controller: "sell/listings", as: :sell_listings
+    resources :listings, path: "sell", only: %i[index new create edit update destroy],
+                         controller: "sell/listings", as: :sell_listings do
+      # A state transition is modelled as its own singular resource so the
+      # route stays RESTful (POST creates a republish request for one listing).
+      resource :republish, only: :create, controller: "sell/listing_republishes"
+    end
+
+    # A batch operation is modelled as its own resource so the route stays
+    # RESTful (POST creates one bulk archive) instead of a custom action.
+    resource :bulk_archive, only: :create, path: "sell/bulk-archive",
+                            controller: "sell/bulk_archives"
+
+    namespace :admin do
+      resource :dashboard, only: :show, controller: "dashboard"
+      resources :listing_reviews, only: %i[index show update], path: "moderation"
+      root to: "dashboard#show"
+    end
 
     root "pages#home"
   end

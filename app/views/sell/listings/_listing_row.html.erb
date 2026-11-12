@@ -1,0 +1,50 @@
+<tr class="align-middle">
+  <td class="px-4 py-3">
+    <input type="checkbox"
+           name="bulk_archive[listing_ids][]"
+           value="<%= listing.id %>"
+           form="bulk-archive-form"
+           aria-label="<%= t("sell.listings.bulk.select_listing", title: listing.title.presence || t("sell.listings.untitled")) %>"
+           data-bulk-select-target="item"
+           data-action="change->bulk_select#update"
+           class="h-4 w-4 rounded border-border text-primary-600">
+  </td>
+
+  <td class="px-4 py-3">
+    <div class="flex items-center gap-3">
+      <%= render "sell/listings/thumbnail", listing: listing %>
+      <div class="min-w-0">
+        <p class="truncate font-semibold text-content">
+          <%= link_to listing.title.presence || t("sell.listings.untitled"),
+                      listing_path(listing),
+                      class: "transition hover:text-primary-700 dark:hover:text-primary-300" %>
+        </p>
+        <p class="truncate text-xs text-muted"><%= listing.category&.name %></p>
+        <% if listing.rejected? && listing.rejection_reason.present? %>
+          <p class="mt-1 text-xs text-danger">
+            <%= t("sell.listings.rejected.reason", reason: listing.rejection_reason) %>
+            <%= link_to t("sell.listings.rejected.resubmit"), edit_sell_listing_path(listing), class: "ml-1 font-semibold underline underline-offset-2" %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </td>
+
+  <td class="whitespace-nowrap px-4 py-3 font-semibold text-content">
+    <%= listing.price_cents ? money(listing.price_cents, currency: listing.currency) : "—" %>
+  </td>
+
+  <td class="whitespace-nowrap px-4 py-3">
+    <span class="inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold <%= status_badge_class(listing.status) %>">
+      <%= status_label(listing) %>
+    </span>
+  </td>
+
+  <td class="whitespace-nowrap px-4 py-3 text-muted"><%= number_with_delimiter(listing.views_count) %></td>
+  <td class="whitespace-nowrap px-4 py-3 text-muted"><%= number_with_delimiter(listing.favorites_count) %></td>
+  <td class="whitespace-nowrap px-4 py-3 text-muted"><%= short_date(listing.updated_at) %></td>
+
+  <td class="px-4 py-3">
+    <%= render "sell/listings/actions", listing: listing %>
+  </td>
+</tr>

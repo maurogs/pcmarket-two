@@ -1,0 +1,11 @@
+<%= t("listing_mailer.rejected.greeting", name: @listing.seller.first_name.presence || @listing.seller.display_name) %>
+
+<%= t("listing_mailer.rejected.body", title: @listing.title, app: t("app.name")) %>
+
+<% if @listing.rejection_reason.present? %>
+<%= t("listing_mailer.rejected.reason_label") %>: <%= @listing.rejection_reason %>
+<% end %>
+
+<%= t("listing_mailer.rejected.cta") %>: <%= edit_sell_listing_url(@listing, locale: @locale) %>
+
+<%= t("listing_mailer.rejected.closing") %>

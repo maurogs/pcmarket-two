@@ -44,6 +44,21 @@ module ListingsHelper
     t("listings.statuses.#{listing.status}")
   end
 
+  STATUS_BADGE_CLASSES = {
+    "draft" => "border-border bg-surface-muted text-muted",
+    "pending_review" => "border-warning/40 bg-warning-soft text-warning",
+    "published" => "border-success/40 bg-success-soft text-success",
+    "reserved" => "border-primary-200 bg-primary-50 text-primary-700 dark:border-primary-700 dark:bg-primary-900/40 dark:text-primary-200",
+    "rejected" => "border-danger/40 bg-danger-soft text-danger",
+    "sold" => "border-content/20 bg-surface-muted text-content",
+    "archived" => "border-border bg-surface-muted text-muted"
+  }.freeze
+  DEFAULT_STATUS_BADGE_CLASS = "border-border bg-surface-muted text-muted"
+
+  def status_badge_class(status)
+    STATUS_BADGE_CLASSES.fetch(status.to_s, DEFAULT_STATUS_BADGE_CLASS)
+  end
+
   def attribute_group_label(group)
     key = ATTRIBUTE_GROUPS[group.to_s]
     key ? t(key) : group.to_s.humanize

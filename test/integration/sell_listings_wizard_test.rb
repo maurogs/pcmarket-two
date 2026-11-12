@@ -140,7 +140,7 @@ class SellListingsWizardTest < ActionDispatch::IntegrationTest
       delete sell_listing_path(listings(:draft_gpu), locale: :en)
     end
 
-    assert_redirected_to new_sell_listing_path(locale: :en)
+    assert_redirected_to sell_listings_path(tab: "drafts", locale: :en)
 
     published = listings(:published_gpu)
     assert_no_difference "Listing.count" do
@@ -148,6 +148,7 @@ class SellListingsWizardTest < ActionDispatch::IntegrationTest
     end
 
     assert published.reload.archived?
+    assert_redirected_to sell_listings_path(tab: "archived", locale: :en)
   end
 
   private

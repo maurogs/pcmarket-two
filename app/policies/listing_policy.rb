@@ -24,6 +24,11 @@ class ListingPolicy < ApplicationPolicy
     owner?
   end
 
+  # Republishing is a state transition on a listing the user already owns.
+  def republish?
+    update?
+  end
+
   private
 
   def owner?
