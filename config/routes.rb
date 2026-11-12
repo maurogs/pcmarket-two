@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # All HTML routes are available with an optional locale prefix (e.g. /en, /fr).
+  scope "(:locale)", locale: /es|en|fr|de|it|pt/ do
+    root "pages#home"
+  end
 end

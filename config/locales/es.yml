@@ -1,0 +1,22 @@
+es:
+  app:
+    name: "PCMarket"
+    tagline: "Compra y vende piezas de PC"
+  nav:
+    search_placeholder: "Buscar piezas de PC"
+    sell: "Vender"
+    login: "Iniciar sesión"
+    logout: "Cerrar sesión"
+    wishlist: "Favoritos"
+    cart: "Carrito"
+    notifications: "Notificaciones"
+  footer:
+    copyright: "© %{year} PCMarket. Todos los derechos reservados."
+  locale:
+    names:
+      es: "Español"
+      en: "English"
+      fr: "Français"
+      de: "Deutsch"
+      it: "Italiano"
+      pt: "Português"

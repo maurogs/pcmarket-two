@@ -1,0 +1,27 @@
+# i18n-tasks configuration: https://github.com/glebm/i18n-tasks
+
+base_locale: es
+locales: [es, en, fr, de, it, pt]
+
+data:
+  read:
+    - config/locales/**/*.yml
+  yaml:
+    write:
+      line_width: -1
+
+search:
+  paths:
+    - app/
+    - config/
+    - lib/
+    - test/
+  exclude:
+    - app/assets/images
+    - app/assets/fonts
+    - app/assets/videos
+    - app/assets/builds
+
+# Referenced dynamically by the locale switcher in the layout.
+ignore_unused:
+  - "locale.names.*"

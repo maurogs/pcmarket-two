@@ -21,7 +21,14 @@ module AppTestTwo
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Madrid"
+
+    # Internationalisation: Spanish is the default, English is the fallback.
+    config.i18n.available_locales = %i[es en fr de it pt]
+    config.i18n.default_locale = :es
+    config.i18n.fallbacks = [:en]
+    config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.yml")]
+
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
