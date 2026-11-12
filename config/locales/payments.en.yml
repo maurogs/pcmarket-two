@@ -1,0 +1,71 @@
+en:
+  payments:
+    test_mode:
+      banner: "Test payments are enabled. No real money will be charged."
+  checkout:
+    flash:
+      redirect_to_payment: "Your basket is reserved. Continue to payment to finish your order."
+    payment:
+      stripe_title: "Secure card payment"
+      stripe_body: "You will be redirected to Stripe's secure payment form to enter your card details."
+      continue: "Continue to payment"
+    payment_page:
+      title: "Complete your payment"
+      body: "Enter your card details below. Your items are reserved while you pay."
+      card_title: "Payment details"
+      pay: "Pay now"
+      processing: "Processing…"
+      error_fallback: "We could not process the payment. Check your details and try again."
+      confirming_title: "Confirming your payment"
+      confirming_body: "We are confirming your payment with the provider. This page will update shortly."
+  store_payments:
+    show:
+      title: "Payouts"
+      subtitle: "Connect your store to Stripe so buyers can pay you and you can receive payouts."
+      setup: "Set up payouts"
+      statuses:
+        setup: "Payouts not set up"
+        test_mode: "Test mode"
+        pending: "Pending verification"
+        enabled: "Payouts enabled"
+        action_required: "Action required"
+      requirements_title: "Information Stripe still needs"
+      explanation: "Buyers cannot place orders with your store until payouts are enabled."
+      not_configured: "Stripe is not configured in this environment. Add the secret and publishable keys to enable real payouts."
+      test_mode: "Payments are simulated in development, so no Stripe account or payout setup is needed."
+    requirements:
+      external_account: "A bank account for payouts"
+      business_profile:
+        mcc: "Business category code"
+        url: "Business website"
+      company:
+        tax_id: "Company tax ID"
+      individual:
+        id_number: "Identity document number"
+        verification:
+          document: "Identity document"
+          additional_document: "Additional identity document"
+      tos_acceptance:
+        date: "Acceptance of the Stripe terms"
+        ip: "Acceptance of the Stripe terms (IP confirmation)"
+    errors:
+      onboarding_failed: "We could not start payout setup. Try again or contact support."
+  stores:
+    tabs:
+      label: "Store settings sections"
+      profile: "Profile"
+      payments: "Payouts"
+  cart:
+    errors:
+      payouts_not_enabled: "This seller cannot accept payments yet."
+    unavailable:
+      reasons:
+        payouts_not_enabled: "The seller has not enabled payouts yet."
+    purchase_blocked:
+      payouts_not_enabled: "This seller is not ready to receive payments yet."
+  order_mailer:
+    dispute_alert:
+      subject: "Payment dispute opened for order %{number}"
+      greeting: "Hello,"
+      body: "A payment dispute has been opened for order %{number} from %{store}. Review the case in Stripe and contact the buyer and seller if needed."
+      closing: "Resolve the dispute promptly to protect marketplace funds."

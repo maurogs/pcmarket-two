@@ -12,6 +12,7 @@ class Order < ApplicationRecord
 
   has_many :items, class_name: "OrderItem", dependent: :destroy, inverse_of: :order
   has_many :events, class_name: "OrderEvent", dependent: :destroy, inverse_of: :order
+  has_one :payout, dependent: :destroy
 
   enum :fulfilment, { shipping: 0, local_pickup: 1 }, prefix: :fulfilment
 
@@ -66,7 +67,7 @@ class Order < ApplicationRecord
     end
 
     event :open_dispute do
-      transitions from: %i[paid shipped delivered], to: :disputed
+      transitions from: %i[paid shipped delivered completed], to: :disputed
     end
   end
 

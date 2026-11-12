@@ -161,6 +161,56 @@ class ListingTest < ActiveSupport::TestCase
     assert_equal "sold", reserved.status
   end
 
+  test "reserving the last unit of a business listing hides it from buyers" do
+    listing = create_listing!(store: active_business_store, seller: users(:seller_two),
+                              quantity: 1)
+
+    assert listing.reserve_stock!(1)
+
+    listing.reload
+    assert_equal "reserved", listing.status
+    assert_equal 0, listing.quantity
+    assert_not_includes Listing.visible, listing
+
+    cart = Cart.create!(user: users(:moderator))
+    item = cart.items.build(listing: listing, quantity: 1)
+    assert_not item.purchasable?
+  end
+
+  test "releasing a reserved business listing brings it back into the visible set" do
+    listing = create_listing!(store: active_business_store, seller: users(:seller_two),
+                              quantity: 1)
+    assert listing.reserve_stock!(1)
+
+    listing.release_stock!(1)
+
+    listing.reload
+    assert_equal "published", listing.status
+    assert_equal 1, listing.quantity
+    assert_includes Listing.visible, listing
+  end
+
+  test "paying for the last business unit marks it sold and invisible" do
+    listing = create_listing!(store: active_business_store, seller: users(:seller_two),
+                              quantity: 1)
+    assert listing.reserve_stock!(1)
+
+    listing.mark_sold_after_sale!
+
+    listing.reload
+    assert_equal "sold", listing.status
+    assert_not_includes Listing.visible, listing
+  end
+
+  test "visible excludes published listings without stock" do
+    listing = create_listing!(store: active_business_store, seller: users(:seller_two),
+                              quantity: 0)
+
+    assert_equal "published", listing.status
+    assert_equal 0, listing.quantity
+    assert_not_includes Listing.visible, listing
+  end
+
   test "archive sets archived_at and excludes sold listings" do
     listing = build_listing(status: "published", published_at: Time.current)
     listing.save!
@@ -427,6 +477,10 @@ class ListingTest < ActiveSupport::TestCase
   end
 
   private
+
+  def active_business_store
+    stores(:suspended_store).tap { |store| store.update!(status: :active) }
+  end
 
   def build_listing(attributes = {})
     Listing.new({

@@ -2,7 +2,8 @@
 
 module Payments
   class Gateway
-    Result = Struct.new(:success, :payment_intent_id, :error, keyword_init: true) do
+    Result = Struct.new(:success, :payment_intent_id, :client_secret, :transfer_id,
+                        :error, keyword_init: true) do
       def success?
         success
       end
@@ -13,6 +14,10 @@ module Payments
     end
 
     def refund(order:)
+      raise NotImplementedError
+    end
+
+    def transfer(order:)
       raise NotImplementedError
     end
   end

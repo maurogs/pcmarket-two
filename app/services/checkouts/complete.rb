@@ -26,7 +26,7 @@ module Checkouts
         end
 
         @checkout.update!(status: "paid")
-        @cart&.items&.where(listing_id: purchased_listing_ids)&.destroy_all
+        cleanup_cart
         completed = true
       end
 
@@ -35,6 +35,11 @@ module Checkouts
     end
 
     private
+
+    def cleanup_cart
+      cart = @cart || @checkout.buyer&.cart
+      cart&.items&.where(listing_id: purchased_listing_ids)&.destroy_all
+    end
 
     def purchased_listing_ids
       @checkout.orders.flat_map { |order| order.items.map(&:listing_id) }.uniq

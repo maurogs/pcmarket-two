@@ -1,50 +1,122 @@
-<% set_meta_tags(title: t("checkout.confirmation.title"), noindex: true) %>
+<% if @payment_pending %>
+  <% content_for :head do %>
+    <script src="https://js.stripe.com/v3/"></script>
+  <% end %>
+  <% set_meta_tags(title: t("checkout.payment_page.title"), noindex: true) %>
 
-<div class="mx-auto max-w-3xl space-y-6">
-  <header class="rounded-2xl border border-success/40 bg-success-soft p-6 text-center">
-    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success text-white">
-      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
-        <path d="m5 12 4.5 4.5L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-    </div>
-    <h1 class="mt-4 text-2xl font-extrabold tracking-tight"><%= t("checkout.confirmation.title") %></h1>
-    <p class="mx-auto mt-2 max-w-xl text-sm text-content"><%= t("checkout.confirmation.body", email: @checkout.recipient_email) %></p>
-    <p class="mt-1 text-xs text-muted"><%= t("checkout.confirmation.sellers", count: @orders.size) %></p>
-  </header>
+  <div class="mx-auto max-w-3xl space-y-6">
+    <header class="text-center">
+      <h1 class="text-2xl font-extrabold tracking-tight"><%= t("checkout.payment_page.title") %></h1>
+      <p class="mx-auto mt-2 max-w-xl text-sm text-muted"><%= t("checkout.payment_page.body") %></p>
+    </header>
 
-  <div class="space-y-4">
-    <% @orders.each do |order| %>
+    <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem]">
       <section class="rounded-2xl border border-border bg-surface p-5">
-        <div class="flex flex-wrap items-start justify-between gap-3">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("checkout.confirmation.order") %></p>
-            <p class="text-lg font-extrabold"><%= order.number %></p>
-            <p class="text-sm text-muted"><%= order.store.name %></p>
-          </div>
-          <span class="inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold <%= order_status_badge_class(order.status) %>">
-            <%= order_status_label(order.status) %>
-          </span>
-        </div>
+        <h2 class="text-lg font-bold"><%= t("checkout.payment_page.card_title") %></h2>
 
-        <ul class="mt-4 space-y-1 border-t border-border pt-3 text-sm">
-          <% order.items.each do |item| %>
-            <li class="flex justify-between gap-3">
-              <span class="text-muted"><%= item.title %> × <%= item.quantity %></span>
-              <span class="font-semibold"><%= money(item.line_total_cents, currency: order.currency) %></span>
-            </li>
-          <% end %>
-        </ul>
+        <form class="mt-4 space-y-4"
+              data-controller="stripe-payment"
+              data-action="submit->stripe-payment#submit"
+              data-stripe-payment-publishable-key-value="<%= Payments.stripe_publishable_key %>"
+              data-stripe-payment-client-secret-value="<%= @checkout.payment_client_secret %>"
+              data-stripe-payment-return-url-value="<%= checkout_url(locale: I18n.locale) %>"
+              data-stripe-payment-locale-value="<%= I18n.locale %>"
+              data-stripe-payment-error-fallback-value="<%= t("checkout.payment_page.error_fallback") %>"
+              data-stripe-payment-processing-value="<%= t("checkout.payment_page.processing") %>">
+          <div data-stripe-payment-target="element"></div>
 
-        <div class="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3">
-          <p class="text-sm font-bold"><%= t("checkout.confirmation.total", total: money(order.total_cents, currency: order.currency)) %></p>
-          <%= link_to t("checkout.confirmation.view_order"), order_path(order), class: "btn-accent" %>
-        </div>
+          <p data-stripe-payment-target="error" role="alert"
+             class="hidden rounded-xl border border-danger/30 bg-danger-soft px-4 py-3 text-sm text-danger"></p>
+
+          <button type="submit" data-stripe-payment-target="submit" class="btn-primary w-full">
+            <%= t("checkout.payment_page.pay") %>
+          </button>
+        </form>
       </section>
-    <% end %>
-  </div>
 
-  <div class="flex flex-wrap justify-center gap-3">
-    <%= link_to t("checkout.confirmation.my_orders"), orders_path, class: "btn-primary" %>
-    <%= link_to t("checkout.confirmation.keep_shopping"), root_path, class: "btn-accent" %>
+      <aside class="space-y-4">
+        <section class="rounded-2xl border border-border bg-surface p-5">
+          <h2 class="text-lg font-bold"><%= t("checkout.summary.title") %></h2>
+          <ul class="mt-3 space-y-2 text-sm">
+            <% @orders.each do |order| %>
+              <% order.items.each do |item| %>
+                <li class="flex justify-between gap-3">
+                  <span class="text-muted"><%= item.title %> × <%= item.quantity %></span>
+                  <span class="font-semibold"><%= money(item.line_total_cents, currency: order.currency) %></span>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+          <div class="mt-4 flex justify-between gap-4 border-t border-border pt-3 text-base">
+            <span class="font-bold"><%= t("checkout.summary.total") %></span>
+            <span class="font-extrabold"><%= money(@checkout.total_cents) %></span>
+          </div>
+        </section>
+      </aside>
+    </div>
   </div>
-</div>
+<% elsif @checkout.pending? %>
+  <% content_for :head do %>
+    <meta http-equiv="refresh" content="5">
+  <% end %>
+  <% set_meta_tags(title: t("checkout.payment_page.confirming_title"), noindex: true) %>
+
+  <div class="mx-auto max-w-2xl rounded-2xl border border-border bg-surface p-8 text-center">
+    <h1 class="text-2xl font-extrabold tracking-tight"><%= t("checkout.payment_page.confirming_title") %></h1>
+    <p class="mx-auto mt-2 max-w-xl text-sm text-muted"><%= t("checkout.payment_page.confirming_body") %></p>
+    <div class="mt-5 flex justify-center">
+      <%= link_to t("checkout.confirmation.keep_shopping"), root_path, class: "btn-accent" %>
+    </div>
+  </div>
+<% else %>
+  <% set_meta_tags(title: t("checkout.confirmation.title"), noindex: true) %>
+
+  <div class="mx-auto max-w-3xl space-y-6">
+    <header class="rounded-2xl border border-success/40 bg-success-soft p-6 text-center">
+      <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success text-white">
+        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <path d="m5 12 4.5 4.5L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h1 class="mt-4 text-2xl font-extrabold tracking-tight"><%= t("checkout.confirmation.title") %></h1>
+      <p class="mx-auto mt-2 max-w-xl text-sm text-content"><%= t("checkout.confirmation.body", email: @checkout.recipient_email) %></p>
+      <p class="mt-1 text-xs text-muted"><%= t("checkout.confirmation.sellers", count: @orders.size) %></p>
+    </header>
+
+    <div class="space-y-4">
+      <% @orders.each do |order| %>
+        <section class="rounded-2xl border border-border bg-surface p-5">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("checkout.confirmation.order") %></p>
+              <p class="text-lg font-extrabold"><%= order.number %></p>
+              <p class="text-sm text-muted"><%= order.store.name %></p>
+            </div>
+            <span class="inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold <%= order_status_badge_class(order.status) %>">
+              <%= order_status_label(order.status) %>
+            </span>
+          </div>
+
+          <ul class="mt-4 space-y-1 border-t border-border pt-3 text-sm">
+            <% order.items.each do |item| %>
+              <li class="flex justify-between gap-3">
+                <span class="text-muted"><%= item.title %> × <%= item.quantity %></span>
+                <span class="font-semibold"><%= money(item.line_total_cents, currency: order.currency) %></span>
+              </li>
+            <% end %>
+          </ul>
+
+          <div class="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-3">
+            <p class="text-sm font-bold"><%= t("checkout.confirmation.total", total: money(order.total_cents, currency: order.currency)) %></p>
+            <%= link_to t("checkout.confirmation.view_order"), order_path(order), class: "btn-accent" %>
+          </div>
+        </section>
+      <% end %>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3">
+      <%= link_to t("checkout.confirmation.my_orders"), orders_path, class: "btn-primary" %>
+      <%= link_to t("checkout.confirmation.keep_shopping"), root_path, class: "btn-accent" %>
+    </div>
+  </div>
+<% end %>

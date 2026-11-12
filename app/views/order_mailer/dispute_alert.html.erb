@@ -1,0 +1,13 @@
+<p style="margin: 0 0 12px; font-size: 15px; color: #0f172a;">
+  <%= t("order_mailer.dispute_alert.greeting") %>
+</p>
+
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("order_mailer.dispute_alert.body", number: @order.number, store: @order.store.name) %>
+</p>
+
+<%= render "order_mailer/order_details", order: @order %>
+
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("order_mailer.dispute_alert.closing") %>
+</p>

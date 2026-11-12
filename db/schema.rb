@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_140600) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_150300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -158,6 +158,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_140600) do
     t.string "idempotency_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_client_secret"
     t.index ["buyer_id"], name: "index_checkouts_on_buyer_id"
     t.index ["expires_at"], name: "index_checkouts_on_expires_at"
     t.index ["idempotency_key"], name: "index_checkouts_on_idempotency_key", unique: true
@@ -345,6 +346,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_140600) do
     t.index ["store_id"], name: "index_orders_on_store_id"
   end
 
+  create_table "payouts", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "store_id", null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.string "stripe_transfer_id"
+    t.string "status", default: "pending", null: false
+    t.text "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_payouts_on_order_id", unique: true
+    t.index ["store_id"], name: "index_payouts_on_store_id"
+    t.index ["stripe_transfer_id"], name: "index_payouts_on_stripe_transfer_id"
+  end
+
   create_table "regions", force: :cascade do |t|
     t.string "country_code", null: false
     t.string "name", null: false
@@ -396,10 +411,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_140600) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "region_id"
+    t.string "stripe_account_id"
+    t.boolean "payouts_enabled", default: false, null: false
+    t.boolean "charges_enabled", default: false, null: false
+    t.boolean "details_submitted", default: false, null: false
+    t.jsonb "requirements", default: {}, null: false
     t.index ["country_code"], name: "index_stores_on_country_code"
     t.index ["region_id"], name: "index_stores_on_region_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
     t.index ["status"], name: "index_stores_on_status"
+    t.index ["stripe_account_id"], name: "index_stores_on_stripe_account_id", unique: true
     t.index ["user_id"], name: "index_stores_on_user_id", unique: true
   end
 
@@ -460,6 +481,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_140600) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "webhook_events", force: :cascade do |t|
+    t.string "provider", null: false
+    t.string "event_id", null: false
+    t.string "type", null: false
+    t.jsonb "payload", default: {}, null: false
+    t.datetime "processed_at"
+    t.text "error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "event_id"], name: "index_webhook_events_on_provider_and_event_id", unique: true
+    t.index ["type"], name: "index_webhook_events_on_type"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "regions"
@@ -488,6 +522,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_140600) do
   add_foreign_key "orders", "checkouts"
   add_foreign_key "orders", "stores"
   add_foreign_key "orders", "users", column: "buyer_id"
+  add_foreign_key "payouts", "orders"
+  add_foreign_key "payouts", "stores"
   add_foreign_key "regions", "countries", column: "country_code", primary_key: "code"
   add_foreign_key "stores", "regions"
   add_foreign_key "stores", "users"

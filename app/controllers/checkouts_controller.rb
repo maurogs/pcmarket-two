@@ -23,9 +23,14 @@ class CheckoutsController < ApplicationController
                                   gateway: gateway).call
 
     if result.success?
-      Checkouts::Complete.new(checkout: result.checkout, cart: @cart).call
-      session[:last_checkout_id] = result.checkout.id
-      redirect_to checkout_path, notice: t("checkout.flash.completed")
+      if result.checkout.pending? && result.checkout.payment_client_secret.present?
+        session[:last_checkout_id] = result.checkout.id
+        redirect_to checkout_path, notice: t("checkout.flash.redirect_to_payment")
+      else
+        Checkouts::Complete.new(checkout: result.checkout, cart: @cart).call
+        session[:last_checkout_id] = result.checkout.id
+        redirect_to checkout_path, notice: t("checkout.flash.completed")
+      end
     else
       @errors = result.errors
       @checkout = result.checkout || Checkout.new(email: checkout_params[:email])
@@ -41,6 +46,7 @@ class CheckoutsController < ApplicationController
 
     authorize @checkout
     @orders = @checkout.orders.includes(:store, items: :listing).recent_first
+    @payment_pending = @checkout.pending? && @checkout.payment_client_secret.present?
   end
 
   private
@@ -55,11 +61,12 @@ class CheckoutsController < ApplicationController
 
   def last_checkout
     id = session[:last_checkout_id]
-    return Checkout.find_by(id: id) if id.present?
-
+    checkout = Checkout.find_by(id: id) if id.present?
+    return checkout if checkout.present?
     return if current_user.blank?
 
-    current_user.checkouts.where(status: "paid").recent_first.first
+    current_user.checkouts.where(status: %w[pending paid])
+                .order(created_at: :desc, id: :desc).first
   end
 
   def submitted_address

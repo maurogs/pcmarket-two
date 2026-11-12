@@ -1,0 +1,52 @@
+<% set_meta_tags(title: t("store_payments.show.title"), noindex: true) %>
+
+<div class="mx-auto max-w-3xl space-y-6">
+  <header>
+    <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("account.menu.store.title") %></p>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("store_payments.show.title") %></h1>
+    <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("store_payments.show.subtitle") %></p>
+  </header>
+
+  <%= render "stores/tabs" %>
+
+  <% if Payments.fake_gateway? %>
+    <section class="space-y-3 rounded-2xl border border-warning/40 bg-warning-soft p-5 sm:p-6">
+      <h2 class="text-lg font-bold text-warning"><%= t("store_payments.show.statuses.test_mode") %></h2>
+      <p class="text-sm leading-relaxed text-content"><%= t("store_payments.show.test_mode") %></p>
+      <p class="text-sm leading-relaxed text-muted"><%= t("store_payments.show.not_configured") %></p>
+    </section>
+  <% else %>
+    <% requirements = Array(@store.requirements.with_indifferent_access["currently_due"]).presence ||
+                      Array(@store.requirements.with_indifferent_access["past_due"]) %>
+
+    <section class="space-y-3 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+      <% if @store.payouts_enabled? %>
+        <h2 class="text-lg font-bold text-success"><%= t("store_payments.show.statuses.enabled") %></h2>
+      <% elsif requirements.any? %>
+        <h2 class="text-lg font-bold text-warning"><%= t("store_payments.show.statuses.action_required") %></h2>
+      <% elsif @store.details_submitted? %>
+        <h2 class="text-lg font-bold text-warning"><%= t("store_payments.show.statuses.pending") %></h2>
+      <% else %>
+        <h2 class="text-lg font-bold"><%= t("store_payments.show.statuses.setup") %></h2>
+      <% end %>
+
+      <p class="text-sm leading-relaxed text-muted"><%= t("store_payments.show.explanation") %></p>
+
+      <% if requirements.any? %>
+        <div>
+          <h3 class="text-sm font-semibold text-content"><%= t("store_payments.show.requirements_title") %></h3>
+          <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-muted">
+            <% requirements.each do |key| %>
+              <li><%= t("store_payments.requirements.#{key}", default: key) %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% unless @store.payouts_enabled? %>
+        <%= button_to t("store_payments.show.setup"), store_payment_path, method: :post,
+                      class: "btn-primary" %>
+      <% end %>
+    </section>
+  <% end %>
+</div>

@@ -167,8 +167,13 @@
         </summary>
         <div class="space-y-4 border-t border-border px-5 py-4">
           <div class="rounded-xl border border-border bg-surface-muted p-4">
-            <p class="text-sm font-semibold"><%= t("checkout.payment.fake_title") %></p>
-            <p class="mt-1 text-xs text-muted"><%= t("checkout.payment.fake_body") %></p>
+            <% if Payments.fake_gateway? %>
+              <p class="text-sm font-semibold"><%= t("checkout.payment.fake_title") %></p>
+              <p class="mt-1 text-xs text-muted"><%= t("checkout.payment.fake_body") %></p>
+            <% else %>
+              <p class="text-sm font-semibold"><%= t("checkout.payment.stripe_title") %></p>
+              <p class="mt-1 text-xs text-muted"><%= t("checkout.payment.stripe_body") %></p>
+            <% end %>
           </div>
 
           <div>
@@ -186,7 +191,11 @@
           </label>
           <p class="text-xs leading-relaxed text-muted"><%= t("checkout.legal.notice") %></p>
 
-          <button type="submit" class="btn-primary w-full"><%= t("checkout.payment.pay") %></button>
+          <% if Payments.fake_gateway? %>
+            <button type="submit" class="btn-primary w-full"><%= t("checkout.payment.pay") %></button>
+          <% else %>
+            <button type="submit" class="btn-primary w-full"><%= t("checkout.payment.continue") %></button>
+          <% end %>
         </div>
       </details>
     </div>

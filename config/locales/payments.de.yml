@@ -1,0 +1,71 @@
+de:
+  payments:
+    test_mode:
+      banner: "Testzahlungen sind aktiviert. Es wird kein echtes Geld abgebucht."
+  checkout:
+    flash:
+      redirect_to_payment: "Dein Warenkorb ist reserviert. Fahre mit der Zahlung fort, um deine Bestellung abzuschließen."
+    payment:
+      stripe_title: "Sichere Kartenzahlung"
+      stripe_body: "Du wirst zum sicheren Zahlungsformular von Stripe weitergeleitet, um deine Kartendaten einzugeben."
+      continue: "Weiter zur Zahlung"
+    payment_page:
+      title: "Zahlung abschließen"
+      body: "Gib unten deine Kartendaten ein. Deine Artikel sind während der Zahlung reserviert."
+      card_title: "Zahlungsdaten"
+      pay: "Jetzt bezahlen"
+      processing: "Wird verarbeitet…"
+      error_fallback: "Wir konnten die Zahlung nicht verarbeiten. Prüfe deine Angaben und versuche es erneut."
+      confirming_title: "Zahlung wird bestätigt"
+      confirming_body: "Wir bestätigen deine Zahlung beim Anbieter. Diese Seite wird sich in Kürze aktualisieren."
+  store_payments:
+    show:
+      title: "Auszahlungen"
+      subtitle: "Verbinde deinen Shop mit Stripe, damit Käufer dich bezahlen können und du Auszahlungen erhältst."
+      setup: "Auszahlungen einrichten"
+      statuses:
+        setup: "Auszahlungen nicht eingerichtet"
+        test_mode: "Testmodus"
+        pending: "Verifizierung ausstehend"
+        enabled: "Auszahlungen aktiviert"
+        action_required: "Aktion erforderlich"
+      requirements_title: "Von Stripe benötigte Angaben"
+      explanation: "Käufer können erst Bestellungen in deinem Shop aufgeben, wenn die Auszahlungen aktiviert sind."
+      not_configured: "Stripe ist in dieser Umgebung nicht konfiguriert. Füge den geheimen Schlüssel und den veröffentlichbaren Schlüssel hinzu, um echte Auszahlungen zu aktivieren."
+      test_mode: "Zahlungen werden in der Entwicklung simuliert; ein Stripe-Konto oder eine Auszahlungseinrichtung ist nicht erforderlich."
+    requirements:
+      external_account: "Ein Bankkonto für Auszahlungen"
+      business_profile:
+        mcc: "Kategoriecode des Unternehmens"
+        url: "Website des Unternehmens"
+      company:
+        tax_id: "Steuernummer des Unternehmens"
+      individual:
+        id_number: "Nummer des Ausweisdokuments"
+        verification:
+          document: "Ausweisdokument"
+          additional_document: "Zusätzliches Ausweisdokument"
+      tos_acceptance:
+        date: "Annahme der Stripe-Bedingungen"
+        ip: "Annahme der Stripe-Bedingungen (IP-Bestätigung)"
+    errors:
+      onboarding_failed: "Wir konnten die Einrichtung der Auszahlungen nicht starten. Versuche es erneut oder wende dich an den Support."
+  stores:
+    tabs:
+      label: "Bereiche der Shop-Einstellungen"
+      profile: "Profil"
+      payments: "Auszahlungen"
+  cart:
+    errors:
+      payouts_not_enabled: "Dieser Verkäufer kann noch keine Zahlungen annehmen."
+    unavailable:
+      reasons:
+        payouts_not_enabled: "Der Verkäufer hat Auszahlungen noch nicht aktiviert."
+    purchase_blocked:
+      payouts_not_enabled: "Dieser Verkäufer ist noch nicht bereit, Zahlungen zu empfangen."
+  order_mailer:
+    dispute_alert:
+      subject: "Zahlungsstreit für Bestellung %{number} eröffnet"
+      greeting: "Hallo,"
+      body: "Für die Bestellung %{number} von %{store} wurde ein Zahlungsstreit eröffnet. Prüfe den Fall bei Stripe und kontaktiere bei Bedarf Käufer und Verkäufer."
+      closing: "Löse den Streit zügig, um die Gelder des Marktplatzes zu schützen."

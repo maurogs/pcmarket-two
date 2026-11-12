@@ -191,6 +191,7 @@ module ListingsHelper
   def purchase_blocked_reason(listing)
     return :own_listing if user_signed_in? && listing.user_id == current_user.id
     return :store_vacation if listing.store&.vacation_mode?
+    return :payouts_not_enabled unless listing.store&.payouts_ready?
     return :guest_disabled if !user_signed_in? && !Flipper.enabled?(:guest_checkout)
     return :out_of_stock if listing.quantity.to_i <= 0
     return :unavailable unless listing.publicly_visible?

@@ -78,4 +78,25 @@ class Carts::AddItemTest < ActiveSupport::TestCase
     assert result.success?
     assert_equal 1, guest_cart.items.count
   end
+
+  test "refuses listings from stores that cannot receive payouts" do
+    @listing.store.update!(payouts_enabled: false)
+
+    with_stub(Payments, :fake_gateway?, false) do
+      result = Carts::AddItem.new(cart: @cart, listing: @listing).call
+
+      assert_not result.success?
+      assert_equal [ I18n.t("cart.errors.payouts_not_enabled") ], result.errors
+    end
+  end
+
+  test "marks items from stores without payouts as unavailable" do
+    item = @cart.items.create!(listing: @listing, quantity: 1)
+    @listing.store.update!(payouts_enabled: false)
+
+    with_stub(Payments, :fake_gateway?, false) do
+      assert_not item.purchasable?
+      assert_equal :payouts_not_enabled, item.unavailable_reason
+    end
+  end
 end

@@ -109,7 +109,7 @@ module Checkouts
 
       Checkout.transaction do
         @cart.lock!
-        items = cart_items_for_checkout
+        items = lock_cart_listings(cart_items_for_checkout)
 
         if items.empty? || !items.all?(&:purchasable?)
           error = I18n.t("checkout.errors.unavailable_items")
@@ -138,7 +138,8 @@ module Checkouts
 
         gateway_result = @gateway.create_payment(checkout: checkout)
         if gateway_result.success?
-          checkout.update!(payment_intent_id: gateway_result.payment_intent_id)
+          checkout.update!(payment_intent_id: gateway_result.payment_intent_id,
+                           payment_client_secret: gateway_result.client_secret)
         else
           fail_checkout(checkout)
         end
@@ -155,6 +156,19 @@ module Checkouts
 
     def reserve_group(group_items)
       group_items.all? { |item| item.listing.reserve_stock!(item.quantity) }
+    end
+
+    # Every checkout locks the cart's listings in the same primary-key order, in
+    # a single query, so concurrent carts holding the same listings can never
+    # acquire the row locks in opposite orders and deadlock. The cart items then
+    # point at the locked instances used by the reserving and order building.
+    def lock_cart_listings(items)
+      return items if items.empty?
+
+      locked_by_id = Listing.where(id: items.map(&:listing_id)).order(:id).lock.index_by(&:id)
+
+      items.each { |item| item.listing = locked_by_id.fetch(item.listing_id) }
+      items
     end
 
     def fulfilment_for(group_items)

@@ -155,6 +155,7 @@ class Listing < ApplicationRecord
   scope :published, -> { where(status: "published") }
   scope :visible, lambda {
     published
+      .where("listings.quantity > 0")
       .joins(:store)
       .merge(Store.active)
       .joins(:seller)
@@ -351,7 +352,10 @@ class Listing < ApplicationRecord
       next unless published? && quantity.to_i >= amount
 
       self.quantity = quantity.to_i - amount
-      if store.individual?
+      # Single items are hidden as soon as they are taken. Multi-quantity
+      # listings stay live until the last unit is reserved; at that point they
+      # must leave the visible set too.
+      if store.individual? || quantity.zero?
         reserve!
       else
         save!
@@ -367,7 +371,7 @@ class Listing < ApplicationRecord
   def release_stock!(amount)
     with_lock do
       self.quantity = quantity.to_i + amount
-      if reserved?
+      if reserved? && quantity.positive?
         release!
       elsif sold?
         self.status = "published"

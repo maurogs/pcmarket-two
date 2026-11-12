@@ -66,15 +66,39 @@ class Checkouts::StartTest < ActiveSupport::TestCase
     assert_equal 95_400, checkout.orders.sum(&:total_cents)
   end
 
-  test "reserves stock atomically and marks individual listings as reserved" do
+  test "reserves stock atomically and hides fully reserved listings" do
     cart = build_cart(user: @buyer, listings: [ @gpu, @other_listing ])
 
     assert start(cart: cart).success?
 
     assert_equal "reserved", @gpu.reload.status
     assert_equal 0, @gpu.quantity
-    assert_equal "published", @other_listing.reload.status
+    assert_equal "reserved", @other_listing.reload.status
     assert_equal 0, @other_listing.quantity
+  end
+
+  test "locks every cart listing in one query ordered by id before reserving" do
+    cart = build_cart(user: @buyer, listings: [ @other_listing, @gpu ])
+    statements = []
+
+    subscriber = lambda do |*, payload|
+      next if payload[:cached] || payload[:name] == "SCHEMA"
+
+      statements << payload[:sql]
+    end
+
+    result = ActiveSupport::Notifications.subscribed(subscriber, "sql.active_record") do
+      start(cart: cart)
+    end
+
+    assert result.success?
+
+    lock_statements = statements.select do |sql|
+      sql.match?(/SELECT .* FROM "listings" .*ORDER BY "listings"\."id" ASC .*FOR UPDATE/m)
+    end
+
+    assert_equal 1, lock_statements.size,
+                 "expected exactly one ordered listing lock query, got: #{lock_statements.inspect}"
   end
 
   test "stores commission only when the flag and setting are enabled" do

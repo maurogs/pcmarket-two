@@ -1,6 +1,27 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "webmock/minitest"
+
+# Tests must never hit external services. Localhost stays available so the
+# Rails stack and any browser-driven checks keep working.
+WebMock.disable_net_connect!(allow_localhost: true)
+
+# Minitest 6 dropped Object#stub, so tests use this small explicit helper to
+# replace a method for the duration of a block and restore it afterwards.
+module StubbingHelpers
+  def with_stub(owner, method_name, replacement)
+    original = owner.method(method_name)
+    owner.define_singleton_method(method_name) do |*args, **kwargs, &block|
+      replacement.respond_to?(:call) ? replacement.call(*args, **kwargs, &block) : replacement
+    end
+    yield
+  ensure
+    owner.define_singleton_method(method_name) do |*args, **kwargs, &block|
+      original.call(*args, **kwargs, &block)
+    end
+  end
+end
 
 module CacheTestHelpers
   def with_cache(store)
@@ -129,6 +150,7 @@ module ActiveSupport
     include CacheTestHelpers
     include ListingSearchTestHelpers
     include MarketplaceTestHelpers
+    include StubbingHelpers
 
     # Add more helper methods to be used by all tests here...
   end

@@ -52,6 +52,7 @@ ignore_unused:
   - "orders.fulfilments.*"
   - "orders.carriers.*"
   - "orders.events.*"
+  - "store_payments.requirements.*"
   - "cart.unavailable.reasons.*"
   - "cart.purchase_blocked.*"
   - "cart.errors.*"

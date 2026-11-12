@@ -113,4 +113,22 @@ class Orders::FlowsTest < ActiveSupport::TestCase
                                   gateway: Payments::FakeGateway.new).call
     assert order.reload.shipped?
   end
+
+  test "cancelling a paid order asks the gateway for a refund" do
+    order = paid_order
+    gateway = Class.new do
+      attr_reader :refunded_order
+
+      def refund(order:)
+        @refunded_order = order
+        Payments::Gateway::Result.new(success: true)
+      end
+    end.new
+
+    assert Orders::Cancel.new(order: order, actor: @buyer, gateway: gateway).call
+
+    assert_equal order, gateway.refunded_order
+    assert order.reload.cancelled?
+    assert_equal "published", @listing.reload.status
+  end
 end

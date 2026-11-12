@@ -17,6 +17,7 @@ class CartItem < ApplicationRecord
     listing.published? &&
       listing.quantity.to_i >= quantity &&
       listing.store&.active? &&
+      listing.store.payouts_ready? &&
       !listing.store.vacation_mode? &&
       !listing.seller.banned? &&
       !listing.seller.soft_deleted? &&
@@ -30,6 +31,7 @@ class CartItem < ApplicationRecord
   def unavailable_reason
     return :own_listing if own_listing?
     return :store_vacation if listing.store&.vacation_mode?
+    return :payouts_not_enabled unless listing.store&.payouts_ready?
     return :out_of_stock if listing.published? && listing.quantity.to_i < quantity
     return :out_of_stock if listing.quantity.to_i.zero?
     return :unavailable unless listing.published? && listing.store&.active?

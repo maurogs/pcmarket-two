@@ -21,6 +21,7 @@ module Carts
       return failure("cart.errors.own_listing") if own_listing?
       return failure("cart.errors.unavailable") unless @listing.publicly_visible?
       return failure("cart.errors.store_vacation") if @listing.store.vacation_mode?
+      return failure("cart.errors.payouts_not_enabled") unless @listing.store.payouts_ready?
       return failure("cart.errors.out_of_stock") unless @listing.quantity.to_i.positive?
 
       save_item

@@ -51,6 +51,16 @@ class OrderMailer < ApplicationMailer
     end
   end
 
+  def dispute_alert(order, recipient:)
+    @order = order
+    @recipient = recipient
+    @locale = recipient_locale(recipient, order)
+
+    I18n.with_locale(@locale) do
+      mail(to: recipient_email(recipient, order), subject: t("order_mailer.dispute_alert.subject", number: order.number))
+    end
+  end
+
   private
 
   def recipient_locale(recipient, order)

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   devise_for :users, only: :omniauth_callbacks,
                      controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  # Stripe posts here without a locale prefix and verifies signatures itself.
+  post "webhooks/stripe", to: "webhooks/stripe#create", as: :stripe_webhook
+
   # All HTML routes are available with an optional locale prefix (e.g. /en, /fr).
   scope "(:locale)", locale: /es|en|fr|de|it|pt/ do
     devise_for :users, skip: :omniauth_callbacks,
@@ -37,6 +40,8 @@ Rails.application.routes.draw do
     end
 
     resource :store, only: %i[new create edit update]
+    resource :payment, only: %i[show create], path: "store/payment",
+                       controller: "store/payments", as: :store_payment
     resources :listings, path: "sell", only: %i[index new create edit update destroy],
                          controller: "sell/listings", as: :sell_listings do
       # A state transition is modelled as its own singular resource so the

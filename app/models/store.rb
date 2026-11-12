@@ -14,6 +14,7 @@ class Store < ApplicationRecord
 
   has_many :listings, dependent: :restrict_with_error
   has_many :orders, dependent: :restrict_with_error
+  has_many :payouts, dependent: :restrict_with_error
 
   friendly_id :name, use: %i[slugged history]
 
@@ -45,6 +46,13 @@ class Store < ApplicationRecord
 
   def verified?
     verified_at.present?
+  end
+
+  # Stripe must be able to transfer funds before the store can accept orders.
+  # Test and key-less development installs use the fake gateway, which needs no
+  # Connect account.
+  def payouts_ready?
+    payouts_enabled? || Payments.fake_gateway?
   end
 
   private
