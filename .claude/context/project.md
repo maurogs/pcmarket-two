@@ -12,7 +12,7 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - i18n-tasks and Faker in development/test; letter_opener_web in development
 
 ## Decisions
-- Spanish is the default locale; English is the fallback (`config.i18n.fallbacks = [:en]`).
+- Spanish is the default locale; the fallback chain is English then Spanish (`config.i18n.fallbacks = [ :en, :es ]`), also used by Mobility.
 - Time zone is `Madrid`.
 - English copy uses British spelling (en-GB): colour, favourites, basket.
 - All user-facing strings live in `config/locales/*.yml` with an identical nested key structure rooted at each language code.
@@ -42,6 +42,14 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Settings are admin-tunable JSONB values with a declared `value_type`. `Setting.get` caches typed values in `Rails.cache`; `Setting.set` infers the type and both invalidate the cache after commit.
 - Seeds are split into `db/seeds/countries.rb`, `regions.rb`, `settings.rb` and `features.rb`, loaded from `db/seeds.rb`; all are idempotent. Features start disabled, ES is the only launched country, and the confirmed admin comes from `ADMIN_PASSWORD` or `ChangeMe123!`.
 - Test helper injects a modern Chrome User-Agent for all integration requests (needed by `allow_browser versions: :modern`) and includes `Devise::Test::IntegrationHelpers`.
+- Mobility uses the `jsonb` backend with reader/writer/query/fallbacks/presence plugins and locale accessors for all six locales; `config.i18n.fallbacks = [:en, :es]` gives the English → Spanish fallback chain. Translated catalogue columns are `jsonb NOT NULL DEFAULT '{}'`.
+- `listings.searchable` is a **stored generated tsvector column** (not a trigger) so `db/schema.rb` can reproduce it. It combines title (A), `specs::text` (B) and description (C) with the `simple` config and an immutable `translate(lower(...))` accent fold; `pg_search` applies `unaccent` to the query. `pg_trgm` and `unaccent` are enabled by migration.
+- Google identities are linked to existing accounts only when Google reports the email verified (`extra.raw_info.email_verified` or `info.email_verified`); otherwise the callback redirects to sign-in with a translated alert.
+- Listing status is an AASM state machine on a plain string column; `Setting.get(:listings_require_approval)` decides whether submit/republish publish directly. Material edits (title/description/specs/category/photos) reset a published listing to `pending_review`; price/quantity/shipping edits do not.
+- `Store#listings_count` and `Category#listings_count` are maintained by Listing `after_commit` callbacks that compare before/after `(store_id, category_id, published?)` tuples — no plain `counter_cache`.
+- Category tree queries use recursive CTEs (`UNION` dedup for cycle safety); `descendant_ids` is cached with a key containing `Category.maximum(:updated_at)` and `belongs_to :parent, touch: true` propagates touches.
+- `Category#effective_attribute_definitions` preloads `attribute_definition: :attribute_options` in one query.
+- `Listing.with_specs` uses only jsonb containment predicates (`specs @> ?::jsonb` for the scalar and array forms of each value), so the `jsonb_path_ops` GIN index on `specs` is used; it ORs values within a key and ANDs across keys.
 
 ## Schema Summary
 - `users`: Devise columns plus `citext username` (unique), names, phone, `role` (0 user / 1 moderator / 2 admin), `locale`, `country_code`, ban/soft-delete timestamps, `provider`/`uid` (unique pair), marketing opt-in, `terms_accepted_at`, confirmation/lock/trackable columns.
@@ -49,7 +57,40 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `countries`: unique ISO2 `code`, `active`, `default_locale`, `currency`, `vat_rate`, `position`.
 - `regions`: `country_code` FK to `countries.code`, `name`, `code`, `position`, unique `[country_code, code]`.
 - `settings`: unique `key`, JSONB `value`, `value_type`, `group`, `description_key`.
+- `categories`: self-FK `parent_id`, translated jsonb name/description/seo_title/seo_description, unique `slug` (FriendlyId from English name), `position`, `active`, `icon`, `depth`, `listings_count`. Indexes: `[parent_id, position]`, unique `slug`, `active`.
+- `attribute_definitions`: unique `key`, translated `name`, `group`, `input_type` enum (single_select/multi_select/number/boolean/text), `unit`, `filterable`, `show_on_card`, `position`, `active`. Indexes: unique `key`, `[group, position]`, `active`.
+- `attribute_options`: `attribute_definition_id`, `value` (unique per definition), translated `label`, `position`, `popular`, `active`.
+- `category_attributes`: `[category_id, attribute_definition_id]` unique pair, `required`, `position`.
+- `tags`: `kind` enum (product_label/seller_tag), translated `name`, `slug` unique per kind, `position`, `active`, `colour`. `listing_tags`: unique `[listing_id, tag_id]` plus a `tag_id` index for reverse lookups.
+- `listings`: store/user/category/region FKs, title, description, unique `slug`, `condition` enum, `price_cents`, `compare_at_price_cents`, `currency`, `quantity`, `specs` jsonb, AASM `status`, moderation/lifecycle timestamps, `country_code`, `city`, `postal_code`, `shipping_mode` enum, shipping fields, `featured_until`, `views_count`, `favorites_count` and the generated `searchable` tsvector. Indexes: unique `slug`, GIN `searchable`, GIN `specs` (jsonb_path_ops), partial published indexes on `[category_id, published_at DESC]`, `published_at DESC` (named `index_listings_on_published_at_published`), `price_cents`, `region_id`, `[store_id, status]`, and a `gin_trgm_ops` GIN index on `title`.
+- `listing_photos`: `listing_id`, `position`, Active Storage `image` with webp variants. `listing_moderations`: `listing_id`, `moderator_id` → users, `action` enum, `reason`. `listing_tags`: join with unique pair and a `tag_id` index.
 - Supporting tables: `friendly_id_slugs`, `active_storage_blobs/attachments/variant_records`, `flipper_features`, `flipper_gates`.
+
+## Listing state machine (AASM on `listings.status`)
+
+```
+                         submit (approval ON)          approve
+   draft ────────────────────▶ pending_review ─────────────────▶ published
+     ▲                              │                              │  ▲
+     │                              │ reject(reason)                │  │ release
+     │                              ▼                              │  │
+     │                          rejected ────── submit ────────────┘  │
+     │                                                  reserve        │
+     │                                            published ─────────▶ reserved
+     │                                                                    │
+     │                                                       mark_sold  │
+     ├────────────────────────── archive (any state except sold) ◀────────┤
+     │                                                                    ▼
+   archived ─────── republish ──────▶ pending_review (approval ON)         sold
+                              └──────▶ published (approval OFF)
+
+   submit from draft/rejected and republish from archived publish DIRECTLY
+   when Setting.get(:listings_require_approval) is false.
+
+   Material edit of a published listing (title, description, specs, category,
+   or a photo add/remove) ─────▶ pending_review (only when approval is ON).
+   Price / quantity / shipping edits leave the listing published.
+```
 
 ## Code Map
 - `config/application.rb` — locale list, default locale, fallbacks, load path, time zone.
@@ -77,10 +118,17 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `config/locales/{es,en,fr,de,it,pt}.yml` — shared translation keys, countries, settings, auth, account menu, Pundit and Active Record names.
 - `config/i18n-tasks.yml` — i18n-tasks configuration (dynamic keys, gem-provided Devise keys).
 - `db/seeds.rb` + `db/seeds/{countries,regions,settings,features}.rb` — idempotent reference data.
+- `config/initializers/mobility.rb` — jsonb backend and plugin set for translated catalogue columns.
+- `db/migrate/20261112110000_create_categories.rb`, `20261112110100_create_attribute_catalogue.rb`, `20261112110200_create_tags.rb`, `20261112110300_create_listings.rb` — reversible Phase 1b migrations (explicit `up`/`down` for extensions, generated column and indexes).
+- `app/models/{category,attribute_definition,attribute_option,category_attribute,tag,listing_tag,listing,listing_photo,listing_moderation}.rb` — catalogue domain.
+- `app/services/listings/moderate.rb` — admin moderation entry point (`approve!`/`reject!`) writing `ListingModeration` logs.
+- `app/helpers/money_helper.rb` — locale-aware `money(cents, currency:)` using `number_to_currency`.
 - `test/i18n_test.rb` — missing/unused key checks.
-- `test/models/{user,store,country,setting}_test.rb` — domain model coverage.
-- `test/integration/{registrations,sessions,flipper_access}_test.rb` — auth and Flipper access flows.
+- `test/models/{user,store,country,setting,category,listing,listing_photo,tag}_test.rb` — domain model coverage.
+- `test/services/listings/moderate_test.rb`, `test/helpers/money_helper_test.rb` — service and helper coverage.
+- `test/integration/{registrations,sessions,flipper_access,omniauth_callbacks}_test.rb` — auth and Flipper access flows.
 - `test/controllers/{pages,layout}_controller_test.rb` — locale routing, detection and shell rendering.
+- `test/fixtures/{categories,attribute_definitions,attribute_options,category_attributes,tags,listings,regions}.yml` — catalogue fixtures.
 - `Procfile.dev`, `bin/dev` — development processes (web + Tailwind watch).
 
 ## Open Items
@@ -88,6 +136,7 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Only ES is launched and only Spanish regions are seeded; FR, GB, DE, IT and PT are inactive catalogue rows.
 - Google OAuth credentials are not configured in development by default; the login button stays hidden until they are.
 - Only `ApplicationPolicy` exists; domain policies arrive with their resources.
-- There is no admin UI for `Setting` yet; values are read through `Setting.get`.
-- The search form (GET `root_path` with `q`) has no results action yet.
+- The catalogue domain (categories, attribute definitions/options, tags, listings, photos, moderation) exists, but there are no routes, controllers, views or admin UI for it yet.
+- There is no admin UI for `Setting` yet; values are read through `Setting.get`. `Listings::Moderate` is the service the future admin panel will call.
+- The search form (GET `root_path` with `q`) has no results action yet; `Listing.search_text` and the listing scopes are ready to back it.
 - The newsletter form posts nowhere, the cart badge is a static `0`, and the theme-color meta tags follow the system scheme rather than a manual toggle.

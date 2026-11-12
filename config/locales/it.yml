@@ -145,6 +145,7 @@ it:
       acceptance_html: "Accetto i %{terms} e l'%{privacy}"
     marketing_opt_in: "Ricevi offerte e novità dal marketplace"
     omniauth_failure: "Non siamo riusciti ad accedere con Google. Riprova."
+    omniauth_email_not_verified: "Esiste già un account con questa email. Accedi prima con la tua password."
   account:
     menu:
       signed_out:
@@ -188,3 +189,16 @@ it:
       not_saved:
         one: "1 errore ha impedito il salvataggio di %{resource}:"
         other: "%{count} errori hanno impedito il salvataggio di %{resource}:"
+  categories:
+    errors:
+      cycle: "Una categoria non può essere il proprio antenato."
+  listings:
+    errors:
+      price_out_of_range: "Il prezzo deve essere tra %{min} e %{max} euro."
+      compare_at_price: "Il prezzo barrato deve essere superiore al prezzo di vendita."
+      required_specs: "Specifiche obbligatorie mancanti: %{attributes}."
+      invalid_spec_option: "%{attribute} contiene un'opzione non disponibile."
+      country_not_launched: "Gli annunci non sono ancora disponibili in questo Paese."
+      region_country_mismatch: "La regione non appartiene al Paese selezionato."
+      too_many_photos: "Un annuncio può avere al massimo %{max} foto."
+      rejection_reason_required: "Indica il motivo del rifiuto."

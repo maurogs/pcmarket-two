@@ -145,6 +145,7 @@ es:
       acceptance_html: "Acepto los %{terms} y la %{privacy}"
     marketing_opt_in: "Quiero recibir ofertas y novedades del mercado"
     omniauth_failure: "No hemos podido iniciar sesión con Google. Inténtalo de nuevo."
+    omniauth_email_not_verified: "Ya existe una cuenta con este correo. Inicia sesión primero con tu contraseña."
   account:
     menu:
       signed_out:
@@ -188,3 +189,16 @@ es:
       not_saved:
         one: "1 error impidió guardar %{resource}:"
         other: "%{count} errores impidieron guardar %{resource}:"
+  categories:
+    errors:
+      cycle: "Una categoría no puede ser su propia ascendiente."
+  listings:
+    errors:
+      price_out_of_range: "El precio debe estar entre %{min} y %{max} euros."
+      compare_at_price: "El precio tachado debe ser mayor que el precio de venta."
+      required_specs: "Faltan especificaciones obligatorias: %{attributes}."
+      invalid_spec_option: "%{attribute} contiene una opción no disponible."
+      country_not_launched: "Todavía no se pueden publicar anuncios en este país."
+      region_country_mismatch: "La provincia no pertenece al país seleccionado."
+      too_many_photos: "Un anuncio puede tener como máximo %{max} fotos."
+      rejection_reason_required: "Indica el motivo del rechazo."

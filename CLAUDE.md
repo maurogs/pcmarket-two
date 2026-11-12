@@ -22,6 +22,6 @@
 ## Delegation Rules
 You’re the primary orchestrator. Your job is to plan, review and approve.
 For any code implementation task (editing files, running tests), do NOT do it yourself.
-You MUST use the `opencode_execute` tool with the `build` agent and the model `opencode/deepseek-v4.1-flash-free#high` so that a subagent executes it. 
+You MUST use the `opencode_execute` tool with the `build` agent and the model `opencode-go/deepseek-v4.1-flash#high` so that a subagent executes it. 
 If corrections are needed, use `opencode_reply` to continue the session.
 Review the diff returned by the tool before giving your approval.

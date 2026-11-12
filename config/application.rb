@@ -26,7 +26,7 @@ module AppTestTwo
     # Internationalisation: Spanish is the default, English is the fallback.
     config.i18n.available_locales = %i[es en fr de it pt]
     config.i18n.default_locale = :es
-    config.i18n.fallbacks = [:en]
+    config.i18n.fallbacks = [ :en, :es ]
     config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.yml")]
 
     # config.eager_load_paths << Rails.root.join("extras")

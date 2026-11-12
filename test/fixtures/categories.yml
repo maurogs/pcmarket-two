@@ -1,0 +1,40 @@
+components:
+  name: { en: "Components", es: "Componentes" }
+  slug: components
+  position: 1
+  depth: 0
+  active: true
+  icon: cpu
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+gpus:
+  parent: components
+  name: { en: "Graphics Cards", es: "Tarjetas gráficas" }
+  slug: graphics-cards
+  position: 1
+  depth: 1
+  active: true
+  icon: gpu
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+nvidia:
+  parent: gpus
+  name: { en: "NVIDIA", es: "NVIDIA" }
+  slug: nvidia
+  position: 1
+  depth: 2
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+cpus:
+  parent: components
+  name: { en: "Processors", es: "Procesadores" }
+  slug: processors
+  position: 2
+  depth: 1
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

@@ -3,6 +3,11 @@
 module Users
   # Creates or links a User from an OmniAuth authentication hash.
   class FromOmniauth
+    EMAIL_VERIFIED_PATHS = [
+      %w[extra raw_info email_verified],
+      %w[info email_verified]
+    ].freeze
+
     def initialize(auth)
       @auth = auth
     end
@@ -13,6 +18,8 @@ module Users
         next user if user
 
         user = User.find_or_initialize_by(email: email)
+        next reject_unverified_link(user) if user.persisted? && !email_verified?
+
         assign_identity(user)
         user.save!
         user
@@ -22,6 +29,33 @@ module Users
     private
 
     attr_reader :auth
+
+    # Never link a Google identity to an existing account unless Google
+    # reports the email as verified. The account is left untouched.
+    def reject_unverified_link(user)
+      user.errors.add(:email, I18n.t("auth.omniauth_email_not_verified"))
+      user
+    end
+
+    def email_verified?
+      EMAIL_VERIFIED_PATHS.any? do |path|
+        ActiveModel::Type::Boolean.new.cast(dig_auth(*path))
+      end
+    end
+
+    def dig_auth(*keys)
+      keys.reduce(auth) do |value, key|
+        return nil unless value.respond_to?(:key?) && value.respond_to?(:[])
+
+        if value.key?(key)
+          value[key]
+        elsif value.key?(key.to_sym)
+          value[key.to_sym]
+        else
+          return nil
+        end
+      end
+    end
 
     def assign_identity(user)
       user.provider = auth.provider

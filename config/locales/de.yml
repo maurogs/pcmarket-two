@@ -145,6 +145,7 @@ de:
       acceptance_html: "Ich akzeptiere die %{terms} und die %{privacy}"
     marketing_opt_in: "Angebote und Neuigkeiten vom Marktplatz erhalten"
     omniauth_failure: "Die Anmeldung mit Google ist fehlgeschlagen. Bitte versuche es erneut."
+    omniauth_email_not_verified: "Ein Konto mit dieser E-Mail-Adresse existiert bereits. Bitte melde dich zuerst mit deinem Passwort an."
   account:
     menu:
       signed_out:
@@ -188,3 +189,16 @@ de:
       not_saved:
         one: "1 Fehler verhinderte das Speichern von %{resource}:"
         other: "%{count} Fehler verhinderten das Speichern von %{resource}:"
+  categories:
+    errors:
+      cycle: "Eine Kategorie kann nicht ihr eigener Vorfahre sein."
+  listings:
+    errors:
+      price_out_of_range: "Der Preis muss zwischen %{min} und %{max} Euro liegen."
+      compare_at_price: "Der Vergleichspreis muss über dem Verkaufspreis liegen."
+      required_specs: "Fehlende Pflichtangaben: %{attributes}."
+      invalid_spec_option: "%{attribute} enthält eine nicht verfügbare Option."
+      country_not_launched: "Anzeigen sind in diesem Land noch nicht verfügbar."
+      region_country_mismatch: "Die Region gehört nicht zum ausgewählten Land."
+      too_many_photos: "Eine Anzeige darf höchstens %{max} Fotos haben."
+      rejection_reason_required: "Bitte einen Ablehnungsgrund angeben."

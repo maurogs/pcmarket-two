@@ -11,6 +11,8 @@ class Store < ApplicationRecord
   has_one_attached :logo
   has_one_attached :banner
 
+  has_many :listings, dependent: :restrict_with_error
+
   friendly_id :name, use: %i[slugged history]
 
   enum :kind, { individual: 0, business: 1 }, scopes: false

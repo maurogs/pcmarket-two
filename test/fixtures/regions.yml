@@ -1,0 +1,15 @@
+madrid:
+  country_code: ES
+  name: Madrid
+  code: M
+  position: 1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+ile_de_france:
+  country_code: FR
+  name: Île-de-France
+  code: IDF
+  position: 1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

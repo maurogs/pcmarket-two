@@ -145,6 +145,7 @@ en:
       acceptance_html: "I accept the %{terms} and the %{privacy}"
     marketing_opt_in: "Send me deals and marketplace news"
     omniauth_failure: "We couldn't sign you in with Google. Please try again."
+    omniauth_email_not_verified: "An account with this email already exists. Please sign in with your password first."
   account:
     menu:
       signed_out:
@@ -188,3 +189,16 @@ en:
       not_saved:
         one: "1 error prevented this %{resource} from being saved:"
         other: "%{count} errors prevented this %{resource} from being saved:"
+  categories:
+    errors:
+      cycle: "A category cannot be its own ancestor."
+  listings:
+    errors:
+      price_out_of_range: "Price must be between %{min} and %{max} euros."
+      compare_at_price: "The compare-at price must be higher than the selling price."
+      required_specs: "Missing required specifications: %{attributes}."
+      invalid_spec_option: "%{attribute} contains an option that is not available."
+      country_not_launched: "Listings are not available in this country yet."
+      region_country_mismatch: "The region does not belong to the selected country."
+      too_many_photos: "A listing can have at most %{max} photos."
+      rejection_reason_required: "A rejection reason is required."

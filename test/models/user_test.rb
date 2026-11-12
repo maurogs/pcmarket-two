@@ -87,6 +87,56 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  test "from_omniauth refuses to link an existing account when the email is not verified" do
+    existing = users(:confirmed)
+
+    [ false, nil ].each do |verified|
+      auth = omniauth_hash(email: existing.email, nickname: "ignored",
+                           uid: "uid-unverified-#{verified.inspect}", email_verified: verified)
+
+      assert_no_difference("User.count") do
+        @user = Users::FromOmniauth.new(auth).call
+      end
+
+      assert_equal existing, @user
+      assert @user.errors[:email].any?
+      assert_nil @user.provider
+      assert_nil @user.uid
+    end
+
+    existing.reload
+    assert_nil existing.provider
+    assert_nil existing.uid
+  end
+
+  test "from_omniauth links an existing account when raw_info reports a verified email" do
+    existing = users(:confirmed)
+    auth = omniauth_hash(email: existing.email, nickname: "ignored", uid: "uid-raw-info",
+                         email_verified: nil, extra: { raw_info: { email_verified: true } })
+
+    assert_no_difference("User.count") do
+      @user = Users::FromOmniauth.new(auth).call
+    end
+
+    assert_equal existing, @user
+    assert_equal "google_oauth2", @user.provider
+    assert_equal "uid-raw-info", @user.uid
+  end
+
+  test "from_omniauth signs in an already linked user when email_verified is absent" do
+    first = Users::FromOmniauth.new(
+      omniauth_hash(email: "oauth-linked@example.com", nickname: "oauth_linked", uid: "uid-linked")
+    ).call
+
+    second = Users::FromOmniauth.new(
+      omniauth_hash(email: "oauth-linked@example.com", nickname: "oauth_linked",
+                    uid: "uid-linked", email_verified: nil)
+    ).call
+
+    assert_equal first, second
+    assert_empty second.errors
+  end
+
   private
 
   def build_user(attributes = {})
@@ -99,7 +149,7 @@ class UserTest < ActiveSupport::TestCase
     }.merge(attributes))
   end
 
-  def omniauth_hash(email:, nickname:, uid:)
+  def omniauth_hash(email:, nickname:, uid:, email_verified: true, extra: {})
     OmniAuth::AuthHash.new(
       provider: "google_oauth2",
       uid: uid,
@@ -107,8 +157,10 @@ class UserTest < ActiveSupport::TestCase
         email: email,
         first_name: "OAuth",
         last_name: "User",
-        nickname: nickname
-      }
+        nickname: nickname,
+        email_verified: email_verified
+      },
+      extra: extra
     )
   end
 end

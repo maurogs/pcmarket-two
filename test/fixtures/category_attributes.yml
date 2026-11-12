@@ -1,0 +1,31 @@
+components_warranty:
+  category: components
+  attribute_definition: warranty
+  required: false
+  position: 10
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+gpus_chipset:
+  category: gpus
+  attribute_definition: gpu_chipset
+  required: true
+  position: 1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+gpus_memory:
+  category: gpus
+  attribute_definition: gpu_memory_type
+  required: false
+  position: 2
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+nvidia_chipset:
+  category: nvidia
+  attribute_definition: gpu_chipset
+  required: true
+  position: 1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_091361) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_110300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -41,6 +43,68 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_091361) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "attribute_definitions", force: :cascade do |t|
+    t.string "key", null: false
+    t.jsonb "name", default: {}, null: false
+    t.string "group"
+    t.integer "input_type", default: 0, null: false
+    t.string "unit"
+    t.boolean "filterable", default: true, null: false
+    t.boolean "show_on_card", default: false, null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_attribute_definitions_on_active"
+    t.index ["group", "position"], name: "index_attribute_definitions_on_group_and_position"
+    t.index ["key"], name: "index_attribute_definitions_on_key", unique: true
+  end
+
+  create_table "attribute_options", force: :cascade do |t|
+    t.bigint "attribute_definition_id", null: false
+    t.string "value", null: false
+    t.jsonb "label", default: {}, null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "popular", default: true, null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attribute_definition_id", "position"], name: "idx_on_attribute_definition_id_position_04388d48f8"
+    t.index ["attribute_definition_id", "value"], name: "index_attribute_options_on_attribute_definition_id_and_value", unique: true
+    t.index ["attribute_definition_id"], name: "index_attribute_options_on_attribute_definition_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.bigint "parent_id"
+    t.jsonb "name", default: {}, null: false
+    t.jsonb "description", default: {}, null: false
+    t.jsonb "seo_title", default: {}, null: false
+    t.jsonb "seo_description", default: {}, null: false
+    t.string "slug", null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.string "icon"
+    t.integer "depth", default: 0, null: false
+    t.integer "listings_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_categories_on_active"
+    t.index ["parent_id", "position"], name: "index_categories_on_parent_id_and_position"
+    t.index ["slug"], name: "index_categories_on_slug", unique: true
+  end
+
+  create_table "category_attributes", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.bigint "attribute_definition_id", null: false
+    t.boolean "required", default: false, null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attribute_definition_id"], name: "index_category_attributes_on_attribute_definition_id"
+    t.index ["category_id", "attribute_definition_id"], name: "idx_on_category_id_attribute_definition_id_58e88a2133", unique: true
+    t.index ["category_id"], name: "index_category_attributes_on_category_id"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -81,6 +145,86 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_091361) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "listing_moderations", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "moderator_id", null: false
+    t.integer "action", default: 0, null: false
+    t.text "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id", "created_at"], name: "index_listing_moderations_on_listing_id_and_created_at"
+    t.index ["listing_id"], name: "index_listing_moderations_on_listing_id"
+    t.index ["moderator_id"], name: "index_listing_moderations_on_moderator_id"
+  end
+
+  create_table "listing_photos", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id", "position"], name: "index_listing_photos_on_listing_id_and_position"
+    t.index ["listing_id"], name: "index_listing_photos_on_listing_id"
+  end
+
+  create_table "listing_tags", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id", "tag_id"], name: "index_listing_tags_on_listing_id_and_tag_id", unique: true
+    t.index ["listing_id"], name: "index_listing_tags_on_listing_id"
+    t.index ["tag_id"], name: "index_listing_tags_on_tag_id"
+  end
+
+  create_table "listings", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.string "slug", null: false
+    t.integer "condition", default: 0, null: false
+    t.integer "price_cents", null: false
+    t.integer "compare_at_price_cents"
+    t.string "currency", default: "EUR", null: false
+    t.integer "quantity", default: 1, null: false
+    t.jsonb "specs", default: {}, null: false
+    t.string "status", default: "draft", null: false
+    t.text "rejection_reason"
+    t.datetime "submitted_at"
+    t.datetime "published_at"
+    t.datetime "sold_at"
+    t.datetime "archived_at"
+    t.string "country_code", default: "ES", null: false
+    t.bigint "region_id"
+    t.string "city"
+    t.string "postal_code"
+    t.integer "shipping_mode", default: 0, null: false
+    t.integer "shipping_price_cents", default: 0, null: false
+    t.boolean "free_shipping", default: false, null: false
+    t.integer "handling_days", default: 3, null: false
+    t.boolean "allow_offers", default: true, null: false
+    t.datetime "featured_until"
+    t.integer "views_count", default: 0, null: false
+    t.integer "favorites_count", default: 0, null: false
+    t.virtual "searchable", type: :tsvector, as: "((setweight(to_tsvector('simple'::regconfig, translate(lower((COALESCE(title, ''::character varying))::text), 'áàäâãåéèëêíìïîóòöôõúùüûñç'::text, 'aaaaaaeeeeiiiiooooouuuunc'::text)), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, translate(lower(COALESCE((jsonb_path_query_array(specs, '$.*'::jsonpath))::text, ''::text)), 'áàäâãåéèëêíìïîóòöôõúùüûñç'::text, 'aaaaaaeeeeiiiiooooouuuunc'::text)), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, translate(lower(COALESCE(description, ''::text)), 'áàäâãåéèëêíìïîóòöôõúùüûñç'::text, 'aaaaaaeeeeiiiiooooouuuunc'::text)), 'C'::\"char\"))", stored: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id", "published_at"], name: "index_listings_on_category_id_and_published_at", order: { published_at: :desc }, where: "((status)::text = 'published'::text)"
+    t.index ["category_id"], name: "index_listings_on_category_id"
+    t.index ["price_cents"], name: "index_listings_on_price_cents", where: "((status)::text = 'published'::text)"
+    t.index ["published_at"], name: "index_listings_on_published_at_published", order: :desc, where: "((status)::text = 'published'::text)"
+    t.index ["region_id"], name: "index_listings_on_region_id"
+    t.index ["region_id"], name: "index_listings_on_region_id_published", where: "((status)::text = 'published'::text)"
+    t.index ["searchable"], name: "index_listings_on_searchable", using: :gin
+    t.index ["slug"], name: "index_listings_on_slug", unique: true
+    t.index ["specs"], name: "index_listings_on_specs", opclass: :jsonb_path_ops, using: :gin
+    t.index ["store_id", "status"], name: "index_listings_on_store_id_and_status"
+    t.index ["store_id"], name: "index_listings_on_store_id"
+    t.index ["title"], name: "index_listings_on_title_trgm", opclass: :gin_trgm_ops, using: :gin
+    t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -139,6 +283,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_091361) do
     t.index ["user_id"], name: "index_stores_on_user_id", unique: true
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.integer "kind", default: 0, null: false
+    t.jsonb "name", default: {}, null: false
+    t.string "slug", null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.string "colour"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["kind", "position"], name: "index_tags_on_kind_and_position"
+    t.index ["kind", "slug"], name: "index_tags_on_kind_and_slug", unique: true
+    t.index ["kind"], name: "index_tags_on_kind"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -184,6 +342,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_091361) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "attribute_options", "attribute_definitions"
+  add_foreign_key "categories", "categories", column: "parent_id"
+  add_foreign_key "category_attributes", "attribute_definitions"
+  add_foreign_key "category_attributes", "categories"
+  add_foreign_key "listing_moderations", "listings"
+  add_foreign_key "listing_moderations", "users", column: "moderator_id"
+  add_foreign_key "listing_photos", "listings"
+  add_foreign_key "listing_tags", "listings"
+  add_foreign_key "listing_tags", "tags"
+  add_foreign_key "listings", "categories"
+  add_foreign_key "listings", "regions"
+  add_foreign_key "listings", "stores"
+  add_foreign_key "listings", "users"
   add_foreign_key "regions", "countries", column: "country_code", primary_key: "code"
   add_foreign_key "stores", "users"
 end

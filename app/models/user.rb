@@ -13,6 +13,11 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_one :store, dependent: :destroy
 
+  has_many :listings, foreign_key: :user_id,
+                      inverse_of: :seller, dependent: :restrict_with_error
+  has_many :listing_moderations, foreign_key: :moderator_id,
+                                 inverse_of: :moderator, dependent: :restrict_with_error
+
   enum :role, { user: 0, moderator: 1, admin: 2 }, scopes: false
 
   # Virtual attribute backing the sign-up terms checkbox.

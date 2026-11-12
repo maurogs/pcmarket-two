@@ -145,6 +145,7 @@ fr:
       acceptance_html: "J'accepte les %{terms} et la %{privacy}"
     marketing_opt_in: "Recevoir les offres et actualités de la place de marché"
     omniauth_failure: "Impossible de vous connecter avec Google. Veuillez réessayer."
+    omniauth_email_not_verified: "Un compte avec cet e-mail existe déjà. Veuillez d'abord vous connecter avec votre mot de passe."
   account:
     menu:
       signed_out:
@@ -188,3 +189,16 @@ fr:
       not_saved:
         one: "1 erreur a empêché l'enregistrement de %{resource} :"
         other: "%{count} erreurs ont empêché l'enregistrement de %{resource} :"
+  categories:
+    errors:
+      cycle: "Une catégorie ne peut pas être son propre ancêtre."
+  listings:
+    errors:
+      price_out_of_range: "Le prix doit être compris entre %{min} et %{max} euros."
+      compare_at_price: "Le prix barré doit être supérieur au prix de vente."
+      required_specs: "Spécifications obligatoires manquantes : %{attributes}."
+      invalid_spec_option: "%{attribute} contient une option indisponible."
+      country_not_launched: "Les annonces ne sont pas encore disponibles dans ce pays."
+      region_country_mismatch: "La région n'appartient pas au pays sélectionné."
+      too_many_photos: "Une annonce peut avoir au maximum %{max} photos."
+      rejection_reason_required: "Indiquez le motif du refus."
