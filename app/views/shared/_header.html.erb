@@ -48,13 +48,13 @@
         </svg>
       <% end %>
 
-      <%= link_to "#", class: "icon-button relative", aria: { label: t("nav.cart") } do %>
+      <%= link_to cart_path, class: "icon-button relative", aria: { label: t("nav.cart") } do %>
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
           <path d="M3 4h2l2.4 11.2a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.3L21 7H6" stroke-linecap="round" stroke-linejoin="round"></path>
           <circle cx="9.5" cy="20" r="1.4"></circle>
           <circle cx="17.5" cy="20" r="1.4"></circle>
         </svg>
-        <span class="absolute -right-0.5 -top-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold leading-none text-on-accent" aria-hidden="true">0</span>
+        <span class="absolute -right-0.5 -top-0.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold leading-none text-on-accent" aria-hidden="true"><%= cart_badge_count %></span>
       <% end %>
 
       <% account_menu_item_class = "flex w-full items-center rounded-lg px-3 py-2 text-left text-sm text-content transition hover:bg-surface-muted focus:bg-surface-muted" %>
@@ -82,7 +82,7 @@
               <p class="truncate text-xs text-muted"><%= current_user.email %></p>
             </div>
 
-            <%= link_to t("account.menu.my_orders"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.my_orders"), orders_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.inbox"), "#", role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.wishlist"), "#", role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.settings"), "#", role: "menuitem", class: account_menu_item_class %>
@@ -92,7 +92,7 @@
             <%= link_to t("account.menu.store.public_profile"), "#", role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.seller_dashboard"), "#", role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.listings"), sell_listings_path, role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.store.sales"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.sales"), sell_orders_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.settings"),
                         current_user.store.present? ? edit_store_path : new_store_path,
                         role: "menuitem",

@@ -81,6 +81,18 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `Listings::Moderate` performs the pending check, AASM transition and moderation log inside `listing.with_lock`; a second moderator receives `nil` with no duplicate log or email. Emails are enqueued only after the lock transaction returns successfully.
 - `ListingModeration::REJECTION_REASONS` lists the eight predefined reasons. `ListingModeration.compose_reason` translates the selected code in the seller's locale and joins it to the optional note with an em dash; the combined text is stored on both `listings.rejection_reason` and `listing_moderations.reason`.
 - `ListingMailer#approved`/`#rejected` render HTML and text in the seller's locale through `I18n.with_locale`, pass the locale explicitly to listing/edit URLs and use the inline-styled `listing_mailer` layout. The dashboard/review UI uses the `moderation_shortcuts` Stimulus controller (A, R, J/K) and ignores keys while typing.
+- The cart is a `Cart` owned by a user or by a guest `token` stored in the signed `cart_token` cookie. Guest carts exist only while Flipper `:guest_checkout` is enabled and are merged into the user cart by `Carts::Merge` on the first signed-in request. `CartItem` enforces unique `[cart_id, listing_id]` pairs and the purchase rules (own listing, visibility, vacation mode, stock).
+- `Carts::AddItem` owns every add-to-cart rule and returns translated errors; `Cart#cached_item_count` backs the header badge and is invalidated by `CartItem belongs_to :cart, touch: true`.
+- A checkout is one `Checkout` (payment group) split into one `Order` per store. `Checkouts::Start` locks the cart, validates the address/terms, reserves stock, writes order line snapshots and calls the payment gateway; the controller then calls `Checkouts::Complete`, `Fail` or the expiry job. Orders are idempotent through status guards and `checkouts.idempotency_key`.
+- Stock reservation uses `Listing#reserve_stock!` inside `with_lock` (SELECT FOR UPDATE): individual stores move `published → reserved` via AASM, business stores decrement `quantity` atomically. `release_stock!` restocks, `mark_sold_after_sale!` marks the lines sold on payment. Reservations last 15 minutes (`Checkout::RESERVATION_WINDOW`).
+- `ReleaseExpiredReservationsJob` is scheduled every minute from `config/recurring.yml` for development, test and production. `AutoCompleteOrderJob` completes delivered orders when the buyer-protection window (`Setting buyer_protection_days`) ends.
+- `Payments::Gateway` is the payment boundary; `Payments::FakeGateway` simulates success or failure in development/test and `Payments.gateway` raises in production until Phase 4b adds Stripe capture.
+- Order status is an AASM state machine on `orders.status`: `pending_payment → paid → shipped → delivered → completed`, plus `cancelled`, `refunded` and `disputed`. Shipping orders require carrier + tracking; local pickup orders do not. `Orders::Cancel` refunds when already paid and restocks; `Orders::ConfirmDelivery` opens the protection window and schedules auto-completion.
+- `Order#commission_cents` is frozen at checkout as `subtotal × Setting commission_percent / 100` only when Flipper `:commissions` and `Setting commission_enabled` are both on; otherwise zero.
+- `Address` stores a `region` and validates ES postal codes as five digits whose first two digits match the province prefix (`Address::PROVINCE_PREFIXES`). The checkout freezes the shipping address into `checkouts.shipping_address` JSONB.
+- Order numbers are generated after insert from the primary key (`PCM-YYYY-NNNNNN`), which keeps them unique without a custom sequence. `OrderItem` snapshots title, unit price, shipping, seller name, photo URL and specs.
+- The purchase UI is split into the basket (`/cart`), checkout form and confirmation (`/checkout/new`, `/checkout`), buyer orders (`/orders`) and seller sales (`/sell/sales`). Buy now adds the listing and carries `buy_now_listing_id` into the checkout so only that line is purchased; completion removes only purchased lines from the basket. State transitions are separate singular RESTful resources (`/orders/:order_id/delivery_confirmation`, `cancellation`, `problem_report` and the seller equivalents).
+- `OrderMailer` renders buyer confirmation, seller new sale, shipped, delivery confirmed and cancelled emails as HTML + text in the recipient's locale and enqueues them with `deliver_later`.
 
 
 ## Schema Summary
@@ -96,6 +108,10 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `tags`: `kind` enum (product_label/seller_tag), translated `name`, `slug` unique per kind, `position`, `active`, `colour`. `listing_tags`: unique `[listing_id, tag_id]` plus a `tag_id` index for reverse lookups.
 - `listings`: store/user/category/region FKs, nullable `title`/`description`/`price_cents` while the wizard draft is incomplete, unique `slug`, `condition` enum, `compare_at_price_cents`, `currency`, `quantity`, `specs` jsonb, AASM `status`, moderation/lifecycle timestamps, `country_code`, `city`, `postal_code`, `shipping_mode` enum, shipping fields, `featured_until`, `views_count`, `favorites_count` and the generated `searchable` tsvector. Indexes: unique `slug`, GIN `searchable`, GIN `specs` (jsonb_path_ops), partial published indexes on `[category_id, published_at DESC]`, `published_at DESC` (named `index_listings_on_published_at_published`), `price_cents`, `region_id`, `[store_id, status]`, and a `gin_trgm_ops` GIN index on `title`.
 - `listing_photos`: `listing_id`, `position`, Active Storage `image` with webp variants. `listing_moderations`: `listing_id`, `moderator_id` → users, `action` enum, `reason`. `listing_tags`: join with unique pair and a `tag_id` index.
+- `carts`: optional unique `user_id`, unique guest `token`; `cart_items`: `cart_id`/`listing_id` with unique pair, `quantity`. `addresses`: optional user, full name/address/city/`region_id`/postal code/country/phone, `default` flag.
+- `checkouts`: optional `buyer_id`, `status` (pending/paid/failed/expired/cancelled), subtotal/shipping/total cents, `payment_intent_id`, `expires_at`, `shipping_address` JSONB, email and unique `idempotency_key`.
+- `orders`: `checkout_id`, optional `buyer_id`, `store_id`, unique `number`, AASM `status`, `fulfilment` enum, subtotal/shipping/commission/total cents, currency, tracking carrier/number, paid/shipped/delivered/completed/cancelled timestamps and `buyer_protection_ends_at`. Indexes: unique `[checkout_id, store_id]`, `number`, `status`, `[store_id, status]`, `[buyer_id, created_at]`.
+- `order_items`: order/listing FKs, quantity, unit price, shipping, title/seller/photo/specs snapshots (unique `[order_id, listing_id]`). `order_events`: order/actor FKs, event and JSONB data.
 - Supporting tables: `friendly_id_slugs`, `active_storage_blobs/attachments/variant_records`, `flipper_features`, `flipper_gates`.
 
 ## Listing state machine (AASM on `listings.status`)
@@ -198,6 +214,18 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `test/integration/{admin_access,admin_dashboard,admin_moderation}_test.rb` — staff 404/redirect rules, KPI values, queue filters, review content, approve/reject, concurrency and emails.
 - `test/policies/admin/listing_policy_test.rb`, `test/mailers/listing_mailer_test.rb` — staff policy rules and locale-aware moderation emails; `test/mailers/previews/` holds the mailer preview.
 - `test/services/listings/moderate_test.rb` — moderation transitions, emails and the double-moderation guard.
+- `app/models/{cart,cart_item,address,checkout,order,order_item,order_event}.rb` — basket, saved address, payment group, per-seller order, snapshotted line items and event log.
+- `app/services/carts/{add_item,merge}.rb`, `app/services/checkouts/{start,complete,fail,expire}.rb`, `app/services/orders/{release_stock,ship,confirm_delivery,cancel,complete}.rb` — cart rules, guest merge, stock reservation, checkout lifecycle and order transitions.
+- `app/services/payments.rb`, `app/services/payments/{gateway,fake_gateway}.rb` — payment interface and the deterministic fake gateway used until Phase 4b.
+- `app/jobs/{release_expired_reservations_job,auto_complete_order_job}.rb` — 15-minute reservation sweep and buyer-protection auto-completion.
+- `app/policies/{cart,cart_item,checkout,order}_policy.rb`, `app/policies/sell/order_policy.rb` — guest/user cart ownership, checkout confirmation access and buyer/seller order permissions.
+- `app/controllers/{carts,cart_items,checkouts,orders,order_delivery_confirmations,order_cancellations,order_problem_reports}_controller.rb` — basket, checkout form/confirmation, buyer orders and order actions.
+- `app/controllers/sell/{orders,order_shipments,order_cancellations}_controller.rb`, `app/queries/sell/order_collection.rb` — seller sales list/filter, shipping and cancellation actions.
+- `app/helpers/orders_helper.rb` — order status/fulfilment/carrier labels, timeline, address lines and seller action checks; `ApplicationHelper#cart_badge_count` backs the header badge.
+- `app/mailers/order_mailer.rb`, `app/views/layouts/order_mailer.{html,text}.erb`, `app/views/order_mailer/**/*` — locale-aware purchase emails in HTML and text.
+- `app/views/carts/`, `app/views/checkouts/`, `app/views/orders/`, `app/views/sell/orders/` — basket, three-section checkout, confirmation, buyer orders and seller sales screens.
+- `db/migrate/2026111214*.rb` — reversible Phase 4a cart/address/checkout/order migrations.
+- `test/models/{address,order}_test.rb`, `test/services/{carts,checkouts,orders}/**/*`, `test/policies/order_policy_test.rb`, `test/mailers/order_mailer_test.rb`, `test/integration/{cart_checkout,orders_flow}_test.rb` — purchase-path coverage.
 - `test/controllers/{pages,layout}_controller_test.rb` — locale routing, detection and shell rendering.
 - `test/fixtures/{categories,attribute_definitions,attribute_options,category_attributes,tags,listings,regions}.yml` — catalogue fixtures.
 - `Procfile.dev`, `bin/dev` — development processes (web + Tailwind watch).
@@ -208,8 +236,12 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - The catalogue domain is fully browsable and the moderation review page reuses the public buyer preview, but the catalogue CRUD screens (categories, attributes, tags, countries) are not built.
 - `Setting` values are still read and written through `Setting.get`/`Setting.set`; the admin settings screen is a placeholder.
 - `Listings::Submit` still has a TODO to enqueue the moderator notification on submission. Seller approval/rejection emails now exist through `ListingMailer`.
-- Buy now, add to basket, make an offer, message seller, wishlist and store links are disabled placeholders until their Phase 4+ resources exist.
+- Make an offer, message seller, wishlist and public store links remain disabled placeholders; `wishlist` saves from the basket is a disabled placeholder.
+- Stripe capture is intentionally deferred to Phase 4b: `Payments.gateway` raises in production, while development/test use `Payments::FakeGateway`. Payment failure simulation is available through the gateway object and the `payment_result=failure` test parameter.
+- Discount codes and problem reports/disputes are placeholders (disabled input and redirect-only action respectively). There is no saved-address management screen yet; addresses are saved from the checkout form. Payout scheduling, refunds UI and admin order screens are future work.
+- The newsletter form posts nowhere, and the theme-color meta tags follow the system scheme rather than a manual toggle.
 - Only ES is launched and only Spanish provinces are accepted by the region filter; FR, GB, DE, IT and PT are inactive catalogue rows.
 - Google OAuth credentials are not configured in development by default; the login button stays hidden until they are.
-- The newsletter form posts nowhere, the cart badge is a static `0`, and the theme-color meta tags follow the system scheme rather than a manual toggle.
+- Guest checkout and commissions are Flipper flags and start disabled. Commission also requires `Setting commission_enabled`; both must be on for orders to store a commission.
+- The newsletter form posts nowhere, and the theme-color meta tags follow the system scheme rather than a manual toggle.
 - Editing a published listing relies on the existing material-edit rule. Sold listings cannot be archived by the AASM state machine, so the seller index shows them without an archive action until sales exist.

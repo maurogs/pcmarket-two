@@ -1,0 +1,7 @@
+<%= t("order_mailer.order_cancelled.greeting") %>
+
+<%= t("order_mailer.order_cancelled.body", number: @order.number) %>
+
+<%= render "order_mailer/order_details", order: @order %>
+
+<%= t("order_mailer.order_cancelled.closing") %>

@@ -62,6 +62,62 @@ module ModernBrowserRequests
   end
 end
 
+module MarketplaceTestHelpers
+  def default_address_attributes
+    {
+      full_name: "Test Buyer",
+      line1: "Calle Mayor 1",
+      city: "Madrid",
+      region_id: regions(:madrid).id,
+      postal_code: "28001",
+      country_code: "ES",
+      phone: "600000000"
+    }
+  end
+
+  def checkout_params(fulfilment: {}, **overrides)
+    params = {
+      email: "buyer@example.com",
+      terms_accepted: "1",
+      address: default_address_attributes
+    }.merge(overrides)
+    params[:fulfilment] = fulfilment
+    params
+  end
+
+  def build_cart(user:, listings:, quantities: {})
+    cart = Cart.create!(user: user)
+    listings.each do |listing|
+      cart.items.create!(listing: listing, quantity: quantities.fetch(listing.id, 1))
+    end
+    cart
+  end
+
+  def create_listing!(store:, seller:, title: "Test listing", price_cents: 10_000, quantity: 1, **attrs)
+    Listing.create!(
+      {
+        store: store,
+        seller: seller,
+        category: categories(:cpus),
+        title: title,
+        description: "A test listing used by the Phase 4 marketplace tests.",
+        condition: :used_good,
+        price_cents: price_cents,
+        quantity: quantity,
+        status: "published",
+        published_at: Time.current,
+        country_code: "ES",
+        region: regions(:madrid),
+        city: "Madrid",
+        postal_code: "28001",
+        shipping_mode: "shipping",
+        shipping_price_cents: 0,
+        handling_days: 2
+      }.merge(attrs)
+    )
+  end
+end
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
@@ -72,6 +128,7 @@ module ActiveSupport
 
     include CacheTestHelpers
     include ListingSearchTestHelpers
+    include MarketplaceTestHelpers
 
     # Add more helper methods to be used by all tests here...
   end

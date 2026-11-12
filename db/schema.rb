@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_130200) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_140600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -45,6 +45,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_130200) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "full_name", null: false
+    t.string "line1", null: false
+    t.string "line2"
+    t.string "city", null: false
+    t.bigint "region_id"
+    t.string "postal_code", null: false
+    t.string "country_code", default: "ES", null: false
+    t.string "phone", null: false
+    t.boolean "default", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_addresses_on_region_id"
+    t.index ["user_id", "default"], name: "index_addresses_on_user_id_and_default"
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
   create_table "attribute_definitions", force: :cascade do |t|
     t.string "key", null: false
     t.jsonb "name", default: {}, null: false
@@ -76,6 +94,26 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_130200) do
     t.index ["attribute_definition_id"], name: "index_attribute_options_on_attribute_definition_id"
   end
 
+  create_table "cart_items", force: :cascade do |t|
+    t.bigint "cart_id", null: false
+    t.bigint "listing_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id", "listing_id"], name: "index_cart_items_on_cart_id_and_listing_id", unique: true
+    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
+    t.index ["listing_id"], name: "index_cart_items_on_listing_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["token"], name: "index_carts_on_token", unique: true
+    t.index ["user_id"], name: "index_carts_on_user_id", unique: true
+  end
+
   create_table "categories", force: :cascade do |t|
     t.bigint "parent_id"
     t.jsonb "name", default: {}, null: false
@@ -105,6 +143,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_130200) do
     t.index ["attribute_definition_id"], name: "index_category_attributes_on_attribute_definition_id"
     t.index ["category_id", "attribute_definition_id"], name: "idx_on_category_id_attribute_definition_id_58e88a2133", unique: true
     t.index ["category_id"], name: "index_category_attributes_on_category_id"
+  end
+
+  create_table "checkouts", force: :cascade do |t|
+    t.bigint "buyer_id"
+    t.string "status", default: "pending", null: false
+    t.integer "subtotal_cents", default: 0, null: false
+    t.integer "shipping_cents", default: 0, null: false
+    t.integer "total_cents", default: 0, null: false
+    t.string "payment_intent_id"
+    t.datetime "expires_at"
+    t.jsonb "shipping_address", default: {}, null: false
+    t.string "email"
+    t.string "idempotency_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id"], name: "index_checkouts_on_buyer_id"
+    t.index ["expires_at"], name: "index_checkouts_on_expires_at"
+    t.index ["idempotency_key"], name: "index_checkouts_on_idempotency_key", unique: true
+    t.index ["status"], name: "index_checkouts_on_status"
   end
 
   create_table "countries", force: :cascade do |t|
@@ -227,6 +284,67 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_130200) do
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
+  create_table "order_events", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "actor_id"
+    t.string "event", null: false
+    t.jsonb "data", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["actor_id"], name: "index_order_events_on_actor_id"
+    t.index ["order_id", "created_at"], name: "index_order_events_on_order_id_and_created_at"
+    t.index ["order_id"], name: "index_order_events_on_order_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "listing_id", null: false
+    t.integer "quantity", default: 1, null: false
+    t.integer "unit_price_cents", default: 0, null: false
+    t.integer "shipping_cents", default: 0, null: false
+    t.string "title", null: false
+    t.string "seller_name", null: false
+    t.string "photo_url"
+    t.jsonb "specs", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["listing_id"], name: "index_order_items_on_listing_id"
+    t.index ["order_id", "listing_id"], name: "index_order_items_on_order_id_and_listing_id", unique: true
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "checkout_id", null: false
+    t.bigint "buyer_id"
+    t.bigint "store_id", null: false
+    t.string "number"
+    t.string "status", default: "pending_payment", null: false
+    t.integer "fulfilment", default: 0, null: false
+    t.integer "subtotal_cents", default: 0, null: false
+    t.integer "shipping_cents", default: 0, null: false
+    t.integer "commission_cents", default: 0, null: false
+    t.integer "total_cents", default: 0, null: false
+    t.string "currency", default: "EUR", null: false
+    t.string "tracking_carrier"
+    t.string "tracking_number"
+    t.datetime "paid_at"
+    t.datetime "shipped_at"
+    t.datetime "delivered_at"
+    t.datetime "completed_at"
+    t.datetime "cancelled_at"
+    t.datetime "buyer_protection_ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_id", "created_at"], name: "index_orders_on_buyer_id_and_created_at"
+    t.index ["buyer_id"], name: "index_orders_on_buyer_id"
+    t.index ["checkout_id", "store_id"], name: "index_orders_on_checkout_id_and_store_id", unique: true
+    t.index ["checkout_id"], name: "index_orders_on_checkout_id"
+    t.index ["number"], name: "index_orders_on_number", unique: true
+    t.index ["status"], name: "index_orders_on_status"
+    t.index ["store_id", "status"], name: "index_orders_on_store_id_and_status"
+    t.index ["store_id"], name: "index_orders_on_store_id"
+  end
+
   create_table "regions", force: :cascade do |t|
     t.string "country_code", null: false
     t.string "name", null: false
@@ -344,10 +462,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_130200) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "addresses", "regions"
+  add_foreign_key "addresses", "users"
   add_foreign_key "attribute_options", "attribute_definitions"
+  add_foreign_key "cart_items", "carts"
+  add_foreign_key "cart_items", "listings"
+  add_foreign_key "carts", "users"
   add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "category_attributes", "attribute_definitions"
   add_foreign_key "category_attributes", "categories"
+  add_foreign_key "checkouts", "users", column: "buyer_id"
   add_foreign_key "listing_moderations", "listings"
   add_foreign_key "listing_moderations", "users", column: "moderator_id"
   add_foreign_key "listing_photos", "listings"
@@ -357,6 +481,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_130200) do
   add_foreign_key "listings", "regions"
   add_foreign_key "listings", "stores"
   add_foreign_key "listings", "users"
+  add_foreign_key "order_events", "orders"
+  add_foreign_key "order_events", "users", column: "actor_id"
+  add_foreign_key "order_items", "listings"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "checkouts"
+  add_foreign_key "orders", "stores"
+  add_foreign_key "orders", "users", column: "buyer_id"
   add_foreign_key "regions", "countries", column: "country_code", primary_key: "code"
   add_foreign_key "stores", "regions"
   add_foreign_key "stores", "users"

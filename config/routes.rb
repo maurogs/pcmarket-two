@@ -16,6 +16,26 @@ Rails.application.routes.draw do
     resources :listings, only: %i[index show], path: "l"
     get "search", to: "listings#index", as: :search
 
+    resource :cart, only: :show
+    resources :cart_items, only: %i[create update destroy]
+    resource :checkout, only: %i[new show create]
+
+    resources :orders, only: %i[index show] do
+      resource :delivery_confirmation, only: :create,
+                                       controller: "order_delivery_confirmations"
+      resource :cancellation, only: :create,
+                              controller: "order_cancellations"
+      resource :problem_report, only: :create,
+                                controller: "order_problem_reports"
+    end
+
+    namespace :sell do
+      resources :orders, only: %i[index show], path: "sales" do
+        resource :shipment, only: :create, controller: "order_shipments"
+        resource :cancellation, only: :create, controller: "order_cancellations"
+      end
+    end
+
     resource :store, only: %i[new create edit update]
     resources :listings, path: "sell", only: %i[index new create edit update destroy],
                          controller: "sell/listings", as: :sell_listings do

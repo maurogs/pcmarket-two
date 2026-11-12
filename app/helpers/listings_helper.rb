@@ -187,4 +187,18 @@ module ListingsHelper
     full = rating.to_f.round.clamp(0, 5)
     Array.new(5) { |index| index < full ? "full" : "empty" }
   end
+
+  def purchase_blocked_reason(listing)
+    return :own_listing if user_signed_in? && listing.user_id == current_user.id
+    return :store_vacation if listing.store&.vacation_mode?
+    return :guest_disabled if !user_signed_in? && !Flipper.enabled?(:guest_checkout)
+    return :out_of_stock if listing.quantity.to_i <= 0
+    return :unavailable unless listing.publicly_visible?
+
+    nil
+  end
+
+  def purchase_blocked_message(reason)
+    t("cart.purchase_blocked.#{reason}")
+  end
 end

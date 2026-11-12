@@ -13,6 +13,7 @@ class Store < ApplicationRecord
   has_one_attached :banner
 
   has_many :listings, dependent: :restrict_with_error
+  has_many :orders, dependent: :restrict_with_error
 
   friendly_id :name, use: %i[slugged history]
 

@@ -23,6 +23,8 @@ class Listing < ApplicationRecord
   has_many :listing_tags, dependent: :destroy
   has_many :tags, through: :listing_tags
   has_many :moderations, class_name: "ListingModeration", dependent: :destroy
+  has_many :cart_items, dependent: :destroy
+  has_many :order_items, dependent: :restrict_with_error
 
   friendly_id :slug_source, use: %i[slugged history]
 
@@ -338,6 +340,53 @@ class Listing < ApplicationRecord
 
   def primary_photo
     photos.first
+  end
+
+  # Atomically takes stock out of circulation. Returns false when another
+  # buyer got there first (or the listing is no longer purchasable).
+  def reserve_stock!(amount)
+    reserved = false
+
+    with_lock do
+      next unless published? && quantity.to_i >= amount
+
+      self.quantity = quantity.to_i - amount
+      if store.individual?
+        reserve!
+      else
+        save!
+      end
+      reserved = true
+    end
+
+    reserved
+  end
+
+  # Puts reserved units back on sale. Used by failed/expired/cancelled
+  # checkouts and order cancellations.
+  def release_stock!(amount)
+    with_lock do
+      self.quantity = quantity.to_i + amount
+      if reserved?
+        release!
+      elsif sold?
+        self.status = "published"
+        self.sold_at = nil
+        save!
+      else
+        save!
+      end
+    end
+  end
+
+  # Keeps multi-quantity listings live until the last unit is gone and then
+  # moves single items from reserved to sold.
+  def mark_sold_after_sale!
+    with_lock do
+      next if sold? || archived?
+
+      mark_sold! if reserved? || (published? && quantity.to_i.zero?)
+    end
   end
 
   # Visible to everybody: published, active storefront and active seller.
