@@ -11,10 +11,13 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   has_one_attached :avatar
+  has_one_attached :data_export
   has_one :store, dependent: :destroy
 
   has_many :listings, foreign_key: :user_id,
                       inverse_of: :seller, dependent: :restrict_with_error
+  has_many :reviews, foreign_key: :reviewer_id, inverse_of: :reviewer,
+                     dependent: :restrict_with_error
   has_many :listing_moderations, foreign_key: :moderator_id,
                                  inverse_of: :moderator, dependent: :restrict_with_error
 
@@ -89,7 +92,14 @@ class User < ApplicationRecord
   end
 
   def display_name
+    return I18n.t("users.deleted") if soft_deleted?
+
     [ first_name, last_name ].compact_blank.join(" ").presence || username
+  end
+
+  # Accounts created through Google do not have a usable password form.
+  def oauth_only?
+    provider.present?
   end
 
   private

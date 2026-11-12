@@ -66,6 +66,8 @@ ignore_unused:
   - "notifications.messages.*"
   - "notifications.filters.*"
   - "notifications.preferences.kinds.*"
+  - "sell.dashboard.nav.*"
+  - "account.settings.sidebar.*"
   - "conversations.errors.*"
   - "conversations.index.tabs.*"
   - "messages.errors.*"

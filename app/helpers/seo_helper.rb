@@ -103,6 +103,63 @@ module SeoHelper
     }
   end
 
+  def store_meta_tags(store)
+    title = store.name
+    description = truncate(store.description.to_s.squish.presence || t("app.tagline"), length: 160)
+    canonical = storefront_url(store)
+
+    {
+      title: title,
+      description: description,
+      canonical: canonical,
+      og: {
+        type: "website",
+        url: canonical,
+        title: title,
+        description: description,
+        image: store_image_url(store)
+      }.compact,
+      twitter: { card: "summary_large_image" }
+    }
+  end
+
+  def store_json_ld(store)
+    type = store.business? ? "Organization" : "Person"
+    data = {
+      "@context" => "https://schema.org",
+      "@type" => type,
+      "name" => store.name,
+      "url" => storefront_url(store),
+      "description" => store.description.presence,
+      "image" => store_image_url(store)
+    }
+
+    if store.business?
+      data["legalName"] = store.legal_name.presence
+      data["vatID"] = store.tax_id.presence
+      data["address"] = {
+        "@type" => "PostalAddress",
+        "streetAddress" => store.address_line.presence,
+        "postalCode" => store.postal_code.presence,
+        "addressLocality" => store.city.presence,
+        "addressRegion" => store.province.presence,
+        "addressCountry" => store.country_code
+      }.compact
+    end
+
+    if store.ratings_count.positive?
+      data["aggregateRating"] = {
+        "@type" => "AggregateRating",
+        "ratingValue" => format("%.2f", store.rating_average),
+        "reviewCount" => store.ratings_count,
+        "bestRating" => 5,
+        "worstRating" => 1
+      }
+    end
+
+    data.compact
+  end
+
   def product_json_ld(listing)
     store = listing.store
     image_url = meta_image_url(listing)
@@ -183,6 +240,13 @@ module SeoHelper
     return unless image&.attached?
 
     path = url_for(image.variant(:large))
+    path.start_with?("http") ? path : "#{request.base_url}#{path}"
+  end
+
+  def store_image_url(store)
+    return unless store.logo.attached?
+
+    path = url_for(store.logo.variant(resize_to_limit: [ 400, 400 ], format: :webp))
     path.start_with?("http") ? path : "#{request.base_url}#{path}"
   end
 

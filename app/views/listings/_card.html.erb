@@ -78,7 +78,7 @@
 
           <div class="flex items-center justify-between gap-2 border-t border-border pt-2">
             <span class="inline-flex min-w-0 items-center gap-1 text-xs font-medium text-content">
-              <span class="truncate"><%= listing.store.name %></span>
+              <span class="truncate"><%= link_to listing.store.name, storefront_path(listing.store), class: "hover:text-primary-700 dark:hover:text-primary-300" %></span>
               <% if listing.store.verified? %>
                 <svg class="h-3.5 w-3.5 shrink-0 text-primary-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M12 2.5 14.7 5l3.6-.2.6 3.6 3 2-1.7 3.2 1.7 3.2-3 2-.6 3.6-3.6-.2L12 21.5 9.3 19l-3.6.2-.6-3.6-3-2 1.7-3.2L2.1 7.2l3-2 .6-3.6L9.3 2 12 2.5Z"></path>

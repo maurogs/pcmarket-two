@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_170500) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_180400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -293,6 +293,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_170500) do
     t.index ["tag_id"], name: "index_listing_tags_on_tag_id"
   end
 
+  create_table "listing_views", force: :cascade do |t|
+    t.bigint "listing_id", null: false
+    t.date "date", null: false
+    t.integer "views", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["date"], name: "index_listing_views_on_date"
+    t.index ["listing_id", "date"], name: "index_listing_views_on_listing_id_and_date", unique: true
+  end
+
   create_table "listings", force: :cascade do |t|
     t.bigint "store_id", null: false
     t.bigint "user_id", null: false
@@ -514,6 +524,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_170500) do
     t.index ["status", "created_at"], name: "index_reports_on_status_and_created_at"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "reviewer_id", null: false
+    t.bigint "store_id", null: false
+    t.integer "rating", null: false
+    t.text "body", null: false
+    t.text "seller_reply"
+    t.datetime "seller_replied_at"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_reviews_on_order_id", unique: true
+    t.index ["reviewer_id", "created_at"], name: "index_reviews_on_reviewer_id_and_created_at"
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
+    t.index ["store_id", "status", "created_at"], name: "index_reviews_on_store_id_and_status_and_created_at"
+    t.index ["store_id"], name: "index_reviews_on_store_id"
+  end
+
   create_table "saved_searches", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
@@ -576,6 +604,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_170500) do
     t.boolean "charges_enabled", default: false, null: false
     t.boolean "details_submitted", default: false, null: false
     t.jsonb "requirements", default: {}, null: false
+    t.date "vacation_until"
+    t.text "return_policy"
+    t.text "shipping_policy"
+    t.integer "handling_days", default: 3, null: false
     t.index ["country_code"], name: "index_stores_on_country_code"
     t.index ["region_id"], name: "index_stores_on_region_id"
     t.index ["slug"], name: "index_stores_on_slug", unique: true
@@ -637,6 +669,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_170500) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unconfirmed_email"], name: "index_users_on_unconfirmed_email"
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
@@ -682,6 +715,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_170500) do
   add_foreign_key "listing_photos", "listings"
   add_foreign_key "listing_tags", "listings"
   add_foreign_key "listing_tags", "tags"
+  add_foreign_key "listing_views", "listings"
   add_foreign_key "listings", "categories"
   add_foreign_key "listings", "regions"
   add_foreign_key "listings", "stores"
@@ -707,6 +741,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_170500) do
   add_foreign_key "regions", "countries", column: "country_code", primary_key: "code"
   add_foreign_key "reports", "users", column: "handled_by_id"
   add_foreign_key "reports", "users", column: "reporter_id"
+  add_foreign_key "reviews", "orders"
+  add_foreign_key "reviews", "stores"
+  add_foreign_key "reviews", "users", column: "reviewer_id"
   add_foreign_key "saved_searches", "categories"
   add_foreign_key "saved_searches", "users"
   add_foreign_key "stores", "regions"

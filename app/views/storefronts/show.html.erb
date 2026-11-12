@@ -1,65 +1,414 @@
-<% set_meta_tags(title: @store.name, description: @store.description, noindex: false) %>
+<% set_meta_tags(store_meta_tags(@store)) %>
+<% profile = @profile %>
 
 <div class="space-y-6">
-  <header class="rounded-2xl border border-border bg-surface p-6">
-    <div class="flex flex-wrap items-center gap-4">
-      <div class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-surface-muted">
-        <% if @store.logo.attached? %>
-          <%= image_tag url_for(@store.logo.variant(resize_to_limit: [ 160, 160 ], format: :webp)),
-                        width: 160,
-                        height: 160,
-                        alt: @store.name,
-                        class: "h-full w-full object-cover" %>
-        <% else %>
-          <div class="flex h-full w-full items-center justify-center text-2xl font-extrabold text-primary-700 dark:text-primary-300">
-            <%= @store.name.first(2).upcase %>
+  <header class="overflow-hidden rounded-2xl border border-border bg-surface">
+    <% if @store.banner.attached? %>
+      <div class="h-32 w-full overflow-hidden bg-surface-muted sm:h-44">
+        <%= image_tag url_for(@store.banner.variant(resize_to_limit: [ 1600, 500 ], format: :webp)),
+                      alt: "",
+                      class: "h-full w-full object-cover" %>
+      </div>
+    <% else %>
+      <div class="h-20 w-full bg-gradient-to-r from-primary-700 via-primary-600 to-accent sm:h-28"></div>
+    <% end %>
+
+    <div class="p-5 sm:p-6">
+      <div class="flex flex-wrap items-start gap-4">
+        <% cache [ @store, :storefront_identity, I18n.locale, profile.for_sale_count, profile.sold_count, @store.followers_count, @store.ratings_count ] do %>
+          <div class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-border bg-surface-muted sm:h-24 sm:w-24">
+            <% if @store.logo.attached? %>
+              <%= image_tag url_for(@store.logo.variant(resize_to_limit: [ 192, 192 ], format: :webp)),
+                            width: 192,
+                            height: 192,
+                            alt: @store.name,
+                            class: "h-full w-full object-cover" %>
+            <% else %>
+              <div class="flex h-full w-full items-center justify-center text-2xl font-extrabold text-primary-700 dark:text-primary-300">
+                <%= @store.name.first(2).upcase %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <h1 class="flex flex-wrap items-center gap-2 text-2xl font-extrabold tracking-tight text-content sm:text-3xl">
+              <span class="min-w-0 break-words"><%= @store.name %></span>
+              <% if @store.verified? %>
+                <span class="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2 py-0.5 text-xs font-bold text-primary-700 dark:bg-primary-900/40 dark:text-primary-200">
+                  <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2.5 14.7 5l3.6-.2.6 3.6 3 2-1.7 3.2 1.7 3.2-3 2-.6 3.6-3.6-.2L12 21.5 9.3 19l-3.6.2-.6-3.6-3-2 1.7-3.2L2.1 7.2l3-2 .6-3.6L9.3 2 12 2.5Z"></path>
+                    <path d="m8.6 12 2.2 2.2 4.6-4.6" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  <%= t("storefronts.header.verified") %>
+                </span>
+              <% end %>
+            </h1>
+
+            <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+              <%= link_to storefront_tab_path(@store, "reviews"),
+                          class: "inline-flex items-center gap-1 text-muted hover:text-primary-700 dark:hover:text-primary-300" do %>
+                <span class="flex items-center gap-0.5">
+                  <% rating_stars(@store.rating_average).each do |star| %>
+                    <svg class="h-4 w-4 <%= star == "full" ? "text-accent" : "text-border" %>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                      <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+                    </svg>
+                  <% end %>
+                </span>
+                <span>
+                  <% if @store.ratings_count.positive? %>
+                    <%= t("storefronts.header.rating", rating: number_with_precision(@store.rating_average, precision: 1), count: @store.ratings_count) %>
+                  <% else %>
+                    <%= t("storefronts.header.no_ratings") %>
+                  <% end %>
+                </span>
+              <% end %>
+              <span aria-hidden="true" class="text-border">·</span>
+              <span><%= t("storefronts.member_since", date: l(@store.created_at.to_date, format: :long)) %></span>
+              <% if storefront_location(@store).present? %>
+                <span aria-hidden="true" class="text-border">·</span>
+                <span><%= storefront_location(@store) %></span>
+              <% end %>
+            </div>
+
+            <dl class="mt-4 flex flex-wrap gap-2 text-xs">
+              <div class="rounded-xl bg-surface-muted px-3 py-2">
+                <dt class="text-muted"><%= t("storefronts.header.for_sale") %></dt>
+                <dd class="mt-0.5 text-sm font-bold text-content"><%= profile.for_sale_count %></dd>
+              </div>
+              <div class="rounded-xl bg-surface-muted px-3 py-2">
+                <dt class="text-muted"><%= t("storefronts.header.sold") %></dt>
+                <dd class="mt-0.5 text-sm font-bold text-content"><%= profile.sold_count %></dd>
+              </div>
+              <div class="rounded-xl bg-surface-muted px-3 py-2">
+                <dt class="text-muted"><%= t("storefronts.header.followers") %></dt>
+                <dd class="mt-0.5 text-sm font-bold text-content"><%= @store.followers_count %></dd>
+              </div>
+            </dl>
           </div>
         <% end %>
+
+        <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:flex-col sm:items-stretch">
+          <% if user_signed_in? && @store.user_id != current_user.id %>
+            <% if following?(@store) %>
+              <%= button_to t("follows.button.following"),
+                            store_follow_path(@store),
+                            method: :delete,
+                            class: "btn-primary px-4 py-2 text-sm" %>
+            <% else %>
+              <%= button_to t("follows.button.follow"),
+                            store_follow_path(@store),
+                            method: :post,
+                            class: "btn-accent px-4 py-2 text-sm" %>
+            <% end %>
+            <%= button_to t("storefronts.actions.message"),
+                          conversations_path,
+                          params: { store_id: @store.id },
+                          class: "rounded-xl border border-border bg-surface px-4 py-2 text-sm font-semibold text-content hover:bg-surface-muted" %>
+          <% elsif !user_signed_in? %>
+            <%= link_to t("follows.button.follow"), new_user_session_path, class: "btn-accent px-4 py-2 text-sm" %>
+            <%= link_to t("storefronts.actions.message"), new_user_session_path, class: "rounded-xl border border-border bg-surface px-4 py-2 text-sm font-semibold text-content hover:bg-surface-muted" %>
+          <% end %>
+          <%= link_to t("reports.link"),
+                      new_report_path(reportable_type: "Store", reportable_id: @store.id),
+                      title: t("storefronts.report_hint"),
+                      class: "text-sm font-semibold text-danger underline-offset-2 hover:underline" %>
+        </div>
       </div>
 
-      <div class="min-w-0 flex-1">
-        <h1 class="text-2xl font-extrabold tracking-tight text-content"><%= @store.name %></h1>
-        <p class="mt-1 text-sm text-muted"><%= t("storefronts.member_since", date: l(@store.created_at.to_date, format: :long)) %></p>
-        <% if @store.description.present? %>
-          <p class="mt-2 max-w-2xl text-sm text-content"><%= @store.description %></p>
-        <% end %>
-      </div>
-
-      <% if user_signed_in? && @store.user_id != current_user.id %>
-        <div class="flex flex-wrap items-center gap-2">
-          <%= button_to t("listings.show.message_seller"),
-                        conversations_path,
-                        params: { store_id: @store.id },
-                        class: "btn-primary" %>
-          <%= button_to t("blocks.block"),
-                        blocks_path,
-                        params: { blocked_user_id: @store.user_id },
-                        class: "rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-danger hover:bg-danger-soft" %>
+      <% if @store.vacation_active? %>
+        <div class="mt-4 rounded-xl border border-warning/40 bg-warning-soft px-4 py-3 text-sm text-warning">
+          <p class="font-semibold"><%= t("storefronts.vacation.title") %></p>
+          <% if @store.vacation_message.present? %>
+            <p class="mt-1"><%= @store.vacation_message %></p>
+          <% end %>
+          <% if @store.vacation_until.present? %>
+            <p class="mt-1"><%= t("storefronts.vacation.until", date: l(@store.vacation_until, format: :long)) %></p>
+          <% end %>
         </div>
       <% end %>
     </div>
-    <div class="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted">
-      <span><%= t("listings.show.seller.listings") %>: <strong class="text-content"><%= @store.listings_count %></strong></span>
-      <span><%= t("storefronts.report_hint") %></span>
-      <%= link_to t("reports.link"),
-                  new_report_path(reportable_type: "Store", reportable_id: @store.id),
-                  class: "font-semibold text-danger underline-offset-2 hover:underline" %>
-    </div>
   </header>
 
-  <% if @listings.any? %>
-    <section class="space-y-3">
-      <h2 class="text-lg font-bold"><%= t("storefronts.listings_title") %></h2>
-      <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        <% @listings.each do |listing| %>
-          <li><%= render "listings/card", listing: listing, eager: false %></li>
-        <% end %>
-      </ul>
+  <nav aria-label="<%= t("storefronts.tabs.label") %>" class="flex flex-wrap gap-2 border-b border-border pb-3">
+    <%= link_to t("storefronts.tabs.listings"), storefront_tab_path(@store, "listings"),
+                aria: { current: ("page" if profile.tab == "listings") },
+                class: storefront_tab_classes(profile.tab == "listings") %>
+    <%= link_to t("storefronts.tabs.about"), storefront_tab_path(@store, "about"),
+                aria: { current: ("page" if profile.tab == "about") },
+                class: storefront_tab_classes(profile.tab == "about") %>
+    <%= link_to t("storefronts.tabs.reviews", count: @store.ratings_count),
+                storefront_tab_path(@store, "reviews"),
+                aria: { current: ("page" if profile.tab == "reviews") },
+                class: storefront_tab_classes(profile.tab == "reviews") %>
+  </nav>
+
+  <% if profile.tab == "listings" %>
+    <section class="space-y-5">
+      <%= form_with url: storefront_path(@store), method: :get, scope: nil,
+                    class: "rounded-2xl border border-border bg-surface p-4" do %>
+        <%= hidden_field_tag :tab, "listings" %>
+        <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+          <div class="lg:col-span-2">
+            <%= label_tag :q, t("storefronts.filters.text"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= search_field_tag :q, @search.query, placeholder: t("storefronts.filters.text_placeholder"), class: "field mt-1.5" %>
+          </div>
+          <div class="lg:col-span-2">
+            <%= label_tag :category, t("storefronts.filters.category"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= select_tag :category,
+                           options_from_collection_for_select(profile.categories, :slug, :name, params[:category]),
+                           include_blank: t("storefronts.filters.all_categories"),
+                           class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= label_tag :min_price, t("storefronts.filters.min_price"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= number_field_tag :min_price, @search.min_price, min: 0, step: 0.01, class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= label_tag :max_price, t("storefronts.filters.max_price"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= number_field_tag :max_price, @search.max_price, min: 0, step: 0.01, class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= label_tag :condition, t("storefronts.filters.condition"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= select_tag :condition,
+                           options_for_select(Listing.conditions.keys.map { |condition| [ condition_label(condition), condition ] }, @search.selected_conditions.first),
+                           include_blank: t("storefronts.filters.all_conditions"),
+                           class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= label_tag :sort, t("storefronts.filters.sort"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= select_tag :sort, options_for_select(sort_options, @search.sort), class: "field mt-1.5" %>
+          </div>
+          <div class="flex items-end gap-2">
+            <%= submit_tag t("storefronts.filters.apply"), class: "btn-primary w-full" %>
+            <% if @search.applied_filters.any? || @search.query.present? %>
+              <%= link_to t("listings.filters.clear_all"), storefront_tab_path(@store, "listings"), class: "btn-accent" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="flex items-center justify-between gap-3">
+        <h2 class="text-sm font-bold text-content"><%= t("storefronts.listings_title") %></h2>
+        <p class="text-sm text-muted"><%= t("storefronts.listings.count", count: @search.total_count) %></p>
+      </div>
+
+      <% if @search.listings.any? %>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <% @search.listings.each_with_index do |listing, index| %>
+            <%= render "listings/card", listing: listing, eager: @search.pagy.page == 1 && index < 4 %>
+          <% end %>
+        </div>
+        <%= pagy_nav(@search.pagy) %>
+      <% else %>
+        <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+          <h2 class="text-lg font-bold"><%= t("storefronts.empty_title") %></h2>
+          <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("storefronts.empty_body") %></p>
+        </div>
+      <% end %>
+
+      <% if profile.sold_listings.any? %>
+        <section class="space-y-3 border-t border-border pt-6">
+          <h2 class="text-lg font-bold"><%= t("storefronts.sold.title") %></h2>
+          <p class="text-sm text-muted"><%= t("storefronts.sold.hint") %></p>
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <% profile.sold_listings.each do |listing| %>
+              <div class="relative">
+                <span class="absolute left-3 top-3 z-10 inline-flex items-center rounded-full bg-slate-950/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white">
+                  <%= t("storefronts.sold.badge") %>
+                </span>
+                <%= render "listings/card", listing: listing, eager: false %>
+              </div>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
     </section>
+  <% elsif profile.tab == "about" %>
+    <% cache [ @store, :storefront_about, I18n.locale ] do %>
+      <section class="grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <div class="space-y-4">
+          <div class="rounded-2xl border border-border bg-surface p-6">
+            <h2 class="text-lg font-bold"><%= t("storefronts.about.title") %></h2>
+            <div class="rich-text mt-3 max-w-none text-content">
+              <% if @store.description.present? %>
+                <%= simple_format(h(@store.description)) %>
+              <% else %>
+                <p class="text-muted"><%= t("storefronts.about.empty_description") %></p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-border bg-surface p-6">
+            <h2 class="text-lg font-bold"><%= t("storefronts.about.policies_title") %></h2>
+            <dl class="mt-4 space-y-4 text-sm">
+              <div>
+                <dt class="font-semibold text-content"><%= t("storefronts.about.returns") %></dt>
+                <dd class="mt-1 text-muted"><%= @store.return_policy.presence || t("storefronts.about.default_returns") %></dd>
+              </div>
+              <div>
+                <dt class="font-semibold text-content"><%= t("storefronts.about.shipping") %></dt>
+                <dd class="mt-1 text-muted"><%= @store.shipping_policy.presence || t("storefronts.about.default_shipping") %></dd>
+              </div>
+              <div>
+                <dt class="font-semibold text-content"><%= t("storefronts.about.handling") %></dt>
+                <dd class="mt-1 text-muted"><%= t("storefronts.about.handling_days", count: @store.handling_days) %></dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <aside class="space-y-4">
+          <% if @store.business? %>
+            <div class="rounded-2xl border border-border bg-surface p-5 text-sm">
+              <h2 class="text-base font-bold"><%= t("storefronts.about.legal_title") %></h2>
+              <p class="mt-1 text-xs text-muted"><%= t("storefronts.about.legal_hint") %></p>
+              <dl class="mt-3 space-y-2">
+                <% if @store.legal_name.present? %>
+                  <div>
+                    <dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("storefronts.about.legal_name") %></dt>
+                    <dd class="mt-0.5 font-medium text-content"><%= @store.legal_name %></dd>
+                  </div>
+                <% end %>
+                <% if @store.tax_id.present? %>
+                  <div>
+                    <dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("storefronts.about.tax_id") %></dt>
+                    <dd class="mt-0.5 font-medium text-content"><%= @store.tax_id %></dd>
+                  </div>
+                <% end %>
+                <% address = [ @store.address_line, [ @store.postal_code, @store.city ].compact_blank.join(" "), @store.province ].compact_blank.join(", ") %>
+                <% if address.present? %>
+                  <div>
+                    <dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("storefronts.about.address") %></dt>
+                    <dd class="mt-0.5 font-medium text-content"><%= address %></dd>
+                  </div>
+                <% end %>
+              </dl>
+            </div>
+          <% end %>
+
+          <div class="rounded-2xl border border-border bg-surface p-5 text-sm">
+            <h2 class="text-base font-bold"><%= t("storefronts.about.details_title") %></h2>
+            <dl class="mt-3 space-y-2">
+              <div class="flex justify-between gap-2">
+                <dt class="text-muted"><%= t("storefronts.about.seller_type") %></dt>
+                <dd class="font-semibold text-content"><%= t("stores.form.#{@store.kind}") %></dd>
+              </div>
+              <div class="flex justify-between gap-2">
+                <dt class="text-muted"><%= t("storefronts.about.member_since") %></dt>
+                <dd class="font-semibold text-content"><%= l(@store.created_at.to_date, format: :long) %></dd>
+              </div>
+              <% if storefront_location(@store).present? %>
+                <div class="flex justify-between gap-2">
+                  <dt class="text-muted"><%= t("storefronts.about.location") %></dt>
+                  <dd class="font-semibold text-content"><%= storefront_location(@store) %></dd>
+                </div>
+              <% end %>
+            </dl>
+          </div>
+        </aside>
+      </section>
+    <% end %>
   <% else %>
-    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
-      <h2 class="text-lg font-bold"><%= t("storefronts.empty_title") %></h2>
-      <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("storefronts.empty_body") %></p>
-    </div>
+    <section class="grid gap-6 lg:grid-cols-[20rem_minmax(0,1fr)]">
+      <aside class="space-y-4">
+        <div class="rounded-2xl border border-border bg-surface p-5">
+          <p class="text-center text-4xl font-extrabold tracking-tight text-content"><%= number_with_precision(@store.rating_average, precision: 1) %></p>
+          <div class="mt-2 flex justify-center gap-0.5">
+            <% rating_stars(@store.rating_average).each do |star| %>
+              <svg class="h-5 w-5 <%= star == "full" ? "text-accent" : "text-border" %>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+              </svg>
+            <% end %>
+          </div>
+          <p class="mt-2 text-center text-sm text-muted"><%= storefront_review_count(@store) %></p>
+
+          <ul class="mt-4 space-y-2">
+            <% profile.rating_distribution.each do |rating, count| %>
+              <li class="flex items-center gap-2 text-xs text-muted">
+                <span class="w-8 shrink-0 text-right tabular-nums"><%= rating %> ★</span>
+                <span class="h-2 flex-1 overflow-hidden rounded-full bg-surface-muted">
+                  <span class="block h-full rounded-full bg-accent" style="width: <%= review_distribution_width(count, @store.ratings_count) %>%"></span>
+                </span>
+                <span class="w-8 shrink-0 tabular-nums"><%= count %></span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-lg font-bold"><%= t("storefronts.reviews.title") %></h2>
+          <%= form_with url: storefront_tab_path(@store, "reviews"), method: :get, scope: nil, class: "flex items-end gap-2" do %>
+            <%= hidden_field_tag :tab, "reviews" %>
+            <div>
+              <%= label_tag :review_sort, t("storefronts.reviews.sort.label"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+              <%= select_tag :review_sort,
+                             options_for_select(storefront_review_sort_options, profile.review_sort),
+                             class: "field mt-1.5 w-auto" %>
+            </div>
+            <%= submit_tag t("storefronts.filters.apply"), class: "btn-primary" %>
+          <% end %>
+        </div>
+
+        <% if profile.reviews.any? %>
+          <% cache [ @store, :storefront_reviews, I18n.locale, profile.review_sort, profile.review_pagy.page, @store.updated_at.to_i ] do %>
+            <ul class="space-y-3">
+              <% profile.reviews.each do |review| %>
+                <li class="rounded-2xl border border-border bg-surface p-5">
+                  <div class="flex flex-wrap items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-surface-muted">
+                        <% if review.reviewer&.avatar&.attached? %>
+                          <%= image_tag url_for(review.reviewer.avatar.variant(resize_to_limit: [ 80, 80 ], format: :webp)),
+                                        width: 80, height: 80, alt: "", class: "h-full w-full object-cover" %>
+                        <% else %>
+                          <div class="flex h-full w-full items-center justify-center text-xs font-bold text-primary-700 dark:text-primary-300">
+                            <%= review.reviewer_name.to_s.first(2).upcase %>
+                          </div>
+                        <% end %>
+                      </div>
+                      <div>
+                        <p class="text-sm font-bold text-content"><%= review.reviewer_name %></p>
+                        <p class="text-xs text-muted"><%= l(review.created_at.to_date, format: :long) %></p>
+                      </div>
+                    </div>
+                    <div class="flex gap-0.5">
+                      <% rating_stars(review.rating).each do |star| %>
+                        <svg class="h-4 w-4 <%= star == "full" ? "text-accent" : "text-border" %>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                          <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+                        </svg>
+                      <% end %>
+                    </div>
+                  </div>
+                  <p class="mt-3 whitespace-pre-line text-sm leading-relaxed text-content"><%= review.body %></p>
+
+                  <% if review.seller_replied? %>
+                    <div class="mt-3 rounded-xl bg-surface-muted p-3">
+                      <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("storefronts.reviews.seller_reply") %></p>
+                      <p class="mt-1 whitespace-pre-line text-sm text-content"><%= review.seller_reply %></p>
+                    </div>
+                  <% end %>
+
+                  <div class="mt-3">
+                    <%= link_to t("storefronts.reviews.report"),
+                                new_report_path(reportable_type: "Review", reportable_id: review.id),
+                                class: "text-xs font-semibold text-muted underline-offset-2 hover:text-danger hover:underline" %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+          <%= pagy_nav(profile.review_pagy) %>
+        <% else %>
+          <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+            <h3 class="text-base font-bold"><%= t("storefronts.reviews.empty_title") %></h3>
+            <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("storefronts.reviews.empty_body") %></p>
+          </div>
+        <% end %>
+      </div>
+    </section>
   <% end %>
 </div>
+
+<%= json_ld_tag(store_json_ld(@store)) %>

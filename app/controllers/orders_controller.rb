@@ -11,5 +11,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.find(params[:id])
     authorize @order
+    @review = @order.review ||
+              Review.new(order: @order, reviewer: @order.buyer, store: @order.store)
   end
 end

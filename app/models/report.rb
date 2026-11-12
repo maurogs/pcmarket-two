@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Report < ApplicationRecord
-  REPORTABLE_TYPES = %w[Listing Store Message User].freeze
+  REPORTABLE_TYPES = %w[Listing Store Message User Review].freeze
   REASONS = %w[
     illegal_content
     counterfeit

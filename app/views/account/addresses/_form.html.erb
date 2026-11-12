@@ -1,0 +1,46 @@
+<%= render "shared/form_errors", object: address %>
+
+<div class="grid gap-4 sm:grid-cols-2">
+  <div class="sm:col-span-2">
+    <%= form.label :full_name, t("account.addresses.form.full_name"), class: "block text-sm font-semibold text-content" %>
+    <%= form.text_field :full_name, required: true, class: "field mt-1.5" %>
+  </div>
+  <div class="sm:col-span-2">
+    <%= form.label :line1, t("account.addresses.form.line1"), class: "block text-sm font-semibold text-content" %>
+    <%= form.text_field :line1, required: true, class: "field mt-1.5" %>
+  </div>
+  <div class="sm:col-span-2">
+    <%= form.label :line2, t("account.addresses.form.line2"), class: "block text-sm font-semibold text-content" %>
+    <%= form.text_field :line2, class: "field mt-1.5" %>
+  </div>
+  <div>
+    <%= form.label :city, t("account.addresses.form.city"), class: "block text-sm font-semibold text-content" %>
+    <%= form.text_field :city, required: true, class: "field mt-1.5" %>
+  </div>
+  <div>
+    <%= form.label :region_id, t("account.addresses.form.province"), class: "block text-sm font-semibold text-content" %>
+    <%= form.collection_select :region_id, regions, :id, :name,
+                               { include_blank: t("account.addresses.form.province_placeholder") },
+                               { required: true, class: "field mt-1.5" } %>
+  </div>
+  <div>
+    <%= form.label :postal_code, t("account.addresses.form.postal_code"), class: "block text-sm font-semibold text-content" %>
+    <%= form.text_field :postal_code, required: true, inputmode: "numeric", maxlength: 5, class: "field mt-1.5" %>
+  </div>
+  <div>
+    <%= form.label :phone, t("account.addresses.form.phone"), class: "block text-sm font-semibold text-content" %>
+    <%= form.telephone_field :phone, required: true, class: "field mt-1.5" %>
+  </div>
+  <div class="sm:col-span-2">
+    <%= form.hidden_field :country_code, value: "ES" %>
+    <label class="inline-flex items-center gap-2 text-sm font-medium text-content">
+      <%= form.check_box :default, class: "h-4 w-4 rounded border-border text-primary-600" %>
+      <span><%= t("account.addresses.form.default") %></span>
+    </label>
+  </div>
+</div>
+
+<div class="flex flex-wrap items-center justify-between gap-3">
+  <%= link_to t("account.addresses.form.cancel"), account_addresses_path, class: "text-sm font-semibold text-muted hover:text-content" %>
+  <%= form.submit address.persisted? ? t("account.addresses.form.update") : t("account.addresses.form.create"), class: "btn-primary" %>
+</div>

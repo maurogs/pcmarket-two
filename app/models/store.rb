@@ -15,6 +15,7 @@ class Store < ApplicationRecord
   has_many :listings, dependent: :restrict_with_error
   has_many :orders, dependent: :restrict_with_error
   has_many :payouts, dependent: :restrict_with_error
+  has_many :reviews, dependent: :restrict_with_error
   has_many :follows, dependent: :destroy
   has_many :followers, through: :follows, source: :follower
   has_many :conversations, dependent: :restrict_with_error
@@ -26,6 +27,8 @@ class Store < ApplicationRecord
 
   validates :name, presence: true, length: { in: 2..60 }
   validates :description, length: { maximum: 2000 }
+  validates :return_policy, :shipping_policy, length: { maximum: 2000 }
+  validates :handling_days, numericality: { only_integer: true, in: 1..10 }
   validates :tax_id, presence: true, if: :business?
   validates :tax_id, spanish_tax_id: true, allow_blank: true
   validates :postal_code, format: { with: /\A\d{5}\z/ }, allow_blank: true, if: :spain?
@@ -49,6 +52,14 @@ class Store < ApplicationRecord
 
   def verified?
     verified_at.present?
+  end
+
+  def vacation_active?
+    vacation_mode?
+  end
+
+  def vacation_return_date
+    vacation_until
   end
 
   # Stripe must be able to transfer funds before the store can accept orders.

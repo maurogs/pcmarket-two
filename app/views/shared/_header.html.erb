@@ -93,16 +93,19 @@
             <%= link_to t("account.menu.saved_searches"), saved_searches_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.notifications"), notifications_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.notification_settings"), notification_preferences_path, role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.settings"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.settings"), account_profile_path, role: "menuitem", class: account_menu_item_class %>
 
             <div class="my-1 border-t border-border"></div>
             <p class="px-3 py-1 text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.menu.store.title") %></p>
-            <%= link_to t("account.menu.store.public_profile"), "#", role: "menuitem", class: account_menu_item_class %>
-            <%= link_to t("account.menu.store.seller_dashboard"), "#", role: "menuitem", class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.public_profile"),
+                        current_user.store&.persisted? ? storefront_path(current_user.store) : new_store_path,
+                        role: "menuitem",
+                        class: account_menu_item_class %>
+            <%= link_to t("account.menu.store.seller_dashboard"), sell_dashboard_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.listings"), sell_listings_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.sales"), sell_orders_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.store.settings"),
-                        current_user.store.present? ? edit_store_path : new_store_path,
+                        current_user.store&.persisted? ? edit_store_path : new_store_path,
                         role: "menuitem",
                         class: account_menu_item_class %>
 
@@ -227,6 +230,17 @@
           </li>
           <li>
             <%= link_to t("account.menu.notification_settings"), notification_preferences_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+          </li>
+          <li>
+            <%= link_to t("account.menu.settings"), account_profile_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+          </li>
+          <li>
+            <%= link_to t("account.menu.store.seller_dashboard"), sell_dashboard_path, class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
+          </li>
+          <li>
+            <%= link_to t("account.menu.store.public_profile"),
+                        current_user.store&.persisted? ? storefront_path(current_user.store) : new_store_path,
+                        class: "block rounded-lg px-3 py-2 text-sm font-medium text-content transition hover:bg-surface-muted" %>
           </li>
         </ul>
       </div>

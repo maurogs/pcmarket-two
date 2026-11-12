@@ -13,6 +13,7 @@ class Order < ApplicationRecord
   has_many :items, class_name: "OrderItem", dependent: :destroy, inverse_of: :order
   has_many :events, class_name: "OrderEvent", dependent: :destroy, inverse_of: :order
   has_one :payout, dependent: :destroy
+  has_one :review, dependent: :destroy
 
   enum :fulfilment, { shipping: 0, local_pickup: 1 }, prefix: :fulfilment
 
@@ -95,6 +96,19 @@ class Order < ApplicationRecord
 
   def buyer_protection_active?
     buyer_protection_ends_at.present? && buyer_protection_ends_at > Time.current
+  end
+
+  # A buyer may leave one review after delivery, for 60 days.
+  def reviewable?
+    return false unless delivered? || completed?
+    return false if delivered_at.blank?
+    return false if delivered_at < Review::REVIEW_WINDOW.ago
+
+    review.nil? || review.new_record?
+  end
+
+  def review_window_closes_at
+    delivered_at.present? ? delivered_at + Review::REVIEW_WINDOW : nil
   end
 
   def shipping_details_ready?

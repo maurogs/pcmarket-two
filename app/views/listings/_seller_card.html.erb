@@ -17,7 +17,7 @@
 
     <div class="min-w-0">
       <p class="flex items-center gap-1 truncate text-sm font-bold text-content">
-        <span class="truncate"><%= store.name %></span>
+        <span class="truncate"><%= link_to store.name, storefront_path(store), class: "hover:text-primary-700 dark:hover:text-primary-300" %></span>
         <% if store.verified? %>
           <svg class="h-4 w-4 shrink-0 text-primary-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 2.5 14.7 5l3.6-.2.6 3.6 3 2-1.7 3.2 1.7 3.2-3 2-.6 3.6-3.6-.2L12 21.5 9.3 19l-3.6.2-.6-3.6-3-2 1.7-3.2L2.1 7.2l3-2 .6-3.6L9.3 2 12 2.5Z"></path>

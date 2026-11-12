@@ -11,6 +11,7 @@ class NotificationPreferencesController < ApplicationController
   def update
     authorize NotificationPreference.new(user: current_user)
     persist_preferences
+    update_marketing
     redirect_to notification_preferences_path,
                 notice: t("notifications.preferences.flash.updated")
   end
@@ -33,6 +34,14 @@ class NotificationPreferencesController < ApplicationController
         preference.save!
       end
     end
+  end
+
+  def update_marketing
+    return unless params.key?(:marketing_opt_in)
+
+    raw = params[:marketing_opt_in]
+    raw = raw.last if raw.is_a?(Array)
+    current_user.update(marketing_opt_in: ActiveModel::Type::Boolean.new.cast(raw))
   end
 
   # A hidden "0" preceding each checkbox means unchecked arrives as "0" and

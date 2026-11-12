@@ -1,0 +1,19 @@
+<nav aria-label="<%= t("account.settings.sidebar.label") %>" class="rounded-2xl border border-border bg-surface p-3">
+  <ul class="space-y-1">
+    <% items = [
+      { key: "security", path: account_profile_path },
+      { key: "addresses", path: account_addresses_path },
+      { key: "notifications", path: notification_preferences_path },
+      { key: "privacy", path: account_privacy_path }
+    ] %>
+    <% items.each do |item| %>
+      <% active = current_page?(item[:path]) %>
+      <li>
+        <%= link_to t("account.settings.sidebar.#{item[:key]}"),
+                    item[:path],
+                    aria: { current: (active ? "page" : nil) },
+                    class: "flex items-center rounded-xl px-3 py-2 text-sm font-medium transition #{active ? "bg-primary-600 text-white" : "text-content hover:bg-surface-muted"}" %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

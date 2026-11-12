@@ -29,6 +29,7 @@ class ListingsController < ApplicationController
     return if session[session_key]
 
     @listing.update_column(:views_count, @listing.views_count + 1)
+    ListingView.increment_for(@listing.id)
     session[session_key] = true
   end
 

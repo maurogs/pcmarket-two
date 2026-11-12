@@ -44,6 +44,8 @@ module Admin
         @report.reportable.update!(hidden_at: Time.current)
       when Store
         @report.reportable.update!(status: "suspended")
+      when Review
+        @report.reportable.update!(status: "hidden")
       end
     end
   end

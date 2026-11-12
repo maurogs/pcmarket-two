@@ -32,6 +32,8 @@ module Orders
           params: { number: @order.number }
         )
         AutoCompleteOrderJob.set(wait_until: ends_at).perform_later(@order)
+        Reviews::ReminderJob.set(wait_until: @order.delivered_at + 3.days)
+                            .perform_later(@order.id)
       end
 
       ends_at.present?

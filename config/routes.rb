@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     resources :offers, only: :update
     resources :blocks, only: %i[create destroy]
     resources :reports, only: %i[new create]
-    resources :storefronts, only: :show, path: "s"
+    resources :stores, only: :show, path: "s", controller: "storefronts", as: :storefronts
 
     resource :wishlist, only: :show
     resources :stores, only: [] do
@@ -47,6 +47,7 @@ Rails.application.routes.draw do
     resource :checkout, only: %i[new show create]
 
     resources :orders, only: %i[index show] do
+      resource :review, only: %i[create update]
       resource :delivery_confirmation, only: :create,
                                        controller: "order_delivery_confirmations"
       resource :cancellation, only: :create,
@@ -54,12 +55,29 @@ Rails.application.routes.draw do
       resource :problem_report, only: :create,
                                 controller: "order_problem_reports"
     end
+    resources :reviews, only: [] do
+      resource :seller_reply, only: :create, controller: "review_seller_replies"
+    end
+
+    namespace :account do
+      resource :profile, only: %i[show update]
+      resource :password, only: :update
+      resource :deletion, only: :create
+      resources :addresses, only: %i[index new create edit update destroy]
+      resource :privacy, only: :show, controller: "privacy"
+      resource :data_export, only: %i[create show]
+    end
 
     namespace :sell do
+      resource :dashboard, only: :show
       resources :orders, only: %i[index show], path: "sales" do
         resource :shipment, only: :create, controller: "order_shipments"
         resource :cancellation, only: :create, controller: "order_cancellations"
       end
+    end
+
+    namespace :store do
+      resource :vacation, only: %i[show update]
     end
 
     resource :store, only: %i[new create edit update]

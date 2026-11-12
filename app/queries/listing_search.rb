@@ -54,10 +54,11 @@ class ListingSearch
     end
   end
 
-  def initialize(raw_params, category: nil)
+  def initialize(raw_params, category: nil, store: nil)
     hash = raw_params.respond_to?(:to_h) ? raw_params.to_h : {}
     @params = hash.deep_stringify_keys
     @explicit_category = category
+    @store = store
     @query = normalized_query
     @min_price, @min_cents = normalized_price(:min_price)
     @max_price, @max_cents = normalized_price(:max_price)
@@ -71,8 +72,8 @@ class ListingSearch
     @tag_slugs = normalized_tags
   end
 
-  def self.normalize_params(raw_params, category: nil)
-    new(raw_params, category: category).normalized_params
+  def self.normalize_params(raw_params, category: nil, store: nil)
+    new(raw_params, category: category, store: store).normalized_params
   rescue StandardError
     {}
   end
@@ -139,6 +140,7 @@ class ListingSearch
 
   def filtered_relation(category)
     relation = Listing.visible
+    relation = relation.where(store_id: @store.id) if @store
     relation = relation.search_text(@query) if @query.present?
     relation = relation.in_category(category) if category
     relation = apply_price_filters(relation)
@@ -399,6 +401,7 @@ class ListingSearch
   def facet_params
     {
       q: @query,
+      store: @store&.id,
       category: @resolved_category&.id || @params["category"],
       min_price: @min_price,
       max_price: @max_price,

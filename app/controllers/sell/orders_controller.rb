@@ -13,6 +13,7 @@ module Sell
     def show
       @order = current_user.store.orders.find(params[:id])
       authorize @order, policy_class: Sell::OrderPolicy
+      @review = @order.review
     end
 
     private

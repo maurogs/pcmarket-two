@@ -1,0 +1,9 @@
+<%= t("review_mailer.reminder.title") %>
+
+<%= t("review_mailer.reminder.greeting", name: @order.buyer&.display_name || @order.checkout.recipient_email) %>
+
+<%= t("review_mailer.reminder.body", store: @store.name, number: @order.number) %>
+
+<%= t("review_mailer.reminder.cta") %>: <%= @review_url %>
+
+<%= t("review_mailer.reminder.closing") %>

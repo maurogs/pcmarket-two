@@ -9,6 +9,7 @@ module ReportsHelper
     when Store then reportable.name
     when Message then truncate(reportable.body, length: 90)
     when User then reportable.display_name
+    when Review then t("reports.review_preview", rating: reportable.rating)
     else reportable.class.model_name.human
     end
   end

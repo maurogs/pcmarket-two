@@ -18,6 +18,18 @@
     </div>
   <% end %>
 
+  <% if @listing.store.vacation_active? %>
+    <div class="rounded-2xl border border-warning/40 bg-warning-soft p-4">
+      <p class="text-sm font-semibold text-warning"><%= t("storefronts.vacation.title") %></p>
+      <% if @listing.store.vacation_message.present? %>
+        <p class="mt-1 text-sm text-warning"><%= @listing.store.vacation_message %></p>
+      <% end %>
+      <% if @listing.store.vacation_until.present? %>
+        <p class="mt-1 text-xs text-warning"><%= t("storefronts.vacation.until", date: l(@listing.store.vacation_until, format: :long)) %></p>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem]">
     <div class="min-w-0 space-y-6">
       <%= render "listings/gallery", listing: @listing %>
