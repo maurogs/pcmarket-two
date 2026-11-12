@@ -2,16 +2,84 @@ de:
   app:
     name: "PCMarket"
     tagline: "Kaufe und verkaufe PC-Teile"
+  announcement:
+    promo: "Kostenloser Versand ab 75 € — kaufen und verkaufen mit Vertrauen"
+    links: "Schnellzugriff"
+    help: "Hilfe"
+    blog: "Blog"
+    finder: "PC-Konfigurator"
   nav:
+    home: "Startseite"
     search_placeholder: "PC-Teile suchen"
-    sell: "Verkaufen"
-    login: "Anmelden"
-    logout: "Abmelden"
+    list_item: "Artikel einstellen"
+    sell_to_us: "An uns verkaufen"
     wishlist: "Favoriten"
-    cart: "Warenkorb"
     notifications: "Benachrichtigungen"
+    cart: "Warenkorb"
+    account: "Konto"
+    menu: "Menü"
+    open_menu: "Menü öffnen"
+    close_menu: "Menü schließen"
+    language: "Sprache"
+    theme:
+      toggle: "Farbschema wechseln"
+    categories:
+      label: "Nach Kategorie einkaufen"
+      new: "Neu"
+      gaming_pcs: "Gaming-PCs"
+      gpus: "Grafikkarten"
+      components: "Komponenten"
+      peripherals: "Peripherie"
+      laptops: "Laptops"
+      phones_tablets: "Smartphones & Tablets"
+      consoles: "Konsolen"
+      more: "Mehr"
+  home:
+    hero:
+      eyebrow: "Für PC-Enthusiasten gemacht"
+      title: "Finde die richtigen Teile. Baue deinen Traum-PC."
+      subtitle: "Kaufe geprüfte Komponenten von vertrauenswürdigen Verkäufern oder verwandle deine Ersatzhardware in Geld – alles an einem Ort."
+      cta: "Marktplatz entdecken"
   footer:
+    newsletter:
+      title: "Bleib auf dem Laufenden"
+      description: "Wöchentliche Angebote, Neuheiten und Tipps zum PC-Bau – direkt in dein Postfach."
+      label: "E-Mail-Adresse"
+      placeholder: "du@beispiel.de"
+      button: "Abonnieren"
+      note: "Kein Spam. Jederzeit abbestellbar."
+    about:
+      title: "Über uns"
+      about_us: "Über uns"
+      trust_safety: "Vertrauen & Sicherheit"
+      blog: "Blog"
+    help:
+      title: "Hilfe"
+      help_centre: "Hilfecenter"
+      contact: "Kontakt"
+      shipping: "Versand"
+      returns: "Rückgabe"
+    selling:
+      title: "Verkaufen"
+      how_to_sell: "So funktioniert's"
+      fees: "Verkäufergebühren"
+      academy: "Verkäuferakademie"
+    legal:
+      label: "Rechtliches"
+      terms: "Bedingungen"
+      privacy: "Datenschutz"
+      cookies: "Cookies"
+      legal_notice: "Impressum"
+    social:
+      instagram: "Instagram"
+      youtube: "YouTube"
+      x: "X"
     copyright: "© %{year} PCMarket. Alle Rechte vorbehalten."
+  flash:
+    dismiss: "Benachrichtigung schließen"
+  layout:
+    skip_to_content: "Zum Hauptinhalt springen"
+    back_to_top: "Nach oben"
   locale:
     names:
       es: "Español"

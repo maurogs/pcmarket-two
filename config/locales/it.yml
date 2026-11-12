@@ -2,16 +2,84 @@ it:
   app:
     name: "PCMarket"
     tagline: "Compra e vendi componenti per PC"
+  announcement:
+    promo: "Spedizione gratuita per ordini superiori a 75 € — compra e vendi in tutta sicurezza"
+    links: "Link rapidi"
+    help: "Aiuto"
+    blog: "Blog"
+    finder: "Configuratore PC"
   nav:
+    home: "Home"
     search_placeholder: "Cerca componenti per PC"
-    sell: "Vendi"
-    login: "Accedi"
-    logout: "Esci"
+    list_item: "Pubblica un annuncio"
+    sell_to_us: "Vendici il tuo usato"
     wishlist: "Preferiti"
-    cart: "Carrello"
     notifications: "Notifiche"
+    cart: "Carrello"
+    account: "Account"
+    menu: "Menu"
+    open_menu: "Apri il menu"
+    close_menu: "Chiudi il menu"
+    language: "Lingua"
+    theme:
+      toggle: "Cambia tema"
+    categories:
+      label: "Acquista per categoria"
+      new: "Novità"
+      gaming_pcs: "PC gaming"
+      gpus: "Schede grafiche"
+      components: "Componenti"
+      peripherals: "Periferiche"
+      laptops: "Portatili"
+      phones_tablets: "Telefoni e tablet"
+      consoles: "Console"
+      more: "Altro"
+  home:
+    hero:
+      eyebrow: "Pensato per gli appassionati di PC"
+      title: "Trova i componenti. Assembla il PC perfetto."
+      subtitle: "Acquista componenti testati da venditori affidabili o trasforma l'hardware che non usi in denaro, tutto in un unico posto."
+      cta: "Esplora il marketplace"
   footer:
+    newsletter:
+      title: "Resta aggiornato"
+      description: "Offerte settimanali, novità e consigli per assemblare il PC, direttamente nella tua casella di posta."
+      label: "Indirizzo e-mail"
+      placeholder: "tu@esempio.it"
+      button: "Iscriviti"
+      note: "Niente spam. Disiscriviti quando vuoi."
+    about:
+      title: "Chi siamo"
+      about_us: "Chi siamo"
+      trust_safety: "Fiducia e sicurezza"
+      blog: "Blog"
+    help:
+      title: "Aiuto"
+      help_centre: "Centro assistenza"
+      contact: "Contatti"
+      shipping: "Spedizioni"
+      returns: "Resi"
+    selling:
+      title: "Vendere"
+      how_to_sell: "Come vendere"
+      fees: "Commissioni di vendita"
+      academy: "Academy per venditori"
+    legal:
+      label: "Legale"
+      terms: "Termini"
+      privacy: "Privacy"
+      cookies: "Cookie"
+      legal_notice: "Note legali"
+    social:
+      instagram: "Instagram"
+      youtube: "YouTube"
+      x: "X"
     copyright: "© %{year} PCMarket. Tutti i diritti riservati."
+  flash:
+    dismiss: "Chiudi la notifica"
+  layout:
+    skip_to_content: "Vai al contenuto principale"
+    back_to_top: "Torna su"
   locale:
     names:
       es: "Español"

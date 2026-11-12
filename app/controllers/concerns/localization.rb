@@ -1,8 +1,6 @@
 module Localization
   extend ActiveSupport::Concern
 
-  SUPPORTED_LOCALES = %i[es en fr de it pt].freeze
-
   private
 
   # Wraps every action in the detected locale and remembers the choice.
@@ -37,6 +35,6 @@ module Localization
 
   def normalize_locale(value)
     locale = value.to_s.strip.downcase.to_sym
-    SUPPORTED_LOCALES.include?(locale) ? locale : nil
+    I18n.available_locales.include?(locale) ? locale : nil
   end
 end

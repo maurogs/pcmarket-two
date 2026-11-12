@@ -22,6 +22,7 @@ search:
     - app/assets/videos
     - app/assets/builds
 
-# Referenced dynamically by the locale switcher in the layout.
+# Referenced dynamically by the locale switcher and category nav in the layout.
 ignore_unused:
   - "locale.names.*"
+  - "nav.categories.*"

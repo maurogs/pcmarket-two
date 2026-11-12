@@ -2,16 +2,84 @@ fr:
   app:
     name: "PCMarket"
     tagline: "Achetez et vendez des pièces d'ordinateur"
+  announcement:
+    promo: "Livraison offerte dès 75 € — achetez et vendez en toute confiance"
+    links: "Liens rapides"
+    help: "Aide"
+    blog: "Blog"
+    finder: "Configurateur PC"
   nav:
+    home: "Accueil"
     search_placeholder: "Rechercher des pièces d'ordinateur"
-    sell: "Vendre"
-    login: "Se connecter"
-    logout: "Se déconnecter"
+    list_item: "Publier une annonce"
+    sell_to_us: "Vendez-nous votre matériel"
     wishlist: "Favoris"
-    cart: "Panier"
     notifications: "Notifications"
+    cart: "Panier"
+    account: "Compte"
+    menu: "Menu"
+    open_menu: "Ouvrir le menu"
+    close_menu: "Fermer le menu"
+    language: "Langue"
+    theme:
+      toggle: "Changer de thème"
+    categories:
+      label: "Acheter par catégorie"
+      new: "Nouveautés"
+      gaming_pcs: "PC gaming"
+      gpus: "Cartes graphiques"
+      components: "Composants"
+      peripherals: "Périphériques"
+      laptops: "Ordinateurs portables"
+      phones_tablets: "Téléphones et tablettes"
+      consoles: "Consoles"
+      more: "Plus"
+  home:
+    hero:
+      eyebrow: "Conçu pour les passionnés de PC"
+      title: "Trouvez les pièces. Montez la configuration parfaite."
+      subtitle: "Achetez des composants testés auprès de vendeurs de confiance ou transformez votre matériel inutilisé en argent, au même endroit."
+      cta: "Explorer la marketplace"
   footer:
+    newsletter:
+      title: "Restez informé"
+      description: "Offres hebdomadaires, nouveautés et conseils de montage, directement dans votre boîte de réception."
+      label: "Adresse e-mail"
+      placeholder: "vous@exemple.com"
+      button: "S'abonner"
+      note: "Pas de spam. Désabonnement à tout moment."
+    about:
+      title: "À propos"
+      about_us: "Qui sommes-nous"
+      trust_safety: "Confiance et sécurité"
+      blog: "Blog"
+    help:
+      title: "Aide"
+      help_centre: "Centre d'aide"
+      contact: "Contact"
+      shipping: "Livraison"
+      returns: "Retours"
+    selling:
+      title: "Vendre"
+      how_to_sell: "Comment vendre"
+      fees: "Frais de vendeur"
+      academy: "Académie des vendeurs"
+    legal:
+      label: "Légal"
+      terms: "Conditions"
+      privacy: "Confidentialité"
+      cookies: "Cookies"
+      legal_notice: "Mentions légales"
+    social:
+      instagram: "Instagram"
+      youtube: "YouTube"
+      x: "X"
     copyright: "© %{year} PCMarket. Tous droits réservés."
+  flash:
+    dismiss: "Fermer la notification"
+  layout:
+    skip_to_content: "Aller au contenu principal"
+    back_to_top: "Retour en haut"
   locale:
     names:
       es: "Español"

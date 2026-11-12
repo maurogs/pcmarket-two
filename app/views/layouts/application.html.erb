@@ -1,18 +1,34 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
+    <meta charset="utf-8">
     <title><%= content_for(:title) || t("app.name") %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<%= t("app.tagline") %>">
+    <meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#080d18" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="application-name" content="<%= t("app.name") %>">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
+    <%# Applies the persisted/system theme before first paint to avoid a flash. %>
+    <script>
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (error) {}
+      })();
+    </script>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <%= yield :head %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
@@ -23,43 +39,21 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="min-h-screen bg-gray-50 text-gray-900">
-    <header class="border-b border-gray-200 bg-white">
-      <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-4 px-4 py-3">
-        <%= link_to t("app.name"), root_path, class: "text-lg font-semibold" %>
+  <body id="top" class="min-h-screen bg-canvas text-content">
+    <a href="#main-content"
+       class="sr-only rounded-xl bg-primary-600 px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60]">
+      <%= t("layout.skip_to_content") %>
+    </a>
 
-        <form class="flex-1" role="search">
-          <input type="search"
-                 placeholder="<%= t("nav.search_placeholder") %>"
-                 aria-label="<%= t("nav.search_placeholder") %>"
-                 class="w-full rounded border border-gray-300 px-3 py-2 text-sm">
-        </form>
+    <%= render "shared/announcement_bar" %>
+    <%= render "shared/header" %>
 
-        <nav class="flex flex-wrap items-center gap-3 text-sm">
-          <%= link_to t("nav.sell"), "#" %>
-          <%= link_to t("nav.wishlist"), "#" %>
-          <%= link_to t("nav.cart"), "#" %>
-          <%= link_to t("nav.notifications"), "#" %>
-          <%= link_to t("nav.login"), "#" %>
-          <%= link_to t("nav.logout"), "#" %>
-        </nav>
-      </div>
-
-      <div class="mx-auto flex max-w-6xl flex-wrap gap-3 px-4 pb-3 text-sm text-gray-600">
-        <% Localization::SUPPORTED_LOCALES.each do |locale| %>
-          <%= link_to t("locale.names.#{locale}"), root_path(locale: locale) %>
-        <% end %>
-      </div>
-    </header>
-
-    <main class="mx-auto max-w-6xl px-4 py-8">
+    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-7xl px-4 py-8 focus:outline-none sm:px-6 lg:px-8">
+      <%= render "shared/flash" %>
       <%= yield %>
     </main>
 
-    <footer class="border-t border-gray-200 bg-white">
-      <div class="mx-auto max-w-6xl px-4 py-4 text-sm text-gray-600">
-        <%= t("footer.copyright", year: Date.current.year) %>
-      </div>
-    </footer>
+    <%= render "shared/footer" %>
+    <%= render "shared/back_to_top" %>
   </body>
 </html>

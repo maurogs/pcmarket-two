@@ -1,0 +1,17 @@
+<%= form_with url: root_path, method: :get, role: "search", class: local_assigns.fetch(:class, "") do |form| %>
+  <label for="<%= local_assigns.fetch(:form_id, "site-search") %>" class="sr-only"><%= t("nav.search_placeholder") %></label>
+  <div class="relative">
+    <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-muted">
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+      </svg>
+    </span>
+    <%= form.search_field :q,
+                           id: local_assigns.fetch(:form_id, "site-search"),
+                           value: params[:q],
+                           placeholder: t("nav.search_placeholder"),
+                           autocomplete: "off",
+                           class: "field pl-10" %>
+  </div>
+<% end %>

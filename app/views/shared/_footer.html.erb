@@ -1,0 +1,94 @@
+<footer class="border-t border-border bg-surface">
+  <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <div class="flex items-center gap-2">
+          <svg class="h-8 w-8" viewBox="0 0 36 36" aria-hidden="true">
+            <rect width="36" height="36" rx="11" class="fill-primary-600"></rect>
+            <path d="M11 25V11h7.4a4.6 4.6 0 0 1 0 9.2H15.8" fill="none" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+            <circle cx="24.8" cy="24.4" r="2.4" class="fill-accent"></circle>
+          </svg>
+          <span class="text-lg font-extrabold tracking-tight"><%= t("app.name") %></span>
+        </div>
+
+        <h2 class="mt-6 text-lg font-bold"><%= t("footer.newsletter.title") %></h2>
+        <p class="mt-2 max-w-md text-sm text-muted"><%= t("footer.newsletter.description") %></p>
+
+        <%= form_with url: "#", method: :post, class: "mt-5 flex max-w-md flex-col gap-2 sm:flex-row" do |form| %>
+          <label for="newsletter-email" class="sr-only"><%= t("footer.newsletter.label") %></label>
+          <%= form.email_field :email,
+                               id: "newsletter-email",
+                               placeholder: t("footer.newsletter.placeholder"),
+                               autocomplete: "email",
+                               class: "field" %>
+          <%= form.submit t("footer.newsletter.button"), class: "btn-primary shrink-0 cursor-pointer" %>
+        <% end %>
+        <p class="mt-2 text-xs text-muted"><%= t("footer.newsletter.note") %></p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7">
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("footer.about.title") %></h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><%= link_to t("footer.about.about_us"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.about.trust_safety"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.about.blog"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("footer.help.title") %></h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><%= link_to t("footer.help.help_centre"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.help.contact"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.help.shipping"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.help.returns"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("footer.selling.title") %></h2>
+          <ul class="mt-4 space-y-2.5 text-sm">
+            <li><%= link_to t("footer.selling.how_to_sell"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.selling.fees"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <li><%= link_to t("footer.selling.academy"), "#", class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col gap-6 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
+      <p class="text-sm text-muted"><%= t("footer.copyright", year: Date.current.year) %></p>
+
+      <nav aria-label="<%= t("footer.legal.label") %>">
+        <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          <li><%= link_to t("footer.legal.terms"), "#", class: "text-muted transition hover:text-content" %></li>
+          <li><%= link_to t("footer.legal.privacy"), "#", class: "text-muted transition hover:text-content" %></li>
+          <li><%= link_to t("footer.legal.cookies"), "#", class: "text-muted transition hover:text-content" %></li>
+          <li><%= link_to t("footer.legal.legal_notice"), "#", class: "text-muted transition hover:text-content" %></li>
+        </ul>
+      </nav>
+
+      <div class="flex items-center gap-1">
+        <%= link_to "#", class: "icon-button", aria: { label: t("footer.social.instagram") } do %>
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"></circle>
+          </svg>
+        <% end %>
+        <%= link_to "#", class: "icon-button", aria: { label: t("footer.social.youtube") } do %>
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <rect x="2.5" y="5.5" width="19" height="13" rx="4"></rect>
+            <path d="m10.5 9.5 4.5 2.5-4.5 2.5Z" fill="currentColor" stroke="none"></path>
+          </svg>
+        <% end %>
+        <%= link_to "#", class: "icon-button", aria: { label: t("footer.social.x") } do %>
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="m4 4 16 16M20 4 4 20" stroke-linecap="round"></path>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</footer>

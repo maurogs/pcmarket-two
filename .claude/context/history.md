@@ -23,3 +23,13 @@
 - Why: Flipper's Memoizer middleware queries these tables on every request in development; without them `bin/dev` returned 500 on every page.
 - Verified rollback/re-migrate, a live `PORT=3013 bin/dev` with GET `/fr` and GET `/` returning 200 and the correct taglines, and the full test suite.
 - Files: `db/migrate/20261112085830_create_flipper_tables.rb`, `db/schema.rb` (generated), `.claude/context/project.md`.
+
+## 2026-11-12 — Phase 0b: app shell and design system
+- Replaced `Localization::SUPPORTED_LOCALES` with `I18n.available_locales` for locale validation.
+- Added Tailwind v4 design tokens in `@theme` (primary 50–900 indigo/violet, coral accent, semantic surface/canvas/content/muted/border, success/warning/danger, radius and Inter font) plus a class-based dark variant; `.dark` overrides the semantic variables and an inline head script applies the stored/system theme before paint.
+- Split the layout into `app/views/shared/` partials: announcement bar, header (logo, search, CTAs, wishlist/notifications/cart/account icons, theme toggle, locale dropdown), category nav, footer (newsletter, three link columns, legal row, socials), flash and back-to-top. Added a mobile off-canvas drawer with search and nav.
+- Added Stimulus `theme`, `drawer`, `dropdown` and `flash` controllers. Added skip link, aria-labels, focus rings, viewport and light/dark theme-color meta.
+- Added the translated home hero and all new copy in the six locales; i18n-tasks ignores the dynamic `nav.categories.*` keys.
+- Added `test/controllers/layout_test.rb` for shell rendering, `<html lang="en">` and locale-switcher links.
+- Verified `bin/rails tailwindcss:build`, `bin/rails test` (8 runs, 36 assertions, 0 failures) and rubocop on the changed Ruby files.
+- Files: `app/controllers/concerns/localization.rb`, `app/assets/tailwind/application.css`, `app/views/layouts/application.html.erb`, `app/views/pages/home.html.erb`, `app/views/shared/*.erb`, `app/javascript/controllers/{theme,drawer,dropdown,flash}_controller.js`, `config/locales/*.yml`, `config/i18n-tasks.yml`, `test/controllers/layout_test.rb`, `.claude/context/project.md`.

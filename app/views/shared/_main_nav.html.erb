@@ -1,0 +1,12 @@
+<% mobile = local_assigns.fetch(:mobile, false) %>
+<nav aria-label="<%= t("nav.categories.label") %>" class="<%= mobile ? "" : "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" %>">
+  <ul class="<%= mobile ? "flex flex-col gap-0.5" : "flex items-center gap-1 overflow-x-auto py-1.5" %>">
+    <% %w[new gaming_pcs gpus components peripherals laptops phones_tablets consoles more].each do |category| %>
+      <li>
+        <%= link_to t("nav.categories.#{category}"),
+                    "#",
+                    class: "block whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-muted transition hover:bg-surface-muted hover:text-content #{category == "new" ? "font-semibold text-accent-content dark:text-accent" : ""}" %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

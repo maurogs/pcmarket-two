@@ -2,16 +2,84 @@ pt:
   app:
     name: "PCMarket"
     tagline: "Compre e venda peças de PC"
+  announcement:
+    promo: "Envio gratuito em encomendas superiores a 75 € — compre e venda com confiança"
+    links: "Ligações rápidas"
+    help: "Ajuda"
+    blog: "Blog"
+    finder: "Configurador de PC"
   nav:
+    home: "Início"
     search_placeholder: "Pesquisar peças de PC"
-    sell: "Vender"
-    login: "Entrar"
-    logout: "Sair"
+    list_item: "Publicar um artigo"
+    sell_to_us: "Venda-nos o seu equipamento"
     wishlist: "Favoritos"
-    cart: "Carrinho"
     notifications: "Notificações"
+    cart: "Carrinho"
+    account: "Conta"
+    menu: "Menu"
+    open_menu: "Abrir menu"
+    close_menu: "Fechar menu"
+    language: "Idioma"
+    theme:
+      toggle: "Mudar tema"
+    categories:
+      label: "Comprar por categoria"
+      new: "Novidades"
+      gaming_pcs: "PC gaming"
+      gpus: "Placas gráficas"
+      components: "Componentes"
+      peripherals: "Periféricos"
+      laptops: "Portáteis"
+      phones_tablets: "Telemóveis e tablets"
+      consoles: "Consolas"
+      more: "Mais"
+  home:
+    hero:
+      eyebrow: "Feito para entusiastas de PC"
+      title: "Encontre as peças. Monte o seu PC ideal."
+      subtitle: "Compre componentes testados a vendedores de confiança ou transforme o seu hardware antigo em dinheiro, tudo num só lugar."
+      cta: "Explorar o marketplace"
   footer:
+    newsletter:
+      title: "Mantenha-se a par"
+      description: "Ofertas semanais, novidades e dicas de montagem de PC, diretamente na sua caixa de correio."
+      label: "Endereço de e-mail"
+      placeholder: "voce@exemplo.pt"
+      button: "Subscrever"
+      note: "Sem spam. Cancele quando quiser."
+    about:
+      title: "Sobre"
+      about_us: "Quem somos"
+      trust_safety: "Confiança e segurança"
+      blog: "Blog"
+    help:
+      title: "Ajuda"
+      help_centre: "Centro de ajuda"
+      contact: "Contacto"
+      shipping: "Envios"
+      returns: "Devoluções"
+    selling:
+      title: "Vender"
+      how_to_sell: "Como vender"
+      fees: "Comissões de venda"
+      academy: "Academia de vendedores"
+    legal:
+      label: "Legal"
+      terms: "Termos"
+      privacy: "Privacidade"
+      cookies: "Cookies"
+      legal_notice: "Informação legal"
+    social:
+      instagram: "Instagram"
+      youtube: "YouTube"
+      x: "X"
     copyright: "© %{year} PCMarket. Todos os direitos reservados."
+  flash:
+    dismiss: "Fechar notificação"
+  layout:
+    skip_to_content: "Saltar para o conteúdo principal"
+    back_to_top: "Voltar ao topo"
   locale:
     names:
       es: "Español"

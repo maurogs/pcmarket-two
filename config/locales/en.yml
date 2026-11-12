@@ -2,16 +2,84 @@ en:
   app:
     name: "PCMarket"
     tagline: "Buy and sell PC parts"
+  announcement:
+    promo: "Free delivery on orders over £75 — buy and sell with confidence"
+    links: "Quick links"
+    help: "Help"
+    blog: "Blog"
+    finder: "PC Finder"
   nav:
+    home: "Home"
     search_placeholder: "Search for PC parts"
-    sell: "Sell"
-    login: "Log in"
-    logout: "Log out"
+    list_item: "List an item"
+    sell_to_us: "Sell to us"
     wishlist: "Favourites"
-    cart: "Basket"
     notifications: "Notifications"
+    cart: "Basket"
+    account: "Account"
+    menu: "Menu"
+    open_menu: "Open menu"
+    close_menu: "Close menu"
+    language: "Language"
+    theme:
+      toggle: "Switch colour theme"
+    categories:
+      label: "Shop by category"
+      new: "New"
+      gaming_pcs: "Gaming PCs"
+      gpus: "GPUs"
+      components: "Components"
+      peripherals: "Peripherals"
+      laptops: "Laptops"
+      phones_tablets: "Phones & Tablets"
+      consoles: "Consoles"
+      more: "More"
+  home:
+    hero:
+      eyebrow: "Built for PC enthusiasts"
+      title: "Find the parts. Build your perfect rig."
+      subtitle: "Buy tested components from trusted sellers, or turn your spare hardware into cash — all in one place."
+      cta: "Browse the marketplace"
   footer:
+    newsletter:
+      title: "Stay in the loop"
+      description: "Weekly deals, fresh arrivals and PC building tips — straight to your inbox."
+      label: "Email address"
+      placeholder: "you@example.com"
+      button: "Subscribe"
+      note: "No spam. Unsubscribe at any time."
+    about:
+      title: "About"
+      about_us: "About us"
+      trust_safety: "Trust & Safety"
+      blog: "Blog"
+    help:
+      title: "Help"
+      help_centre: "Help centre"
+      contact: "Contact"
+      shipping: "Shipping"
+      returns: "Returns"
+    selling:
+      title: "Selling"
+      how_to_sell: "How to sell"
+      fees: "Seller fees"
+      academy: "Seller academy"
+    legal:
+      label: "Legal"
+      terms: "Terms"
+      privacy: "Privacy"
+      cookies: "Cookies"
+      legal_notice: "Legal notice"
+    social:
+      instagram: "Instagram"
+      youtube: "YouTube"
+      x: "X"
     copyright: "© %{year} PCMarket. All rights reserved."
+  flash:
+    dismiss: "Dismiss notification"
+  layout:
+    skip_to_content: "Skip to main content"
+    back_to_top: "Back to top"
   locale:
     names:
       es: "Español"
