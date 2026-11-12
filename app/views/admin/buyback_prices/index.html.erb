@@ -1,0 +1,55 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.title") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.buyback_prices.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("admin.buyback_prices.index.subtitle") %></p>
+    </div>
+    <%= link_to t("admin.buyback_prices.index.new"), new_admin_buyback_price_path, class: "btn-primary" %>
+  </header>
+
+  <div class="overflow-x-auto rounded-2xl border border-border bg-surface">
+    <table class="min-w-full divide-y divide-border text-sm">
+      <thead class="bg-surface-muted text-left text-xs font-semibold uppercase tracking-widest text-muted">
+        <tr>
+          <th class="px-4 py-3"><%= t("admin.buyback_prices.table.component") %></th>
+          <th class="px-4 py-3"><%= t("admin.buyback_prices.table.model") %></th>
+          <th class="px-4 py-3"><%= t("admin.buyback_prices.table.base") %></th>
+          <th class="px-4 py-3"><%= t("admin.buyback_prices.table.multipliers") %></th>
+          <th class="px-4 py-3"><%= t("admin.buyback_prices.table.active") %></th>
+          <th class="px-4 py-3 text-right"><%= t("admin.common.actions") %></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <% @prices.each do |price| %>
+          <tr>
+            <td class="px-4 py-3"><%= t("buyback.component_types.#{price.component_type}") %></td>
+            <td class="px-4 py-3 font-semibold"><%= price.component_model %></td>
+            <td class="px-4 py-3"><%= money(price.base_offer_cents, currency: "EUR") %></td>
+            <td class="px-4 py-3 text-xs text-muted">
+              <%= BuybackPrice::CONDITION_KEYS.map { |condition| "#{buyback_condition_label(condition)} #{price.condition_multiplier(condition)}" }.join(" · ") %>
+            </td>
+            <td class="px-4 py-3"><%= price.active? ? t("admin.common.yes") : t("admin.common.no") %></td>
+            <td class="px-4 py-3 text-right">
+              <%= link_to t("admin.common.edit"), edit_admin_buyback_price_path(price), class: "text-xs font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+              <%= link_to t("admin.common.delete"), admin_buyback_price_path(price),
+                          data: { turbo_method: :delete, turbo_confirm: t("admin.buyback_prices.index.delete_confirm") },
+                          class: "ml-2 text-xs font-semibold text-danger underline-offset-2 hover:underline" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="rounded-2xl border border-border bg-surface p-4 sm:p-5">
+    <h2 class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("admin.buyback_prices.import.title") %></h2>
+    <p class="mt-1 text-xs text-muted"><%= t("admin.buyback_prices.import.hint") %></p>
+    <%= form_with url: admin_buyback_price_imports_path, method: :post, scope: nil, multipart: true, class: "mt-3 space-y-2" do %>
+      <%= file_field_tag :file, accept: ".csv,text/csv", class: "field" %>
+      <%= text_area_tag :text, nil, rows: 6, class: "field font-mono text-xs",
+                        placeholder: "component_type,component_model,base_offer_cents\ngpu,RTX 4070,30000\ncpu,Ryzen 5 5600,8000" %>
+      <%= submit_tag t("admin.buyback_prices.import.submit"), class: "btn-primary cursor-pointer" %>
+    <% end %>
+  </div>
+</div>

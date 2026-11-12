@@ -33,7 +33,9 @@
         <span><%= t("nav.list_item") %></span>
       <% end %>
 
-      <%= link_to t("nav.sell_to_us"), "#", class: "btn-accent ml-2 hidden lg:inline-flex" %>
+      <% if Flipper.enabled?(:sell_to_us) %>
+        <%= link_to t("nav.sell_to_us"), sell_to_us_path, class: "btn-accent ml-2 hidden lg:inline-flex" %>
+      <% end %>
 
       <%= link_to wishlist_path, class: "icon-button hidden lg:inline-flex", aria: { label: t("nav.wishlist") } do %>
         <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -88,6 +90,9 @@
             </div>
 
             <%= link_to t("account.menu.my_orders"), orders_path, role: "menuitem", class: account_menu_item_class %>
+            <% if Flipper.enabled?(:sell_to_us) %>
+              <%= link_to t("account.menu.trade_ins"), buyback_requests_path, role: "menuitem", class: account_menu_item_class %>
+            <% end %>
             <%= link_to t("account.menu.inbox"), conversations_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.wishlist"), wishlist_path, role: "menuitem", class: account_menu_item_class %>
             <%= link_to t("account.menu.saved_searches"), saved_searches_path, role: "menuitem", class: account_menu_item_class %>
@@ -205,7 +210,9 @@
 
     <div class="mt-4 flex flex-col gap-2">
       <%= link_to t("nav.list_item"), new_sell_listing_path, class: "btn-primary w-full" %>
-      <%= link_to t("nav.sell_to_us"), "#", class: "btn-accent w-full" %>
+      <% if Flipper.enabled?(:sell_to_us) %>
+        <%= link_to t("nav.sell_to_us"), sell_to_us_path, class: "btn-accent w-full" %>
+      <% end %>
     </div>
 
     <div class="mt-6 border-t border-border pt-4">

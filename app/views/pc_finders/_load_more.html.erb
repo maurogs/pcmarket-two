@@ -1,0 +1,17 @@
+<% if result.next_page %>
+  <%= form_with url: pc_finder_path, method: :get, scope: nil,
+                data: { turbo_stream: true }, class: "mt-6 flex justify-center" do %>
+    <% result.criteria.to_h.each do |key, value| %>
+      <% next if value.blank? %>
+      <% if value.is_a?(Array) %>
+        <% value.each do |item| %>
+          <%= hidden_field_tag "#{key}[]", item %>
+        <% end %>
+      <% else %>
+        <%= hidden_field_tag key, value %>
+      <% end %>
+    <% end %>
+    <%= hidden_field_tag :page, result.next_page %>
+    <%= submit_tag t("pc_finder.results.load_more"), class: "btn-accent cursor-pointer" %>
+  <% end %>
+<% end %>

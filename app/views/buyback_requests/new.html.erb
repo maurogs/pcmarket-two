@@ -1,0 +1,83 @@
+<% set_meta_tags(title: t("buyback.request.title"), noindex: true) %>
+
+<div class="mx-auto max-w-3xl space-y-6">
+  <header>
+    <%= link_to t("buyback.request.back"), buyback_quote_path(@quote.token), class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("buyback.request.title") %></h1>
+    <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("buyback.request.subtitle") %></p>
+  </header>
+
+  <div class="rounded-2xl border border-border bg-surface p-5">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p class="text-sm font-semibold"><%= @quote.component_model %></p>
+        <p class="text-xs text-muted"><%= buyback_condition_label(@quote.condition) %></p>
+      </div>
+      <p class="text-xl font-extrabold text-primary-700 dark:text-primary-300"><%= money(@quote.offer_cents, currency: "EUR") %></p>
+    </div>
+  </div>
+
+  <div class="rounded-2xl border border-border bg-surface p-5 sm:p-7">
+    <%= form_with model: @request, url: buyback_requests_path(quote_id: @quote.token), method: :post, class: "space-y-6" do |form| %>
+      <% if @request.errors.any? %>
+        <div class="rounded-xl border border-danger/40 bg-danger-soft px-4 py-3 text-sm text-danger">
+          <ul class="space-y-1">
+            <% @request.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <fieldset class="space-y-4">
+        <legend class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("buyback.request.payment_title") %></legend>
+        <div>
+          <%= form.label :iban, t("buyback.request.iban"), class: "block text-sm font-semibold" %>
+          <%= form.text_field :iban, class: "field mt-1.5", placeholder: t("buyback.request.iban_placeholder"), autocomplete: "off", spellcheck: false %>
+          <p class="mt-1 text-xs text-muted"><%= t("buyback.request.iban_hint") %></p>
+        </div>
+        <div>
+          <%= form.label :full_name, t("buyback.request.full_name"), class: "block text-sm font-semibold" %>
+          <%= form.text_field :full_name, class: "field mt-1.5", autocomplete: "name" %>
+        </div>
+      </fieldset>
+
+      <fieldset class="space-y-4">
+        <legend class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("buyback.request.address_title") %></legend>
+        <div>
+          <%= form.label :line1, t("buyback.request.line1"), class: "block text-sm font-semibold" %>
+          <%= form.text_field :line1, class: "field mt-1.5", autocomplete: "address-line1" %>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <%= form.label :line2, t("buyback.request.line2"), class: "block text-sm font-semibold" %>
+            <%= form.text_field :line2, class: "field mt-1.5", autocomplete: "address-line2" %>
+          </div>
+          <div>
+            <%= form.label :city, t("buyback.request.city"), class: "block text-sm font-semibold" %>
+            <%= form.text_field :city, class: "field mt-1.5", autocomplete: "address-level2" %>
+          </div>
+          <div>
+            <%= form.label :postal_code, t("buyback.request.postal_code"), class: "block text-sm font-semibold" %>
+            <%= form.text_field :postal_code, class: "field mt-1.5", autocomplete: "postal-code" %>
+          </div>
+          <div>
+            <%= form.label :country_code, t("buyback.request.country"), class: "block text-sm font-semibold" %>
+            <%= form.select :country_code,
+                            options_for_select(Country.active.ordered.map { |country| [ country.name, country.code ] }, @request.country_code.presence || "ES"),
+                            {}, class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= form.label :phone, t("buyback.request.phone"), class: "block text-sm font-semibold" %>
+            <%= form.telephone_field :phone, class: "field mt-1.5", autocomplete: "tel" %>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
+        <p class="text-xs text-muted"><%= t("buyback.request.terms_note") %></p>
+        <%= form.submit t("buyback.request.submit"), class: "btn-primary cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>

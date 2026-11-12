@@ -9,6 +9,7 @@ load Rails.root.join("db/seeds/features.rb")
 load Rails.root.join("db/seeds/categories.rb")
 load Rails.root.join("db/seeds/attributes.rb")
 load Rails.root.join("db/seeds/tags.rb")
+load Rails.root.join("db/seeds/pc_finder.rb")
 load Rails.root.join("db/seeds/legal_pages.rb")
 
 admin = User.find_or_create_by!(email: "admin@pcmarket.example") do |user|

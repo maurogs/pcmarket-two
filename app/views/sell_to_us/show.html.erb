@@ -1,0 +1,91 @@
+<% set_meta_tags(title: t("sell_to_us.seo.title"), description: t("sell_to_us.seo.description")) %>
+
+<div class="space-y-14">
+  <section class="overflow-hidden rounded-3xl bg-gradient-to-r from-primary-700 via-primary-600 to-accent px-6 py-12 text-white sm:px-10">
+    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/80"><%= t("sell_to_us.hero.eyebrow") %></p>
+    <h1 class="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight sm:text-4xl"><%= t("sell_to_us.hero.title") %></h1>
+    <p class="mt-3 max-w-2xl text-base leading-relaxed text-white/90"><%= t("sell_to_us.hero.description") %></p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <%= link_to t("sell_to_us.hero.cta"), new_buyback_quote_path,
+                  class: "inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-primary-900 transition hover:bg-primary-50" %>
+      <%= link_to t("sell_to_us.hero.how_it_works"), "#how-it-works",
+                  class: "inline-flex items-center justify-center rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/70 hover:bg-white/10" %>
+    </div>
+  </section>
+
+  <section class="space-y-5" aria-labelledby="buyback-prices-title">
+    <div>
+      <h2 id="buyback-prices-title" class="text-2xl font-extrabold tracking-tight"><%= t("sell_to_us.prices.title") %></h2>
+      <p class="mt-1 text-sm text-muted"><%= t("sell_to_us.prices.description") %></p>
+    </div>
+    <div class="grid gap-5 lg:grid-cols-2">
+      <% [ [ t("sell_to_us.prices.gpus"), @gpu_prices ], [ t("sell_to_us.prices.cpus"), @cpu_prices ] ].each do |title, prices| %>
+        <div class="overflow-hidden rounded-2xl border border-border bg-surface">
+          <h3 class="border-b border-border bg-surface-muted px-4 py-3 text-sm font-bold uppercase tracking-widest text-muted"><%= title %></h3>
+          <% if prices.any? %>
+            <table class="min-w-full divide-y divide-border text-sm">
+              <thead class="text-left text-xs font-semibold uppercase tracking-widest text-muted">
+                <tr>
+                  <th class="px-4 py-2"><%= t("sell_to_us.prices.model") %></th>
+                  <% BuybackPrice::CONDITION_KEYS.each do |condition| %>
+                    <th class="px-3 py-2 text-right"><%= buyback_condition_label(condition) %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <% prices.first(6).each do |price| %>
+                  <tr>
+                    <td class="px-4 py-2.5 font-medium"><%= price.component_model %></td>
+                    <% BuybackPrice::CONDITION_KEYS.each do |condition| %>
+                      <td class="px-3 py-2.5 text-right text-muted"><%= buyback_payout(price, condition) %></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p class="px-4 py-6 text-sm text-muted"><%= t("sell_to_us.prices.empty") %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <p class="text-xs text-muted"><%= t("sell_to_us.prices.note") %></p>
+  </section>
+
+  <section id="how-it-works" class="space-y-5" aria-labelledby="buyback-how-title">
+    <div>
+      <h2 id="buyback-how-title" class="text-2xl font-extrabold tracking-tight"><%= t("sell_to_us.how.title") %></h2>
+      <p class="mt-1 text-sm text-muted"><%= t("sell_to_us.how.description") %></p>
+    </div>
+    <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <% %w[offer ship inspect paid].each_with_index do |step, index| %>
+        <li class="rounded-2xl border border-border bg-surface p-5">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white"><%= index + 1 %></span>
+          <h3 class="mt-3 text-base font-bold"><%= t("sell_to_us.how.steps.#{step}.title") %></h3>
+          <p class="mt-1 text-sm leading-relaxed text-muted"><%= t("sell_to_us.how.steps.#{step}.body") %></p>
+        </li>
+      <% end %>
+    </ol>
+  </section>
+
+  <section class="space-y-4" aria-labelledby="buyback-faq-title">
+    <h2 id="buyback-faq-title" class="text-2xl font-extrabold tracking-tight"><%= t("sell_to_us.faq.title") %></h2>
+    <div class="divide-y divide-border rounded-2xl border border-border bg-surface">
+      <% %w[condition shipping payment data].each do |key| %>
+        <details class="group px-5 py-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold [&::-webkit-details-marker]:hidden">
+            <span><%= t("sell_to_us.faq.items.#{key}.question") %></span>
+            <span class="text-muted transition group-open:rotate-180" aria-hidden="true">⌄</span>
+          </summary>
+          <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("sell_to_us.faq.items.#{key}.answer") %></p>
+        </details>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="rounded-3xl border border-border bg-surface p-8 text-center">
+    <h2 class="text-2xl font-extrabold tracking-tight"><%= t("sell_to_us.cta.title") %></h2>
+    <p class="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted"><%= t("sell_to_us.cta.description") %></p>
+    <%= link_to t("sell_to_us.cta.button"), new_buyback_quote_path, class: "btn-primary mt-5" %>
+  </section>
+</div>

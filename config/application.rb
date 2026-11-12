@@ -32,6 +32,31 @@ module AppTestTwo
     config.i18n.fallbacks = [ :en, :es ]
     config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.yml")]
 
+    # Active Record encryption protects buyback IBANs at rest. Production must
+    # provide the three keys through credentials or ENV; development/test fall
+    # back to local-only deterministic values so the app boots without secrets.
+    encryption = Rails.application.credentials[:active_record_encryption] || {}
+    fallback = Rails.env.local?
+    primary_key = encryption[:primary_key].presence ||
+                  ENV["ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY"].presence ||
+                  ("0123456789abcdef0123456789abcdef" if fallback)
+    deterministic_key = encryption[:deterministic_key].presence ||
+                        ENV["ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY"].presence ||
+                        ("abcdef0123456789abcdef0123456789" if fallback)
+    key_derivation_salt = encryption[:key_derivation_salt].presence ||
+                          ENV["ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT"].presence ||
+                          ("fedcba9876543210fedcba9876543210" if fallback)
+
+    if [ primary_key, deterministic_key, key_derivation_salt ].any?(&:blank?)
+      raise "Active Record encryption keys are missing. Set ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY, " \
+            "ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY and ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT " \
+            "(or the equivalent credentials)."
+    end
+
+    config.active_record.encryption.primary_key = primary_key
+    config.active_record.encryption.deterministic_key = deterministic_key
+    config.active_record.encryption.key_derivation_salt = key_derivation_salt
+
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

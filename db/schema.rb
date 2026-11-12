@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_210300) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_220300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -127,6 +127,76 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_210300) do
     t.index ["blocked_id"], name: "index_blocks_on_blocked_id"
     t.index ["blocker_id", "blocked_id"], name: "index_blocks_on_blocker_id_and_blocked_id", unique: true
     t.index ["blocker_id"], name: "index_blocks_on_blocker_id"
+  end
+
+  create_table "buyback_prices", force: :cascade do |t|
+    t.integer "component_type", default: 0, null: false
+    t.string "component_model", null: false
+    t.integer "base_offer_cents", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.jsonb "condition_multipliers", default: {"fair" => 0.7, "good" => 0.85, "like_new" => 1.0, "for_parts" => 0.25}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active", "component_type"], name: "index_buyback_prices_on_active_and_component_type"
+    t.index ["component_type", "component_model"], name: "index_buyback_prices_on_component_type_and_component_model", unique: true
+  end
+
+  create_table "buyback_quotes", force: :cascade do |t|
+    t.bigint "buyback_price_id", null: false
+    t.bigint "user_id"
+    t.integer "component_type", default: 0, null: false
+    t.string "component_model", null: false
+    t.string "condition", null: false
+    t.jsonb "answers", default: {}, null: false
+    t.integer "offer_cents", default: 0, null: false
+    t.string "token", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyback_price_id"], name: "index_buyback_quotes_on_buyback_price_id"
+    t.index ["expires_at"], name: "index_buyback_quotes_on_expires_at"
+    t.index ["token"], name: "index_buyback_quotes_on_token", unique: true
+    t.index ["user_id"], name: "index_buyback_quotes_on_user_id"
+  end
+
+  create_table "buyback_requests", force: :cascade do |t|
+    t.bigint "buyback_quote_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "component_type", default: 0, null: false
+    t.string "component_model", null: false
+    t.string "condition", null: false
+    t.jsonb "condition_answers", default: {}, null: false
+    t.string "status", default: "quoted", null: false
+    t.string "reference", null: false
+    t.integer "offer_cents", default: 0, null: false
+    t.integer "revised_offer_cents"
+    t.text "iban"
+    t.string "iban_last4"
+    t.string "full_name"
+    t.string "line1"
+    t.string "line2"
+    t.string "city"
+    t.string "postal_code"
+    t.string "country_code", default: "ES", null: false
+    t.string "phone"
+    t.string "carrier"
+    t.string "tracking_number"
+    t.text "inspection_result"
+    t.datetime "accepted_at"
+    t.datetime "label_sent_at"
+    t.datetime "received_at"
+    t.datetime "inspected_at"
+    t.datetime "revised_at"
+    t.datetime "paid_at"
+    t.datetime "rejected_at"
+    t.datetime "returned_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyback_quote_id"], name: "index_buyback_requests_on_buyback_quote_id"
+    t.index ["reference"], name: "index_buyback_requests_on_reference", unique: true
+    t.index ["status", "created_at"], name: "index_buyback_requests_on_status_and_created_at"
+    t.index ["user_id", "created_at"], name: "index_buyback_requests_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_buyback_requests_on_user_id"
   end
 
   create_table "cart_items", force: :cascade do |t|
@@ -262,6 +332,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_210300) do
     t.index ["position"], name: "index_countries_on_position"
   end
 
+  create_table "cpu_tiers", force: :cascade do |t|
+    t.string "pattern", null: false
+    t.integer "tier", null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active", "tier"], name: "index_cpu_tiers_on_active_and_tier"
+    t.index ["pattern"], name: "index_cpu_tiers_on_pattern", unique: true
+  end
+
   create_table "favourites", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "listing_id", null: false
@@ -317,6 +398,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_210300) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.jsonb "min_gpu_tier", default: {}, null: false
+    t.jsonb "min_cpu_tier", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active", "position"], name: "index_games_on_active_and_position"
+    t.index ["slug"], name: "index_games_on_slug", unique: true
+  end
+
+  create_table "gpu_tiers", force: :cascade do |t|
+    t.string "pattern", null: false
+    t.integer "tier", null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active", "tier"], name: "index_gpu_tiers_on_active_and_tier"
+    t.index ["pattern"], name: "index_gpu_tiers_on_pattern", unique: true
   end
 
   create_table "legal_pages", force: :cascade do |t|
@@ -411,9 +516,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_210300) do
     t.virtual "searchable", type: :tsvector, as: "((setweight(to_tsvector('simple'::regconfig, translate(lower((COALESCE(title, ''::character varying))::text), 'áàäâãåéèëêíìïîóòöôõúùüûñç'::text, 'aaaaaaeeeeiiiiooooouuuunc'::text)), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, translate(lower(COALESCE((jsonb_path_query_array(specs, '$.*'::jsonpath))::text, ''::text)), 'áàäâãåéèëêíìïîóòöôõúùüûñç'::text, 'aaaaaaeeeeiiiiooooouuuunc'::text)), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, translate(lower(COALESCE(description, ''::text)), 'áàäâãåéèëêíìïîóòöôõúùüûñç'::text, 'aaaaaaeeeeiiiiooooouuuunc'::text)), 'C'::\"char\"))", stored: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "gpu_tier", default: 0, null: false
+    t.integer "cpu_tier", default: 0, null: false
     t.index ["category_id", "published_at"], name: "index_listings_on_category_id_and_published_at", order: { published_at: :desc }, where: "((status)::text = 'published'::text)"
     t.index ["category_id"], name: "index_listings_on_category_id"
+    t.index ["gpu_tier", "cpu_tier"], name: "index_listings_on_gpu_tier_and_cpu_tier"
     t.index ["price_cents"], name: "index_listings_on_price_cents", where: "((status)::text = 'published'::text)"
+    t.index ["price_cents"], name: "index_listings_on_price_cents_and_tiers"
     t.index ["published_at"], name: "index_listings_on_published_at_published", order: :desc, where: "((status)::text = 'published'::text)"
     t.index ["region_id"], name: "index_listings_on_region_id"
     t.index ["region_id"], name: "index_listings_on_region_id_published", where: "((status)::text = 'published'::text)"
@@ -792,6 +901,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_210300) do
   add_foreign_key "attribute_options", "attribute_definitions"
   add_foreign_key "blocks", "users", column: "blocked_id"
   add_foreign_key "blocks", "users", column: "blocker_id"
+  add_foreign_key "buyback_quotes", "buyback_prices"
+  add_foreign_key "buyback_quotes", "users"
+  add_foreign_key "buyback_requests", "buyback_quotes"
+  add_foreign_key "buyback_requests", "users"
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "listings"
   add_foreign_key "cart_items", "offers"

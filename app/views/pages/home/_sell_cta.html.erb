@@ -9,7 +9,7 @@
       <%= link_to t("home.sell.cta"), new_sell_listing_path,
                   class: "inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-primary-900 transition hover:bg-primary-50" %>
       <% if Flipper.enabled?(:sell_to_us) %>
-        <%= link_to t("home.sell.sell_to_us"), "#",
+        <%= link_to t("home.sell.sell_to_us"), sell_to_us_path,
                     class: "inline-flex items-center justify-center rounded-xl border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/70 hover:bg-white/10" %>
       <% end %>
     </div>

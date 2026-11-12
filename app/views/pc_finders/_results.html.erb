@@ -1,0 +1,14 @@
+<% if result.listings.empty? %>
+  <div class="col-span-full rounded-2xl border border-dashed border-border bg-surface p-8 text-center">
+    <h2 class="text-lg font-bold"><%= t("pc_finder.results.empty_title") %></h2>
+    <p class="mt-2 text-sm text-muted"><%= t("pc_finder.results.empty_body") %></p>
+    <div class="mt-4 flex flex-wrap justify-center gap-2">
+      <%= link_to t("pc_finder.results.raise_budget"), pc_finder_path(result.criteria.params.except("budget", "page").merge(budget: "2500_plus")), class: "btn-accent" %>
+      <%= link_to t("pc_finder.results.lower_fps"), pc_finder_path(result.criteria.params.except("fps", "page").merge(fps: "60")), class: "btn-accent" %>
+    </div>
+  </div>
+<% else %>
+  <% result.listings.each_with_index do |listing, index| %>
+    <%= render "pc_finders/result_card", listing: listing, criteria: result.criteria, eager: index < 3 %>
+  <% end %>
+<% end %>

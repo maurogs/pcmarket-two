@@ -99,8 +99,44 @@ module SeoHelper
     tags
   end
 
-  def listing_meta_tags(listing)
-    description = truncate(listing.description.to_s.squish, length: 160)
+  # The quiz landing is indexable. Free-form result URLs are noindex; the
+  # single-game preset keeps a stable canonical and its own title.
+  def pc_finder_meta_tags(criteria)
+    if criteria.preset?
+      game = criteria.preset_game
+      title = t("pc_finder.seo.preset_title", game: game.name)
+      description = t("pc_finder.seo.preset_description", game: game.name)
+      canonical = pc_finder_url(game: game.slug, locale: I18n.locale)
+
+      {
+        title: title,
+        description: description,
+        canonical: canonical,
+        og: { type: "website", url: canonical, title: title, description: description },
+        twitter: { card: "summary_large_image" }
+      }
+    elsif criteria.selected?
+      {
+        title: t("pc_finder.seo.results_title"),
+        description: t("pc_finder.seo.results_description"),
+        robots: "noindex,follow"
+      }
+    else
+      title = t("pc_finder.seo.title")
+      description = t("pc_finder.seo.description")
+      canonical = pc_finder_url(locale: I18n.locale)
+
+      {
+        title: title,
+        description: description,
+        canonical: canonical,
+        og: { type: "website", url: canonical, title: title, description: description },
+        twitter: { card: "summary_large_image" }
+      }
+    end
+  end
+
+  def listing_meta_tags(listing)    description = truncate(listing.description.to_s.squish, length: 160)
     canonical = listing_url(listing)
     image_url = meta_image_url(listing)
 

@@ -25,6 +25,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Features that are shipped dark stay completely invisible: every route,
+  # action and UI entry point behind the flag must 404 while it is off.
+  def require_feature!(flag)
+    raise ActiveRecord::RecordNotFound unless Flipper.enabled?(flag)
+  end
+
   def current_cart
     @current_cart ||= if user_signed_in?
       Cart.find_or_initialize_by(user: current_user)

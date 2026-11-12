@@ -1,0 +1,526 @@
+de:
+  nav:
+    pc_finder_promo:
+      title: Unsicher, welcher PC zu dir passt?
+      description: Beantworte ein paar Fragen und sieh dir Konfigurationen an, die zu deinen Spielen und deinem Budget passen.
+      cta: PC-Finder nutzen
+  account:
+    menu:
+      trade_ins: Meine Ankäufe
+  footer:
+    selling:
+      sell_to_us: Hardware an uns verkaufen
+  pc_finder:
+    seo:
+      title: PC-Finder — Finde den richtigen Gaming-PC
+      description: Sag uns, welche Spiele du spielst, welche Auflösung dein Monitor hat und wie dein Budget aussieht – wir zeigen dir Gaming-PCs, die die gewünschte Leistung liefern.
+      preset_title: "Die besten Gaming-PCs für %{game}"
+      preset_description: "Gaming-PCs, die die empfohlene Leistung für %{game} erreichen, sortiert nach Preis-Leistungs-Verhältnis."
+      results_title: Ergebnisse des PC-Finders
+      results_description: Gaming-PCs passend zu deinen Antworten auf PCMarket.
+    hero:
+      eyebrow: Finde deine Maschine
+      title: Der richtige Gaming-PC, ohne Rätselraten
+      description: Wähle deine Spiele, die Auflösung und die Bildrate, die du willst – wir zeigen nur Konfigurationen, die das halten können.
+      promise_title: Das bekommst du
+      promise_games: PCs, geprüft an den Spielen, die du wirklich spielst
+      promise_budget: Ergebnisse innerhalb deines Budgets, günstigste zuerst
+      promise_filters: Optionale Filter für Gehäuse, Kühlung und Optik
+    quiz:
+      title: Erzähl uns, wie du spielst
+      subtitle: Sieben schnelle Schritte. Du kannst jede Antwort später ändern.
+      progress: "Schritt %{current} von %{total}"
+      steps_label: Schritte des Fragebogens
+      games_title: Welche Spiele spielst du?
+      games_hint: Wähle bis zu drei. Wir nehmen das anspruchsvollste bei deiner Auflösung und Bildrate.
+      monitor_title: Welche Auflösung hat dein Monitor?
+      monitor_hint: Wähle die Auflösung, in der du meistens spielst.
+      fps_title: Welche Bildrate strebst du an?
+      fps_hint: Höhere Bildraten brauchen eine stärkere Grafikkarte.
+      budget_title: Wie hoch ist dein Budget?
+      budget_hint: Die Preise gelten für komplette Gaming-PCs.
+      optional: Optional – lass es leer, wenn es dir egal ist.
+      case_title: Gehäusevorlieben
+      case_colour: Farbe
+      case_size: Größe
+      cooling_title: Kühlung
+      vibe_title: Welcher Look gefällt dir?
+      back: Zurück
+      next: Weiter
+      submit: Ergebnisse ansehen
+    steps:
+      games: Spiele
+      monitor: Monitor
+      fps: Bildrate
+      budget: Budget
+      case: Gehäuse
+      cooling: Kühlung
+      vibe: Stil
+    resolutions:
+      "1080p": 1080p
+      "1440p": 1440p
+      "4k": 4K
+    fps_options:
+      "60": 60 FPS
+      "144": 144 FPS
+      "240": 240+ FPS
+    budgets:
+      under_600: Unter 600 €
+      "600_1000": 600–1.000 €
+      "1000_1500": 1.000–1.500 €
+      "1500_2500": 1.500–2.500 €
+      "2500_plus": Über 2.500 €
+    case_sizes:
+      compact: Kompakt
+      mid: Midi-Tower
+      full: Big-Tower
+    case_colours:
+      black: Schwarz
+      white: Weiß
+      silver: Silber
+      grey: Grau
+    cooling_options:
+      air: Luftkühlung
+      aio: All-in-One-Wasserkühlung
+    answers:
+      none: Keine Vorliebe
+      any: Egal
+    bands:
+      "1080p_60": 1080p · 60 FPS
+      "1080p_144": 1080p · 144 FPS
+      "1080p_240": 1080p · 240 FPS
+      "1440p_60": 1440p · 60 FPS
+      "1440p_144": 1440p · 144 FPS
+      "1440p_240": 1440p · 240 FPS
+      "4k_60": 4K · 60 FPS
+      "4k_144": 4K · 144 FPS
+      "4k_240": 4K · 240 FPS
+    results:
+      title: Deine Treffer
+      count:
+        one: "%{count} Gaming-PC"
+        other: "%{count} Gaming-PCs"
+      change: Antworten ändern
+      chips_label: Deine Antworten
+      chip_games: "Spiele: %{games}"
+      chip_fps: "%{fps} FPS"
+      remove_chip: Diese Antwort entfernen
+      expected_title: Erwartete Leistung
+      expected: "%{game} · ~%{fps} FPS bei %{resolution}"
+      expected_unavailable: "%{game} · unter dem Ziel von 60 FPS"
+      add_to_cart: In den Warenkorb
+      load_more: Mehr laden
+      empty_title: Noch kein PC erfüllt alle Antworten
+      empty_body: Erhöhe das Budget oder senke die Bildrate. Deine anderen Antworten bleiben erhalten.
+      raise_budget: Budget erhöhen
+      lower_fps: 60 FPS anpeilen
+    landing:
+      styles_title: PCs nach Spielertyp
+      styles_description: Starte mit dem Look, der dir gefällt, und verfeinere ihn im Fragebogen.
+      style_count:
+        one: "%{count} PC"
+        other: "%{count} PCs"
+      budget_title: Gaming-PCs unter 1.000 €
+      budget_description: Komplette Konfigurationen, die noch Luft für Spiele lassen.
+      view_all: Alle Optionen ansehen
+      games_title: Die besten PCs für dein Spiel
+      games_description: Fertige Auswahlen für die am häufigsten gesuchten Spiele.
+      best_for: Ideal für
+      game_cta: Passende PCs ansehen
+  sell_to_us:
+    seo:
+      title: Verkaufe deine GPU oder CPU an PCMarket
+      description: Erhalte ein sofortiges Angebot für deine Grafikkarte oder CPU, versende sie mit vorbezahltem Etikett und erhalte Geld per Überweisung.
+    hero:
+      eyebrow: An uns verkaufen
+      title: Mach aus ungenutzter Hardware Geld, ohne sie zu inserieren
+      description: Wähle deine GPU oder CPU, beantworte vier Fragen zum Zustand und erhalte in Sekunden ein verbindliches Angebot. Wenn du annimmst, senden wir dir ein vorbezahltes Versandetikett.
+      cta: Sofortangebot erhalten
+      how_it_works: So funktioniert es
+    prices:
+      title: Beispielauszahlungen
+      description: Ein Auszug aktueller Ankaufspreise. Dein Sofortangebot verwendet das genaue Modell und den Zustand.
+      gpus: Grafikkarten
+      cpus: Prozessoren
+      model: Modell
+      empty: Für diese Komponente sind noch keine Preise veröffentlicht.
+      note: Auszahlungen sind Schätzungen vor der Prüfung. Das im Angebotsprozess gezeigte Angebot halten wir ein.
+    how:
+      title: So funktioniert es
+      description: Vier Schritte von deinem Ersatzteil bis zur Überweisung.
+      steps:
+        offer:
+          title: Angebot erhalten
+          body: Wähle Modell und Zustand. Das Sofortangebot gilt sieben Tage.
+        ship:
+          title: Kostenlos versenden
+          body: Nimm das Angebot an und wir mailen dir ein vorbezahltes Etikett mit Verpackungshinweisen.
+        inspect:
+          title: Wir prüfen es
+          body: Wir testen die Komponente und bestätigen den Zustand innerhalb von zwei Werktagen.
+        paid:
+          title: Geld erhalten
+          body: Wir überweisen den vereinbarten Betrag auf deine IBAN, meist innerhalb eines Werktags.
+    faq:
+      title: Fragen vor dem Verkauf
+      items:
+        condition:
+          question: Was gilt als „guter“ Zustand?
+          answer: Die Komponente funktioniert normal, hat keine physischen Schäden und zeigt nur leichte Gebrauchsspuren. Fehlende Verpackung oder Zubehör senken das Angebot über die Zustandsfragen.
+        shipping:
+          question: Zahle ich den Versand?
+          answer: Nein. Nach Annahme senden wir ein vorbezahltes, versichertes Etikett. Verpacke die Komponente sorgfältig in einer antistatischen Tüte und einem stabilen Karton.
+        payment:
+          question: Wie und wann werde ich bezahlt?
+          answer: Per Überweisung auf die nach der Annahme angegebene IBAN. Wir zahlen innerhalb eines Werktags nach der Prüfung.
+        data:
+          question: Was passiert mit meinen persönlichen Daten?
+          answer: Wir speichern deine IBAN verschlüsselt, verwenden sie nur für diese Auszahlung und bewahren die Anfrage für die gesetzlich vorgeschriebene Buchhaltungsfrist auf.
+    cta:
+      title: Neugierig, was deine Hardware wert ist?
+      description: Das Angebot dauert weniger als eine Minute und verpflichtet dich zu nichts.
+      button: Angebot starten
+  buyback:
+    component_types:
+      gpu: Grafikkarte
+      cpu: Prozessor
+    conditions:
+      like_new: Wie neu
+      good: Gut
+      fair: Akzeptabel
+      for_parts: Für Ersatzteile
+    questions:
+      "yes": "Ja"
+      "no": "Nein"
+    statuses:
+      quoted: Angebot erstellt
+      accepted: Angenommen
+      label_sent: Etikett gesendet
+      received: Erhalten
+      inspected: Geprüft
+      offer_revised: Angebot angepasst
+      paid: Bezahlt
+      rejected: Abgelehnt
+      returned: Zurückgesendet
+    timeline:
+      label: Fortschritt des Ankaufs
+    details:
+      component: Komponente
+      condition: Zustand
+      offer: Angebot
+      revised_offer: Angepasstes Angebot
+      iban: IBAN
+    errors:
+      price_missing: Wähle ein Modell, um ein Angebot zu erhalten.
+      quote_expired: Dieses Angebot ist abgelaufen. Bitte fordere ein neues an.
+      quote_used: Dieses Angebot wurde bereits angenommen.
+      accept_failed: Wir konnten dieses Angebot nicht annehmen. Bitte versuche es erneut.
+    flash:
+      quote_created: Dein Sofortangebot ist bereit.
+      request_created: "Ankauf %{reference} erstellt. Wir mailen dir als Nächstes das vorbezahlte Etikett."
+    quote:
+      seo_title: Dein Sofortangebot
+      back: Zurück zum Verkauf
+      title: Sofortangebot erhalten
+      subtitle: Wähle die Komponente, ihren Zustand und beantworte ein paar Fragen. Das Angebot gilt sieben Tage.
+      component_type: Komponententyp
+      search_label: Modelle suchen
+      search_placeholder: Modell eingeben, zum Beispiel RTX 4070
+      model: Modell
+      model_option: "%{model} — bis zu %{price}"
+      choose_model: Modell wählen
+      model_hint: Es werden nur Modelle mit veröffentlichtem Ankaufspreis angezeigt.
+      condition: Zustand
+      choose_condition: Zustand wählen
+      questions:
+        title: Fragen zum Zustand
+        powers_on: Schaltet es ein und funktioniert normal?
+        artifacts: Gibt es Bildfehler oder Abstürze?
+        original_box: Hast du die Originalverpackung?
+        physical_damage: Gibt es physische Schäden?
+      disclaimer: Der endgültige Betrag wird nach der Prüfung bestätigt.
+      submit: Mein Angebot ansehen
+      offer_eyebrow: Dein Angebot
+      offer_title: Dein Sofortangebot
+      expired: Dieses Angebot ist abgelaufen. Fordere ein neues an, um den aktuellen Preis zu sehen.
+      new_quote: Neues Angebot erhalten
+      valid_until: "Gültig bis %{date}"
+      accept: Dieses Angebot annehmen
+      accept_hint: Du brauchst ein Konto, um anzunehmen und deine IBAN anzugeben.
+      summary_title: Darauf basiert es
+    request:
+      title: Angebot annehmen
+      subtitle: Sag uns, wo die Komponente abgeholt und wohin das Geld überwiesen werden soll.
+      back: Zurück zum Angebot
+      payment_title: Zahlungsdaten
+      iban: IBAN
+      iban_placeholder: DE00 0000 0000 0000 0000 00
+      iban_hint: Wir speichern deine IBAN verschlüsselt und verwenden sie nur für diese Auszahlung.
+      full_name: Vollständiger Name
+      address_title: Abholadresse
+      line1: Adresse
+      line2: Wohnung, Etage oder Gebäude
+      city: Stadt
+      postal_code: Postleitzahl
+      country: Land
+      phone: Telefon
+      terms_note: Mit der Annahme bestätigst du die Zustandsantworten und akzeptierst die Ankaufsbedingungen.
+      submit: Annehmen und Ankauf erstellen
+    index:
+      title: Meine Ankäufe
+      subtitle: Verfolge jede Ankaufsanfrage und ihre Prüfung.
+      new: Neuer Ankauf
+      empty_title: Du hast noch keine Ankäufe
+      empty_body: Hol dir ein Sofortangebot für eine ungenutzte GPU oder CPU und versende sie mit vorbezahltem Etikett.
+      empty_cta: Sofortangebot erhalten
+      sell: Zurück zum Verkauf
+    show:
+      title: "Ankauf %{reference}"
+      back: Alle Ankäufe
+      progress_title: Fortschritt
+      revised: "Wir haben das Angebot auf %{amount} angepasst. Das Admin-Team bestätigt deine Entscheidung."
+      details_title: Details
+      address_title: Abholadresse
+      tracking: "Sendungsverfolgung: %{carrier} · %{number}"
+      carrier_unknown: Versanddienst
+      help: Brauchst du Hilfe bei diesem Ankauf?
+      contact: Support kontaktieren
+  buyback_mailer:
+    cta: Ankauf ansehen
+    footer: Du erhältst diese E-Mail, weil du einen Ankauf bei PCMarket erstellt hast. Antworte auf diese Nachricht, wenn etwas nicht stimmt.
+    details:
+      reference: Referenz
+      component: Komponente
+      offer: Angebot
+      status: Status
+    events:
+      accepted:
+        subject: "Ankauf %{reference} angenommen"
+        title: "Ankauf %{reference} angenommen"
+        body: Wir haben deinen Ankauf angenommen. Die nächste E-Mail enthält dein vorbezahltes Versandetikett.
+      label_sent:
+        subject: "Dein vorbezahltes Etikett für %{reference}"
+        title: "Dein vorbezahltes Etikett ist unterwegs"
+        body: Wir haben das vorbezahlte Etikett ausgestellt. Verpacke die Komponente sicher und gib sie beim Versanddienst ab.
+      received:
+        subject: "Wir haben %{reference} erhalten"
+        title: "Deine Komponente ist angekommen"
+        body: Das Paket ist in unserer Werkstatt und wird innerhalb von zwei Werktagen geprüft.
+      inspected:
+        subject: "Prüfung für %{reference} abgeschlossen"
+        title: "Prüfung abgeschlossen"
+        body: Die Komponente entspricht dem angegebenen Zustand. Als Nächstes veranlassen wir die Zahlung.
+      offer_revised:
+        subject: "Wir haben das Angebot für %{reference} angepasst"
+        title: "Wir haben dein Angebot angepasst"
+        body: Bei der Prüfung wurde eine Abweichung vom angegebenen Zustand festgestellt. Das angepasste Angebot steht in deinem Ankauf.
+      accepted_revision:
+        subject: "Angepasstes Angebot für %{reference} angenommen"
+        title: "Angepasstes Angebot angenommen"
+        body: Danke für die Bestätigung. Wir zahlen den angepassten Betrag per Banküberweisung.
+      paid:
+        subject: "Zahlung für %{reference} gesendet"
+        title: "Zahlung gesendet"
+        body: Wir haben den vereinbarten Betrag auf deine IBAN überwiesen. Er kommt meist innerhalb eines Werktags an.
+      rejected:
+        subject: "Ankauf %{reference} konnte nicht angenommen werden"
+        title: "Ankauf nicht angenommen"
+        body: Die Komponente hat die Prüfung nicht bestanden und kann nicht angekauft werden. Wir erklären dir die nächsten Schritte per E-Mail.
+      returned:
+        subject: "Deine Komponente wird zurückgesendet (%{reference})"
+        title: "Deine Komponente ist auf dem Rückweg"
+        body: Wir senden die Komponente an die Abholadresse zurück. Die Sendungsdaten folgen.
+  admin:
+    nav:
+      pc_finder: PC-Finder
+      gpu_tiers: GPU-Stufen
+      cpu_tiers: CPU-Stufen
+      buyback_prices: Ankaufspreise
+      buyback_requests: Ankäufe
+    games:
+      index:
+        title: Spiele im PC-Finder
+        subtitle: Spiele im Fragebogen, ihre Cover und die benötigte GPU-/CPU-Stufe je Auflösung und Bildrate.
+        new: Neues Spiel
+        delete_confirm: Dieses Spiel löschen?
+        empty_title: Noch keine Spiele
+        empty_body: Füge das erste Spiel hinzu, damit der PC-Finder nützlich wird.
+      table:
+        game: Spiel
+        slug: Slug
+        position: Position
+        active: Aktiv
+      form:
+        name: Name
+        slug: Slug
+        slug_placeholder: Wird aus dem Namen erzeugt, wenn leer
+        position: Position
+        active: Aktiv
+        cover: Coverbild
+        cover_hint: Hochformat funktioniert am besten. PNG, JPEG oder WebP bis 5 MB.
+        requirements_title: Stufenanforderungen
+        requirements_hint: "Gib eine Stufe von 1 bis 10 ein. Diese Werte werden mit den GPU- und CPU-Stufen abgeglichen."
+        gpu_tier: GPU-Stufe
+        cpu_tier: CPU-Stufe
+        back: Zurück zu den Spielen
+        delete: Spiel löschen
+        delete_confirm: Dieses Spiel löschen?
+      new:
+        title: Neues Spiel
+      edit:
+        title: "%{name} bearbeiten"
+      flash:
+        created: Spiel erstellt.
+        updated: Spiel aktualisiert.
+        destroyed: Spiel gelöscht.
+    gpu_tiers:
+      index:
+        title: GPU-Stufen
+        subtitle: Muster, die ohne Beachtung der Groß-/Kleinschreibung mit GPU-Modellen in Inseraten abgeglichen werden. Das längste Muster gewinnt.
+        new: Neue GPU-Stufe
+        delete_confirm: Diese Zuordnung löschen?
+      table:
+        pattern: Muster
+        tier: Stufe
+        position: Position
+        active: Aktiv
+      form:
+        pattern: Muster
+        pattern_placeholder: rtx 4070
+        pattern_hint: Ein Teil des Modellnamens, zum Beispiel „rtx 4070“.
+        tier: Stufe
+        position: Position
+        active: Aktiv
+        back: Zurück zu den GPU-Stufen
+        delete: Zuordnung löschen
+        delete_confirm: Diese Zuordnung löschen?
+      new:
+        title: Neue GPU-Stufe
+      edit:
+        title: "%{pattern} bearbeiten"
+      flash:
+        created: GPU-Stufe erstellt.
+        updated: GPU-Stufe aktualisiert.
+        destroyed: GPU-Stufe gelöscht.
+    cpu_tiers:
+      index:
+        title: CPU-Stufen
+        subtitle: Muster, die ohne Beachtung der Groß-/Kleinschreibung mit CPU-Modellen in Inseraten abgeglichen werden. Das längste Muster gewinnt.
+        new: Neue CPU-Stufe
+        delete_confirm: Diese Zuordnung löschen?
+      table:
+        pattern: Muster
+        tier: Stufe
+        position: Position
+        active: Aktiv
+      form:
+        pattern: Muster
+        pattern_placeholder: ryzen 5 5
+        pattern_hint: Ein Teil des Modellnamens, zum Beispiel „ryzen 5 5“.
+        tier: Stufe
+        position: Position
+        active: Aktiv
+        back: Zurück zu den CPU-Stufen
+        delete: Zuordnung löschen
+        delete_confirm: Diese Zuordnung löschen?
+      new:
+        title: Neue CPU-Stufe
+      edit:
+        title: "%{pattern} bearbeiten"
+      flash:
+        created: CPU-Stufe erstellt.
+        updated: CPU-Stufe aktualisiert.
+        destroyed: CPU-Stufe gelöscht.
+    buyback_prices:
+      index:
+        title: Ankaufspreise
+        subtitle: Basisangebote und Zustandsmultiplikatoren für den Sofortangebotsprozess.
+        new: Neuer Ankaufspreis
+        delete_confirm: Diesen Preis löschen?
+      table:
+        component: Komponente
+        model: Modell
+        base: Basisangebot
+        multipliers: Multiplikatoren
+        active: Aktiv
+      form:
+        component_type: Komponententyp
+        component_model: Modellname
+        model_placeholder: RTX 4070
+        base_offer_cents: Basisangebot (Cent)
+        base_hint: "10000 = 100,00 €. Das Angebot wendet den Zustandsmultiplikator und die Abzüge an."
+        active: Aktiv
+        multipliers_title: Zustandsmultiplikatoren
+        multipliers_hint: Die Multiplikatoren gelten für das Basisangebot, bevor die Zustandsabzüge angewendet werden.
+        back: Zurück zu den Ankaufspreisen
+        delete: Preis löschen
+        delete_confirm: Diesen Preis löschen?
+      new:
+        title: Neuer Ankaufspreis
+      edit:
+        title: "%{model} bearbeiten"
+      import:
+        title: CSV importieren
+        hint: "Spalten: component_type, component_model, base_offer_cents (oder base_offer_eur). Vorhandene Modelle werden aktualisiert."
+        submit: Preise importieren
+      flash:
+        created: Ankaufspreis erstellt.
+        updated: Ankaufspreis aktualisiert.
+        destroyed: Ankaufspreis gelöscht.
+        in_use: Für diesen Preis gibt es bereits Angebote; er kann nicht gelöscht werden.
+        imported: "%{created} neue und %{updated} aktualisierte Preise importiert; %{skipped} Zeilen übersprungen."
+    buyback_requests:
+      index:
+        title: Ankaufswarteschlange
+        subtitle: Ankaufsanfragen von Kunden, vom Angebot bis zur Auszahlung.
+        empty_title: Noch keine Ankäufe
+        empty_body: Anfragen erscheinen hier, sobald ein Kunde ein Sofortangebot annimmt.
+      table:
+        reference: Referenz
+        customer: Kunde
+        component: Komponente
+        offer: Angebot
+        status: Status
+        created: Erstellt
+      filters:
+        status: Status
+      show:
+        back: Zurück zu den Ankäufen
+        details_title: Anfrage
+        address_title: Abholadresse
+        inspection_result: Prüfergebnis
+        actions_title: Aktionen
+        no_actions: In diesem Status sind keine Aktionen verfügbar.
+        created_at: "Erstellt am %{date}"
+        user_note: Der Kunde erhält nach jeder Aktion eine übersetzte E-Mail.
+      actions:
+        label_sent:
+          title: Etikett als gesendet markieren
+          carrier: Versanddienst
+          tracking: Sendungsnummer
+          submit: Etikett als gesendet markieren
+        received:
+          submit: Als erhalten markieren
+        inspected:
+          result: Prüfergebnis
+          revised_offer: Angepasstes Angebot (€, optional)
+          hint: Gib einen angepassten Betrag ein, um ein neues Angebot zu senden, statt die Prüfung abzuschließen.
+          submit: Prüfung speichern
+        paid:
+          title: Als bezahlt markieren
+          body: Erfasse die Überweisung auf die IBAN des Kunden.
+          submit: Als bezahlt markieren
+        rejected:
+          submit: Ablehnen
+          confirm: Diesen Ankauf ablehnen?
+        returned:
+          submit: An Absender zurücksenden
+          confirm: Diese Komponente an den Kunden zurücksenden?
+        accepted_revision:
+          submit: Angepasstes Angebot annehmen
+      flash:
+        advanced: "Ankauf wurde auf %{status} gesetzt."
+        invalid_transition: Diese Aktion ist im aktuellen Status nicht erlaubt.
+  errors:
+    messages:
+      invalid_iban: ist keine gültige IBAN

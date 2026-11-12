@@ -63,6 +63,9 @@
           <h2 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("footer.selling.title") %></h2>
           <ul class="mt-4 space-y-2.5 text-sm">
             <li><%= link_to t("footer.selling.how_to_sell"), help_page_path(slug: "how-to-sell"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <% if Flipper.enabled?(:sell_to_us) %>
+              <li><%= link_to t("footer.selling.sell_to_us"), sell_to_us_path, class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
+            <% end %>
             <li><%= link_to t("footer.selling.fees"), help_page_path(slug: "seller-fees"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
             <li><%= link_to t("footer.selling.academy"), help_page_path(slug: "how-to-sell"), class: "text-content transition hover:text-primary-600 dark:hover:text-primary-300" %></li>
           </ul>

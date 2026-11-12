@@ -1,0 +1,89 @@
+<% set_meta_tags(title: t("buyback.quote.seo_title"), noindex: true) %>
+
+<div class="mx-auto max-w-3xl space-y-6">
+  <header>
+    <%= link_to t("buyback.quote.back"), sell_to_us_path, class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("buyback.quote.title") %></h1>
+    <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("buyback.quote.subtitle") %></p>
+  </header>
+
+  <div class="rounded-2xl border border-border bg-surface p-5 sm:p-7">
+    <%= form_with url: buyback_quotes_path, method: :post, scope: nil,
+                  data: { controller: "buyback_quote" }, class: "space-y-6" do %>
+      <% if @quote&.errors&.any? %>
+        <div class="rounded-xl border border-danger/40 bg-danger-soft px-4 py-3 text-sm text-danger">
+          <ul class="space-y-1">
+            <% @quote.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <fieldset class="space-y-3">
+        <legend class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("buyback.quote.component_type") %></legend>
+        <div class="grid gap-2 sm:grid-cols-2">
+          <% %w[gpu cpu].each do |type| %>
+            <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm font-semibold transition has-[:checked]:border-primary-500 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-900/30">
+              <%= radio_button_tag :component_type, type, @selected_type == type,
+                                   class: "h-4 w-4 text-primary-600",
+                                   data: { buyback_quote_target: "type", action: "change->buyback_quote#filter" } %>
+              <span><%= t("buyback.component_types.#{type}") %></span>
+            </label>
+          <% end %>
+        </div>
+      </fieldset>
+
+      <div>
+        <%= label_tag :model_search, t("buyback.quote.search_label"), class: "block text-sm font-semibold" %>
+        <%= search_field_tag :model_search, nil, id: "model_search",
+                             placeholder: t("buyback.quote.search_placeholder"),
+                             class: "field mt-1.5",
+                             autocomplete: "off",
+                             data: { buyback_quote_target: "search", action: "input->buyback_quote#filter" } %>
+      </div>
+
+      <div>
+        <%= label_tag :buyback_price_id, t("buyback.quote.model"), class: "block text-sm font-semibold" %>
+        <%= select_tag :buyback_price_id,
+                       options_for_select(@prices.map { |price| [ t("buyback.quote.model_option", model: price.component_model, price: buyback_payout(price, "like_new")), price.id, { data: { type: price.component_type } } ] }),
+                       { include_blank: t("buyback.quote.choose_model") },
+                       class: "field mt-1.5",
+                       data: { buyback_quote_target: "select" } %>
+        <p class="mt-1 text-xs text-muted"><%= t("buyback.quote.model_hint") %></p>
+      </div>
+
+      <div>
+        <%= label_tag :condition, t("buyback.quote.condition"), class: "block text-sm font-semibold" %>
+        <%= select_tag :condition,
+                       options_for_select(BuybackPrice::CONDITION_KEYS.map { |condition| [ buyback_condition_label(condition), condition ] }),
+                       { include_blank: t("buyback.quote.choose_condition") },
+                       class: "field mt-1.5" %>
+      </div>
+
+      <fieldset class="space-y-3">
+        <legend class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("buyback.quote.questions.title") %></legend>
+        <% [ [ "powers_on", true ], [ "artifacts", false ], [ "original_box", false ], [ "physical_damage", false ] ].each do |key, default| %>
+          <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border px-4 py-3">
+            <p class="text-sm font-medium"><%= t("buyback.quote.questions.#{key}") %></p>
+            <div class="flex items-center gap-4 text-sm">
+              <label class="flex items-center gap-2">
+                <%= radio_button_tag key, "1", default, class: "h-4 w-4 text-primary-600" %>
+                <span><%= t("buyback.questions.yes") %></span>
+              </label>
+              <label class="flex items-center gap-2">
+                <%= radio_button_tag key, "0", !default, class: "h-4 w-4 text-primary-600" %>
+                <span><%= t("buyback.questions.no") %></span>
+              </label>
+            </div>
+          </div>
+        <% end %>
+      </fieldset>
+
+      <div class="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
+        <p class="text-xs text-muted"><%= t("buyback.quote.disclaimer") %></p>
+        <%= submit_tag t("buyback.quote.submit"), class: "btn-primary cursor-pointer" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -22,6 +22,13 @@ Rails.application.routes.draw do
     end
     get "search", to: "listings#index", as: :search
 
+    resource :pc_finder, only: :show, controller: "pc_finders", path: "pc-finder"
+
+    resource :sell_to_us, only: :show, controller: "sell_to_us", path: "sell-to-us"
+    resources :buyback_quotes, only: %i[new create show], path: "sell-to-us/quotes"
+    resources :buyback_requests, only: %i[index show new create],
+                                 path: "sell-to-us/trade-ins"
+
     resource :trust, only: :show, controller: "trust"
     resources :help_pages, only: %i[index show], path: "help", param: :slug
     resources :contact_messages, only: %i[index create], path: "contact"
@@ -190,6 +197,16 @@ Rails.application.routes.draw do
         resource :publication, only: :create, controller: "legal_page_publications"
         resource :notification, only: :create, controller: "legal_page_notifications"
         resource :comparison, only: :show, controller: "legal_page_comparisons"
+      end
+
+      resources :games, only: %i[index new create edit update destroy]
+      resources :gpu_tiers, only: %i[index new create edit update destroy]
+      resources :cpu_tiers, only: %i[index new create edit update destroy]
+
+      resources :buyback_prices, only: %i[index new create edit update destroy]
+      resources :buyback_price_imports, only: :create
+      resources :buyback_requests, only: %i[index show] do
+        resources :events, only: :create, controller: "buyback_request_events"
       end
 
       root to: "dashboard#show"

@@ -112,6 +112,22 @@ ignore_unused:
   - "home.trust.*"
   - "home.rails.*"
   - "home.sold.*"
+  - "pc_finder.steps.*"
+  - "pc_finder.resolutions.*"
+  - "pc_finder.fps_options.*"
+  - "pc_finder.budgets.*"
+  - "pc_finder.case_sizes.*"
+  - "pc_finder.case_colours.*"
+  - "pc_finder.cooling_options.*"
+  - "pc_finder.bands.*"
+  - "sell_to_us.how.steps.*"
+  - "sell_to_us.faq.items.*"
+  - "buyback.component_types.*"
+  - "buyback.conditions.*"
+  - "buyback.statuses.*"
+  - "buyback.quote.questions.*"
+  - "buyback_mailer.events.*"
+  - "errors.messages.invalid_iban"
 
 # Devise resolves its failure keys at runtime through devise-i18n, outside
 # config/locales, so i18n-tasks cannot see them.

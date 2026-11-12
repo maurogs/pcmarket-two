@@ -81,6 +81,8 @@ class Listing < ApplicationRecord
   # same save, so counter callbacks observe a single status change.
   before_save :reopen_for_review_on_material_edit,
               if: :material_edit_on_published_listing?
+  before_save :compute_performance_tiers,
+              if: -> { new_record? || will_save_change_to_specs? }
 
   before_destroy :remember_counter_snapshot
   after_commit :sync_listing_counters, on: %i[create update destroy]
@@ -677,6 +679,10 @@ class Listing < ApplicationRecord
 
   def bump_search_cache_version
     Rails.cache.write(SEARCH_CACHE_VERSION_KEY, Time.current.to_f)
+  end
+
+  def compute_performance_tiers
+    Listings::PerformanceTier.new(self).call
   end
 
   def enqueue_price_drop_notifications

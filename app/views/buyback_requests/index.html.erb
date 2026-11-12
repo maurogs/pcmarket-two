@@ -1,0 +1,44 @@
+<% set_meta_tags(title: t("buyback.index.title"), noindex: true) %>
+
+<div class="mx-auto max-w-5xl space-y-6">
+  <header class="flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <h1 class="text-3xl font-extrabold tracking-tight"><%= t("buyback.index.title") %></h1>
+      <p class="mt-1 text-sm text-muted"><%= t("buyback.index.subtitle") %></p>
+    </div>
+    <%= link_to t("buyback.index.new"), new_buyback_quote_path, class: "btn-primary" %>
+  </header>
+
+  <% if @requests.any? %>
+    <div class="space-y-4">
+      <% @requests.each do |request| %>
+        <article class="rounded-2xl border border-border bg-surface p-5">
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p class="font-mono text-xs text-muted"><%= request.reference %></p>
+              <h2 class="mt-1 text-lg font-bold">
+                <%= link_to request.component_model, buyback_request_path(request), class: "hover:text-primary-700 dark:hover:text-primary-300" %>
+              </h2>
+              <p class="text-xs text-muted"><%= buyback_condition_label(request.condition) %></p>
+            </div>
+            <div class="text-right">
+              <span class="inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold <%= buyback_status_classes(request.status) %>"><%= buyback_status_label(request.status) %></span>
+              <p class="mt-2 text-lg font-extrabold"><%= money(request.final_offer_cents, currency: "EUR") %></p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <%= render "buyback_requests/timeline", request: request %>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <h2 class="text-lg font-bold"><%= t("buyback.index.empty_title") %></h2>
+      <p class="mt-2 text-sm text-muted"><%= t("buyback.index.empty_body") %></p>
+      <%= link_to t("buyback.index.empty_cta"), new_buyback_quote_path, class: "btn-primary mt-5" %>
+    </div>
+  <% end %>
+
+  <%= link_to t("buyback.index.sell"), sell_to_us_path, class: "block text-center text-sm font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+</div>

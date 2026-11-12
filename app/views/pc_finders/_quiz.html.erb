@@ -1,0 +1,149 @@
+<% vibe_tags = Tag.seller_tags.active.where(slug: PcFinder::Criteria::VIBES).ordered.to_a %>
+
+<%= form_with url: pc_finder_path, method: :get, scope: nil,
+              class: "rounded-3xl border border-border bg-surface p-5 sm:p-8",
+              data: { controller: "quiz",
+                      quiz_progress_template_value: t("pc_finder.quiz.progress", current: "%{current}", total: 7) } do %>
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h2 class="text-2xl font-extrabold tracking-tight"><%= t("pc_finder.quiz.title") %></h2>
+      <p class="mt-1 text-sm text-muted"><%= t("pc_finder.quiz.subtitle") %></p>
+    </div>
+    <p class="rounded-full border border-border bg-surface-muted px-3 py-1.5 text-xs font-semibold text-muted">
+      <span data-quiz-target="progress"><%= t("pc_finder.quiz.progress", current: 1, total: 7) %></span>
+    </p>
+  </div>
+
+  <ol class="mt-6 grid gap-2 text-xs font-semibold text-muted sm:grid-cols-4 lg:grid-cols-7" aria-label="<%= t("pc_finder.quiz.steps_label") %>">
+    <% %w[games monitor fps budget case cooling vibe].each_with_index do |step, index| %>
+      <li class="flex items-center gap-2 rounded-lg border border-border px-2.5 py-2" data-quiz-target="progressItem" data-index="<%= index %>">
+        <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-surface-muted text-[10px] font-bold"><%= index + 1 %></span>
+        <span><%= t("pc_finder.steps.#{step}") %></span>
+      </li>
+    <% end %>
+  </ol>
+
+  <fieldset class="mt-8 space-y-4" data-quiz-target="step">
+    <legend class="text-lg font-bold"><%= t("pc_finder.quiz.games_title") %></legend>
+    <p class="text-sm text-muted"><%= t("pc_finder.quiz.games_hint") %></p>
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      <% games.each do |game| %>
+        <label class="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-surface-muted transition has-[:checked]:border-primary-500 has-[:checked]:ring-2 has-[:checked]:ring-primary-500/30">
+          <%= check_box_tag "games[]", game.slug, criteria.game_slugs.include?(game.slug),
+                            id: "game_#{game.id}",
+                            class: "peer sr-only",
+                            data: { action: "change->quiz#enforceGameLimit", quiz_target: "game" } %>
+          <span class="relative block aspect-[3/4] overflow-hidden bg-surface">
+            <% if game.cover.attached? %>
+              <%= image_tag url_for(game.cover.variant(:thumb)), alt: "", loading: "lazy",
+                            width: 160, height: 214,
+                            class: "h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" %>
+            <% else %>
+              <span class="flex h-full w-full items-center justify-center text-sm font-bold text-muted"><%= game.name %></span>
+            <% end %>
+            <span class="absolute right-2 top-2 inline-flex h-6 w-6 items-center justify-center rounded-full border border-white/70 bg-surface/90 text-xs font-bold text-primary-700 opacity-0 group-has-[:checked]:opacity-100" aria-hidden="true">✓</span>
+          </span>
+          <span class="block truncate px-3 py-2 text-sm font-semibold"><%= game.name %></span>
+        </label>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-8 space-y-3" data-quiz-target="step">
+    <legend class="text-lg font-bold"><%= t("pc_finder.quiz.monitor_title") %></legend>
+    <p class="text-sm text-muted"><%= t("pc_finder.quiz.monitor_hint") %></p>
+    <div class="grid gap-2 sm:grid-cols-3">
+      <% PcFinder::Criteria::RESOLUTIONS.each do |resolution| %>
+        <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm font-semibold transition has-[:checked]:border-primary-500 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-900/30">
+          <%= radio_button_tag :resolution, resolution, criteria.resolution == resolution, class: "h-4 w-4 text-primary-600" %>
+          <span><%= pc_finder_resolution_label(resolution) %></span>
+        </label>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-8 space-y-3" data-quiz-target="step">
+    <legend class="text-lg font-bold"><%= t("pc_finder.quiz.fps_title") %></legend>
+    <p class="text-sm text-muted"><%= t("pc_finder.quiz.fps_hint") %></p>
+    <div class="grid gap-2 sm:grid-cols-3">
+      <% PcFinder::Criteria::FPS_BANDS.each do |fps| %>
+        <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm font-semibold transition has-[:checked]:border-primary-500 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-900/30">
+          <%= radio_button_tag :fps, fps, criteria.fps == fps, class: "h-4 w-4 text-primary-600" %>
+          <span><%= t("pc_finder.fps_options.#{fps}") %></span>
+        </label>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-8 space-y-3" data-quiz-target="step">
+    <legend class="text-lg font-bold"><%= t("pc_finder.quiz.budget_title") %></legend>
+    <p class="text-sm text-muted"><%= t("pc_finder.quiz.budget_hint") %></p>
+    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <% PcFinder::Criteria::BUDGETS.each_key do |budget| %>
+        <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm font-semibold transition has-[:checked]:border-primary-500 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-900/30">
+          <%= radio_button_tag :budget, budget, criteria.budget == budget, class: "h-4 w-4 text-primary-600" %>
+          <span><%= t("pc_finder.budgets.#{budget}") %></span>
+        </label>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-8 space-y-4" data-quiz-target="step">
+    <legend class="text-lg font-bold"><%= t("pc_finder.quiz.case_title") %></legend>
+    <p class="text-sm text-muted"><%= t("pc_finder.quiz.optional") %></p>
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <%= label_tag :case_colour, t("pc_finder.quiz.case_colour"), class: "block text-sm font-semibold" %>
+        <%= select_tag :case_colour,
+                       options_for_select(PcFinder::Criteria::CASE_COLOURS.map { |colour| [ t("pc_finder.case_colours.#{colour.downcase}"), colour ] }, criteria.case_colour),
+                       include_blank: t("pc_finder.answers.any"),
+                       class: "field mt-1.5" %>
+      </div>
+      <div>
+        <%= label_tag :case_size, t("pc_finder.quiz.case_size"), class: "block text-sm font-semibold" %>
+        <%= select_tag :case_size,
+                       options_for_select(PcFinder::Criteria::CASE_SIZES.keys.map { |size| [ t("pc_finder.case_sizes.#{size}"), size ] }, criteria.case_size),
+                       include_blank: t("pc_finder.answers.any"),
+                       class: "field mt-1.5" %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-8 space-y-3" data-quiz-target="step">
+    <legend class="text-lg font-bold"><%= t("pc_finder.quiz.cooling_title") %></legend>
+    <p class="text-sm text-muted"><%= t("pc_finder.quiz.optional") %></p>
+    <div class="grid gap-2 sm:grid-cols-3">
+      <% PcFinder::Criteria::COOLING.each_key do |cooling| %>
+        <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm font-semibold transition has-[:checked]:border-primary-500 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-900/30">
+          <%= radio_button_tag :cooling, cooling, criteria.cooling == cooling, class: "h-4 w-4 text-primary-600" %>
+          <span><%= t("pc_finder.cooling_options.#{cooling}") %></span>
+        </label>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <fieldset class="mt-8 space-y-3" data-quiz-target="step">
+    <legend class="text-lg font-bold"><%= t("pc_finder.quiz.vibe_title") %></legend>
+    <p class="text-sm text-muted"><%= t("pc_finder.quiz.optional") %></p>
+    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <% vibe_tags.each do |tag| %>
+        <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-border px-4 py-3 text-sm font-semibold transition has-[:checked]:border-primary-500 has-[:checked]:bg-primary-50 dark:has-[:checked]:bg-primary-900/30">
+          <%= radio_button_tag :vibe, tag.slug, criteria.vibe == tag.slug, class: "h-4 w-4 text-primary-600" %>
+          <span><%= tag.name %></span>
+        </label>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <div class="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
+    <button type="button" data-quiz-target="back" data-action="quiz#back" class="btn-accent" hidden>
+      <%= t("pc_finder.quiz.back") %>
+    </button>
+    <div class="ml-auto flex flex-wrap items-center gap-2">
+      <button type="button" data-quiz-target="next" data-action="quiz#next" class="btn-primary" hidden>
+        <%= t("pc_finder.quiz.next") %>
+      </button>
+      <%= submit_tag t("pc_finder.quiz.submit"), class: "btn-primary cursor-pointer", data: { quiz_target: "submit" } %>
+    </div>
+  </div>
+<% end %>
