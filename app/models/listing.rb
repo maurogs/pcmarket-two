@@ -161,6 +161,8 @@ class Listing < ApplicationRecord
   scope :visible, lambda {
     published
       .where("listings.quantity > 0")
+      .where(country_code: Country.launched_codes)
+      .where(category_id: Category.active.select(:id))
       .joins(:store)
       .merge(Store.active)
       .joins(:seller)

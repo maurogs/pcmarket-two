@@ -4,6 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 // same action for keyboard, touch and assistive-technology users.
 export default class extends Controller {
   static targets = ["list", "item", "order", "input", "preview"]
+  static values = { name: { type: String, default: "listing[photo_order][]" } }
 
   connect() {
     this.dragged = null
@@ -64,11 +65,11 @@ export default class extends Controller {
     if (!this.hasOrderTarget || !this.hasItemTarget) return
 
     const ids = this.itemTargets
-      .map((item) => item.dataset.photoId)
+      .map((item) => item.dataset.sortableId || item.dataset.photoId)
       .filter((id) => id)
 
     this.orderTarget.innerHTML = ids
-      .map((id) => `<input type="hidden" name="listing[photo_order][]" value="${this.escape(id)}">`)
+      .map((id) => `<input type="hidden" name="${this.escape(this.nameValue)}" value="${this.escape(id)}">`)
       .join("")
   }
 

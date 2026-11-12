@@ -108,6 +108,8 @@ es:
     buyer_protection_days: Días de protección del comprador tras la entrega
     support_email: Correo de atención al cliente
     maintenance_mode: Activar el modo mantenimiento del mercado
+    email_from_name: Nombre del remitente de los correos
+    email_reply_to: Dirección de respuesta de los correos
   auth:
     sign_in:
       title: Bienvenido de nuevo

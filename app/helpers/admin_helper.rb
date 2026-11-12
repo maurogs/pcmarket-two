@@ -12,13 +12,13 @@ module AdminHelper
       { key: "stores", path: admin_stores_path },
       { key: "orders", path: admin_orders_path },
       { key: "payouts", path: admin_payouts_path },
-      { key: "categories" },
-      { key: "filters" },
-      { key: "tags" },
-      { key: "countries" },
-      { key: "settings" },
-      { key: "feature_flags", path: "/admin/flipper" },
-      { key: "legal" },
+      { key: "categories", path: admin_categories_path },
+      { key: "filters", path: admin_attribute_definitions_path },
+      { key: "tags", path: admin_tags_path },
+      { key: "countries", path: admin_countries_path },
+      { key: "settings", path: admin_settings_path },
+      { key: "feature_flags", path: admin_features_path },
+      { key: "legal", path: admin_legal_pages_path },
       { key: "reports", path: admin_reports_path },
       { key: "audit_log", path: admin_audit_logs_path }
     ]
@@ -45,6 +45,53 @@ module AdminHelper
 
   def admin_kpi_label(key)
     t("admin.dashboard.kpis.#{key}")
+  end
+
+  # Indented category label used by selects and tree cards.
+  def admin_category_label(category)
+    "#{'— ' * category.depth.to_i}#{category.name.to_s.strip.presence || "##{category.id}"}"
+  end
+
+  # Parent choices for a move select, excluding the category itself and its
+  # descendants so a cycle can never be submitted from the UI.
+  def admin_category_move_options(category)
+    excluded_ids = [ category.id ] + category.descendant_ids
+    categories = Category.order(:depth, :position, :id).reject { |c| excluded_ids.include?(c.id) }
+    options = [ [ t("admin.categories.tree.keep_parent"), "keep" ],
+                [ t("admin.categories.tree.root_parent"), "root" ] ]
+    options + categories.map { |c| [ admin_category_label(c), c.id ] }
+  end
+
+  def admin_category_parent_options(category)
+    excluded_ids = category.persisted? ? [ category.id ] + category.descendant_ids : []
+    categories = Category.order(:depth, :position, :id).reject { |c| excluded_ids.include?(c.id) }
+    [ [ t("admin.categories.form.no_parent"), nil ] ] +
+      categories.map { |c| [ admin_category_label(c), c.id ] }
+  end
+
+  def admin_tag_colour_classes(colour)
+    case colour.to_s
+    when "accent" then "border-accent/40 bg-accent/10 text-accent"
+    when "primary" then "border-primary-300 bg-primary-50 text-primary-700 dark:border-primary-700 dark:bg-primary-900/30 dark:text-primary-200"
+    when "success" then "border-success/40 bg-success-soft text-success"
+    when "warning" then "border-warning/40 bg-warning-soft text-warning"
+    when "danger" then "border-danger/40 bg-danger-soft text-danger"
+    else "border-border bg-surface-muted text-muted"
+    end
+  end
+
+  def admin_tag_colour_styles
+    Tag::COLOURS.index_with { |colour| admin_tag_colour_classes(colour) }
+  end
+
+  def admin_setting_label(setting)
+    t("admin.settings.keys.#{setting.key}", default: setting.key.humanize)
+  end
+
+  def admin_setting_help(setting)
+    return if setting.description_key.blank?
+
+    t(setting.description_key, default: nil)
   end
 
   def admin_kpi_value(key, value)
@@ -148,6 +195,9 @@ module AdminHelper
     when Order then record.number
     when Review then t("admin.audit_logs.review", id: record.id)
     when Payout then t("admin.audit_logs.payout", id: record.id)
+    when FeatureFlag then record.key
+    when LegalPage, Category, AttributeDefinition, Tag then record.try(:name).presence || record.try(:title).presence || "##{record.id}"
+    when Country, Region then record.name.presence || "##{record.id}"
     else "##{record.id}"
     end
   end

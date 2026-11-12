@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   around_action :switch_locale
+  before_action :enforce_maintenance_mode
   before_action :merge_guest_cart
   helper_method :current_cart, :impersonating?
 
@@ -43,6 +44,21 @@ class ApplicationController < ActionController::Base
       same_site: :lax
     } if cart.guest?
     cart
+  end
+
+  # When the marketplace is in maintenance mode, visitors see a translated 503
+  # page. Staff can keep browsing, and Devise routes stay open so an admin can
+  # sign in to switch it off.
+  def enforce_maintenance_mode
+    return unless Setting.get(:maintenance_mode, false)
+    return if devise_controller?
+    return if user_signed_in? && (current_user.admin? || current_user.moderator?)
+
+    response.set_header("Retry-After", "3600")
+    respond_to do |format|
+      format.html { render "maintenance/show", layout: "maintenance", status: :service_unavailable }
+      format.any { head :service_unavailable }
+    end
   end
 
   def merge_guest_cart

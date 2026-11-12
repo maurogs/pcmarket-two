@@ -1,0 +1,544 @@
+pt:
+  admin:
+    nav:
+      flipper_ui: Abrir a interface do Flipper
+    common:
+      delete: Eliminar
+      manage: Gerir
+    translatable:
+      fallback_hint: O português não é obrigatório; os idiomas vazios usam o inglês e depois o espanhol.
+      filled: Tradução presente
+      missing: Tradução em falta
+    categories:
+      index:
+        title: Categorias
+        subtitle: Arraste as categorias para as reordenar dentro de um pai ou escolha outro pai e guarde.
+        count:
+          one: "%{count} categoria"
+          other: "%{count} categorias"
+        new: Nova categoria
+        filters: Gerir filtros
+        delete_confirm: Eliminar esta categoria? Não pode ter anúncios nem subcategorias.
+        empty_title: Ainda não há categorias
+        empty_body: Crie a primeira categoria raiz para iniciar o catálogo.
+      new:
+        title: Nova categoria
+        subtitle: Adicione uma categoria com nome, descrição e campos SEO traduzidos.
+      edit:
+        title: Editar categoria
+        subtitle: Atualize a entrada do catálogo, a posição e a visibilidade.
+        stats_title: Catálogo
+        more_filters: "%{count} filtros adicionais"
+      form:
+        back: Voltar às categorias
+        name: Nome
+        description: Descrição
+        slug: Slug
+        slug_hint: Ao alterar o slug, o URL antigo fica como redirecionamento (histórico de slugs).
+        icon: Ícone
+        parent: Categoria pai
+        no_parent: Sem pai (categoria raiz)
+        position: Posição
+        active: Ativa (visível na navegação e na pesquisa)
+        seo_title: Título SEO
+        seo_description: Descrição SEO
+      table:
+        listings:
+          one: "%{count} anúncio"
+          other: "%{count} anúncios"
+        total_listings: Anúncios incluindo subcategorias
+        children:
+          one: "%{count} filho direto"
+          other: "%{count} filhos diretos"
+      statuses:
+        active: Ativa
+        inactive: Inativa
+      tree:
+        group: Filhos de %{name}
+        root_group: Categorias raiz
+        drag_hint: Arraste para ordenar ou escolha um novo pai antes de guardar.
+        keep_parent: Manter o pai atual
+        root_parent: Mover para a raiz
+        move_to: Mover para
+        save_order: Guardar ordem e movimentos
+      flash:
+        created: Categoria criada.
+        updated: Categoria atualizada.
+        not_empty: Esta categoria ainda tem %{listings} anúncios e %{children} subcategorias.
+        destroyed: Categoria eliminada.
+        reordered: Ordem das categorias atualizada.
+        not_found: Categoria não encontrada.
+    category_attributes:
+      index:
+        title: Filtros
+        subtitle: Filtros efetivos de %{category}. As linhas próprias são editáveis; as herdadas vêm de um antepassado.
+        count:
+          one: "%{count} filtro efetivo"
+          other: "%{count} filtros efetivos"
+        back: Voltar à categoria
+        effective_title: Atributos efetivos (próprios + herdados)
+        own_title: Filtros próprios
+        empty: Esta categoria ainda não tem filtros.
+        no_own: Esta categoria não tem filtros próprios; tudo vem de um antepassado.
+        add_title: Anexar um filtro
+        add: Adicionar filtro
+        add_hint: Adicionar um atributo herdado cria uma exceção editável para esta categoria.
+        save_order: Guardar ordem dos filtros
+        delete_confirm: Remover este filtro da categoria?
+      table:
+        attribute: Atributo
+        source: Origem
+        required: Obrigatório
+        position: Posição
+      sources:
+        own: Esta categoria
+        inherited_from: Herdado de %{category}
+      required: Obrigatório
+      optional: Opcional
+      flash:
+        duplicate: Esse filtro já está associado a esta categoria.
+        added: Filtro adicionado.
+        updated: Filtro atualizado.
+        inherited: Os filtros herdados são só de leitura. Adicione o atributo aqui para o substituir.
+        removed: Filtro removido.
+        reordered: Ordem dos filtros atualizada.
+    attribute_definitions:
+      index:
+        title: Filtros e atributos
+        subtitle: As definições de atributos alimentam as especificações, os filtros e os formulários de anúncio.
+        count:
+          one: "%{count} atributo"
+          other: "%{count} atributos"
+        new: Novo atributo
+        empty_title: Nenhum atributo corresponde a estes filtros
+        empty_body: Tente outra pesquisa ou limpe os filtros.
+      filters:
+        search: Pesquisar
+        search_placeholder: Chave ou nome traduzido
+        group: Grupo
+        active: Ativo
+      table:
+        key: Chave
+        name: Nome
+        group: Grupo
+        input_type: Tipo de entrada
+        options: Opções
+        active: Ativo
+      new:
+        title: Nova definição de atributo
+        subtitle: Escolha uma chave imutável e o tipo de entrada para os vendedores.
+      edit:
+        title: "Editar %{name}"
+        subtitle: Atualize traduções, configurações de entrada e catálogo de opções.
+      form:
+        back: Voltar aos atributos
+        key: Chave
+        key_hint: Letras minúsculas, números e underscores. Não pode ser alterada depois.
+        key_locked: A chave é imutável após a criação.
+        group: Grupo
+        input_type: Tipo de entrada
+        input_type_locked: Os anúncios já usam este atributo; o tipo de entrada não pode mudar.
+        unit: Unidade
+        position: Posição
+        filterable: Utilizável como filtro
+        show_on_card: Mostrar nos cartões de anúncio
+        active: Ativo
+        name: Nome
+        delete: Eliminar atributo
+        delete_confirm: Eliminar este atributo e todas as suas opções?
+        in_use_hint:
+          one: Usado por %{count} anúncio. Eliminação e mudança de tipo impossíveis.
+          other: Usado por %{count} anúncios. Eliminação e mudança de tipo impossíveis.
+      input_types:
+        single_select: Escolha única
+        multi_select: Escolhas múltiplas
+        number: Número
+        boolean: Sim / não
+        text: Texto livre
+      options:
+        title: Opções
+        subtitle: Gerir os valores que os vendedores podem escolher para este atributo.
+        count:
+          one: "%{count} opção"
+          other: "%{count} opções"
+        value: Valor
+        position: Posição
+        popular: Popular
+        active: Ativa
+        label: Etiqueta
+        usage:
+          one: Usada por %{count} anúncio
+          other: Usada por %{count} anúncios
+        value_locked: O valor é imutável enquanto os anúncios o usarem.
+        add_title: Adicionar uma opção
+        add: Adicionar opção
+        bulk_title: Adicionar opções em bloco
+        bulk_placeholder: "Um valor por linha"
+        bulk_hint: Os valores existentes são ignorados; pode colar a mesma lista duas vezes.
+        bulk_submit: Importar valores
+        merge_title: Fundir opções
+        merge_hint: Todos os anúncios com a primeira opção são reescritos para a segunda numa única atualização.
+        merge_from: Opção a fundir
+        merge_into: Fundir em
+        merge_submit: Fundir opções
+        merge_confirm: Fundir a primeira opção na segunda e eliminá-la?
+        reorder_title: Reordenar opções
+        reorder_hint: Arraste as opções para a ordem apresentada no formulário do anúncio.
+        reorder_submit: Guardar ordem das opções
+        not_select_type: Este atributo não usa uma lista de opções.
+        delete_confirm: Eliminar esta opção? Nenhum anúncio a pode usar.
+        flash:
+          created: Opção criada.
+          updated: Opção atualizada.
+          destroyed: Opção eliminada.
+          in_use: Esta opção é usada por anúncios e não pode ser eliminada.
+          merged:
+            one: "%{target} substitui agora a opção fundida em %{count} anúncio."
+            other: "%{target} substitui agora a opção fundida em %{count} anúncios."
+          imported: "%{created} opções adicionadas, %{skipped} ignoradas."
+          reordered: Ordem das opções atualizada.
+          merge_invalid: Escolha duas opções diferentes do mesmo atributo.
+      flash:
+        created: Atributo criado.
+        updated: Atributo atualizado.
+        destroyed: Atributo eliminado.
+        in_use: Este atributo é usado por anúncios. Desative-o em vez de o eliminar.
+    tags:
+      index:
+        title: Etiquetas
+        subtitle: As etiquetas de produto são atribuídas pela equipa; os vendedores escolhem as etiquetas de vendedor.
+        count:
+          one: "%{count} etiqueta"
+          other: "%{count} etiquetas"
+        new: Nova etiqueta
+        delete_confirm: Eliminar esta etiqueta? Nenhum anúncio a pode usar.
+        empty_title: Nenhuma etiqueta corresponde a estes filtros
+        empty_body: Tente outra pesquisa ou crie uma etiqueta.
+        reorder_title: Reordenar etiquetas
+        reorder_hint: Arraste as etiquetas para a ordem de apresentação e guarde.
+        reorder_submit: Guardar ordem das etiquetas
+      filters:
+        search: Pesquisar
+        search_placeholder: Nome traduzido ou slug
+        kind: Tipo
+        active: Ativa
+      table:
+        name: Nome
+        kind: Tipo
+        colour: Cor
+        usage: Utilização
+        listings:
+          one: "%{count} anúncio"
+          other: "%{count} anúncios"
+        active: Ativa
+      kinds:
+        product_label: Etiqueta de produto
+        seller_tag: Etiqueta de vendedor
+      colours:
+        accent: Destaque
+        primary: Primária
+        success: Sucesso
+        warning: Aviso
+        danger: Perigo
+        neutral: Neutra
+        none: Sem cor
+      form:
+        back: Voltar às etiquetas
+        name: Nome
+        kind: Tipo
+        kind_locked: O tipo de etiqueta é imutável após a criação.
+        colour: Cor
+        preview: Pré-visualização
+        preview_label: Etiqueta
+        position: Posição
+        active: Ativa
+        delete: Eliminar etiqueta
+        delete_confirm: Eliminar esta etiqueta?
+      new:
+        title: Nova etiqueta
+        subtitle: Crie uma etiqueta de produto ou de vendedor traduzida.
+      edit:
+        title: "Editar %{name}"
+        subtitle: Atualize as traduções, a cor e a visibilidade.
+      flash:
+        created: Etiqueta criada.
+        updated: Etiqueta atualizada.
+        in_use: Esta etiqueta é usada por anúncios. Desative-a em vez de a eliminar.
+        destroyed: Etiqueta eliminada.
+        reordered: Ordem das etiquetas atualizada.
+        nothing_to_reorder: Não há etiquetas para reordenar.
+
+    countries:
+      index:
+        title: Países
+        subtitle: Os países ativos controlam anúncios disponíveis, moeda, IVA e conteúdo legal.
+        count:
+          one: "%{count} país"
+          other: "%{count} países"
+      table:
+        country: País
+        locale: Idioma predefinido
+        currency: Moeda
+        vat: IVA
+        regions: Regiões
+        listings: Anúncios
+        status: Estado
+        not_ready: Requisitos de lançamento incompletos
+      statuses:
+        active: Lançado
+        inactive: Não lançado
+      edit:
+        back: Voltar aos países
+        title: "Configuração do país: %{country}"
+        subtitle: Reveja a lista de lançamento antes de ativar um país.
+      form:
+        code: Código ISO
+        default_locale: Idioma predefinido
+        currency: Moeda
+        vat_rate: Taxa de IVA (%)
+        position: Posição
+        active: País lançado
+      checklist:
+        title: Lista de lançamento
+        subtitle: Um país só pode ser ativado quando todos os pontos estão completos.
+        done: Pronto
+        pending: Pendente
+        items:
+          legal_pages:
+            title: Páginas legais publicadas
+            done: Todas as páginas legais estão publicadas no idioma predefinido do país.
+            missing: "Faltam: %{kinds}"
+            manage: Gerir páginas legais
+          regions:
+            title: Pelo menos uma região
+            count:
+              one: "%{count} região carregada"
+              other: "%{count} regiões carregadas"
+            manage: Gerir regiões
+      flash:
+        updated: País atualizado.
+    regions:
+      index:
+        back: Voltar ao país
+        title: "Regiões de %{country}"
+        subtitle: As regiões são as áreas administrativas que compradores e vendedores podem escolher.
+        count:
+          one: "%{count} região"
+          other: "%{count} regiões"
+        new: Nova região
+        delete_confirm: Eliminar esta região?
+      table:
+        code: Código
+        name: Nome
+        position: Posição
+        listings: Anúncios
+      form:
+        back: Voltar às regiões
+        code: Código
+        name: Nome
+        position: Posição
+      new:
+        title: Nova região
+      edit:
+        title: "Editar %{name}"
+      import:
+        title: Importação em massa
+        hint: Cole uma região por linha no formato "código,nome" (por exemplo FR-IDF,Île-de-France).
+        placeholder: "FR-IDF,Île-de-France"
+        submit: Importar regiões
+      flash:
+        created: Região criada.
+        updated: Região atualizada.
+        in_use: Esta região é usada por anúncios e não pode ser eliminada.
+        destroyed: Região eliminada.
+        imported: "%{created} regiões adicionadas, %{updated} atualizadas, %{skipped} ignoradas."
+    settings:
+      index:
+        title: Configurações
+        subtitle: Configuração global do marketplace. Os valores são validados por tipo antes de guardar.
+        count:
+          one: "%{count} configuração"
+          other: "%{count} configurações"
+        submit: Guardar configurações
+        enabled: Ativado
+        disabled: Desativado
+        errors_title: Algumas configurações não puderam ser guardadas
+      groups:
+        general: Geral
+        listings: Anúncios
+        commissions: Pagamentos e comissões
+        featured: Anúncios em destaque
+        buyer_protection: Proteção do comprador
+        emails: E-mails
+        maintenance: Manutenção
+      keys:
+        support_email: E-mail de apoio
+        listings_require_approval: Exigir aprovação antes de publicar
+        max_images_per_listing: Máximo de imagens por anúncio
+        min_listing_price: Preço mínimo de um anúncio
+        max_listing_price: Preço máximo de um anúncio
+        commission_percent: Percentagem de comissão
+        commission_enabled: Aplicar comissões às vendas
+        featured_listing_price: Preço de um anúncio em destaque
+        featured_enabled: Permitir que vendedores destaquem anúncios
+        buyer_protection_days: Dias de proteção após a entrega
+        email_from_name: Nome do remetente
+        email_reply_to: Endereço de resposta
+        maintenance_mode: Modo de manutenção
+      flash:
+        updated: Configurações guardadas.
+    features:
+      index:
+        title: Funcionalidades experimentais
+        subtitle: Ative ou desative funcionalidades e disponibilize-as a uma percentagem de utilizadores autenticados.
+        count:
+          one: "%{count} funcionalidade"
+          other: "%{count} funcionalidades"
+        flipper_ui: Abrir a interface do Flipper
+        'on': Ativa
+        'off': Inativa
+        enabled: Ativada
+        percentage: Percentagem de utilizadores
+        percentage_label: "Implementação: %{percentage}%"
+        update: Atualizar
+        empty_title: Nenhum sinalizador definido
+        empty_body: Execute os seeds ou abra a interface do Flipper para criar um.
+      descriptions:
+        sell_to_us: Mostra o programa de compra "Venda-nos o seu equipamento".
+        commissions: Aplica a comissão configurada do marketplace às vendas.
+        featured_listings: Permite que os vendedores paguem para destacar anúncios.
+        google_login: Mostra o início de sessão com Google (requer credenciais OAuth).
+        offers: Ativa as ofertas dos compradores nas conversas e no checkout.
+        guest_checkout: Permite que convidados criem um carrinho e comprem sem conta.
+      no_description: Nenhuma descrição disponível.
+      flash:
+        updated: "%{name} atualizada."
+    legal_pages:
+      index:
+        title: Páginas legais
+        subtitle: Mantenha conteúdo legal versionado por país e idioma. Só a última versão publicada é pública.
+        count:
+          one: "%{count} página"
+          other: "%{count} páginas"
+        new: Nova página legal
+        empty_title: Nenhuma página legal corresponde a estes filtros
+        empty_body: Crie uma página ou limpe os filtros.
+        compare: Comparar
+      filters:
+        country: País
+        locale: Idioma
+        kind: Tipo
+        status: Estado
+      table:
+        country: País
+        locale: Idioma
+        kind: Tipo
+        title: Título
+        version: Versão
+        status: Estado
+        effective: Em vigor
+      form:
+        back: Voltar às páginas legais
+        country: País
+        locale: Idioma
+        kind: Tipo
+        version: Versão
+        version_hint: Use um novo número para cada revisão, por exemplo 1, 2, 3.
+        title: Título
+        body: Conteúdo
+        body_hint: O texto formatado será apresentado na página legal pública na fase 8.
+      new:
+        title: Nova página legal
+        subtitle: Inicie uma página legal para um país e idioma.
+      edit:
+        title: "Editar %{title}"
+        subtitle: Os rascunhos são editáveis; as versões publicadas ficam imutáveis no histórico.
+      statuses:
+        draft: Rascunho
+        published: Publicada
+      show:
+        back: Voltar às páginas legais
+        compare: Comparar versões
+        details_title: Publicação
+        published_at: Publicada
+        effective_at: Em vigor
+        notified_at: Utilizadores avisados
+        publish_title: Publicar
+        publish_hint: A publicação mantém as versões anteriores no histórico.
+        publish: Publicar versão
+        version_title: Nova versão
+        version_hint: Duplica esta página como rascunho. Deixe a versão vazia para a incrementar.
+        new_version: Versão
+        version_placeholder: Próximo número
+        create_version: Criar rascunho
+        notify_title: Avisar utilizadores
+        notify_hint: Coloca na fila um e-mail traduzido para cada utilizador ativo do país.
+        notify: Avisar utilizadores
+        notify_confirm: Enviar esta atualização legal a todos os utilizadores ativos do país?
+      comparison:
+        back: Voltar à página
+        title: Comparar versões
+        against: "comparada com a v%{version}"
+        change: Alteração
+        line: Linha
+        kinds:
+          same: Inalterada
+          added: Adicionada
+          removed: Removida
+        empty: Não há outra versão para comparar.
+      flash:
+        created: Página legal criada.
+        updated: Página legal atualizada.
+        published_read_only: As versões publicadas são só de leitura. Crie uma nova versão para alterar.
+        version_created: "Rascunho da versão %{version} criado."
+        published: Página legal publicada.
+        already_published: Esta versão já está publicada.
+        not_notifiable: Só os termos e a privacidade publicados podem avisar utilizadores.
+        notification_queued: Os e-mails de aviso foram colocados na fila.
+  legal_page_mailer:
+    notice:
+      subject: "Atualização de %{title}"
+      heading: Atualizámos os nossos termos legais
+      intro: "A página %{title} foi alterada."
+      effective: "Entra em vigor a %{date}."
+      footer: Este aviso é obrigatório para alterações materiais aos nossos termos e política de privacidade.
+  legal_pages:
+    kinds:
+      terms: Termos de serviço
+      privacy: Política de privacidade
+      cookies: Política de cookies
+      legal_notice: Informação legal
+      returns: Política de devoluções
+      seller_terms: Termos de vendedor
+      buyer_protection: Proteção do comprador
+      dsa_transparency: Relatório de transparência DSA
+      prohibited_items: Artigos proibidos
+      fees: Taxas
+      accessibility: Declaração de acessibilidade
+    statuses:
+      draft: Rascunho
+      published: Publicada
+    errors:
+      effective_before_publication: não pode ser anterior à publicação
+  attribute_definitions:
+    errors:
+      input_type_locked: não pode ser alterado quando os anúncios usam este atributo
+      value_locked: não pode ser alterado quando os anúncios usam esta opção
+      key_immutable: não pode ser alterada após a criação
+  settings:
+    errors:
+      invalid_type: deve ser um valor válido para o seu tipo
+      commission_percent: deve estar entre 0 e 50
+      max_images_per_listing: deve estar entre 1 e 30
+      buyer_protection_days: deve estar entre 0 e 90
+      negative: deve ser zero ou superior
+  countries:
+    errors:
+      not_ready: "ainda não pode ser lançado: %{reasons}"
+      missing_legal_pages: "faltam páginas legais publicadas (%{kinds})"
+      missing_regions: não foram carregadas regiões
+  maintenance:
+    title: Voltamos em breve
+    body: O PCMarket está em manutenção programada. Os seus anúncios e encomendas estão seguros.
+    retry: Tente novamente dentro de alguns minutos.
+    contact: "Precisa de ajuda? Escreva para %{email}."

@@ -1,0 +1,62 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.title") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.settings.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("admin.settings.index.subtitle") %></p>
+    </div>
+    <p class="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-muted"><%= t("admin.settings.index.count", count: @settings.size) %></p>
+  </header>
+
+  <% if @errors.present? %>
+    <div role="alert" class="rounded-2xl border border-danger/30 bg-danger-soft p-4 text-sm text-danger">
+      <p class="font-semibold"><%= t("admin.settings.index.errors_title") %></p>
+      <ul class="mt-2 list-disc space-y-1 pl-5">
+        <% @errors.each do |message| %><li><%= message %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with url: admin_settings_path, method: :patch, scope: nil, class: "space-y-6" do %>
+    <% @groups.each do |group, settings| %>
+      <section class="rounded-2xl border border-border bg-surface p-4 sm:p-5">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("admin.settings.groups.#{group.presence || 'general'}", default: t("admin.settings.groups.general")) %></h2>
+        <div class="mt-4 grid gap-5 lg:grid-cols-2">
+          <% settings.each do |setting| %>
+            <div>
+              <% value = setting.typed_value %>
+              <%= label_tag "settings_#{setting.key}", admin_setting_label(setting), class: "block text-sm font-semibold" %>
+              <% if admin_setting_help(setting).present? %>
+                <p class="mt-0.5 text-xs text-muted"><%= admin_setting_help(setting) %></p>
+              <% end %>
+
+              <div class="mt-1.5">
+                <% case setting.value_type %>
+                <% when "boolean" %>
+                  <label class="inline-flex items-center gap-3 rounded-xl border border-border bg-surface-muted/40 px-3 py-2 text-sm">
+                    <%= hidden_field_tag "settings[#{setting.key}]", "0", id: nil %>
+                    <%= check_box_tag "settings[#{setting.key}]", "1", value == true, id: "settings_#{setting.key}",
+                                      class: "h-5 w-5 rounded border-border text-primary-600" %>
+                    <span><%= value == true ? t("admin.settings.index.enabled") : t("admin.settings.index.disabled") %></span>
+                  </label>
+                <% when "integer" %>
+                  <%= number_field_tag "settings[#{setting.key}]", value, step: 1, id: "settings_#{setting.key}", class: "field" %>
+                <% when "decimal" %>
+                  <%= number_field_tag "settings[#{setting.key}]", value, step: "0.01", id: "settings_#{setting.key}", class: "field" %>
+                <% when "text" %>
+                  <%= text_area_tag "settings[#{setting.key}]", value, rows: 4, id: "settings_#{setting.key}", class: "field" %>
+                <% else %>
+                  <%= text_field_tag "settings[#{setting.key}]", value, id: "settings_#{setting.key}", class: "field" %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+
+    <div class="flex justify-end">
+      <%= submit_tag t("admin.settings.index.submit"), class: "btn-primary" %>
+    </div>
+  <% end %>
+</div>

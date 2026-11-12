@@ -108,6 +108,8 @@ en:
     buyer_protection_days: Days a buyer is protected after delivery
     support_email: Support email address
     maintenance_mode: Put the marketplace in maintenance mode
+    email_from_name: Email sender name
+    email_reply_to: Email reply-to address
   auth:
     sign_in:
       title: Welcome back

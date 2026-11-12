@@ -108,6 +108,8 @@ de:
     buyer_protection_days: Tage Käuferschutz nach der Lieferung
     support_email: Support-E-Mail-Adresse
     maintenance_mode: Marktplatz in den Wartungsmodus versetzen
+    email_from_name: Absendername der E-Mails
+    email_reply_to: Antwortadresse der E-Mails
   auth:
     sign_in:
       title: Willkommen zurück

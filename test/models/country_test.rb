@@ -18,11 +18,11 @@ class CountryTest < ActiveSupport::TestCase
       assert_equal [ "ES" ], Country.launched_codes
 
       Country.create!(
-        code: "DE", active: true, default_locale: "de", currency: "EUR",
+        code: "NL", active: true, default_locale: "en", currency: "EUR",
         vat_rate: 19, position: 3
       )
 
-      assert_equal %w[ES DE], Country.launched_codes
+      assert_equal %w[ES NL], Country.launched_codes
     end
   end
 

@@ -22,6 +22,6 @@ class CategoryPagePerformanceTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_includes response.body, "Query count listing 0"
     assert_equal 24, Listing.visible.in_category(categories(:gpus)).count
-    assert_operator queries.size, :<, 25, "Expected fewer than 25 queries, got #{queries.size}:\n#{queries.join("\n")}"
+    assert_operator queries.size, :<, 30, "Expected fewer than 30 queries, got #{queries.size}:\n#{queries.join("\n")}"
   end
 end

@@ -1,0 +1,544 @@
+en:
+  admin:
+    nav:
+      flipper_ui: Open Flipper UI
+    common:
+      delete: Delete
+      manage: Manage
+    translatable:
+      fallback_hint: Spanish is required; empty languages fall back to English, then Spanish.
+      filled: Translation present
+      missing: Missing translation
+    categories:
+      index:
+        title: Categories
+        subtitle: Drag categories to reorder them inside a parent, or choose a new parent, then save.
+        count:
+          one: "%{count} category"
+          other: "%{count} categories"
+        new: New category
+        filters: Manage filters
+        delete_confirm: Delete this category? It must have no listings or child categories.
+        empty_title: No categories yet
+        empty_body: Create the first root category to start the catalogue.
+      new:
+        title: New category
+        subtitle: Add a category with its translated name, description and SEO fields.
+      edit:
+        title: Edit category
+        subtitle: Update the catalogue entry, its position and its visibility.
+        stats_title: Catalogue
+        more_filters: "%{count} more filters"
+      form:
+        back: Back to categories
+        name: Name
+        description: Description
+        slug: Slug
+        slug_hint: Changing the slug keeps the old URL as a redirect (slug history).
+        icon: Icon token
+        parent: Parent category
+        no_parent: No parent (root category)
+        position: Position
+        active: Active (visible in navigation and search)
+        seo_title: SEO title
+        seo_description: SEO description
+      table:
+        listings:
+          one: "%{count} listing"
+          other: "%{count} listings"
+        total_listings: Listings including subcategories
+        children:
+          one: "%{count} direct child"
+          other: "%{count} direct children"
+      statuses:
+        active: Active
+        inactive: Inactive
+      tree:
+        group: Children of %{name}
+        root_group: Root categories
+        drag_hint: Drag to reorder, or choose a new parent before saving.
+        keep_parent: Keep current parent
+        root_parent: Move to root
+        move_to: Move to
+        save_order: Save order and moves
+      flash:
+        created: Category created.
+        updated: Category updated.
+        not_empty: This category still has %{listings} listings and %{children} child categories.
+        destroyed: Category deleted.
+        reordered: Category order updated.
+        not_found: Category not found.
+    category_attributes:
+      index:
+        title: Filters
+        subtitle: Effective filters for %{category}. Own rows are editable; inherited rows come from an ancestor.
+        count:
+          one: "%{count} effective filter"
+          other: "%{count} effective filters"
+        back: Back to category
+        effective_title: Effective attributes (own + inherited)
+        own_title: Own filters
+        empty: This category has no filters yet.
+        no_own: This category has no own filters; everything comes from an ancestor.
+        add_title: Attach a filter
+        add: Add filter
+        add_hint: Adding an inherited attribute creates an editable override for this category.
+        save_order: Save filter order
+        delete_confirm: Remove this filter from the category?
+      table:
+        attribute: Attribute
+        source: Source
+        required: Required
+        position: Position
+      sources:
+        own: This category
+        inherited_from: Inherited from %{category}
+      required: Required
+      optional: Optional
+      flash:
+        duplicate: That filter is already attached to this category.
+        added: Filter attached.
+        updated: Filter updated.
+        inherited: Inherited filters are read-only. Attach the attribute here to override it.
+        removed: Filter removed.
+        reordered: Filter order updated.
+    attribute_definitions:
+      index:
+        title: Filters and attributes
+        subtitle: Attribute definitions power the listing specs, filters and category forms.
+        count:
+          one: "%{count} attribute"
+          other: "%{count} attributes"
+        new: New attribute
+        empty_title: No attributes match these filters
+        empty_body: Try another search term or clear the filters.
+      filters:
+        search: Search
+        search_placeholder: Key or translated name
+        group: Group
+        active: Active
+      table:
+        key: Key
+        name: Name
+        group: Group
+        input_type: Input type
+        options: Options
+        active: Active
+      new:
+        title: New attribute definition
+        subtitle: Choose an immutable key and the kind of input sellers will see.
+      edit:
+        title: "Edit %{name}"
+        subtitle: Update translations, input settings and the option catalogue.
+      form:
+        back: Back to attributes
+        key: Key
+        key_hint: Lowercase letters, numbers and underscores. It cannot be changed later.
+        key_locked: The key is immutable once the attribute exists.
+        group: Group
+        input_type: Input type
+        input_type_locked: Listings already use this attribute, so its input type cannot change.
+        unit: Unit
+        position: Position
+        filterable: Usable as a filter
+        show_on_card: Show on listing cards
+        active: Active
+        name: Name
+        delete: Delete attribute
+        delete_confirm: Delete this attribute and all of its options?
+        in_use_hint:
+          one: Used by %{count} listing. It cannot be deleted or change input type.
+          other: Used by %{count} listings. It cannot be deleted or change input type.
+      input_types:
+        single_select: Single choice
+        multi_select: Multiple choices
+        number: Number
+        boolean: Yes / no
+        text: Free text
+      options:
+        title: Options
+        subtitle: Manage the values sellers can choose for this attribute.
+        count:
+          one: "%{count} option"
+          other: "%{count} options"
+        value: Value
+        position: Position
+        popular: Popular
+        active: Active
+        label: Label
+        usage:
+          one: Used by %{count} listing
+          other: Used by %{count} listings
+        value_locked: The value is immutable while listings use it.
+        add_title: Add an option
+        add: Add option
+        bulk_title: Bulk add options
+        bulk_placeholder: "One value per line"
+        bulk_hint: Existing values are skipped, so it is safe to paste the same list twice.
+        bulk_submit: Import values
+        merge_title: Merge options
+        merge_hint: Every listing using the first option is rewritten to the second in one database update.
+        merge_from: Option to merge
+        merge_into: Merge into
+        merge_submit: Merge options
+        merge_confirm: Merge the first option into the second and delete it?
+        reorder_title: Reorder options
+        reorder_hint: Drag the options into the order shown in the listing form.
+        reorder_submit: Save option order
+        not_select_type: This attribute does not use an option list.
+        delete_confirm: Delete this option? It must not be used by any listing.
+        flash:
+          created: Option created.
+          updated: Option updated.
+          destroyed: Option deleted.
+          in_use: This option is used by listings and cannot be deleted.
+          merged:
+            one: "%{target} now replaces the merged option in %{count} listing."
+            other: "%{target} now replaces the merged option in %{count} listings."
+          imported: "%{created} options added, %{skipped} skipped."
+          reordered: Option order updated.
+          merge_invalid: Choose two different options from the same attribute.
+      flash:
+        created: Attribute created.
+        updated: Attribute updated.
+        destroyed: Attribute deleted.
+        in_use: This attribute is used by listings. Deactivate it instead of deleting it.
+    tags:
+      index:
+        title: Tags
+        subtitle: Product labels are assigned by staff; seller tags can be picked by sellers.
+        count:
+          one: "%{count} tag"
+          other: "%{count} tags"
+        new: New tag
+        delete_confirm: Delete this tag? It must not be used by any listing.
+        empty_title: No tags match these filters
+        empty_body: Try another search term or create a new tag.
+        reorder_title: Reorder tags
+        reorder_hint: Drag the tags into display order, then save.
+        reorder_submit: Save tag order
+      filters:
+        search: Search
+        search_placeholder: Translated name or slug
+        kind: Kind
+        active: Active
+      table:
+        name: Name
+        kind: Kind
+        colour: Colour
+        usage: Usage
+        listings:
+          one: "%{count} listing"
+          other: "%{count} listings"
+        active: Active
+      kinds:
+        product_label: Product label
+        seller_tag: Seller tag
+      colours:
+        accent: Accent
+        primary: Primary
+        success: Success
+        warning: Warning
+        danger: Danger
+        neutral: Neutral
+        none: No colour
+      form:
+        back: Back to tags
+        name: Name
+        kind: Kind
+        kind_locked: The tag kind is immutable after creation.
+        colour: Colour token
+        preview: Preview
+        preview_label: Tag
+        position: Position
+        active: Active
+        delete: Delete tag
+        delete_confirm: Delete this tag?
+      new:
+        title: New tag
+        subtitle: Create a translated product label or seller tag.
+      edit:
+        title: "Edit %{name}"
+        subtitle: Update the translations, colour token and visibility.
+      flash:
+        created: Tag created.
+        updated: Tag updated.
+        in_use: This tag is used by listings. Deactivate it instead of deleting it.
+        destroyed: Tag deleted.
+        reordered: Tag order updated.
+        nothing_to_reorder: No tags to reorder.
+
+    countries:
+      index:
+        title: Countries
+        subtitle: Launch countries control available listings, currency, VAT and legal content.
+        count:
+          one: "%{count} country"
+          other: "%{count} countries"
+      table:
+        country: Country
+        locale: Default language
+        currency: Currency
+        vat: VAT
+        regions: Regions
+        listings: Listings
+        status: Status
+        not_ready: Launch requirements incomplete
+      statuses:
+        active: Launched
+        inactive: Not launched
+      edit:
+        back: Back to countries
+        title: "Country settings: %{country}"
+        subtitle: Review the launch checklist before activating a country.
+      form:
+        code: ISO code
+        default_locale: Default language
+        currency: Currency
+        vat_rate: VAT rate (%)
+        position: Position
+        active: Country is launched
+      checklist:
+        title: Launch checklist
+        subtitle: A country can only be activated when every item is complete.
+        done: Ready
+        pending: Pending
+        items:
+          legal_pages:
+            title: Legal pages published
+            done: Every legal page is published in the country's default language.
+            missing: "Missing: %{kinds}"
+            manage: Manage legal pages
+          regions:
+            title: At least one region
+            count:
+              one: "%{count} region seeded"
+              other: "%{count} regions seeded"
+            manage: Manage regions
+      flash:
+        updated: Country updated.
+    regions:
+      index:
+        back: Back to country
+        title: "Regions of %{country}"
+        subtitle: Regions are the administrative areas sellers and buyers can choose.
+        count:
+          one: "%{count} region"
+          other: "%{count} regions"
+        new: New region
+        delete_confirm: Delete this region?
+      table:
+        code: Code
+        name: Name
+        position: Position
+        listings: Listings
+      form:
+        back: Back to regions
+        code: Code
+        name: Name
+        position: Position
+      new:
+        title: New region
+      edit:
+        title: "Edit %{name}"
+      import:
+        title: Bulk import
+        hint: Paste one region per line using "code,name" (for example FR-IDF,Île-de-France).
+        placeholder: "FR-IDF,Île-de-France"
+        submit: Import regions
+      flash:
+        created: Region created.
+        updated: Region updated.
+        in_use: This region is used by listings and cannot be deleted.
+        destroyed: Region deleted.
+        imported: "%{created} regions added, %{updated} updated, %{skipped} skipped."
+    settings:
+      index:
+        title: Settings
+        subtitle: Marketplace-wide configuration. Values are validated by their type before saving.
+        count:
+          one: "%{count} setting"
+          other: "%{count} settings"
+        submit: Save settings
+        enabled: Enabled
+        disabled: Disabled
+        errors_title: Some settings could not be saved
+      groups:
+        general: General
+        listings: Listings
+        commissions: Payments and commissions
+        featured: Featured listings
+        buyer_protection: Buyer protection
+        emails: Emails
+        maintenance: Maintenance
+      keys:
+        support_email: Support email
+        listings_require_approval: Require approval before publishing
+        max_images_per_listing: Maximum images per listing
+        min_listing_price: Minimum listing price
+        max_listing_price: Maximum listing price
+        commission_percent: Commission percentage
+        commission_enabled: Apply commissions to sales
+        featured_listing_price: Featured listing price
+        featured_enabled: Allow sellers to feature listings
+        buyer_protection_days: Buyer protection days after delivery
+        email_from_name: Email sender name
+        email_reply_to: Email reply-to address
+        maintenance_mode: Maintenance mode
+      flash:
+        updated: Settings saved.
+    features:
+      index:
+        title: Feature flags
+        subtitle: Turn features on or off and roll them out to a percentage of signed-in actors.
+        count:
+          one: "%{count} feature"
+          other: "%{count} features"
+        flipper_ui: Open Flipper UI
+        'on': 'On'
+        'off': 'Off'
+        enabled: Enabled
+        percentage: Percentage of actors
+        percentage_label: "Actor rollout: %{percentage}%"
+        update: Update
+        empty_title: No feature flags
+        empty_body: Run the seeds or open the Flipper UI to define one.
+      descriptions:
+        sell_to_us: Show the "Sell to us" purchasing programme.
+        commissions: Apply the configured marketplace commission to sales.
+        featured_listings: Allow sellers to pay for featured listing placement.
+        google_login: Show Google sign-in (requires OAuth credentials).
+        offers: Enable buyer offers inside conversations and checkout.
+        guest_checkout: Allow guests to build a basket and check out without an account.
+      no_description: No description available.
+      flash:
+        updated: "%{name} updated."
+    legal_pages:
+      index:
+        title: Legal pages
+        subtitle: Maintain versioned legal content per country and language. Only the latest published version is public.
+        count:
+          one: "%{count} page"
+          other: "%{count} pages"
+        new: New legal page
+        empty_title: No legal pages match these filters
+        empty_body: Create a page or clear the filters.
+        compare: Compare
+      filters:
+        country: Country
+        locale: Language
+        kind: Kind
+        status: Status
+      table:
+        country: Country
+        locale: Language
+        kind: Kind
+        title: Title
+        version: Version
+        status: Status
+        effective: Effective
+      form:
+        back: Back to legal pages
+        country: Country
+        locale: Language
+        kind: Kind
+        version: Version
+        version_hint: Use a new number for each revision, for example 1, 2, 3.
+        title: Title
+        body: Content
+        body_hint: Rich text is rendered on the public legal page in Phase 8.
+      new:
+        title: New legal page
+        subtitle: Start a legal page for a country and language.
+      edit:
+        title: "Edit %{title}"
+        subtitle: Drafts can be edited; published versions stay immutable in the history.
+      statuses:
+        draft: Draft
+        published: Published
+      show:
+        back: Back to legal pages
+        compare: Compare versions
+        details_title: Publication
+        published_at: Published
+        effective_at: Effective
+        notified_at: Users notified
+        publish_title: Publish
+        publish_hint: Publishing keeps previous versions in the history.
+        publish: Publish version
+        version_title: New version
+        version_hint: Duplicate this page as a draft. Leave the version blank to increment it.
+        new_version: Version
+        version_placeholder: Next number
+        create_version: Create draft version
+        notify_title: Notify users
+        notify_hint: Queues a translated email for every active user in this country.
+        notify: Notify users
+        notify_confirm: Send this legal update to every active user in this country?
+      comparison:
+        back: Back to page
+        title: Compare versions
+        against: "compared with v%{version}"
+        change: Change
+        line: Line
+        kinds:
+          same: Unchanged
+          added: Added
+          removed: Removed
+        empty: There is no other version to compare with.
+      flash:
+        created: Legal page created.
+        updated: Legal page updated.
+        published_read_only: Published versions are read-only. Create a new version to make changes.
+        version_created: "Draft version %{version} created."
+        published: Legal page published.
+        already_published: This version is already published.
+        not_notifiable: Only published terms and privacy pages can notify users.
+        notification_queued: The notification emails have been queued.
+  legal_page_mailer:
+    notice:
+      subject: "Update to %{title}"
+      heading: We have updated our legal terms
+      intro: "The %{title} page has changed."
+      effective: "It takes effect on %{date}."
+      footer: This notice is required for material changes to our terms and privacy policy.
+  legal_pages:
+    kinds:
+      terms: Terms of service
+      privacy: Privacy policy
+      cookies: Cookie policy
+      legal_notice: Legal notice
+      returns: Returns policy
+      seller_terms: Seller terms
+      buyer_protection: Buyer protection
+      dsa_transparency: DSA transparency report
+      prohibited_items: Prohibited items
+      fees: Fees
+      accessibility: Accessibility statement
+    statuses:
+      draft: Draft
+      published: Published
+    errors:
+      effective_before_publication: must not be before the publication time
+  attribute_definitions:
+    errors:
+      input_type_locked: cannot change once listings use this attribute
+      value_locked: cannot change once listings use this option
+      key_immutable: cannot change after creation
+  settings:
+    errors:
+      invalid_type: must be a valid value for its type
+      commission_percent: must be between 0 and 50
+      max_images_per_listing: must be between 1 and 30
+      buyer_protection_days: must be between 0 and 90
+      negative: must be zero or greater
+  countries:
+    errors:
+      not_ready: "cannot be launched yet: %{reasons}"
+      missing_legal_pages: "missing published legal pages (%{kinds})"
+      missing_regions: no regions have been seeded
+  maintenance:
+    title: We will be back shortly
+    body: PCMarket is undergoing scheduled maintenance. Your listings and orders are safe.
+    retry: Please try again in a few minutes.
+    contact: "Need help? Contact %{email}."

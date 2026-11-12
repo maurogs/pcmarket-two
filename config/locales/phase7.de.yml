@@ -597,6 +597,7 @@ de:
       cannot: Dieses Konto kann nicht übernommen werden.
       not_impersonating: Es ist kein Identitätswechsel aktiv.
       payment_blocked: Zahlungseinstellungen sind während des Identitätswechsels nicht
+      account_blocked: Kontosicherheit und Daten sind während der Identitätsübernahme nicht verfügbar.
         verfügbar.
     dashboard:
       sparkline:

@@ -1,0 +1,128 @@
+<section class="rounded-2xl border border-border bg-surface p-4 sm:p-5">
+  <div class="flex flex-wrap items-start justify-between gap-3">
+    <div>
+      <h2 class="text-lg font-bold"><%= t("admin.attribute_definitions.options.title") %></h2>
+      <p class="mt-1 text-sm text-muted"><%= t("admin.attribute_definitions.options.subtitle") %></p>
+    </div>
+    <p class="rounded-full border border-border bg-surface-muted px-3 py-1 text-xs font-semibold text-muted"><%= t("admin.attribute_definitions.options.count", count: @options.size) %></p>
+  </div>
+
+  <% if @definition.select_type? %>
+    <div class="mt-5 space-y-4">
+      <% @options.each do |option| %>
+        <% usage = @usage[option.value].to_i %>
+        <%= form_with model: option,
+                      url: admin_attribute_definition_attribute_option_path(@definition, option),
+                      method: :patch, scope: :attribute_option,
+                      class: "rounded-2xl border border-border bg-surface-muted/30 p-4" do |form| %>
+          <div class="flex flex-wrap items-end gap-3">
+            <div class="min-w-40 flex-1">
+              <%= form.label :value, t("admin.attribute_definitions.options.value"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+              <%= form.text_field :value, readonly: usage.positive?,
+                                   class: "field mt-1 font-mono #{'bg-surface-muted' if usage.positive?}" %>
+              <p class="mt-1 text-xs text-muted">
+                <%= t("admin.attribute_definitions.options.usage", count: usage) %>
+                <% if usage.positive? %> · <%= t("admin.attribute_definitions.options.value_locked") %><% end %>
+              </p>
+            </div>
+            <div>
+              <%= form.label :position, t("admin.attribute_definitions.options.position"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+              <%= form.number_field :position, min: 0, class: "field mt-1 w-24" %>
+            </div>
+            <label class="flex items-center gap-2 text-sm"><%= form.check_box :popular, class: "h-4 w-4 rounded border-border text-primary-600" %><span><%= t("admin.attribute_definitions.options.popular") %></span></label>
+            <label class="flex items-center gap-2 text-sm"><%= form.check_box :active, class: "h-4 w-4 rounded border-border text-primary-600" %><span><%= t("admin.attribute_definitions.options.active") %></span></label>
+            <%= submit_tag t("admin.common.save"), class: "btn-primary py-1.5 text-xs" %>
+            <%= link_to t("admin.common.delete"), admin_attribute_definition_attribute_option_path(@definition, option),
+                        data: { turbo_method: :delete, turbo_confirm: t("admin.attribute_definitions.options.delete_confirm") },
+                        class: "text-xs font-semibold text-danger underline-offset-2 hover:underline" %>
+          </div>
+
+          <div class="mt-4">
+            <%= translatable_form_field(form, option, :label,
+                                        label: t("admin.attribute_definitions.options.label"),
+                                        required: true) %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="mt-6 grid gap-4 lg:grid-cols-2">
+      <div class="rounded-xl border border-border p-4">
+        <h3 class="text-sm font-bold"><%= t("admin.attribute_definitions.options.add_title") %></h3>
+        <%= form_with model: @new_option,
+                      url: admin_attribute_definition_attribute_options_path(@definition),
+                      method: :post, scope: :attribute_option, class: "mt-3 space-y-3" do |form| %>
+          <div>
+            <%= form.label :value, t("admin.attribute_definitions.options.value"), class: "block text-xs font-semibold text-muted" %>
+            <%= form.text_field :value, class: "field mt-1 font-mono" %>
+          </div>
+          <%= translatable_form_field(form, @new_option, :label,
+                                      label: t("admin.attribute_definitions.options.label"),
+                                      required: true) %>
+          <div class="flex flex-wrap gap-4 text-sm">
+            <label class="flex items-center gap-2"><%= form.check_box :popular, class: "h-4 w-4 rounded border-border text-primary-600" %><span><%= t("admin.attribute_definitions.options.popular") %></span></label>
+            <label class="flex items-center gap-2"><%= form.check_box :active, class: "h-4 w-4 rounded border-border text-primary-600" %><span><%= t("admin.attribute_definitions.options.active") %></span></label>
+          </div>
+          <%= submit_tag t("admin.attribute_definitions.options.add"), class: "btn-primary" %>
+        <% end %>
+      </div>
+
+      <div class="rounded-xl border border-border p-4">
+        <h3 class="text-sm font-bold"><%= t("admin.attribute_definitions.options.bulk_title") %></h3>
+        <%= form_with url: admin_attribute_definition_attribute_option_import_path(@definition), method: :post,
+                      scope: nil, class: "mt-3 space-y-3" do %>
+          <%= text_area_tag :text, nil, rows: 5, class: "field font-mono text-sm",
+                            placeholder: t("admin.attribute_definitions.options.bulk_placeholder") %>
+          <p class="text-xs text-muted"><%= t("admin.attribute_definitions.options.bulk_hint") %></p>
+          <%= submit_tag t("admin.attribute_definitions.options.bulk_submit"), class: "btn-accent" %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @options.size > 1 %>
+      <div class="mt-6 rounded-xl border border-border p-4">
+        <h3 class="text-sm font-bold"><%= t("admin.attribute_definitions.options.merge_title") %></h3>
+        <p class="mt-1 text-xs text-muted"><%= t("admin.attribute_definitions.options.merge_hint") %></p>
+        <%= form_with url: admin_attribute_definition_attribute_option_merges_path(@definition),
+                      method: :post, scope: nil, class: "mt-3 flex flex-wrap items-end gap-3" do %>
+          <div>
+            <%= label_tag :option_id, t("admin.attribute_definitions.options.merge_from"), class: "block text-xs font-semibold text-muted" %>
+            <%= select_tag :option_id, options_from_collection_for_select(@options, :id, :value), class: "field mt-1" %>
+          </div>
+          <div>
+            <%= label_tag :target_id, t("admin.attribute_definitions.options.merge_into"), class: "block text-xs font-semibold text-muted" %>
+            <%= select_tag :target_id, options_from_collection_for_select(@options, :id, :value), class: "field mt-1" %>
+          </div>
+          <%= submit_tag t("admin.attribute_definitions.options.merge_submit"), class: "btn-accent",
+                         data: { turbo_confirm: t("admin.attribute_definitions.options.merge_confirm") } %>
+        <% end %>
+      </div>
+
+      <%= form_with url: admin_attribute_definition_attribute_option_positions_path(@definition),
+                    method: :patch, scope: nil, class: "mt-6 rounded-xl border border-border p-4",
+                    data: { controller: "sortable", sortable_name_value: "ordered_ids[]" } do %>
+        <h3 class="text-sm font-bold"><%= t("admin.attribute_definitions.options.reorder_title") %></h3>
+        <p class="mt-1 text-xs text-muted"><%= t("admin.attribute_definitions.options.reorder_hint") %></p>
+        <div data-sortable-target="order"></div>
+        <ul class="mt-3 space-y-2" data-sortable-target="list">
+          <% @options.each do |option| %>
+            <li data-sortable-target="item"
+                data-sortable-id="<%= option.id %>"
+                draggable="true"
+                data-action="dragstart->sortable#dragStart dragover->sortable#dragOver dragend->sortable#dragEnd drop->sortable#drop"
+                class="flex items-center gap-3 rounded-lg border border-border bg-surface p-2 text-sm">
+              <span class="cursor-grab select-none text-muted" aria-hidden="true">⠿</span>
+              <span class="font-medium"><%= option.label.presence || option.value %></span>
+              <span class="ml-auto font-mono text-xs text-muted"><%= option.value %></span>
+            </li>
+          <% end %>
+        </ul>
+        <div class="mt-3 flex justify-end"><%= submit_tag t("admin.attribute_definitions.options.reorder_submit"), class: "btn-accent" %></div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p class="mt-4 rounded-xl border border-dashed border-border p-4 text-sm text-muted">
+      <%= t("admin.attribute_definitions.options.not_select_type") %>
+    </p>
+  <% end %>
+</section>

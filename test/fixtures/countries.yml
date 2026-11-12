@@ -19,3 +19,43 @@ france:
   position: 2
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
+
+united_kingdom:
+  code: GB
+  active: false
+  default_locale: en
+  currency: GBP
+  vat_rate: 20
+  position: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+germany:
+  code: DE
+  active: false
+  default_locale: de
+  currency: EUR
+  vat_rate: 19
+  position: 4
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+italy:
+  code: IT
+  active: false
+  default_locale: it
+  currency: EUR
+  vat_rate: 22
+  position: 5
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+portugal:
+  code: PT
+  active: false
+  default_locale: pt
+  currency: EUR
+  vat_rate: 23
+  position: 6
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

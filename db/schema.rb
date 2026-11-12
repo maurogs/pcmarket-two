@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_190100) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_200100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
+
+  create_table "action_text_rich_texts", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body"
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -238,6 +248,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_190100) do
     t.index ["user_id"], name: "index_favourites_on_user_id"
   end
 
+  create_table "feature_flags", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "description_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_feature_flags_on_key", unique: true
+  end
+
   create_table "flipper_features", force: :cascade do |t|
     t.string "key", null: false
     t.datetime "created_at", null: false
@@ -275,6 +293,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_190100) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "legal_pages", force: :cascade do |t|
+    t.string "country_code", null: false
+    t.string "locale", null: false
+    t.integer "kind", default: 0, null: false
+    t.string "title", null: false
+    t.string "version", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "published_at"
+    t.datetime "effective_at"
+    t.datetime "notified_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["country_code", "locale", "kind", "status"], name: "index_legal_pages_on_country_locale_kind_status"
+    t.index ["country_code", "locale", "kind", "version"], name: "index_legal_pages_on_country_locale_kind_version", unique: true
   end
 
   create_table "listing_moderations", force: :cascade do |t|
@@ -737,6 +771,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_190100) do
   add_foreign_key "favourites", "users"
   add_foreign_key "follows", "stores"
   add_foreign_key "follows", "users", column: "follower_id"
+  add_foreign_key "legal_pages", "countries", column: "country_code", primary_key: "code"
   add_foreign_key "listing_moderations", "listings"
   add_foreign_key "listing_moderations", "users", column: "moderator_id"
   add_foreign_key "listing_photos", "listings"

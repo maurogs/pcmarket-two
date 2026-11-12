@@ -1,0 +1,32 @@
+<div class="space-y-6">
+  <header>
+    <%= link_to t("admin.legal_pages.comparison.back"), admin_legal_page_path(@page), class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.legal_pages.comparison.title") %></h1>
+    <p class="mt-2 text-sm text-muted"><%= @page.title %> · v<%= @page.version %><% if @other %> · <%= t("admin.legal_pages.comparison.against", version: @other.version) %><% end %></p>
+  </header>
+
+  <% if @other %>
+    <div class="overflow-x-auto rounded-2xl border border-border bg-surface">
+      <table class="min-w-full divide-y divide-border font-mono text-xs">
+        <thead class="bg-surface-muted text-left uppercase tracking-widest text-muted">
+          <tr>
+            <th class="px-4 py-2"><%= t("admin.legal_pages.comparison.change") %></th>
+            <th class="px-4 py-2"><%= t("admin.legal_pages.comparison.line") %></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <% @rows.each do |kind, line| %>
+            <tr class="<%= kind == :added ? 'bg-success-soft' : (kind == :removed ? 'bg-danger-soft' : '') %>">
+              <td class="whitespace-nowrap px-4 py-1.5 font-semibold"><%= t("admin.legal_pages.comparison.kinds.#{kind}") %></td>
+              <td class="px-4 py-1.5"><%= line.presence || "&nbsp;".html_safe %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <p class="text-sm text-muted"><%= t("admin.legal_pages.comparison.empty") %></p>
+    </div>
+  <% end %>
+</div>

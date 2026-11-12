@@ -108,6 +108,8 @@ pt:
     buyer_protection_days: Dias de proteção do comprador após a entrega
     support_email: Endereço de e-mail do suporte
     maintenance_mode: Colocar o marketplace em modo de manutenção
+    email_from_name: Nome do remetente dos e-mails
+    email_reply_to: Endereço de resposta dos e-mails
   auth:
     sign_in:
       title: Bem-vindo de volta

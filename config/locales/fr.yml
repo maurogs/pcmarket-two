@@ -108,6 +108,8 @@ fr:
     buyer_protection_days: Jours de protection de l'acheteur après livraison
     support_email: Adresse e-mail du support
     maintenance_mode: Mettre la place de marché en maintenance
+    email_from_name: Nom de l'expéditeur des e-mails
+    email_reply_to: Adresse de réponse des e-mails
   auth:
     sign_in:
       title: Bon retour

@@ -146,6 +146,37 @@ Rails.application.routes.draw do
       resources :audit_logs, only: :index
       resource :impersonation, only: %i[create destroy], controller: "impersonations"
 
+      resources :categories, only: %i[index new create edit update destroy] do
+        resource :category_attribute_positions, only: :update, path: "filters/positions"
+        resources :category_attributes, only: %i[index create update destroy], path: "filters"
+      end
+      resource :category_positions, only: :update
+
+      resources :attribute_definitions, only: %i[index new create edit update destroy], path: "filters" do
+        resources :attribute_options, only: %i[create update destroy]
+        resources :attribute_option_merges, only: :create
+        resource :attribute_option_import, only: :create, controller: "attribute_option_imports"
+        resource :attribute_option_positions, only: :update, controller: "attribute_option_positions"
+      end
+
+      resources :tags, only: %i[index new create edit update destroy]
+      resource :tag_positions, only: :update
+
+      resources :countries, only: %i[index edit update] do
+        resources :regions, only: %i[index new create edit update destroy]
+        resource :region_import, only: :create, controller: "region_imports"
+      end
+
+      resource :settings, only: %i[show update], controller: "settings"
+      resources :features, only: %i[index update]
+
+      resources :legal_pages do
+        resource :version, only: :create, controller: "legal_page_versions"
+        resource :publication, only: :create, controller: "legal_page_publications"
+        resource :notification, only: :create, controller: "legal_page_notifications"
+        resource :comparison, only: :show, controller: "legal_page_comparisons"
+      end
+
       root to: "dashboard#show"
     end
 

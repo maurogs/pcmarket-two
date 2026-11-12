@@ -28,9 +28,11 @@ class Category < ApplicationRecord
 
   before_validation :assign_depth
   after_update :refresh_descendant_depths, if: :saved_change_to_parent_id?
+  after_commit :bump_search_cache, if: :saved_change_to_active?
 
   scope :roots, -> { where(parent_id: nil).order(:position, :id) }
   scope :active, -> { where(active: true) }
+  scope :ordered, -> { order(:position, :id) }
 
   # Any category update changes the global maximum timestamp, which invalidates
   # every cached descendant list. `belongs_to :parent, touch: true` additionally
@@ -123,7 +125,7 @@ class Category < ApplicationRecord
 
     CategoryAttribute
       .where(category_id: ids)
-      .includes(attribute_definition: :attribute_options)
+      .includes(:category, attribute_definition: :attribute_options)
       .order(:position, :id)
   end
 
@@ -133,6 +135,32 @@ class Category < ApplicationRecord
 
   def slug_source
     name_en.presence || name_es.presence || name
+  end
+
+  # Number of listings attached to the category and all of its descendants.
+  def total_listings_count
+    return listings_count if new_record?
+
+    Listing.where(category_id: descendant_ids).count
+  end
+
+  def deletable?
+    listings.none? && children.none?
+  end
+
+  # Admin tree rows grouped by parent, with every category preloaded once.
+  def self.tree_rows
+    categories = order(:position, :id).to_a
+    children_by_parent = categories.group_by(&:parent_id)
+    rows = []
+    walk = lambda do |parent_id, depth|
+      (children_by_parent[parent_id] || []).each do |category|
+        rows << [ category, depth ]
+        walk.call(category.id, depth + 1)
+      end
+    end
+    walk.call(nil, 0)
+    rows
   end
 
   private
@@ -162,5 +190,9 @@ class Category < ApplicationRecord
 
   def refresh_descendant_depths
     self.class.refresh_depths_from(id)
+  end
+
+  def bump_search_cache
+    Rails.cache.write(Listing::SEARCH_CACHE_VERSION_KEY, Time.current.to_f)
   end
 end

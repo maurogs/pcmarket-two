@@ -29,15 +29,20 @@ class AdminAccessTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "the admin layout is not indexed and marks future screens as coming soon" do
+  test "the admin layout is not indexed and links every management section" do
     sign_in users(:admin)
 
     get admin_root_path(locale: :en)
 
     assert_response :success
     assert_includes response.body, '<meta name="robots" content="noindex,nofollow">'
-    assert_includes response.body, 'aria-disabled="true"'
-    assert_includes response.body, I18n.t("admin.nav.coming_soon", locale: :en)
+    assert_includes response.body, 'href="/en/admin/categories"'
+    assert_includes response.body, 'href="/en/admin/filters"'
+    assert_includes response.body, 'href="/en/admin/tags"'
+    assert_includes response.body, 'href="/en/admin/countries"'
+    assert_includes response.body, 'href="/en/admin/settings"'
+    assert_includes response.body, 'href="/en/admin/features"'
+    assert_includes response.body, 'href="/en/admin/legal_pages"'
     assert_includes response.body, 'href="/admin/flipper"'
     assert_not_includes response.body, I18n.t("announcement.promo", locale: :en)
   end

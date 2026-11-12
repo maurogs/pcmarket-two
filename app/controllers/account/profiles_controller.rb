@@ -2,7 +2,10 @@
 
 module Account
   class ProfilesController < ApplicationController
+    include BlocksImpersonation
+
     before_action :authenticate_user!
+    skip_before_action :block_impersonated_account_change, only: :show
 
     def show
       authorize current_user, :show?, policy_class: AccountPolicy

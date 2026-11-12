@@ -595,6 +595,7 @@ fr:
       cannot: Ce compte ne peut pas être usurpé.
       not_impersonating: Aucune usurpation n’est active.
       payment_blocked: Les paramètres de paiement sont indisponibles pendant l’usurpation.
+      account_blocked: La sécurité du compte et les données sont indisponibles pendant l'emprunt d'identité.
     dashboard:
       sparkline:
         title: Commandes des 30 derniers jours

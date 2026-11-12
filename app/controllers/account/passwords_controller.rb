@@ -2,6 +2,8 @@
 
 module Account
   class PasswordsController < ApplicationController
+    include BlocksImpersonation
+
     before_action :authenticate_user!
 
     def update

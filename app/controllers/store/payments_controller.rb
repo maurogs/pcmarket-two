@@ -2,8 +2,9 @@
 
 # Seller-facing Stripe Connect onboarding and payout status.
 class Store::PaymentsController < ApplicationController
+  include BlocksImpersonation
+
   before_action :authenticate_user!
-  before_action :block_impersonation
   before_action :set_store
 
   def show
@@ -26,14 +27,12 @@ class Store::PaymentsController < ApplicationController
 
   private
 
-  def block_impersonation
-    return unless impersonating?
-
-    redirect_to root_path, alert: t("admin.impersonation.payment_blocked")
-  end
-
   def set_store
     @store = current_user.store
     redirect_to new_store_path if @store.blank?
+  end
+
+  def impersonation_blocked_alert_key
+    "admin.impersonation.payment_blocked"
   end
 end

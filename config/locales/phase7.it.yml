@@ -590,6 +590,7 @@ it:
       cannot: Impossibile impersonificare questo account.
       not_impersonating: Nessuna impersonificazione attiva.
       payment_blocked: Le impostazioni di pagamento non sono disponibili durante l’impersonificazione.
+      account_blocked: Sicurezza dell'account e dati non disponibili durante la sostituzione dell'identità.
     dashboard:
       sparkline:
         title: Ordini degli ultimi 30 giorni

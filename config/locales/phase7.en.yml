@@ -587,6 +587,7 @@ en:
       cannot: That account cannot be impersonated.
       not_impersonating: No impersonation session is active.
       payment_blocked: Payment settings are unavailable while impersonating.
+      account_blocked: Account security and data settings are unavailable while impersonating.
     dashboard:
       sparkline:
         title: Orders in the last 30 days

@@ -2,6 +2,8 @@
 
 module Account
   class DataExportsController < ApplicationController
+    include BlocksImpersonation
+
     before_action :authenticate_user!, only: :create
 
     def create

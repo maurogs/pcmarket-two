@@ -587,6 +587,7 @@ es:
       cannot: No se puede suplantar esa cuenta.
       not_impersonating: No hay ninguna suplantación activa.
       payment_blocked: Los ajustes de pago no están disponibles durante la suplantación.
+      account_blocked: La seguridad de la cuenta y los datos no están disponibles durante la suplantación.
     dashboard:
       sparkline:
         title: Pedidos de los últimos 30 días

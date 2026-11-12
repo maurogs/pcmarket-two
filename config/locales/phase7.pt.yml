@@ -589,6 +589,7 @@ pt:
       cannot: Não é possível personificar essa conta.
       not_impersonating: Não existe nenhuma personificação ativa.
       payment_blocked: As definições de pagamento não estão disponíveis durante a
+      account_blocked: A segurança da conta e os dados não estão disponíveis durante a personificação.
         personificação.
     dashboard:
       sparkline:

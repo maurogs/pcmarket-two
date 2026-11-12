@@ -2,6 +2,8 @@
 
 module Account
   class DeletionsController < ApplicationController
+    include BlocksImpersonation
+
     before_action :authenticate_user!
 
     def create

@@ -1,0 +1,70 @@
+<%= form_with model: @definition, url: @definition.persisted? ? admin_attribute_definition_path(@definition) : admin_attribute_definitions_path,
+              method: @definition.persisted? ? :patch : :post, class: "space-y-5" do |form| %>
+  <%= render "shared/form_errors", object: @definition %>
+
+  <div class="grid gap-4 rounded-2xl border border-border bg-surface p-4 sm:grid-cols-2 sm:p-5">
+    <div>
+      <%= form.label :key, t("admin.attribute_definitions.form.key"), class: "block text-sm font-semibold" %>
+      <%= form.text_field :key, readonly: @definition.persisted?, class: "field mt-1.5 font-mono #{'bg-surface-muted' if @definition.persisted?}" %>
+      <p class="mt-1 text-xs text-muted">
+        <% if @definition.persisted? %>
+          <%= t("admin.attribute_definitions.form.key_locked") %>
+        <% else %>
+          <%= t("admin.attribute_definitions.form.key_hint") %>
+        <% end %>
+      </p>
+    </div>
+    <div>
+      <%= form.label :group, t("admin.attribute_definitions.form.group"), class: "block text-sm font-semibold" %>
+      <%= form.text_field :group, list: "attribute-groups", class: "field mt-1.5" %>
+      <datalist id="attribute-groups">
+        <% AttributeDefinition.distinct.order(:group).pluck(:group).compact.each do |group| %>
+          <option value="<%= group %>"></option>
+        <% end %>
+      </datalist>
+    </div>
+    <div>
+      <%= form.label :input_type, t("admin.attribute_definitions.form.input_type"), class: "block text-sm font-semibold" %>
+      <% locked = @definition.persisted? && @definition.used? %>
+      <%= form.select :input_type,
+                      AttributeDefinition.input_types.keys.map { |type| [t("admin.attribute_definitions.input_types.#{type}"), type] },
+                      {}, class: "field mt-1.5", disabled: locked %>
+      <% if locked %>
+        <p class="mt-1 text-xs text-warning"><%= t("admin.attribute_definitions.form.input_type_locked") %></p>
+      <% end %>
+    </div>
+    <div>
+      <%= form.label :unit, t("admin.attribute_definitions.form.unit"), class: "block text-sm font-semibold" %>
+      <%= form.text_field :unit, class: "field mt-1.5" %>
+    </div>
+    <div>
+      <%= form.label :position, t("admin.attribute_definitions.form.position"), class: "block text-sm font-semibold" %>
+      <%= form.number_field :position, min: 0, class: "field mt-1.5" %>
+    </div>
+    <div class="flex flex-wrap items-center gap-4 self-end text-sm">
+      <label class="flex items-center gap-2"><%= form.check_box :filterable, class: "h-4 w-4 rounded border-border text-primary-600" %><span><%= t("admin.attribute_definitions.form.filterable") %></span></label>
+      <label class="flex items-center gap-2"><%= form.check_box :show_on_card, class: "h-4 w-4 rounded border-border text-primary-600" %><span><%= t("admin.attribute_definitions.form.show_on_card") %></span></label>
+      <label class="flex items-center gap-2"><%= form.check_box :active, class: "h-4 w-4 rounded border-border text-primary-600" %><span><%= t("admin.attribute_definitions.form.active") %></span></label>
+    </div>
+  </div>
+
+  <%= translatable_form_field(form, @definition, :name, label: t("admin.attribute_definitions.form.name"), required: true) %>
+
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <div>
+      <% if @definition.persisted? %>
+        <% if @definition.used? %>
+          <p class="text-xs text-muted"><%= t("admin.attribute_definitions.form.in_use_hint", count: @definition.usage_count) %></p>
+        <% else %>
+          <%= link_to t("admin.attribute_definitions.form.delete"), admin_attribute_definition_path(@definition),
+                      data: { turbo_method: :delete, turbo_confirm: t("admin.attribute_definitions.form.delete_confirm") },
+                      class: "text-sm font-semibold text-danger underline-offset-2 hover:underline" %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <%= link_to t("admin.common.cancel"), admin_attribute_definitions_path, class: "btn-accent" %>
+      <%= submit_tag t("admin.common.save"), class: "btn-primary" %>
+    </div>
+  </div>
+<% end %>

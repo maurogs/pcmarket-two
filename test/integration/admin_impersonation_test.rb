@@ -3,6 +3,8 @@
 require "test_helper"
 
 class AdminImpersonationTest < ActionDispatch::IntegrationTest
+  include ActiveJob::TestHelper
+
   setup do
     sign_in users(:admin)
   end
@@ -37,6 +39,45 @@ class AdminImpersonationTest < ActionDispatch::IntegrationTest
     get store_payment_path(locale: :en)
     assert_redirected_to root_path(locale: :en)
     assert_equal I18n.t("admin.impersonation.payment_blocked", locale: :en), flash[:alert]
+  end
+
+  test "impersonated sessions cannot change security settings, delete the account or export data" do
+    target = users(:confirmed)
+
+    post admin_impersonation_path(locale: :en), params: { user_id: target.id }
+    alert = I18n.t("admin.impersonation.account_blocked", locale: :en)
+
+    assert_no_difference "User.count" do
+      post account_deletion_path(locale: :en), params: { current_password: "Password123!" }
+    end
+    assert_redirected_to root_path(locale: :en)
+    assert_equal alert, flash[:alert]
+    assert_nil target.reload.deleted_at
+
+    patch account_password_path(locale: :en), params: {
+      user: { current_password: "Password123!", password: "NewPassword123!",
+              password_confirmation: "NewPassword123!" }
+    }
+    assert_redirected_to root_path(locale: :en)
+    assert_equal alert, flash[:alert]
+    assert target.reload.valid_password?("Password123!")
+
+    patch account_profile_path(locale: :en), params: {
+      section: "email", user: { email: "changed@example.com" }
+    }
+    assert_redirected_to root_path(locale: :en)
+    assert_equal alert, flash[:alert]
+    assert_equal "mauro@example.com", target.reload.email
+
+    assert_no_enqueued_jobs do
+      post account_data_export_path(locale: :en)
+    end
+    assert_redirected_to root_path(locale: :en)
+    assert_equal alert, flash[:alert]
+
+    get account_data_export_path(locale: :en, token: "signed-token")
+    assert_redirected_to root_path(locale: :en)
+    assert_equal alert, flash[:alert]
   end
 
   test "an admin cannot impersonate another admin or themselves" do
