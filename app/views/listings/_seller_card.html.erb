@@ -1,0 +1,58 @@
+<% store = listing.store %>
+<section class="rounded-2xl border border-border bg-surface p-5">
+  <div class="flex items-center gap-3">
+    <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-surface-muted">
+      <% if store.logo.attached? %>
+        <%= image_tag url_for(store.logo.variant(resize_to_limit: [ 96, 96 ], format: :webp)),
+                      width: 96,
+                      height: 96,
+                      alt: store.name,
+                      class: "h-full w-full object-cover" %>
+      <% else %>
+        <div class="flex h-full w-full items-center justify-center text-lg font-extrabold text-primary-700 dark:text-primary-300">
+          <%= store.name.first(2).upcase %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="min-w-0">
+      <p class="flex items-center gap-1 truncate text-sm font-bold text-content">
+        <span class="truncate"><%= store.name %></span>
+        <% if store.verified? %>
+          <svg class="h-4 w-4 shrink-0 text-primary-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.5 14.7 5l3.6-.2.6 3.6 3 2-1.7 3.2 1.7 3.2-3 2-.6 3.6-3.6-.2L12 21.5 9.3 19l-3.6.2-.6-3.6-3-2 1.7-3.2L2.1 7.2l3-2 .6-3.6L9.3 2 12 2.5Z"></path>
+            <path d="m8.6 12 2.2 2.2 4.6-4.6" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span class="sr-only"><%= t("listings.show.seller.verified") %></span>
+        <% end %>
+      </p>
+      <div class="mt-1 flex items-center gap-1">
+        <% rating_stars(store.rating_average).each do |star| %>
+          <svg class="h-3.5 w-3.5 <%= star == "full" ? "text-accent" : "text-border" %>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+          </svg>
+        <% end %>
+        <span class="ml-1 text-xs text-muted">
+          <% if store.ratings_count.positive? %>
+            <%= t("listings.show.seller.rating", rating: number_with_precision(store.rating_average, precision: 1), count: store.ratings_count) %>
+          <% else %>
+            <%= t("listings.show.seller.no_ratings") %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <dl class="mt-4 grid grid-cols-2 gap-2 text-xs">
+    <div class="rounded-xl bg-surface-muted px-3 py-2">
+      <dt class="text-muted"><%= t("listings.show.seller.listings") %></dt>
+      <dd class="mt-0.5 text-sm font-semibold text-content"><%= store.listings_count %></dd>
+    </div>
+    <div class="rounded-xl bg-surface-muted px-3 py-2">
+      <dt class="text-muted"><%= t("listings.show.seller.member_since") %></dt>
+      <dd class="mt-0.5 text-sm font-semibold text-content"><%= l(store.created_at.to_date, format: :long) %></dd>
+    </div>
+  </dl>
+
+  <%= link_to t("listings.show.seller.visit_store"), "#", class: "btn-accent mt-4 w-full" %>
+</section>

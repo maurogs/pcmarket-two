@@ -12,7 +12,8 @@ class LayoutTest < ActionDispatch::IntegrationTest
     assert_match(/<html lang="en"/, response.body)
     assert_includes response.body, I18n.t("nav.list_item", locale: :en)
     assert_includes response.body, I18n.t("nav.search_placeholder", locale: :en)
-    assert_includes response.body, I18n.t("nav.categories.gpus", locale: :en)
+    assert_includes response.body, I18n.t("nav.categories.label", locale: :en)
+    assert_includes response.body, "Components"
     assert_includes response.body, I18n.t("footer.about.title", locale: :en)
     assert_includes response.body, I18n.t("footer.newsletter.title", locale: :en)
   end

@@ -18,6 +18,8 @@ class Tag < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :ordered, -> { order(:position, :id) }
+  scope :product_labels, -> { where(kind: :product_label) }
+  scope :seller_tags, -> { where(kind: :seller_tag) }
 
   def slug_source
     name_en.presence || name_es.presence || name

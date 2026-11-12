@@ -51,6 +51,16 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Category tree queries use recursive CTEs (`UNION` dedup for cycle safety); `descendant_ids` is cached with a key containing `Category.maximum(:updated_at)` and `belongs_to :parent, touch: true` propagates touches.
 - `Category#effective_attribute_definitions` preloads `attribute_definition: :attribute_options` in one query.
 - `Listing.with_specs` uses only jsonb containment predicates (`specs @> ?::jsonb` for the scalar and array forms of each value), so the `jsonb_path_ops` GIN index on `specs` is used; it ORs values within a key and ANDs across keys.
+- Public browsing routes live inside the locale scope: categories at `/c/:slug`, listings at `/l/:slug` and search at `/search`. Category and Listing use FriendlyId `history`, so old slugs are found and 301-redirected to the current slug.
+- `ListingSearch` (app/queries) owns all public listing querying and returns a result struct with Pagy records, total count, facets, applied filters and the active filter metadata. It starts from `Listing.visible`, ignores invalid numbers/params and only accepts spec keys that belong to the current category's effective filterable attributes.
+- Facet and condition counts are one SQL round trip over a materialised filtered CTE using `jsonb_each`/`jsonb_array_elements_text`; counts include the attribute's own filter (zero-result options are disabled) and are cached for 5 minutes under a normalized key plus `listings/version`. `Listing` writes that version key after every commit.
+- Result pages share one template. Filters submit as GET inside a Turbo frame with `data-turbo-action="advance"`; Stimulus auto-submits checkboxes and debounces text/price input (400 ms), while a `<noscript>` path keeps the form usable without JavaScript. Cards use `card` variants, eager loading for the first four, and Russian-doll fragment caching keyed by listing, locale and eager state.
+- The main navigation is built from `Category.active` (one query), cached as rendered HTML per locale and mobile/desktop variant with `Category.tree_cache_version` (the maximum `updated_at`) in the key.
+- Listing detail visibility is published + active store + active seller, with owners, admins and moderators able to inspect non-public listings and see a status banner. Anonymous detail responses use `fresh_when` with `[listing, locale, user id]`; anonymous category/search responses send `Cache-Control: max-age=60, public`.
+- View counts increment with `update_column`, throttled by a per-listing session key. `DeliveryEstimate` counts handling days and the 2–4 day carrier window in business days, skipping weekends and starting on the next business day for weekend orders.
+- SEO uses the MetaTags gem for title/description/OG/Twitter defaults and per-page overrides, hreflang alternates for all six locales plus x-default, BreadcrumbList/ItemList/Product+Offer JSON-LD, canonical URLs and `noindex,follow` on filtered or sorted result URLs. Page 2+ result URLs canonicalise to themselves.
+- Active Storage variants use `:mini_magick` (ImageMagick is available; libvips is not), with `card`, `large` and `thumb` variants for listing photos.
+
 
 ## Schema Summary
 - `users`: Devise columns plus `citext username` (unique), names, phone, `role` (0 user / 1 moderator / 2 admin), `locale`, `country_code`, ban/soft-delete timestamps, `provider`/`uid` (unique pair), marketing opt-in, `terms_accepted_at`, confirmation/lock/trackable columns.
@@ -122,6 +132,16 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `config/initializers/mobility.rb` — jsonb backend and plugin set for translated catalogue columns.
 - `db/migrate/20261112110000_create_categories.rb`, `20261112110100_create_attribute_catalogue.rb`, `20261112110200_create_tags.rb`, `20261112110300_create_listings.rb` — reversible Phase 1b migrations (explicit `up`/`down` for extensions, generated column and indexes).
 - `app/models/{category,attribute_definition,attribute_option,category_attribute,tag,listing_tag,listing,listing_photo,listing_moderation}.rb` — catalogue domain.
+- `app/models/delivery_estimate.rb` — business-day dispatch/delivery estimate (PORO).
+- `app/queries/listing_search.rb` — visible listing search, filters, sorting, Pagy pagination, facets and applied filters.
+- `app/controllers/categories_controller.rb`, `app/controllers/listings_controller.rb` — category results, search results and listing detail.
+- `app/controllers/concerns/listing_filters.rb` — search param whitelist and anonymous public cache headers.
+- `app/helpers/{listings,pagination,seo,navigation}_helper.rb` — card/spec formatting, Pagy Tailwind nav, meta/hreflang/JSON-LD, navigation tree.
+- `app/views/listings/` — shared index, card, filters, gallery, specifications, seller card and detail views.
+- `app/javascript/controllers/{filters,gallery,mega_menu}_controller.js` — auto-submitting filters, photo gallery/lightbox and desktop mega-menu.
+- `test/queries/listing_search_test.rb`, `test/models/delivery_estimate_test.rb` — filter/facet/pagination and delivery coverage.
+- `test/controllers/{categories,listings,search,navigation}_test.rb`, `test/integration/category_page_performance_test.rb` — result pages, visibility, redirects, SEO and query-count coverage.
+
 - `app/services/listings/moderate.rb` — admin moderation entry point (`approve!`/`reject!`) writing `ListingModeration` logs.
 - `app/helpers/money_helper.rb` — locale-aware `money(cents, currency:)` using `number_to_currency`.
 - `test/i18n_test.rb` — missing/unused key checks.
@@ -135,10 +155,10 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 
 ## Open Items
 - Store dashboard, listings, sales, orders, inbox, wishlist and account-settings links are placeholders (`#`).
-- Only ES is launched and only Spanish regions are seeded; FR, GB, DE, IT and PT are inactive catalogue rows.
+- The catalogue domain is browsable (category, search, filters and listing detail) but there is no admin UI for it yet.
+- There is no admin UI for `Setting` yet; values are read through `Setting.get`. `Listings::Moderate` is the service the future admin panel will call.
+- Buy now, add to basket, make an offer, message seller, wishlist and store links are disabled placeholders until their Phase 4+ resources exist.
+- Only ES is launched and only Spanish provinces are accepted by the region filter; FR, GB, DE, IT and PT are inactive catalogue rows.
 - Google OAuth credentials are not configured in development by default; the login button stays hidden until they are.
 - Only `ApplicationPolicy` exists; domain policies arrive with their resources.
-- The catalogue domain (categories, attribute definitions/options, tags, listings, photos, moderation) is seeded (51 categories, 45 attributes, 34 tags) but there are no routes, controllers, views or admin UI for it yet.
-- There is no admin UI for `Setting` yet; values are read through `Setting.get`. `Listings::Moderate` is the service the future admin panel will call.
-- The search form (GET `root_path` with `q`) has no results action yet; `Listing.search_text` and the listing scopes are ready to back it.
 - The newsletter form posts nowhere, the cart badge is a static `0`, and the theme-color meta tags follow the system scheme rather than a manual toggle.

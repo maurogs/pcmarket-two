@@ -9,6 +9,7 @@ class Listing < ApplicationRecord
   # Edits that require a fresh moderation pass; price, quantity and shipping
   # changes deliberately stay live.
   MATERIAL_ATTRIBUTES = %w[title description category_id specs].freeze
+  SEARCH_CACHE_VERSION_KEY = "listings/version"
 
   belongs_to :store
   belongs_to :category
@@ -21,7 +22,7 @@ class Listing < ApplicationRecord
   has_many :tags, through: :listing_tags
   has_many :moderations, class_name: "ListingModeration", dependent: :destroy
 
-  friendly_id :slug_source, use: :slugged
+  friendly_id :slug_source, use: %i[slugged history]
 
   enum :condition, {
     new_sealed: 0,
@@ -67,6 +68,7 @@ class Listing < ApplicationRecord
 
   before_destroy :remember_counter_snapshot
   after_commit :sync_listing_counters, on: %i[create update destroy]
+  after_commit :bump_search_cache_version, on: %i[create update destroy]
 
   pg_search_scope :search_text,
                   against: :title,
@@ -155,6 +157,54 @@ class Listing < ApplicationRecord
     where(region_id: region.respond_to?(:id) ? region.id : region)
   }
   scope :featured, -> { where("featured_until > ?", Time.current) }
+  # Card rendering needs the seller storefront (with its logo), the category,
+  # the region, the product labels and every photo with its variants.
+  scope :with_card_includes, lambda {
+    includes(
+      :category,
+      :region,
+      :tags,
+      { store: { logo_attachment: :blob } },
+      { photos: { image_attachment: :blob } }
+    )
+  }
+  scope :with_detail_includes, lambda {
+    includes(
+      :category,
+      :region,
+      :seller,
+      :tags,
+      { store: { logo_attachment: :blob } },
+      { photos: { image_attachment: :blob } }
+    )
+  }
+
+  def self.search_cache_version
+    Rails.cache.read(SEARCH_CACHE_VERSION_KEY) || 0
+  end
+
+  # Same category, price within +/- 30%, visible only.
+  def self.similar_to(listing, limit: 8)
+    return none if listing.price_cents.blank?
+
+    price = listing.price_cents
+    visible
+      .where(category_id: listing.category_id)
+      .where.not(id: listing.id)
+      .where(price_cents: (price * 0.7).round..(price * 1.3).round)
+      .with_card_includes
+      .order(published_at: :desc, id: :desc)
+      .limit(limit)
+  end
+
+  def self.more_from_seller(listing, limit: 8)
+    visible
+      .where(store_id: listing.store_id)
+      .where.not(id: listing.id)
+      .with_card_includes
+      .order(published_at: :desc, id: :desc)
+      .limit(limit)
+  end
 
   def self.approval_required?
     Setting.get(:listings_require_approval, true)
@@ -214,6 +264,22 @@ class Listing < ApplicationRecord
 
   def primary_photo
     photos.first
+  end
+
+  # Visible to everybody: published, active storefront and active seller.
+  def publicly_visible?
+    published? && store&.active? && seller && !seller.banned? && !seller.soft_deleted?
+  end
+
+  # Owners, moderators and admins may inspect their own non-public listings.
+  def visible_to?(user)
+    return true if owner_or_staff?(user)
+
+    publicly_visible?
+  end
+
+  def owner_or_staff?(user)
+    user.present? && (user_id == user.id || user.admin? || user.moderator?)
   end
 
   # Called when a photo is added or removed: photos are a material edit.
@@ -377,5 +443,9 @@ class Listing < ApplicationRecord
 
     Store.update_counters(state[:store_id], listings_count: delta)
     Category.update_counters(state[:category_id], listings_count: delta)
+  end
+
+  def bump_search_cache_version
+    Rails.cache.write(SEARCH_CACHE_VERSION_KEY, Time.current.to_f)
   end
 end

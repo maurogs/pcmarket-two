@@ -1,0 +1,14 @@
+<% count = @search.facets.dig(:attributes, definition.key, option.value).to_i %>
+<% checked = Array(@search.selected_specs[definition.key]).include?(option.value) %>
+<% disabled = count.zero? && !checked %>
+<label class="flex items-center gap-2 rounded-lg px-1 py-1 text-sm <%= disabled ? "cursor-not-allowed opacity-45" : "cursor-pointer hover:text-primary-700 dark:hover:text-primary-300" %>">
+  <%= check_box_tag "specs[#{definition.key}][]",
+                    option.value,
+                    checked,
+                    id: "#{id_prefix}_spec_#{definition.key}_#{option.id}",
+                    disabled: disabled,
+                    class: "h-4 w-4 rounded border-border text-primary-600 focus:ring-primary-500",
+                    data: { action: "change->filters#submit" } %>
+  <span class="flex-1"><%= option.label %></span>
+  <span class="text-xs tabular-nums text-muted"><%= count %></span>
+</label>

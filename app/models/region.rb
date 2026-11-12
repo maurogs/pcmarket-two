@@ -11,4 +11,5 @@ class Region < ApplicationRecord
                    uniqueness: { scope: :country_code }
 
   scope :ordered, -> { order(:position) }
+  scope :for_country, ->(code) { where(country_code: code) }
 end

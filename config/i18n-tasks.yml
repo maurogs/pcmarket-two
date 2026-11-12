@@ -32,6 +32,10 @@ ignore_unused:
   - "settings.*"
   - "devise.failure.*"
   - "activerecord.*"
+  - "listings.conditions.*"
+  - "listings.statuses.*"
+  - "listings.shipping_modes.*"
+  - "listings.attribute_groups.*"
 
 # Devise resolves its failure keys at runtime through devise-i18n, outside
 # config/locales, so i18n-tasks cannot see them.

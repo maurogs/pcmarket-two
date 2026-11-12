@@ -19,7 +19,7 @@ class Category < ApplicationRecord
   has_many :category_attributes, dependent: :destroy
   has_many :attribute_definitions, through: :category_attributes
 
-  friendly_id :slug_source, use: :slugged
+  friendly_id :slug_source, use: %i[slugged history]
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true

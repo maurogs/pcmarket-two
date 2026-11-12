@@ -12,6 +12,42 @@ module CacheTestHelpers
   end
 end
 
+module ListingSearchTestHelpers
+  def insert_bulk_listings(category, count:, prefix: "Bulk", store: stores(:confirmed_store), user: users(:confirmed))
+    now = Time.current
+    rows = count.times.map do |index|
+      {
+        store_id: store.id,
+        user_id: user.id,
+        category_id: category.id,
+        title: "#{prefix} listing #{index}",
+        description: "A bulk-created listing used by the Phase 2 tests.",
+        slug: "#{prefix.parameterize}-#{index}-#{SecureRandom.hex(2)}",
+        condition: Listing.conditions[:used_good],
+        price_cents: 10_000 + index,
+        currency: "EUR",
+        quantity: 1,
+        specs: {},
+        status: "published",
+        published_at: now - index.minutes,
+        country_code: "ES",
+        region_id: regions(:madrid).id,
+        shipping_mode: Listing.shipping_modes[:shipping],
+        shipping_price_cents: 0,
+        free_shipping: false,
+        handling_days: 3,
+        allow_offers: true,
+        views_count: 0,
+        favorites_count: 0,
+        created_at: now,
+        updated_at: now
+      }
+    end
+    Listing.insert_all!(rows)
+    rows
+  end
+end
+
 module ModernBrowserRequests
   MODERN_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) " \
                       "AppleWebKit/537.36 (KHTML, like Gecko) " \
@@ -35,6 +71,7 @@ module ActiveSupport
     fixtures :all
 
     include CacheTestHelpers
+    include ListingSearchTestHelpers
 
     # Add more helper methods to be used by all tests here...
   end

@@ -23,6 +23,9 @@ module AppTestTwo
     #
     config.time_zone = "Madrid"
 
+    # ImageMagick is available in every environment; libvips is optional.
+    config.active_storage.variant_processor = :mini_magick
+
     # Internationalisation: Spanish is the default, English is the fallback.
     config.i18n.available_locales = %i[es en fr de it pt]
     config.i18n.default_locale = :es

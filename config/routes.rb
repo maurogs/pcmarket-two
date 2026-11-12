@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     devise_for :users, skip: :omniauth_callbacks,
                        controllers: { registrations: "users/registrations" }
 
+    resources :categories, only: :show, path: "c"
+    resources :listings, only: %i[index show], path: "l"
+    get "search", to: "listings#index", as: :search
+
     root "pages#home"
   end
 
