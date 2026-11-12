@@ -40,7 +40,8 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Countries are catalogue rows with ISO2 codes, VAT, currency and launch state. Names are resolved from `countries.*` translations. `Country.launched_codes` is cached and invalidated after commit.
 - Regions belong to countries through the string `country_code` FK and are unique per `[country_code, code]`. Only the 52 Spanish provinces are seeded for now.
 - Settings are admin-tunable JSONB values with a declared `value_type`. `Setting.get` caches typed values in `Rails.cache`; `Setting.set` infers the type and both invalidate the cache after commit.
-- Seeds are split into `db/seeds/countries.rb`, `regions.rb`, `settings.rb` and `features.rb`, loaded from `db/seeds.rb`; all are idempotent. Features start disabled, ES is the only launched country, and the confirmed admin comes from `ADMIN_PASSWORD` or `ChangeMe123!`.
+- Seeds are split into `db/seeds/countries.rb`, `regions.rb`, `settings.rb`, `features.rb`, `categories.rb`, `attributes.rb` and `tags.rb`, loaded from `db/seeds.rb`; all are idempotent. Features start disabled, ES is the only launched country, and the confirmed admin comes from `ADMIN_PASSWORD` or `ChangeMe123!`.
+- Catalogue seeds use `find_or_initialize_by` + `assign_attributes` + `save!` and local variables (no constants) so repeated loads in tests are silent. The tree has 51 categories (10 roots + 41 children), 45 attribute definitions with 428 options, and 34 tags (13 product labels + 21 seller tags). Generic option labels and tag names are translated in all six locales; brands, model names, numbers and acronyms are identical by design. Physical leaf categories automatically receive `warranty_months` and `includes_original_box`, except Games, Software and the accessory leaves other than Collectibles. Stale `CategoryAttribute` links are pruned on each run.
 - Test helper injects a modern Chrome User-Agent for all integration requests (needed by `allow_browser versions: :modern`) and includes `Devise::Test::IntegrationHelpers`.
 - Mobility uses the `jsonb` backend with reader/writer/query/fallbacks/presence plugins and locale accessors for all six locales; `config.i18n.fallbacks = [:en, :es]` gives the English → Spanish fallback chain. Translated catalogue columns are `jsonb NOT NULL DEFAULT '{}'`.
 - `listings.searchable` is a **stored generated tsvector column** (not a trigger) so `db/schema.rb` can reproduce it. It combines title (A), `specs::text` (B) and description (C) with the `simple` config and an immutable `translate(lower(...))` accent fold; `pg_search` applies `unaccent` to the query. `pg_trgm` and `unaccent` are enabled by migration.
@@ -117,13 +118,14 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - `app/javascript/controllers/{theme,drawer,dropdown,flash}_controller.js` — shell behaviour (the account and locale menus share `dropdown`).
 - `config/locales/{es,en,fr,de,it,pt}.yml` — shared translation keys, countries, settings, auth, account menu, Pundit and Active Record names.
 - `config/i18n-tasks.yml` — i18n-tasks configuration (dynamic keys, gem-provided Devise keys).
-- `db/seeds.rb` + `db/seeds/{countries,regions,settings,features}.rb` — idempotent reference data.
+- `db/seeds.rb` + `db/seeds/{countries,regions,settings,features,categories,attributes,tags}.rb` — idempotent reference data (the catalogue files also build the category ↔ attribute matrix).
 - `config/initializers/mobility.rb` — jsonb backend and plugin set for translated catalogue columns.
 - `db/migrate/20261112110000_create_categories.rb`, `20261112110100_create_attribute_catalogue.rb`, `20261112110200_create_tags.rb`, `20261112110300_create_listings.rb` — reversible Phase 1b migrations (explicit `up`/`down` for extensions, generated column and indexes).
 - `app/models/{category,attribute_definition,attribute_option,category_attribute,tag,listing_tag,listing,listing_photo,listing_moderation}.rb` — catalogue domain.
 - `app/services/listings/moderate.rb` — admin moderation entry point (`approve!`/`reject!`) writing `ListingModeration` logs.
 - `app/helpers/money_helper.rb` — locale-aware `money(cents, currency:)` using `number_to_currency`.
 - `test/i18n_test.rb` — missing/unused key checks.
+- `test/seeds/catalogue_seeds_test.rb` — catalogue seed counts, idempotency, six-locale coverage and leaf attribute rules.
 - `test/models/{user,store,country,setting,category,listing,listing_photo,tag}_test.rb` — domain model coverage.
 - `test/services/listings/moderate_test.rb`, `test/helpers/money_helper_test.rb` — service and helper coverage.
 - `test/integration/{registrations,sessions,flipper_access,omniauth_callbacks}_test.rb` — auth and Flipper access flows.
@@ -136,7 +138,7 @@ PCMarket is a Rails 8.1 marketplace for buying and selling PC parts. This docume
 - Only ES is launched and only Spanish regions are seeded; FR, GB, DE, IT and PT are inactive catalogue rows.
 - Google OAuth credentials are not configured in development by default; the login button stays hidden until they are.
 - Only `ApplicationPolicy` exists; domain policies arrive with their resources.
-- The catalogue domain (categories, attribute definitions/options, tags, listings, photos, moderation) exists, but there are no routes, controllers, views or admin UI for it yet.
+- The catalogue domain (categories, attribute definitions/options, tags, listings, photos, moderation) is seeded (51 categories, 45 attributes, 34 tags) but there are no routes, controllers, views or admin UI for it yet.
 - There is no admin UI for `Setting` yet; values are read through `Setting.get`. `Listings::Moderate` is the service the future admin panel will call.
 - The search form (GET `root_path` with `q`) has no results action yet; `Listing.search_text` and the listing scopes are ready to back it.
 - The newsletter form posts nowhere, the cart badge is a static `0`, and the theme-color meta tags follow the system scheme rather than a manual toggle.

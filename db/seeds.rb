@@ -6,6 +6,9 @@ load Rails.root.join("db/seeds/countries.rb")
 load Rails.root.join("db/seeds/regions.rb")
 load Rails.root.join("db/seeds/settings.rb")
 load Rails.root.join("db/seeds/features.rb")
+load Rails.root.join("db/seeds/categories.rb")
+load Rails.root.join("db/seeds/attributes.rb")
+load Rails.root.join("db/seeds/tags.rb")
 
 admin = User.find_or_create_by!(email: "admin@pcmarket.example") do |user|
   user.username = "admin"
