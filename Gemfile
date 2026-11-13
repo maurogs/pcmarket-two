@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+gem "csv"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.4", ">= 8.1.4.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -17,8 +19,39 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Authentication and authorisation
+gem "devise"
+gem "devise-i18n"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+gem "pundit"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
+gem "bcrypt"
+
+# Frontend styling
+gem "tailwindcss-rails"
+
+# Pagination, search, slugs, metadata and sitemaps
+gem "pagy", "~> 9"
+gem "pg_search"
+gem "friendly_id"
+gem "meta-tags"
+gem "sitemap_generator"
+
+# Feature flags
+gem "flipper"
+gem "flipper-active_record"
+gem "flipper-ui"
+
+# Internationalisation and translatable content
+gem "rails-i18n"
+gem "mobility"
+
+# Domain modelling, payments, security and uploads
+gem "aasm"
+gem "stripe"
+gem "rack-attack"
+gem "active_storage_validations"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -39,6 +72,8 @@ gem "thruster", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
+# S3-compatible object storage for production uploads (AWS S3 and Cloudflare R2)
+gem "aws-sdk-s3", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -52,15 +87,32 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Seed data and translation key auditing
+  gem "faker"
+  gem "i18n-tasks", require: false
+
+  # Detects N+1 queries and unused eager loading in development and test
+  gem "bullet"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Preview transactional emails in the browser at /letter_opener
+  gem "letter_opener_web", "~> 3.0"
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+
+  # Stub outbound HTTP calls (Stripe) in tests without network access
+  gem "webmock"
 end
+
+gem "alba", "~> 4.0"
+gem "rack-cors", "~> 3.0"
+gem "googleauth", "~> 1.17"

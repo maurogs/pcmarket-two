@@ -1,0 +1,8 @@
+<% content_for :title, "PCMarket API v1" %>
+<% content_for :head do %>
+  <script src="https://cdn.jsdelivr.net/npm/redoc@2.1.5/bundles/redoc.standalone.js" nonce="<%= content_security_policy_nonce %>"></script>
+<% end %>
+
+<div class="min-h-screen bg-canvas">
+  <redoc spec-url="/api/v1/openapi.yaml"></redoc>
+</div>

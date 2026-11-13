@@ -1,0 +1,11 @@
+<%= t("message_mailer.new_message.greeting", name: @recipient.display_name) %>
+
+<%= t("message_mailer.new_message.body",
+      sender: @message.sender.display_name,
+      title: @conversation.display_title) %>
+
+"<%= truncate(@message.body, length: 280) %>"
+
+<%= t("message_mailer.new_message.cta") %>: <%= @cta_url %>
+
+<%= t("message_mailer.new_message.closing") %>

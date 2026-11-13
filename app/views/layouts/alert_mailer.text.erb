@@ -1,0 +1,9 @@
+<%= yield %>
+
+--
+
+<%= t("alert_mailer.footer.reason", app: t("app.name")) %>
+<% if @unsubscribe_url.present? %>
+<%= t("alert_mailer.footer.unsubscribe") %>: <%= @unsubscribe_url %>
+<% end %>
+<%= t("alert_mailer.footer.signature", app: t("app.name")) %>

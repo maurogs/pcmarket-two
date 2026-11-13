@@ -1,0 +1,18 @@
+<%= form_with model: listing,
+              url: sell_listing_path(listing),
+              method: :patch,
+              data: { turbo_frame: "listing_wizard" },
+              class: "space-y-6" do |f| %>
+  <%= hidden_field_tag :step, "details" %>
+
+  <%= render "sell/listings/steps/details_fields",
+             f: f, listing: listing, attributes: attributes, seller_tags: seller_tags %>
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <%= link_to t("sell.steps.back"),
+                edit_sell_listing_path(listing, step: "photos"),
+                class: "inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-content",
+                data: { turbo_frame: "listing_wizard" } %>
+    <button type="submit" class="btn-primary"><%= t("sell.steps.continue") %></button>
+  </div>
+<% end %>

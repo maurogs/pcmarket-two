@@ -1,0 +1,526 @@
+es:
+  nav:
+    pc_finder_promo:
+      title: ¿No sabes qué PC encaja contigo?
+      description: Responde unas preguntas y verás equipos ajustados a tus juegos y a tu presupuesto.
+      cta: Usar el buscador de PC
+  account:
+    menu:
+      trade_ins: Mis ventas a PCMarket
+  footer:
+    selling:
+      sell_to_us: Véndenos tu hardware
+  pc_finder:
+    seo:
+      title: Buscador de PC — Encuentra el PC gaming adecuado
+      description: Dinos a qué juegas, la resolución de tu monitor y tu presupuesto, y te mostraremos PCs gaming que alcanzan el rendimiento que necesitas.
+      preset_title: "Los mejores PCs gaming para %{game}"
+      preset_description: "PCs gaming que cumplen el rendimiento recomendado para %{game}, ordenados por relación calidad-precio."
+      results_title: Resultados del buscador de PC
+      results_description: PCs gaming ajustados a tus respuestas en PCMarket.
+    hero:
+      eyebrow: Encuentra tu equipo
+      title: El PC gaming adecuado, sin adivinar
+      description: Elige tus juegos, la resolución y los FPS que quieres, y te mostraremos solo los equipos que pueden mantenerlos.
+      promise_title: Qué obtienes
+      promise_games: PCs comprobados con los juegos a los que realmente juegas
+      promise_budget: Resultados dentro de tu presupuesto, del más barato al más caro
+      promise_filters: Filtros opcionales de caja, refrigeración y estilo
+    quiz:
+      title: Cuéntanos cómo juegas
+      subtitle: Siete pasos rápidos. Puedes cambiar cualquier respuesta después.
+      progress: "Paso %{current} de %{total}"
+      steps_label: Pasos del cuestionario
+      games_title: ¿A qué juegos juegas?
+      games_hint: Elige hasta tres. Usamos el más exigente a tu resolución y tasa de fotogramas.
+      monitor_title: ¿Cuál es la resolución de tu monitor?
+      monitor_hint: Elige la resolución a la que juegas habitualmente.
+      fps_title: ¿Qué tasa de fotogramas buscas?
+      fps_hint: Más FPS exigen una tarjeta gráfica más potente.
+      budget_title: ¿Cuál es tu presupuesto?
+      budget_hint: Los precios son de PCs gaming completos.
+      optional: "Opcional: puedes dejarlo en blanco."
+      case_title: Preferencias de caja
+      case_colour: Color
+      case_size: Tamaño
+      cooling_title: Refrigeración
+      vibe_title: ¿Qué estilo te gusta?
+      back: Atrás
+      next: Siguiente
+      submit: Ver resultados
+    steps:
+      games: Juegos
+      monitor: Monitor
+      fps: FPS
+      budget: Presupuesto
+      case: Caja
+      cooling: Refrigeración
+      vibe: Estilo
+    resolutions:
+      "1080p": 1080p
+      "1440p": 1440p
+      "4k": 4K
+    fps_options:
+      "60": 60 FPS
+      "144": 144 FPS
+      "240": 240+ FPS
+    budgets:
+      under_600: Menos de 600 €
+      "600_1000": 600–1.000 €
+      "1000_1500": 1.000–1.500 €
+      "1500_2500": 1.500–2.500 €
+      "2500_plus": Más de 2.500 €
+    case_sizes:
+      compact: Compacta
+      mid: Semitorre
+      full: Torre completa
+    case_colours:
+      black: Negro
+      white: Blanco
+      silver: Plata
+      grey: Gris
+    cooling_options:
+      air: Refrigeración por aire
+      aio: Líquida todo en uno
+    answers:
+      none: Sin preferencia
+      any: Cualquiera
+    bands:
+      "1080p_60": 1080p · 60 FPS
+      "1080p_144": 1080p · 144 FPS
+      "1080p_240": 1080p · 240 FPS
+      "1440p_60": 1440p · 60 FPS
+      "1440p_144": 1440p · 144 FPS
+      "1440p_240": 1440p · 240 FPS
+      "4k_60": 4K · 60 FPS
+      "4k_144": 4K · 144 FPS
+      "4k_240": 4K · 240 FPS
+    results:
+      title: Tus coincidencias
+      count:
+        one: "%{count} PC gaming"
+        other: "%{count} PCs gaming"
+      change: Cambiar respuestas
+      chips_label: Tus respuestas
+      chip_games: "Juegos: %{games}"
+      chip_fps: "%{fps} FPS"
+      remove_chip: Quitar esta respuesta
+      expected_title: Rendimiento esperado
+      expected: "%{game} · ~%{fps} FPS a %{resolution}"
+      expected_unavailable: "%{game} · por debajo del objetivo de 60 FPS"
+      add_to_cart: Añadir a la cesta
+      load_more: Cargar más
+      empty_title: Ningún PC cumple todas las respuestas
+      empty_body: Prueba a subir el presupuesto o a bajar los FPS. El resto de respuestas se mantiene.
+      raise_budget: Subir el presupuesto
+      lower_fps: Apuntar a 60 FPS
+    landing:
+      styles_title: PCs por estilo de jugador
+      styles_description: Empieza por el aspecto que quieres y afina en el cuestionario.
+      style_count:
+        one: "%{count} PC"
+        other: "%{count} PCs"
+      budget_title: PCs gaming por menos de 1.000 €
+      budget_description: Equipos completos que aún dejan margen para juegos.
+      view_all: Ver todas las opciones
+      games_title: Los mejores PCs para tu juego
+      games_description: Ajustes predefinidos para los juegos más consultados.
+      best_for: Ideal para
+      game_cta: Ver PCs compatibles
+  sell_to_us:
+    seo:
+      title: Vende tu GPU o CPU a PCMarket
+      description: Consigue una oferta instantánea por tu tarjeta gráfica o procesador, envíalo con una etiqueta prepagada y cobra por transferencia.
+    hero:
+      eyebrow: Véndenos
+      title: Convierte el hardware que no usas en dinero, sin publicarlo
+      description: Elige tu GPU o CPU, responde cuatro preguntas sobre su estado y recibe una oferta firme en segundos. Si la aceptas, te enviamos una etiqueta de envío prepagada.
+      cta: Conseguir oferta instantánea
+      how_it_works: Cómo funciona
+    prices:
+      title: Ejemplos de pago
+      description: Una muestra de los precios de compra actuales. Tu presupuesto instantáneo usa el modelo y el estado exactos.
+      gpus: Tarjetas gráficas
+      cpus: Procesadores
+      model: Modelo
+      empty: Todavía no hay precios publicados para este componente.
+      note: Los pagos son estimaciones antes de la inspección. La oferta que ves en el presupuesto es la que respetamos.
+    how:
+      title: Cómo funciona
+      description: Cuatro pasos desde tu pieza hasta la transferencia.
+      steps:
+        offer:
+          title: Consigue una oferta
+          body: Elige el modelo y el estado. La oferta instantánea es válida durante siete días.
+        ship:
+          title: Envíalo gratis
+          body: Acepta la oferta y te enviamos por correo una etiqueta prepagada con instrucciones de embalaje.
+        inspect:
+          title: Lo inspeccionamos
+          body: Probamos el componente y confirmamos su estado en dos días laborables.
+        paid:
+          title: Cobra
+          body: Transferimos el importe acordado a tu IBAN, normalmente en un día laborable.
+    faq:
+      title: Preguntas antes de vender
+      items:
+        condition:
+          question: ¿Qué se considera estado «bueno»?
+          answer: El componente funciona con normalidad, no tiene daños físicos y muestra solo signos leves de uso. La falta de caja o accesorios reduce la oferta mediante las preguntas de estado.
+        shipping:
+          question: ¿Pago el envío?
+          answer: No. Cuando aceptas la oferta enviamos una etiqueta prepagada y asegurada. Embala el componente con cuidado en una bolsa antiestática y una caja resistente.
+        payment:
+          question: ¿Cómo y cuándo cobro?
+          answer: Por transferencia al IBAN que indicas al aceptar. Pagamos en un día laborable desde la inspección.
+        data:
+          question: ¿Qué pasa con mis datos personales?
+          answer: Guardamos tu IBAN cifrado, lo usamos solo para este pago y conservamos la solicitud durante el plazo contable legalmente exigido.
+    cta:
+      title: ¿Quieres saber cuánto vale tu hardware?
+      description: El presupuesto tarda menos de un minuto y no te compromete a nada.
+      button: Empezar mi presupuesto
+  buyback:
+    component_types:
+      gpu: Tarjeta gráfica
+      cpu: Procesador
+    conditions:
+      like_new: Como nuevo
+      good: Bueno
+      fair: Aceptable
+      for_parts: Para piezas
+    questions:
+      "yes": "Sí"
+      "no": "No"
+    statuses:
+      quoted: Presupuestado
+      accepted: Aceptado
+      label_sent: Etiqueta enviada
+      received: Recibido
+      inspected: Inspeccionado
+      offer_revised: Oferta revisada
+      paid: Pagado
+      rejected: Rechazado
+      returned: Devuelto
+    timeline:
+      label: Progreso de la venta
+    details:
+      component: Componente
+      condition: Estado
+      offer: Oferta
+      revised_offer: Oferta revisada
+      iban: IBAN
+    errors:
+      price_missing: Elige un modelo para recibir una oferta.
+      quote_expired: Esta oferta ha caducado. Solicita un presupuesto nuevo.
+      quote_used: Esta oferta ya se ha aceptado.
+      accept_failed: No hemos podido aceptar esta oferta. Inténtalo de nuevo.
+    flash:
+      quote_created: Tu oferta instantánea está lista.
+      request_created: "Venta %{reference} creada. Te enviaremos la etiqueta prepagada por correo."
+    quote:
+      seo_title: Tu oferta instantánea
+      back: Volver a véndenos
+      title: Consigue una oferta instantánea
+      subtitle: Elige el componente, su estado y responde unas preguntas. La oferta es válida durante siete días.
+      component_type: Tipo de componente
+      search_label: Buscar modelos
+      search_placeholder: Escribe un modelo, por ejemplo RTX 4070
+      model: Modelo
+      model_option: "%{model} — hasta %{price}"
+      choose_model: Elige un modelo
+      model_hint: Solo aparecen los modelos con precio de compra publicado.
+      condition: Estado
+      choose_condition: Elige el estado
+      questions:
+        title: Preguntas sobre el estado
+        powers_on: ¿Enciende y funciona con normalidad?
+        artifacts: ¿Tiene artefactos visuales o se bloquea?
+        original_box: ¿Tienes la caja original?
+        physical_damage: ¿Tiene daños físicos?
+      disclaimer: El importe final se confirma tras la inspección.
+      submit: Ver mi oferta
+      offer_eyebrow: Tu oferta
+      offer_title: Tu oferta instantánea
+      expired: Esta oferta ha caducado. Solicita una nueva para ver el precio actual.
+      new_quote: Conseguir una oferta nueva
+      valid_until: "Válida hasta el %{date}"
+      accept: Aceptar esta oferta
+      accept_hint: Necesitarás una cuenta para aceptar e indicar tu IBAN.
+      summary_title: En qué se basa
+    request:
+      title: Acepta tu oferta
+      subtitle: Dinos dónde recoger el componente y a dónde enviar el dinero.
+      back: Volver a tu oferta
+      payment_title: Datos de pago
+      iban: IBAN
+      iban_placeholder: ES00 0000 0000 0000 0000 0000
+      iban_hint: Guardamos tu IBAN cifrado y lo usamos solo para este pago.
+      full_name: Nombre completo
+      address_title: Dirección de recogida
+      line1: Dirección
+      line2: Piso, puerta o edificio
+      city: Ciudad
+      postal_code: Código postal
+      country: País
+      phone: Teléfono
+      terms_note: Al aceptar confirmas las respuestas sobre el estado y aceptas las condiciones de compra.
+      submit: Aceptar y crear la venta
+    index:
+      title: Mis ventas a PCMarket
+      subtitle: Sigue cada solicitud de compra y su inspección.
+      new: Nueva venta
+      empty_title: Todavía no tienes ventas
+      empty_body: Consigue una oferta instantánea por una GPU o CPU que no uses y envíala con etiqueta prepagada.
+      empty_cta: Conseguir oferta instantánea
+      sell: Volver a véndenos
+    show:
+      title: "Venta %{reference}"
+      back: Todas las ventas
+      progress_title: Progreso
+      revised: "Hemos revisado la oferta a %{amount}. El equipo de administración confirmará tu decisión."
+      details_title: Detalles
+      address_title: Dirección de recogida
+      tracking: "Seguimiento: %{carrier} · %{number}"
+      carrier_unknown: Transportista
+      help: ¿Necesitas ayuda con esta venta?
+      contact: Contactar con soporte
+  buyback_mailer:
+    cta: Ver tu venta
+    footer: Recibes este correo porque creaste una venta en PCMarket. Responde a este mensaje si algo no cuadra.
+    details:
+      reference: Referencia
+      component: Componente
+      offer: Oferta
+      status: Estado
+    events:
+      accepted:
+        subject: "Venta %{reference} aceptada"
+        title: "Venta %{reference} aceptada"
+        body: Hemos aceptado tu venta. El siguiente correo incluye la etiqueta de envío prepagada.
+      label_sent:
+        subject: "Tu etiqueta prepagada para %{reference}"
+        title: "Tu etiqueta prepagada está en camino"
+        body: Hemos emitido la etiqueta prepagada. Embala el componente con seguridad y entrégalo en el transportista.
+      received:
+        subject: "Hemos recibido %{reference}"
+        title: "Tu componente ha llegado"
+        body: El paquete está en nuestro taller y lo inspeccionaremos en dos días laborables.
+      inspected:
+        subject: "Inspección completada para %{reference}"
+        title: "Inspección completada"
+        body: El componente coincide con el estado que declaraste. A continuación procesaremos el pago.
+      offer_revised:
+        subject: "Hemos revisado la oferta de %{reference}"
+        title: "Hemos revisado tu oferta"
+        body: La inspección encontró una diferencia con el estado declarado. La oferta revisada aparece en tu venta.
+      accepted_revision:
+        subject: "Oferta revisada aceptada para %{reference}"
+        title: "Oferta revisada aceptada"
+        body: Gracias por confirmarlo. Pagaremos el importe revisado por transferencia bancaria.
+      paid:
+        subject: "Pago enviado para %{reference}"
+        title: "Pago enviado"
+        body: Hemos enviado el importe acordado a tu IBAN. Normalmente llega en un día laborable.
+      rejected:
+        subject: "La venta %{reference} no se ha podido aceptar"
+        title: "Venta no aceptada"
+        body: El componente no ha pasado la inspección y no podemos comprarlo. Te explicaremos los siguientes pasos por correo.
+      returned:
+        subject: "Tu componente está de vuelta (%{reference})"
+        title: "Tu componente está de camino"
+        body: Estamos devolviendo el componente a la dirección de recogida. Te enviaremos los datos de seguimiento.
+  admin:
+    nav:
+      pc_finder: Buscador de PC
+      gpu_tiers: Niveles de GPU
+      cpu_tiers: Niveles de CPU
+      buyback_prices: Precios de compra
+      buyback_requests: Ventas a PCMarket
+    games:
+      index:
+        title: Juegos del buscador de PC
+        subtitle: Juegos que aparecen en el cuestionario, su portada y el nivel de GPU/CPU necesario en cada resolución y tasa de fotogramas.
+        new: Nuevo juego
+        delete_confirm: ¿Eliminar este juego?
+        empty_title: Todavía no hay juegos
+        empty_body: Añade el primer juego para que el cuestionario sea útil.
+      table:
+        game: Juego
+        slug: Slug
+        position: Posición
+        active: Activo
+      form:
+        name: Nombre
+        slug: Slug
+        slug_placeholder: Se genera a partir del nombre si se deja vacío
+        position: Posición
+        active: Activo
+        cover: Imagen de portada
+        cover_hint: Mejor en vertical. PNG, JPEG o WebP de hasta 5 MB.
+        requirements_title: Requisitos por nivel
+        requirements_hint: "Introduce un nivel de 1 a 10. Estos valores se comparan con los niveles de GPU y CPU."
+        gpu_tier: Nivel de GPU
+        cpu_tier: Nivel de CPU
+        back: Volver a juegos
+        delete: Eliminar juego
+        delete_confirm: ¿Eliminar este juego?
+      new:
+        title: Nuevo juego
+      edit:
+        title: "Editar %{name}"
+      flash:
+        created: Juego creado.
+        updated: Juego actualizado.
+        destroyed: Juego eliminado.
+    gpu_tiers:
+      index:
+        title: Niveles de GPU
+        subtitle: Patrones que se comparan sin distinguir mayúsculas con los modelos de GPU de los anuncios. Gana el patrón más largo.
+        new: Nuevo nivel de GPU
+        delete_confirm: ¿Eliminar esta asignación?
+      table:
+        pattern: Patrón
+        tier: Nivel
+        position: Posición
+        active: Activo
+      form:
+        pattern: Patrón
+        pattern_placeholder: rtx 4070
+        pattern_hint: Un fragmento del nombre del modelo, por ejemplo «rtx 4070».
+        tier: Nivel
+        position: Posición
+        active: Activo
+        back: Volver a niveles de GPU
+        delete: Eliminar asignación
+        delete_confirm: ¿Eliminar esta asignación?
+      new:
+        title: Nuevo nivel de GPU
+      edit:
+        title: "Editar %{pattern}"
+      flash:
+        created: Nivel de GPU creado.
+        updated: Nivel de GPU actualizado.
+        destroyed: Nivel de GPU eliminado.
+    cpu_tiers:
+      index:
+        title: Niveles de CPU
+        subtitle: Patrones que se comparan sin distinguir mayúsculas con los modelos de CPU de los anuncios. Gana el patrón más largo.
+        new: Nuevo nivel de CPU
+        delete_confirm: ¿Eliminar esta asignación?
+      table:
+        pattern: Patrón
+        tier: Nivel
+        position: Posición
+        active: Activo
+      form:
+        pattern: Patrón
+        pattern_placeholder: ryzen 5 5
+        pattern_hint: Un fragmento del nombre del modelo, por ejemplo «ryzen 5 5».
+        tier: Nivel
+        position: Posición
+        active: Activo
+        back: Volver a niveles de CPU
+        delete: Eliminar asignación
+        delete_confirm: ¿Eliminar esta asignación?
+      new:
+        title: Nuevo nivel de CPU
+      edit:
+        title: "Editar %{pattern}"
+      flash:
+        created: Nivel de CPU creado.
+        updated: Nivel de CPU actualizado.
+        destroyed: Nivel de CPU eliminado.
+    buyback_prices:
+      index:
+        title: Precios de compra
+        subtitle: Ofertas base y multiplicadores de estado que usa el presupuesto instantáneo.
+        new: Nuevo precio de compra
+        delete_confirm: ¿Eliminar este precio?
+      table:
+        component: Componente
+        model: Modelo
+        base: Oferta base
+        multipliers: Multiplicadores
+        active: Activo
+      form:
+        component_type: Tipo de componente
+        component_model: Nombre del modelo
+        model_placeholder: RTX 4070
+        base_offer_cents: Oferta base (céntimos)
+        base_hint: "10000 = 100,00 €. El presupuesto aplica el multiplicador de estado y las deducciones."
+        active: Activo
+        multipliers_title: Multiplicadores por estado
+        multipliers_hint: Los multiplicadores se aplican a la oferta base antes de las deducciones por estado.
+        back: Volver a precios de compra
+        delete: Eliminar precio
+        delete_confirm: ¿Eliminar este precio?
+      new:
+        title: Nuevo precio de compra
+      edit:
+        title: "Editar %{model}"
+      import:
+        title: Importar CSV
+        hint: "Columnas: component_type, component_model, base_offer_cents (o base_offer_eur). Los modelos existentes se actualizan."
+        submit: Importar precios
+      flash:
+        created: Precio de compra creado.
+        updated: Precio de compra actualizado.
+        destroyed: Precio de compra eliminado.
+        in_use: Este precio ya tiene presupuestos y no se puede eliminar.
+        imported: "Importados %{created} nuevos y %{updated} actualizados; %{skipped} filas omitidas."
+    buyback_requests:
+      index:
+        title: Cola de ventas a PCMarket
+        subtitle: Solicitudes de compra de clientes, desde el presupuesto hasta el pago.
+        empty_title: Todavía no hay ventas
+        empty_body: Las solicitudes aparecen aquí cuando un cliente acepta una oferta instantánea.
+      table:
+        reference: Referencia
+        customer: Cliente
+        component: Componente
+        offer: Oferta
+        status: Estado
+        created: Creada
+      filters:
+        status: Estado
+      show:
+        back: Volver a ventas
+        details_title: Solicitud
+        address_title: Dirección de recogida
+        inspection_result: Resultado de la inspección
+        actions_title: Acciones
+        no_actions: No hay acciones disponibles en este estado.
+        created_at: "Creada el %{date}"
+        user_note: El cliente recibe un correo traducido después de cada acción.
+      actions:
+        label_sent:
+          title: Marcar etiqueta enviada
+          carrier: Transportista
+          tracking: Número de seguimiento
+          submit: Marcar etiqueta enviada
+        received:
+          submit: Marcar recibido
+        inspected:
+          result: Resultado de la inspección
+          revised_offer: Oferta revisada (€, opcional)
+          hint: Introduce un importe revisado para enviar una nueva oferta en lugar de completar la inspección.
+          submit: Guardar inspección
+        paid:
+          title: Marcar pagado
+          body: Registra la transferencia bancaria al IBAN del cliente.
+          submit: Marcar pagado
+        rejected:
+          submit: Rechazar
+          confirm: ¿Rechazar esta venta?
+        returned:
+          submit: Devolver al remitente
+          confirm: ¿Devolver este componente al cliente?
+        accepted_revision:
+          submit: Aceptar oferta revisada
+      flash:
+        advanced: "La venta pasó a %{status}."
+        invalid_transition: Esa acción no está permitida en el estado actual.
+  errors:
+    messages:
+      invalid_iban: no es un IBAN válido

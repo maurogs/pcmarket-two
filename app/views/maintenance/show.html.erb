@@ -1,0 +1,9 @@
+<div class="rounded-3xl border border-border bg-surface p-8 shadow-sm">
+  <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("app.name") %></p>
+  <h1 class="mt-3 text-3xl font-extrabold tracking-tight"><%= t("maintenance.title") %></h1>
+  <p class="mt-4 text-sm leading-relaxed text-muted"><%= t("maintenance.body") %></p>
+  <p class="mt-6 text-sm font-semibold text-content"><%= t("maintenance.retry") %></p>
+  <% if Setting.get(:support_email).present? %>
+    <p class="mt-3 text-sm text-muted"><%= t("maintenance.contact", email: Setting.get(:support_email)) %></p>
+  <% end %>
+</div>

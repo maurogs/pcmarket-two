@@ -1,0 +1,13 @@
+<% cache ["home/pc_finder", I18n.locale], expires_in: 5.minutes do %>
+  <section class="relative overflow-hidden rounded-3xl border border-primary-200 bg-primary-50 px-6 py-8 dark:border-primary-800 dark:bg-primary-900/30 sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-10">
+    <div class="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-accent/20 blur-2xl"></div>
+    <div class="relative max-w-2xl">
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("home.pc_finder.eyebrow") %></p>
+      <h2 class="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl"><%= t("home.pc_finder.title") %></h2>
+      <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("home.pc_finder.description") %></p>
+    </div>
+    <div class="relative mt-5 shrink-0 lg:mt-0">
+      <%= link_to t("home.pc_finder.cta"), pc_finder_path, class: "btn-primary" %>
+    </div>
+  </section>
+<% end %>

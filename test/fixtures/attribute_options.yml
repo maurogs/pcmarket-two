@@ -1,0 +1,49 @@
+chipset_nvidia:
+  attribute_definition: gpu_chipset
+  value: nvidia
+  label: { en: "NVIDIA", es: "NVIDIA" }
+  position: 1
+  popular: true
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+chipset_amd:
+  attribute_definition: gpu_chipset
+  value: amd
+  label: { en: "AMD", es: "AMD" }
+  position: 2
+  popular: false
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+chipset_legacy:
+  attribute_definition: gpu_chipset
+  value: legacy
+  label: { en: "Legacy", es: "Antiguo" }
+  position: 3
+  popular: false
+  active: false
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+memory_gddr6:
+  attribute_definition: gpu_memory_type
+  value: gddr6
+  label: { en: "GDDR6", es: "GDDR6" }
+  position: 1
+  popular: true
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+memory_gddr6x:
+  attribute_definition: gpu_memory_type
+  value: gddr6x
+  label: { en: "GDDR6X", es: "GDDR6X" }
+  position: 2
+  popular: true
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

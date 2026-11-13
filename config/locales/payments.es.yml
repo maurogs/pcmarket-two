@@ -1,0 +1,71 @@
+es:
+  payments:
+    test_mode:
+      banner: "Los pagos de prueba están activos. No se cobrará dinero real."
+  checkout:
+    flash:
+      redirect_to_payment: "Tu cesta está reservada. Continúa con el pago para finalizar el pedido."
+    payment:
+      stripe_title: "Pago seguro con tarjeta"
+      stripe_body: "Te redirigiremos al formulario de pago seguro de Stripe para introducir los datos de tu tarjeta."
+      continue: "Continuar al pago"
+    payment_page:
+      title: "Completa tu pago"
+      body: "Introduce los datos de tu tarjeta. Tus artículos quedan reservados mientras pagas."
+      card_title: "Datos de pago"
+      pay: "Pagar ahora"
+      processing: "Procesando…"
+      error_fallback: "No hemos podido procesar el pago. Revisa los datos e inténtalo de nuevo."
+      confirming_title: "Confirmando tu pago"
+      confirming_body: "Estamos confirmando el pago con el proveedor. Esta página se actualizará en breve."
+  store_payments:
+    show:
+      title: "Cobros"
+      subtitle: "Conecta tu tienda con Stripe para que los compradores puedan pagarte y recibir los cobros."
+      setup: "Configurar cobros"
+      statuses:
+        setup: "Cobros sin configurar"
+        test_mode: "Modo de prueba"
+        pending: "Verificación pendiente"
+        enabled: "Cobros activados"
+        action_required: "Acción necesaria"
+      requirements_title: "Información que Stripe todavía necesita"
+      explanation: "Los compradores no pueden realizar pedidos en tu tienda hasta que se activen los cobros."
+      not_configured: "Stripe no está configurado en este entorno. Añade las claves secreta y publicable para activar los cobros reales."
+      test_mode: "Los pagos se simulan en desarrollo, así que no hace falta una cuenta de Stripe ni configurar cobros."
+    requirements:
+      external_account: "Una cuenta bancaria para los cobros"
+      business_profile:
+        mcc: "Código de categoría de la actividad"
+        url: "Sitio web de la actividad"
+      company:
+        tax_id: "Número fiscal de la empresa"
+      individual:
+        id_number: "Número del documento de identidad"
+        verification:
+          document: "Documento de identidad"
+          additional_document: "Documento de identidad adicional"
+      tos_acceptance:
+        date: "Aceptación de los términos de Stripe"
+        ip: "Aceptación de los términos de Stripe (confirmación por IP)"
+    errors:
+      onboarding_failed: "No hemos podido iniciar la configuración de cobros. Inténtalo de nuevo o contacta con soporte."
+  stores:
+    tabs:
+      label: "Secciones de la tienda"
+      profile: "Perfil"
+      payments: "Cobros"
+  cart:
+    errors:
+      payouts_not_enabled: "Este vendedor todavía no puede aceptar pagos."
+    unavailable:
+      reasons:
+        payouts_not_enabled: "El vendedor aún no ha activado los cobros."
+    purchase_blocked:
+      payouts_not_enabled: "Este vendedor todavía no está listo para recibir pagos."
+  order_mailer:
+    dispute_alert:
+      subject: "Disputa de pago abierta para el pedido %{number}"
+      greeting: "Hola:"
+      body: "Se ha abierto una disputa de pago para el pedido %{number} de %{store}. Revisa el caso en Stripe y contacta con el comprador y el vendedor si es necesario."
+      closing: "Resuelve la disputa cuanto antes para proteger los fondos del marketplace."

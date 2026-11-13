@@ -1,0 +1,172 @@
+<% set_meta_tags(result_meta_tags(@category, @search)) %>
+<% breadcrumbs = @category ? category_breadcrumbs(@category) : search_breadcrumbs %>
+<% heading = if @search.query.present?
+               t("listings.index.search_title", query: @search.query)
+             elsif @category
+               @category.name
+             else
+               t("listings.index.title")
+             end %>
+
+<div class="space-y-6">
+  <noscript>
+    <style>
+      [data-filters-target="openButton"] { display: none !important; }
+      #listing-filters { display: block !important; position: static !important; max-height: none !important; box-shadow: none !important; border-radius: 1rem !important; }
+    </style>
+  </noscript>
+
+  <%= render "listings/breadcrumbs", trail: breadcrumbs %>
+
+  <header class="space-y-4">
+    <div class="max-w-3xl">
+      <h1 class="text-3xl font-extrabold tracking-tight sm:text-4xl"><%= heading %></h1>
+      <% if @category&.description.present? %>
+        <p class="mt-2 text-muted"><%= @category.description %></p>
+      <% elsif @search.query.present? %>
+        <p class="mt-2 text-muted"><%= t("listings.index.search_hint", query: @search.query) %></p>
+      <% end %>
+    </div>
+
+    <% if @category %>
+      <% chips = subcategory_chips(@category) %>
+      <% if chips.length > 1 %>
+        <ul class="flex flex-wrap gap-2">
+          <% chips.each do |chip| %>
+            <li>
+              <%= link_to chip[:label],
+                          chip[:path],
+                          aria: { current: ("page" if chip[:current]) },
+                          class: "inline-flex items-center rounded-full border px-3 py-1.5 text-sm font-medium transition #{chip[:current] ? "border-primary-600 bg-primary-600 text-white" : "border-border bg-surface text-muted hover:border-primary-400 hover:text-primary-700 dark:hover:text-primary-300"}" %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </header>
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <p class="text-sm text-muted"><%= t("saved_searches.hint") %></p>
+    <%= render "saved_searches/save_button" %>
+  </div>
+
+  <%= turbo_frame_tag "results", data: { turbo_action: "advance" } do %>
+    <%= form_with url: request.path,
+                  method: :get,
+                  scope: nil,
+                  class: "space-y-5",
+                  data: { controller: "filters", turbo_frame: "results", turbo_action: "advance" } do %>
+      <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-surface px-4 py-3">
+        <p class="text-sm text-muted"><%= t("listings.index.results_count", count: @search.total_count) %></p>
+        <div class="flex items-center gap-2">
+          <button type="button"
+                  data-filters-target="openButton"
+                  data-action="filters#open"
+                  aria-controls="listing-filters"
+                  aria-expanded="false"
+                  class="btn-primary px-3 py-2 lg:hidden">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M4 6h16M7 12h10M10 18h4" stroke-linecap="round"></path>
+            </svg>
+            <span><%= t("listings.filters.open", count: @search.active_filter_count) %></span>
+          </button>
+
+          <label for="sort" class="sr-only"><%= t("listings.sort.label") %></label>
+          <%= select_tag :sort,
+                         options_for_select(sort_options, @search.sort),
+                         id: "sort",
+                         class: "field w-auto py-2 text-sm",
+                         data: { action: "change->filters#submit" } %>
+        </div>
+      </div>
+
+      <% if @search.applied_filters.any? %>
+        <div class="flex flex-wrap items-center gap-2">
+          <% @search.applied_filters.each do |filter| %>
+            <span class="inline-flex items-center gap-1 rounded-full border border-border bg-surface py-1 pl-3 pr-1 text-xs font-medium text-content">
+              <span><%= filter[:label] %></span>
+              <%= link_to filtered_path(filter[:remove_params]),
+                          aria: { label: t("listings.filters.remove_filter", filter: filter[:label]) },
+                          data: { turbo_action: "advance" },
+                          class: "inline-flex h-5 w-5 items-center justify-center rounded-full text-muted transition hover:bg-surface-muted hover:text-danger" do %>
+                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"></path>
+                </svg>
+              <% end %>
+            </span>
+          <% end %>
+          <%= link_to t("listings.filters.clear_all"),
+                      filtered_path({}),
+                      data: { turbo_action: "advance" },
+                      class: "text-xs font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+        </div>
+      <% end %>
+
+      <div class="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)]">
+        <aside data-filters-target="panel"
+               id="listing-filters"
+               class="fixed inset-x-0 bottom-0 z-50 hidden max-h-[85vh] overflow-y-auto rounded-t-3xl border-t border-border bg-surface p-5 shadow-2xl lg:static lg:z-auto lg:block lg:max-h-none lg:overflow-visible lg:rounded-2xl lg:border lg:shadow-none">
+          <div class="mb-4 flex items-center justify-between lg:hidden">
+            <h2 class="text-base font-bold"><%= t("listings.filters.title") %></h2>
+            <button type="button" data-action="filters#close" class="icon-button" aria-label="<%= t("listings.filters.close") %>">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"></path>
+              </svg>
+            </button>
+          </div>
+
+          <% cache [ "listings/filters", I18n.locale, @category&.id, @search.normalized_params, @search.facets, Listing.search_cache_version ] do %>
+            <%= render "listings/filters", id_prefix: "filters" %>
+          <% end %>
+
+          <div class="sticky bottom-0 mt-5 border-t border-border bg-surface pt-4 lg:hidden">
+            <button type="submit" class="btn-primary w-full"><%= t("listings.filters.apply") %></button>
+          </div>
+        </aside>
+
+        <div class="min-w-0">
+          <% if @search.listings.any? %>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              <% @search.listings.each_with_index do |listing, index| %>
+                <%= render "listings/card", listing: listing, eager: @search.pagy.page == 1 && index < 4 %>
+              <% end %>
+            </div>
+            <%= pagy_nav(@search.pagy) %>
+          <% else %>
+            <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+              <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200">
+                <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+                </svg>
+              </div>
+              <h2 class="mt-4 text-lg font-bold"><%= t("listings.index.empty_title") %></h2>
+              <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("listings.index.empty_body") %></p>
+              <div class="mt-5 flex flex-wrap justify-center gap-2">
+                <%= link_to t("listings.index.clear_filters"), filtered_path({}), class: "btn-primary" %>
+                <%= link_to t("listings.index.browse_categories"), browse_categories_path, class: "btn-accent" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div data-filters-target="overlay"
+           data-action="click->filters#close"
+           class="fixed inset-0 z-40 hidden bg-slate-950/60 backdrop-blur-sm lg:hidden"
+           aria-hidden="true"></div>
+    <% end %>
+  <% end %>
+
+  <% if @category && (@category.description.present? || @category.seo_description.present?) %>
+    <section class="rounded-2xl border border-border bg-surface p-6">
+      <h2 class="text-lg font-bold"><%= t("listings.index.about_category", category: @category.name) %></h2>
+      <div class="rich-text mt-3 max-w-none text-muted">
+        <%= simple_format(h(@category.description.presence || @category.seo_description)) %>
+      </div>
+    </section>
+  <% end %>
+</div>
+
+<%= json_ld_tag(breadcrumb_json_ld(breadcrumbs)) %>
+<%= json_ld_tag(item_list_json_ld(@search.listings)) if @search.listings.any? %>

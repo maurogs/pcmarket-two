@@ -1,0 +1,26 @@
+<p style="margin: 0 0 8px; font-size: 16px; font-weight: 700;"><%= t("buyback_mailer.events.#{@event}.title", reference: @request.reference) %></p>
+<p style="margin: 0 0 18px; font-size: 14px; line-height: 1.6; color: #52607a;"><%= t("buyback_mailer.events.#{@event}.body") %></p>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin: 0 0 18px; font-size: 14px; color: #0f172a;">
+  <tr>
+    <td style="padding: 4px 0; color: #52607a;"><%= t("buyback_mailer.details.reference") %></td>
+    <td style="padding: 4px 0; text-align: right; font-weight: 600;"><%= @request.reference %></td>
+  </tr>
+  <tr>
+    <td style="padding: 4px 0; color: #52607a;"><%= t("buyback_mailer.details.component") %></td>
+    <td style="padding: 4px 0; text-align: right; font-weight: 600;"><%= @request.component_model %></td>
+  </tr>
+  <tr>
+    <td style="padding: 4px 0; color: #52607a;"><%= t("buyback_mailer.details.offer") %></td>
+    <td style="padding: 4px 0; text-align: right; font-weight: 700;"><%= money(@request.final_offer_cents, currency: "EUR") %></td>
+  </tr>
+  <tr>
+    <td style="padding: 4px 0; color: #52607a;"><%= t("buyback_mailer.details.status") %></td>
+    <td style="padding: 4px 0; text-align: right; font-weight: 600;"><%= t("buyback.statuses.#{@request.status}") %></td>
+  </tr>
+</table>
+
+<p style="margin: 0 0 20px;">
+  <a href="<%= @status_url %>" style="display: inline-block; border-radius: 12px; background-color: #4f46e5; padding: 12px 20px; color: #ffffff; font-size: 14px; font-weight: 700; text-decoration: none;"><%= t("buyback_mailer.cta") %></a>
+</p>
+<p style="margin: 0; font-size: 12px; line-height: 1.6; color: #52607a;"><%= t("buyback_mailer.footer") %></p>

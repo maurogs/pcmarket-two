@@ -1,0 +1,143 @@
+<% set_meta_tags(title: t("sales.show.title", number: @order.number), noindex: true) %>
+
+<div class="space-y-6">
+  <nav class="text-sm">
+    <%= link_to t("sales.show.back"), sell_orders_path, class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+  </nav>
+
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("sales.show.eyebrow") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= @order.number %></h1>
+      <p class="mt-1 text-sm text-muted"><%= t("sales.show.placed_on", date: l(@order.created_at.to_date, format: :long)) %></p>
+    </div>
+    <span class="inline-flex rounded-full border px-3 py-1.5 text-sm font-semibold <%= order_status_badge_class(@order.status) %>">
+      <%= order_status_label(@order.status) %>
+    </span>
+  </header>
+
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+    <div class="space-y-4">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("sales.show.items") %></h2>
+        <ul class="mt-3 divide-y divide-border">
+          <% @order.items.each do |item| %>
+            <li class="flex items-center gap-3 py-3">
+              <div class="min-w-0 flex-1">
+                <p class="text-sm font-semibold"><%= item.title %></p>
+                <p class="text-xs text-muted"><%= t("sales.show.quantity", count: item.quantity) %></p>
+              </div>
+              <p class="text-sm font-bold"><%= money(item.line_total_cents, currency: @order.currency) %></p>
+            </li>
+          <% end %>
+        </ul>
+
+        <dl class="mt-3 space-y-1 border-t border-border pt-3 text-sm">
+          <div class="flex justify-between"><dt class="text-muted"><%= t("sales.show.subtotal") %></dt><dd class="font-semibold"><%= money(@order.subtotal_cents, currency: @order.currency) %></dd></div>
+          <div class="flex justify-between"><dt class="text-muted"><%= t("sales.show.shipping") %></dt><dd class="font-semibold"><%= money(@order.shipping_cents, currency: @order.currency) %></dd></div>
+          <div class="flex justify-between"><dt class="text-muted"><%= t("sales.show.commission") %></dt><dd class="font-semibold">-<%= money(@order.commission_cents, currency: @order.currency) %></dd></div>
+          <div class="flex justify-between border-t border-border pt-2 text-base"><dt class="font-bold"><%= t("sales.show.payout") %></dt><dd class="font-extrabold"><%= money(@order.subtotal_cents - @order.commission_cents, currency: @order.currency) %></dd></div>
+        </dl>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("sales.show.timeline") %></h2>
+        <% if order_timeline(@order).any? %>
+          <ol class="mt-4 space-y-3">
+            <% order_timeline(@order).each do |event| %>
+              <li class="flex gap-3 text-sm">
+                <span class="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-primary-600"></span>
+                <div>
+                  <p class="font-semibold"><%= event[:label] %></p>
+                  <p class="text-xs text-muted"><%= l(event[:at], format: :long) %></p>
+                </div>
+              </li>
+            <% end %>
+          </ol>
+        <% else %>
+          <p class="mt-2 text-sm text-muted"><%= t("sales.show.no_events") %></p>
+        <% end %>
+      </section>
+
+      <% if @review.present? %>
+        <section class="rounded-2xl border border-border bg-surface p-5">
+          <h2 class="text-lg font-bold"><%= t("reviews.section.seller_title") %></h2>
+          <div class="mt-3 rounded-xl bg-surface-muted p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex gap-0.5">
+                <% rating_stars(@review.rating).each do |star| %>
+                  <svg class="h-4 w-4 <%= star == "full" ? "text-accent" : "text-border" %>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+                  </svg>
+                <% end %>
+              </div>
+              <p class="text-xs text-muted"><%= l(@review.created_at.to_date, format: :long) %></p>
+            </div>
+            <p class="mt-2 whitespace-pre-line text-sm text-content"><%= @review.body %></p>
+
+            <% if @review.seller_replied? %>
+              <div class="mt-3 rounded-xl bg-surface p-3">
+                <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("reviews.section.your_reply") %></p>
+                <p class="mt-1 whitespace-pre-line text-sm text-content"><%= @review.seller_reply %></p>
+              </div>
+            <% elsif policy(@review).reply? %>
+              <%= form_with url: review_seller_reply_path(@review), method: :post, scope: :review, class: "mt-4 space-y-2" do |form| %>
+                <%= form.label :seller_reply, t("reviews.form.reply"), class: "block text-sm font-semibold text-content" %>
+                <%= form.text_area :seller_reply, rows: 4, maxlength: 2000, required: true, class: "field" %>
+                <%= form.submit t("reviews.form.reply_submit"), class: "btn-primary" %>
+              <% end %>
+            <% end %>
+          </div>
+        </section>
+      <% end %>
+    </div>
+
+    <aside class="space-y-4 lg:sticky lg:top-24 lg:self-start">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-sm font-bold"><%= t("sales.show.delivery") %></h2>
+        <p class="mt-2 text-sm font-semibold"><%= order_fulfilment_label(@order) %></p>
+        <% if @order.tracking_number.present? %>
+          <p class="mt-2 text-sm text-muted"><%= t("sales.show.tracking", carrier: t("orders.carriers.#{@order.tracking_carrier.presence || 'other'}"), number: @order.tracking_number) %></p>
+        <% end %>
+
+        <% if @order.paid_at.blank? %>
+          <p class="mt-3 rounded-xl bg-warning-soft p-3 text-xs text-warning"><%= t("sales.show.address_locked") %></p>
+        <% else %>
+          <address class="mt-3 space-y-0.5 text-sm not-italic text-muted">
+            <% order_address_lines(@order).each do |line| %>
+              <span class="block"><%= line %></span>
+            <% end %>
+          </address>
+        <% end %>
+      </section>
+
+      <% if can_ship?(@order) %>
+        <section class="rounded-2xl border border-border bg-surface p-5">
+          <h2 class="text-sm font-bold"><%= t("sales.show.ship_title") %></h2>
+          <%= form_with url: sell_order_shipment_path(@order), method: :post, scope: nil, class: "mt-3 space-y-3" do %>
+            <div>
+              <%= label_tag :carrier, t("sales.show.carrier"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+              <%= select_tag :carrier, options_for_select(carrier_options), include_blank: @order.fulfilment_local_pickup? ? t("sales.show.carrier_optional") : t("sales.show.choose_carrier"), class: "field mt-1.5" %>
+            </div>
+            <div>
+              <%= label_tag :tracking_number, t("sales.show.tracking_number"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+              <%= text_field_tag :tracking_number, nil, class: "field mt-1.5" %>
+            </div>
+            <%= submit_tag t("sales.show.mark_shipped"), class: "btn-primary w-full" %>
+          <% end %>
+        </section>
+      <% end %>
+
+      <% if can_manage_sale?(@order) %>
+        <section class="rounded-2xl border border-border bg-surface p-5">
+          <h2 class="text-sm font-bold"><%= t("sales.show.cancel_title") %></h2>
+          <%= form_with url: sell_order_cancellation_path(@order), method: :post, scope: nil, class: "mt-3 space-y-3" do %>
+            <%= text_field_tag :reason, nil, placeholder: t("sales.show.cancel_reason"), class: "field" %>
+            <%= submit_tag t("sales.show.cancel"), class: "btn-accent w-full",
+                           data: { turbo_confirm: t("sales.show.cancel_confirm") } %>
+          <% end %>
+        </section>
+      <% end %>
+    </aside>
+  </div>
+</div>

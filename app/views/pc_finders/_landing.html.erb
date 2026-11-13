@@ -1,0 +1,73 @@
+<% style_tiles = landing.style_tiles %>
+<% under_1000 = landing.under_1000.to_a %>
+<% best_games = landing.best_games %>
+
+<div class="space-y-12">
+  <% if style_tiles.any? %>
+    <section class="space-y-4" aria-labelledby="pc-finder-styles-title">
+      <div>
+        <h2 id="pc-finder-styles-title" class="text-2xl font-extrabold tracking-tight"><%= t("pc_finder.landing.styles_title") %></h2>
+        <p class="mt-1 text-sm text-muted"><%= t("pc_finder.landing.styles_description") %></p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <% style_tiles.each do |tile| %>
+          <%= link_to tile[:path],
+                      class: "group flex flex-col justify-between gap-6 rounded-2xl border border-border bg-surface p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md dark:hover:border-primary-700" do %>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+                <rect x="3" y="4" width="18" height="12" rx="2"></rect>
+                <path d="M8 20h8M12 16v4" stroke-linecap="round"></path>
+              </svg>
+            </span>
+            <span>
+              <span class="block text-sm font-bold"><%= tile[:tag].name %></span>
+              <span class="mt-1 block text-xs text-muted"><%= t("pc_finder.landing.style_count", count: tile[:count]) %></span>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
+  <% if under_1000.any? %>
+    <section class="space-y-4" aria-labelledby="pc-finder-budget-title">
+      <div class="flex flex-wrap items-end justify-between gap-2">
+        <div>
+          <h2 id="pc-finder-budget-title" class="text-2xl font-extrabold tracking-tight"><%= t("pc_finder.landing.budget_title") %></h2>
+          <p class="mt-1 text-sm text-muted"><%= t("pc_finder.landing.budget_description") %></p>
+        </div>
+        <%= link_to t("pc_finder.landing.view_all"), pc_finder_path(budget: "under_600"), class: "text-sm font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+      </div>
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <% under_1000.each_with_index do |listing, index| %>
+          <li><%= render "listings/card", listing: listing, eager: index < 2 %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+
+  <% if best_games.any? %>
+    <section class="space-y-4" aria-labelledby="pc-finder-games-title">
+      <div>
+        <h2 id="pc-finder-games-title" class="text-2xl font-extrabold tracking-tight"><%= t("pc_finder.landing.games_title") %></h2>
+        <p class="mt-1 text-sm text-muted"><%= t("pc_finder.landing.games_description") %></p>
+      </div>
+      <div class="grid gap-3 sm:grid-cols-3">
+        <% best_games.each do |game| %>
+          <%= link_to pc_finder_path(game: game.slug),
+                      class: "group relative flex min-h-40 flex-col justify-end overflow-hidden rounded-2xl border border-border bg-surface p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md dark:hover:border-primary-700" do %>
+            <% if game.cover.attached? %>
+              <%= image_tag url_for(game.cover.variant(:card)), alt: "", loading: "lazy", width: 480, height: 640,
+                            class: "absolute inset-0 h-full w-full object-cover opacity-30 transition duration-300 group-hover:scale-[1.02] group-hover:opacity-40" %>
+            <% end %>
+            <span class="relative">
+              <span class="block text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-200"><%= t("pc_finder.landing.best_for") %></span>
+              <span class="mt-1 block text-lg font-extrabold tracking-tight"><%= game.name %></span>
+              <span class="mt-1 block text-xs text-muted"><%= t("pc_finder.landing.game_cta") %></span>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+</div>

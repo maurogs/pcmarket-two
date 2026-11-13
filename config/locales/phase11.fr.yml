@@ -1,0 +1,23 @@
+fr:
+  errors:
+    search_label: Rechercher sur la marketplace
+    search_placeholder: Rechercher des pièces, PC ou consoles
+    search_button: Rechercher
+    links_label: Liens utiles
+    links:
+      home: Retour à l'accueil
+      help: Centre d'aide
+      contact: Nous contacter
+    pages:
+      not_found:
+        eyebrow: Erreur 404
+        title: Cette page est introuvable
+        body: Le lien est peut-être cassé, ou l'annonce a été vendue ou retirée.
+      unprocessable:
+        eyebrow: Erreur 422
+        title: Nous n'avons pas pu traiter cette demande
+        body: Vérifiez les informations saisies et réessayez.
+      server_error:
+        eyebrow: Erreur 500
+        title: Une erreur est survenue de notre côté
+        body: Nous avons été prévenus. Réessayez dans quelques instants.

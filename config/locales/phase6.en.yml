@@ -1,0 +1,336 @@
+en:
+  users:
+    deleted: Deleted user
+  reviews:
+    errors:
+      not_buyer: Only the buyer of this order can leave a review.
+      wrong_store: The review must belong to the order's store.
+      not_delivered: You can review an order once it has been delivered.
+      window_closed: The review window for this order has closed.
+    flash:
+      created: Thank you. Your review has been published.
+      updated: Your review has been updated.
+      replied: Your reply has been published.
+      reply_failed: Your reply could not be saved.
+    section:
+      title: Your review
+      cta: Share your experience with this seller to help other buyers.
+      edit: Edit your review
+      seller_reply: Seller's reply
+      your_reply: Your reply
+      window_closed: The review window for this order has closed.
+      not_yet: You can leave a review once the order is delivered.
+      seller_title: Buyer's review
+    form:
+      rating: Rating
+      rating_option:
+        one: "%{count} star"
+        other: "%{count} stars"
+      rating_placeholder: Choose a rating
+      body: Your review
+      body_placeholder: What went well? How was the item and the delivery?
+      body_hint: Between 10 and 2000 characters.
+      edit_window: You can edit your review for %{days} days after posting it.
+      submit: Publish review
+      update: Save changes
+      reply: Your reply
+      reply_submit: Publish reply
+  review_mailer:
+    reminder:
+      subject: How was your order from %{store}?
+      title: Leave a review
+      greeting: Hello %{name},
+      body: Your order %{number} from %{store} was delivered a few days ago. Tell other buyers how it went.
+      cta: Leave a review
+      closing: Reviews help the whole marketplace. Thank you for your time.
+  account_mailer:
+    data_export:
+      subject: Your PCMarket data export
+      title: Your data is ready
+      greeting: Hello %{name},
+      body: We have prepared a copy of your PCMarket data. Use the link below to download it.
+      cta: Download my data
+      expiry: This link expires in 7 days. If it has expired, request a new export from Privacy and data.
+  account:
+    settings:
+      eyebrow: Your account
+      sidebar:
+        label: Account settings
+        security: Account & security
+        addresses: Shipping addresses
+        notifications: Notifications
+        privacy: Privacy & data
+      profile:
+        title: Personal details
+        avatar: Profile photo
+        avatar_hint: PNG, JPEG or WebP, up to 5 MB.
+        first_name: First name
+        last_name: Last name
+        username: Username
+        phone: Phone
+        locale: Language
+        locale_hint: We use this language for emails and notifications.
+        save: Save changes
+        flash:
+          updated: Your account details have been updated.
+      security:
+        title: Account & security
+        subtitle: Manage your personal details, sign-in email and password.
+        email_title: Email address
+        email_body: "Your current address is %{email}. Changing it requires confirmation from the new address."
+        email_pending: "Waiting for confirmation at %{email}."
+        new_email: New email address
+        email_submit: Send confirmation
+        email_sent: Check your inbox to confirm the new email address.
+        password_title: Password
+        oauth_only: Your account signs in with Google, so there is no password to change here.
+        current_password: Current password
+        new_password: New password
+        password_confirmation: Confirm new password
+        password_submit: Change password
+        password_changed: Your password has been changed.
+        sessions_title: Active sessions
+        last_sign_in: Last sign-in
+        last_ip: Last sign-in IP
+        current_sign_in: This session started
+        sign_in_count: Total sign-ins
+        never: Never
+        unknown: Unknown
+    addresses:
+      title: Shipping addresses
+      subtitle: Save the addresses you use at checkout.
+      new: Add an address
+      edit: Edit address
+      back: Back to addresses
+      default_badge: Default
+      delete: Delete
+      delete_confirm: Delete this address?
+      empty_title: No saved addresses
+      empty_body: Add an address to speed up future checkouts.
+      form:
+        subtitle: We only deliver to Spanish addresses for now.
+        full_name: Full name
+        line1: Address
+        line2: Address line 2 (optional)
+        city: City
+        province: Province
+        province_placeholder: Choose a province
+        postal_code: Postal code
+        phone: Phone
+        default: Use as my default address
+        cancel: Cancel
+        create: Save address
+        update: Save changes
+      flash:
+        created: Address saved.
+        updated: Address updated.
+        destroyed: Address deleted.
+    privacy:
+      title: Privacy & data
+      subtitle: Download a copy of your data or review your privacy settings.
+      data_title: Download my data
+      data_body: We will prepare a JSON file with the personal data we hold about you and email you a secure download link.
+      includes_profile: Profile details and saved addresses
+      includes_activity: Listings, messages, reviews and saved searches
+      includes_orders: Orders you placed or received
+      download: Request my data
+      download_hint: The link expires after 7 days.
+      cookies_title: Cookie preferences
+      cookies_body: Cookie controls will be available with the next privacy update. Essential cookies keep you signed in and remember your language and theme.
+      cookies_placeholder: Cookie preferences are coming soon.
+      cookies_link: Manage cookie preferences
+      flash:
+        queued: Your export is being prepared. We will email you a download link.
+        invalid_link: This download link is invalid or has expired.
+        not_ready: The export is not ready yet. Please try again shortly.
+    deletion:
+      title: Delete account
+      body: Deleting your account is permanent. We anonymise your personal data and archive your listings.
+      bullet_data: Your name, phone and profile photo are removed and your email is replaced.
+      bullet_orders: Orders and reviews are kept for legal and accounting obligations, shown as “Deleted user”.
+      bullet_orders_kept: You cannot delete your account while you have paid or shipped orders.
+      confirm_username: "Type %{username} to confirm"
+      confirm_password: Confirm your password
+      submit: Delete my account
+      confirm: Delete your account permanently?
+      invalid_confirmation: The confirmation did not match. Nothing was deleted.
+      open_orders: You cannot delete your account while you have open paid or shipped orders.
+      flash:
+        deleted: Your account has been deleted.
+  storefronts:
+    tabs:
+      label: Store sections
+      listings: Listings
+      about: About
+      reviews: Reviews (%{count})
+    header:
+      verified: Verified
+      rating: "%{rating} (%{count} reviews)"
+      no_ratings: No reviews yet
+      for_sale: For sale
+      sold: Sold
+      followers: Followers
+    actions:
+      message: Message
+    vacation:
+      title: This seller is on vacation
+      until: Back on %{date}
+    filters:
+      text: Search this store
+      text_placeholder: Search listings
+      category: Category
+      all_categories: All categories
+      min_price: Min price
+      max_price: Max price
+      condition: Condition
+      all_conditions: Any condition
+      sort: Sort
+      apply: Apply
+    listings:
+      count:
+        one: "%{count} listing"
+        other: "%{count} listings"
+    sold:
+      title: Recently sold
+      hint: These items have already found a new home.
+      badge: Sold
+    about:
+      title: About this seller
+      empty_description: This seller has not added a description yet.
+      policies_title: Shop policies
+      returns: Returns
+      default_returns: Returns are accepted within 14 days of delivery if the item is not as described.
+      shipping: Shipping
+      default_shipping: Orders are dispatched with a tracked carrier.
+      handling: Handling time
+      handling_days:
+        one: Dispatched within %{count} business day
+        other: Dispatched within %{count} business days
+      legal_title: About / legal information
+      legal_hint: Trader information published under the EU Digital Services Act.
+      legal_name: Legal name
+      tax_id: Tax ID
+      address: Address
+      details_title: Store details
+      seller_type: Seller type
+      member_since: Member since
+      location: Location
+    reviews:
+      title: Buyer reviews
+      count:
+        one: "%{count} review"
+        other: "%{count} reviews"
+      sort:
+        label: Sort reviews
+        newest: Newest first
+        highest: Highest rated
+        lowest: Lowest rated
+      seller_reply: Seller reply
+      report: Report review
+      empty_title: No reviews yet
+      empty_body: Reviews appear here after buyers receive their orders.
+  sell:
+    dashboard:
+      eyebrow: Seller centre
+      title: Dashboard
+      subtitle: How %{store} is performing and what needs your attention.
+      nav_label: Seller dashboard sections
+      nav_heading: Seller dashboard
+      nav:
+        analytics: Analytics
+        listings: My listings
+        sales: My sales
+        public_profile: Public profile
+        store_settings: Store settings
+        vacation: Vacation mode
+        payouts: Payouts
+      range_label: Date range
+      ranges:
+        seven: Last 7 days
+        thirty: Last 30 days
+        ninety: Last 90 days
+      kpis:
+        revenue: Revenue
+        orders: Orders
+        units: Units sold
+        average_order: Average order
+        views: Listing views
+        conversion: Conversion
+        favourites: Favourites gained
+        followers: New followers
+      chart:
+        title: Revenue by day
+        subtitle: Last %{count} days
+        description: Daily revenue chart for the last %{count} days, with an accessible data table below.
+        bar_label: "%{date}: %{amount}"
+        show_table: Show data table
+        date: Date
+        revenue: Revenue
+      top_by_views:
+        title: Top listings by views
+        metric:
+          one: "%{count} view"
+          other: "%{count} views"
+        empty: No listing views in this period yet.
+      top_by_revenue:
+        title: Top listings by revenue
+        empty: No sales in this period yet.
+      pending:
+        title: Pending actions
+        orders_to_ship: Orders to ship
+        offers_to_answer: Offers to answer
+        unread_messages: Unread messages
+        rejected_listings: Listings to fix
+  stores:
+    tabs:
+      vacation: Vacation mode
+    form:
+      banner: Store banner
+      banner_hint: Wide image shown at the top of your store. PNG, JPEG or WebP, up to 5 MB.
+      policies_heading: Shop policies
+      policies_hint: These appear in the About tab of your public store.
+      return_policy: Returns policy
+      shipping_policy: Shipping policy
+      handling_days: Handling time (business days)
+      handling_days_hint: How long you usually need before handing a parcel to the carrier.
+    vacation:
+      title: Vacation mode
+      subtitle: Pause your store while you are away. Buyers can see your listings but cannot buy them.
+      enable: Turn on vacation mode
+      enable_hint: Listings stay visible with a notice, but checkout is disabled.
+      message: Message for buyers
+      message_hint: Optional. Tell buyers when you will be back.
+      return_date: Return date (optional)
+      return_date_hint: Vacation mode turns off automatically at the end of this day.
+      save: Save vacation settings
+      help_title: How it works
+      help_body: Existing orders continue as normal. New buyers cannot complete a purchase while vacation mode is on.
+      status_on: Vacation mode is on.
+      status_until: "Back on %{date}."
+      status_off: Your store is open for sales.
+      flash:
+        updated: Vacation settings updated.
+  reports:
+    review_preview: "Review with %{rating} stars"
+  admin:
+    reports:
+      types:
+        review: Review
+      show:
+        action_effect:
+          review: Taking action hides the review from the public store page.
+  notifications:
+    preferences:
+      marketing_label: Marketing emails
+      save_hint: Transactional emails about your orders are always sent.
+  activerecord:
+    models:
+      review: Review
+    attributes:
+      review:
+        rating: Rating
+        body: Review
+        seller_reply: Seller reply
+        order: Order
+        store: Store
+        reviewer: Reviewer

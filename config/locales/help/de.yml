@@ -1,0 +1,158 @@
+de:
+  help:
+    pages:
+      about:
+        title: Über uns
+        summary: Eine spanische Plattform für den sicheren Kauf und Verkauf von PC-Hardware.
+        description: PCMarket gibt es, damit Enthusiasten und Profis PC-Teile ohne Überraschungen kaufen und verkaufen können.
+        sections:
+          - title: Unsere Mission
+            paragraphs:
+              - "Wir wollen die Wiederverwendung von Hardware zur einfachsten Option machen: das richtige Teil finden, wissen, dass der Verkäufer echt ist, und bekommen, was versprochen wurde."
+              - "Deshalb verbinden wir einen nach Spezifikationen geordneten Katalog mit zurückgehaltenen Zahlungen und einem Team, das bei Problemen antwortet."
+          - title: So arbeiten wir
+            paragraphs:
+              - "Wir prüfen Anzeigen, die eine Freigabe benötigen, verifizieren Verkäufer und halten Meldewege offen. Wir sind kein Shop: Wir vermitteln, damit der Kauf sicher ist."
+            bullets:
+              - Ein Katalog und Filter für echte Hardware.
+              - Käuferschutz bei jeder Zahlung auf der Plattform.
+              - Support auf Deutsch und Spanisch und Einhaltung europäischen Rechts.
+          - title: Wo wir sind
+            paragraphs:
+              - "Wir arbeiten von Spanien aus und versenden auf das Festland und die Inseln. Das Unternehmen und seine Registerdaten stehen im Impressum."
+      how-it-works:
+        title: So funktioniert der Kauf
+        summary: Von der Suche bis zur Lieferung, mit geschützter Zahlung.
+        description: Schritt-für-Schritt-Anleitung für den Kauf auf PCMarket mit Käuferschutz.
+        sections:
+          - title: "1. Finde, was du brauchst"
+            paragraphs:
+              - "Nutze die Suche oder stöbere in den Kategorien. Du kannst nach Spezifikationen, Zustand, Preis, Provinz und kostenlosem Versand filtern."
+          - title: "2. Prüfe Anzeige und Verkäufer"
+            paragraphs:
+              - "Schau dir Fotos, Beschreibung, Zustand und Bewertungen des Verkäufers an. Bei Unklarheiten schreib ihm über die Plattform."
+          - title: "3. Zahle innerhalb von PCMarket"
+            paragraphs:
+              - "Lege den Artikel in den Warenkorb und zahle per Karte. Das Geld wird zurückgehalten und erreicht den Verkäufer erst nach deiner Bestätigung."
+          - title: "4. Erhalten und prüfen"
+            paragraphs:
+              - "Verfolge die Lieferung in deinem Konto. Prüfe den Artikel bei Ankunft und bestätige, dass alles stimmt. Falls nicht, eröffne vor Ablauf der Schutzfrist ein Problem."
+      how-to-sell:
+        title: So verkaufst du
+        summary: Einstellen, verkaufen und sicher bezahlt werden.
+        description: Anleitung zum Einstellen und Verkaufen von Hardware auf PCMarket.
+        sections:
+          - title: Anzeige vorbereiten
+            paragraphs:
+              - "Mache klare Fotos bei Tageslicht, nenne den tatsächlichen Zustand und beschreibe die Spezifikationen. Ehrliche Anzeigen verkaufen schneller und verursachen weniger Probleme."
+            bullets:
+              - Ein konkreter Titel mit Modell und Kapazität.
+              - Fotos des Produkts, der Anschlüsse und möglicher Mängel.
+              - Zustand und enthaltenes Zubehör.
+          - title: Veröffentlichen und antworten
+            paragraphs:
+              - "Erstelle deinen Shop, falls noch nicht geschehen, und veröffentliche die Anzeige. Anzeigen können vor der Veröffentlichung geprüft werden. Antworte schnell und bleib im Chat der Plattform."
+          - title: Versenden oder übergeben
+            paragraphs:
+              - "Nach dem Verkauf verpackst du sicher und trägst die Sendungsnummer ein. Bei persönlicher Übergabe wähle einen öffentlichen Ort und bestätige die Lieferung im Dashboard."
+          - title: Bezahlt werden
+            paragraphs:
+              - "Die Zahlung wird freigegeben, wenn der Käufer den Empfang bestätigt oder die Schutzfrist endet. Auszahlungen gehen auf dein Stripe-Konto."
+      seller-fees:
+        title: Verkaufsgebühren
+        summary: Einstellen ist kostenlos, künftige Gebühren werden vorher angekündigt.
+        description: Was der Verkauf auf PCMarket kostet und wie Gebühren funktionieren.
+        sections:
+          - title: Einstellen
+            paragraphs:
+              - "Anzeigen erstellen und deinen Shop betreiben ist kostenlos. Es gibt keine Monatsgebühr und keine Kosten für Fotos."
+          - title: Provision
+            paragraphs:
+              - "Während unserer Wachstumsphase erheben wir keine Verkaufsprovision. Falls wir sie einführen, erscheint sie hier und in der Anzeigenübersicht vor der Veröffentlichung."
+          - title: Hervorgehobene Anzeigen
+            paragraphs:
+              - "Hervorgehobene Anzeigen sind optional. Der Preis wird vor dem Kauf angezeigt und nie automatisch abgebucht."
+      shipping:
+        title: Versandleitfaden
+        summary: Wie du PCs und GPUs sicher verpackst und welche Versanddienste in Spanien tätig sind.
+        description: Verpackungs- und Transporttipps für sicheren Versand von PC-Hardware.
+        sections:
+          - title: Eine GPU verpacken
+            paragraphs:
+              - "Nutze eine antistatische Tüte, schütze den PCIe-Anschluss und die Videoausgänge und lege die Karte in eine stabile Box mit Polsterung an allen Seiten."
+            bullets:
+              - Antistatische Tüte und doppellagiger Schaum oder Luftpolsterfolie.
+              - Eine Außenbox mit mindestens 5 cm Polsterung an jeder Seite.
+              - Eine „zerbrechlich“-Kennzeichnung, ohne sich darauf zu verlassen.
+          - title: Einen kompletten PC verpacken
+            paragraphs:
+              - "Bei einem Tower müssen Grafikkarte und Kühler fixiert werden. Fülle das Innere mit antistatischem Schaum und nutze eine doppelte Außenbox."
+            bullets:
+              - GPU und Kühler entfernen oder sichern, wenn sie überstehen.
+              - Eine Glaswand separat schützen.
+              - Alle Kabel und Zubehörteile in eine Tüte legen.
+          - title: Versanddienste in Spanien
+            paragraphs:
+              - "Du kannst jeden Versanddienst mit Sendungsverfolgung nutzen. Am verbreitetsten sind Correos, SEUR, MRW, GLS und Nacex."
+              - "Schließe eine Versicherung über dem Standardlimit ab, bewahre den Beleg auf und trage die Sendungsnummer in die Bestellung ein."
+      returns:
+        title: Rückgabe und Erstattung
+        summary: Deine Rechte beim Kauf bei gewerblichen Verkäufern und der Schutz zwischen Privatpersonen.
+        description: Zusammenfassung zu Rückgabe, Widerruf und Erstattungen auf PCMarket.
+        sections:
+          - title: Käufe bei gewerblichen Verkäufern
+            paragraphs:
+              - "Als Verbraucher hast du 14 Kalendertage Widerrufsrecht bei Fernkäufen, vorbehaltlich gesetzlicher Ausnahmen. Kontaktiere uns über die Bestellung und wir erklären die Rücksendung."
+          - title: Käufe zwischen Privatpersonen
+            paragraphs:
+              - "Zwischen Privatpersonen gibt es kein gesetzliches Widerrufsrecht. Der Käuferschutz deckt jedoch Artikel ab, die nicht ankommen, beschädigt ankommen oder nicht der Beschreibung entsprechen."
+          - title: Erstattungen
+            paragraphs:
+              - "Wird eine Rückgabe oder ein Problem akzeptiert, erfolgt die Erstattung auf das ursprüngliche Zahlungsmittel. Die Dauer hängt von der Bank ab, meist 3 bis 10 Werktage."
+    faq:
+      categories:
+        buying:
+          title: Kaufen
+          items:
+            - question: Brauche ich ein Konto zum Kaufen?
+              answer: Du kannst ohne Konto stöbern, zum Bezahlen und Verfolgen von Bestellungen brauchst du aber ein bestätigtes Konto.
+            - question: Kann ich vorher mit dem Verkäufer sprechen?
+              answer: "Ja. Über die Anzeige oder das Verkäuferprofil kannst du eine Unterhaltung starten, ohne persönliche Daten preiszugeben."
+            - question: Was, wenn der Artikel nicht der Beschreibung entspricht?
+              answer: Eröffne vor Ablauf der Schutzfrist ein Problem über die Bestellung und füge Fotos bei.
+        selling:
+          title: Verkaufen
+          items:
+            - question: Was kostet das Einstellen?
+              answer: Das Einstellen ist kostenlos. Eine Provision wird vorher angekündigt und vor der Veröffentlichung angezeigt.
+            - question: Wann werde ich bezahlt?
+              answer: Wenn der Käufer die Lieferung bestätigt oder die Schutzfrist ohne Problem endet.
+            - question: Kann ich als Unternehmen verkaufen?
+              answer: "Ja. Trage deine Steuerdaten im Shop ein; sie erscheinen gemäß den Transparenzregeln in der Anzeige."
+        payments:
+          title: Zahlungen
+          items:
+            - question: Welche Methoden akzeptiert ihr?
+              answer: Kartenzahlungen über Stripe. Wir akzeptieren kein Bargeld und keine Überweisungen außerhalb der Plattform.
+            - question: Wann wird das Geld zurückgehalten?
+              answer: Vom Zahlungseingang bis zur Bestätigung des Empfangs oder zum Ende der Schutzfrist.
+            - question: Stellt ihr Rechnungen aus?
+              answer: Ein gewerblicher Verkäufer muss die Rechnung ausstellen. PCMarket stellt die Bestelldaten bereit.
+        shipping:
+          title: Versand
+          items:
+            - question: Wer zahlt den Versand?
+              answer: Jede Anzeige nennt die Kosten. Du kannst nach kostenlosem Versand filtern.
+            - question: Kann ich persönlich abholen?
+              answer: "Ja, wenn der Verkäufer es erlaubt. Vereinbare einen öffentlichen Ort und bestätige die Lieferung in der Bestellung."
+            - question: Was, wenn das Paket beschädigt ankommt?
+              answer: Fotografiere Verpackung und Artikel, bevor du alles öffnest, und eröffne am selben Tag ein Problem.
+        account:
+          title: Konto
+          items:
+            - question: Wie ändere ich mein Passwort?
+              answer: In den Kontoeinstellungen unter Sicherheit. Du kannst auch auf der Anmeldeseite eine Zurücksetzung anfordern.
+            - question: Wie lösche ich mein Konto?
+              answer: In den Kontoeinstellungen unter Datenschutz. Offene Bestellungen müssen zuerst geklärt sein.
+            - question: Wie ändere ich die Sprache?
+              answer: Nutze die Sprachauswahl in der Kopfzeile. Wir merken uns deine Wahl für künftige Besuche.

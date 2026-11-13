@@ -1,0 +1,128 @@
+<% set_meta_tags(title: t("conversations.index.title"), noindex: true) %>
+
+<div class="space-y-6">
+  <header class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("conversations.index.eyebrow") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("conversations.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("conversations.index.subtitle") %></p>
+    </div>
+    <% if @inbox.unread_total.positive? %>
+      <%= button_to t("conversations.index.mark_all_read"),
+                    inbox_read_path,
+                    class: "btn-accent px-3 py-2 text-xs" %>
+    <% end %>
+  </header>
+
+  <nav aria-label="<%= t("conversations.index.tabs_label") %>">
+    <ul class="flex flex-wrap items-center gap-1.5">
+      <% Inbox::TABS.each do |tab| %>
+        <% next if tab == "offers" && !Flipper.enabled?(:offers) %>
+        <% current = @inbox.tab == tab %>
+        <li>
+          <%= link_to conversations_path(tab: tab),
+                      aria: { current: ("page" if current) },
+                      class: "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition #{current ? "border-primary-600 bg-primary-600 text-white" : "border-border bg-surface text-muted hover:border-primary-400 hover:text-primary-700 dark:hover:text-primary-300"}" do %>
+            <span><%= t("conversations.index.tabs.#{tab}") %></span>
+            <% if tab == "chats" && @inbox.unread_total.positive? %>
+              <span class="inline-flex min-w-5 items-center justify-center rounded-full px-1.5 py-0.5 text-[11px] font-bold leading-none <%= current ? "bg-white/20 text-white" : "bg-accent-soft text-accent-content" %>"><%= @inbox.unread_total %></span>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+
+  <% if @inbox.tab == "chats" %>
+    <% if @inbox.conversations.any? %>
+      <ul class="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
+        <% @inbox.conversations.each do |conversation| %>
+          <% other = conversation_counterparty(conversation, current_user) %>
+          <% unread = conversation.unread_count_for(current_user) %>
+          <li>
+            <%= link_to conversation_path(conversation), class: "flex items-center gap-3 p-4 transition hover:bg-surface-muted #{unread.positive? ? "bg-primary-50/60 dark:bg-primary-900/20" : ""}" do %>
+              <%= conversation_avatar_tag(other) %>
+              <div class="min-w-0 flex-1">
+                <div class="flex items-center justify-between gap-2">
+                  <p class="truncate text-sm font-bold text-content"><%= other.display_name %></p>
+                  <time class="shrink-0 text-xs text-muted" datetime="<%= (conversation.last_message_at || conversation.created_at).iso8601 %>">
+                    <%= l(conversation.last_message_at || conversation.created_at, format: :short) %>
+                  </time>
+                </div>
+                <p class="mt-0.5 truncate text-xs text-muted"><%= conversation_last_message(conversation) %></p>
+                <% if conversation.listing.present? %>
+                  <div class="mt-2 flex items-center gap-2">
+                    <% photo = conversation.listing.primary_photo %>
+                    <span class="h-8 w-8 shrink-0 overflow-hidden rounded-lg border border-border bg-surface-muted">
+                      <% if photo&.image&.attached? %>
+                        <%= image_tag url_for(photo.image.variant(:thumb)), alt: "", class: "h-full w-full object-cover" %>
+                      <% end %>
+                    </span>
+                    <span class="truncate text-xs font-medium text-content"><%= conversation.listing.title %></span>
+                    <span class="shrink-0 text-xs font-bold text-content"><%= money(conversation.listing.price_cents, currency: conversation.listing.currency) %></span>
+                  </div>
+                <% end %>
+              </div>
+              <%= conversation_unread_badge(conversation, current_user) %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+        <h2 class="text-lg font-bold"><%= t("conversations.index.empty_chats_title") %></h2>
+        <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("conversations.index.empty_chats_body") %></p>
+      </div>
+    <% end %>
+  <% elsif @inbox.tab == "offers" %>
+    <% if Flipper.enabled?(:offers) && @inbox.offers.any? %>
+      <ul class="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
+        <% @inbox.offers.each do |offer| %>
+          <% counterpart = offer_counterparty(offer, current_user) %>
+          <li class="flex flex-wrap items-center gap-3 p-4">
+            <%= conversation_avatar_tag(counterpart) %>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-bold text-content"><%= offer.listing.title %></p>
+              <p class="mt-0.5 text-xs text-muted">
+                <%= t("offers.inbox.with", name: counterpart.display_name) %>
+                · <%= l(offer.created_at, format: :short) %>
+              </p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm font-extrabold text-content"><%= offer_amount(offer) %></p>
+              <p class="text-xs font-semibold text-muted"><%= offer_status_label(offer) %></p>
+            </div>
+            <%= link_to t("offers.inbox.open"), conversation_path(offer.conversation), class: "btn-accent px-3 py-1.5 text-xs" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+        <h2 class="text-lg font-bold"><%= t("conversations.index.empty_offers_title") %></h2>
+        <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("conversations.index.empty_offers_body") %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <% if @inbox.blocks.any? %>
+      <ul class="divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
+        <% @inbox.blocks.each do |block| %>
+          <% blocked = block.blocked %>
+          <li class="flex items-center gap-3 p-4">
+            <%= conversation_avatar_tag(blocked) %>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-bold text-content"><%= blocked.display_name %></p>
+              <p class="truncate text-xs text-muted">@<%= blocked.username %></p>
+            </div>
+            <%= button_to t("blocks.unblock"), block_path(block), method: :delete,
+                          class: "btn-accent px-3 py-1.5 text-xs" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+        <h2 class="text-lg font-bold"><%= t("conversations.index.empty_blocked_title") %></h2>
+        <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("conversations.index.empty_blocked_body") %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

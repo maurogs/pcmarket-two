@@ -1,0 +1,116 @@
+<% store = listing.store %>
+<section class="rounded-2xl border border-border bg-surface p-5">
+  <div class="flex items-center gap-3">
+    <div class="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-surface-muted">
+      <% if store.logo.attached? %>
+        <%= image_tag url_for(store.logo.variant(resize_to_limit: [ 96, 96 ], format: :webp)),
+                      width: 96,
+                      height: 96,
+                      alt: store.name,
+                      class: "h-full w-full object-cover" %>
+      <% else %>
+        <div class="flex h-full w-full items-center justify-center text-lg font-extrabold text-primary-700 dark:text-primary-300">
+          <%= store.name.first(2).upcase %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="min-w-0">
+      <p class="flex items-center gap-1 truncate text-sm font-bold text-content">
+        <span class="truncate"><%= link_to store.name, storefront_path(store), class: "hover:text-primary-700 dark:hover:text-primary-300" %></span>
+        <% if store.verified? %>
+          <svg class="h-4 w-4 shrink-0 text-primary-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.5 14.7 5l3.6-.2.6 3.6 3 2-1.7 3.2 1.7 3.2-3 2-.6 3.6-3.6-.2L12 21.5 9.3 19l-3.6.2-.6-3.6-3-2 1.7-3.2L2.1 7.2l3-2 .6-3.6L9.3 2 12 2.5Z"></path>
+            <path d="m8.6 12 2.2 2.2 4.6-4.6" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span class="sr-only"><%= t("listings.show.seller.verified") %></span>
+        <% end %>
+      </p>
+      <div class="mt-1 flex items-center gap-1">
+        <% rating_stars(store.rating_average).each do |star| %>
+          <svg class="h-3.5 w-3.5 <%= star == "full" ? "text-accent" : "text-border" %>" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+          </svg>
+        <% end %>
+        <span class="ml-1 text-xs text-muted">
+          <% if store.ratings_count.positive? %>
+            <%= t("listings.show.seller.rating", rating: number_with_precision(store.rating_average, precision: 1), count: store.ratings_count) %>
+          <% else %>
+            <%= t("listings.show.seller.no_ratings") %>
+          <% end %>
+        </span>
+      </div>
+
+      <% if user_signed_in? && store.user_id != current_user.id %>
+        <div class="mt-2">
+          <% if following?(store) %>
+            <%= button_to t("follows.button.following"),
+                          store_follow_path(store),
+                          method: :delete,
+                          class: "btn-primary px-3 py-1.5 text-xs" %>
+          <% else %>
+            <%= button_to t("follows.button.follow"),
+                          store_follow_path(store),
+                          method: :post,
+                          class: "btn-accent px-3 py-1.5 text-xs" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <dl class="mt-4 grid grid-cols-2 gap-2 text-xs">
+    <div class="rounded-xl bg-surface-muted px-3 py-2">
+      <dt class="text-muted"><%= t("listings.show.seller.listings") %></dt>
+      <dd class="mt-0.5 text-sm font-semibold text-content"><%= store.listings_count %></dd>
+    </div>
+    <div class="rounded-xl bg-surface-muted px-3 py-2">
+      <dt class="text-muted"><%= t("listings.show.seller.member_since") %></dt>
+      <dd class="mt-0.5 text-sm font-semibold text-content"><%= l(store.created_at.to_date, format: :long) %></dd>
+    </div>
+  </dl>
+
+  <% if store.business? && (store.legal_name.present? || store.tax_id.present?) %>
+    <div class="mt-4 rounded-xl border border-border bg-surface-muted p-3 text-xs">
+      <p class="font-semibold uppercase tracking-widest text-muted"><%= t("listings.show.seller.business_details") %></p>
+      <dl class="mt-2 space-y-1">
+        <% if store.legal_name.present? %>
+          <div class="flex justify-between gap-2">
+            <dt class="text-muted"><%= t("listings.show.seller.legal_name") %></dt>
+            <dd class="text-right font-medium text-content"><%= store.legal_name %></dd>
+          </div>
+        <% end %>
+        <% if store.tax_id.present? %>
+          <div class="flex justify-between gap-2">
+            <dt class="text-muted"><%= t("listings.show.seller.tax_id") %></dt>
+            <dd class="text-right font-medium text-content"><%= store.tax_id %></dd>
+          </div>
+        <% end %>
+        <% address = [ store.address_line, [ store.postal_code, store.city ].compact_blank.join(" "), store.province ].compact_blank.join(", ") %>
+        <% if address.present? %>
+          <div class="flex justify-between gap-2">
+            <dt class="text-muted"><%= t("listings.show.seller.address") %></dt>
+            <dd class="text-right font-medium text-content"><%= address %></dd>
+          </div>
+        <% end %>
+      </dl>
+    </div>
+  <% end %>
+
+  <div class="mt-4 space-y-2">
+    <%= link_to t("listings.show.seller.visit_store"), storefront_path(store), class: "btn-accent w-full" %>
+    <% if user_signed_in? && store.user_id != current_user.id %>
+      <%= button_to t("listings.show.message_seller"),
+                    conversations_path,
+                    params: { store_id: store.id },
+                    class: "w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-content hover:bg-surface-muted" %>
+      <%= button_to t("blocks.block"),
+                    blocks_path,
+                    params: { blocked_user_id: store.user_id },
+                    class: "w-full rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-danger hover:bg-danger-soft" %>
+    <% end %>
+    <%= link_to t("reports.link"),
+                new_report_path(reportable_type: "Store", reportable_id: store.id),
+                class: "block text-center text-xs font-semibold text-muted underline-offset-2 hover:text-danger hover:underline" %>
+  </div>
+</section>

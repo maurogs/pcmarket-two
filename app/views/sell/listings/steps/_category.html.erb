@@ -1,0 +1,99 @@
+<%= form_with model: listing,
+              url: listing.persisted? ? sell_listing_path(listing) : sell_listings_path,
+              method: listing.persisted? ? :patch : :post,
+              data: { turbo_frame: "listing_wizard" },
+              class: "space-y-6" do |f| %>
+  <%= hidden_field_tag :step, "category" %>
+
+  <section class="rounded-2xl border border-border bg-surface p-5 sm:p-6" data-controller="category-picker">
+    <h2 class="text-xl font-bold"><%= t("sell.category.title") %></h2>
+    <p class="mt-1 text-sm text-muted"><%= t("sell.category.subtitle") %></p>
+
+    <div class="relative mt-4">
+      <label for="category-search" class="sr-only"><%= t("sell.category.search_label") %></label>
+      <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-muted">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5" stroke-linecap="round"></path>
+        </svg>
+      </span>
+      <input type="search"
+             id="category-search"
+             placeholder="<%= t("sell.category.search_placeholder") %>"
+             autocomplete="off"
+             class="field pl-10"
+             data-category-picker-target="search"
+             data-action="input->category-picker#filter">
+    </div>
+
+    <div class="mt-4 space-y-3">
+      <% root_categories.each do |root| %>
+        <% children = root.children.select(&:active?).sort_by { |child| [ child.position, child.id ] } %>
+        <div data-category-picker-target="option"
+             data-category-search="<%= [ root.name, *children.map(&:name) ].join(" ").downcase %>"
+             class="rounded-2xl border border-border bg-surface-muted p-2">
+          <% if children.any? %>
+            <button type="button"
+                    class="flex w-full items-center justify-between gap-3 rounded-xl px-3 py-3 text-left text-sm font-semibold text-content transition hover:bg-surface"
+                    data-action="category-picker#showChildren"
+                    data-category-picker-root-param="<%= root.id %>">
+              <span><%= root.name %></span>
+              <span class="text-xs font-medium text-muted"><%= t("sell.category.choose_child") %> →</span>
+            </button>
+
+            <div class="mt-2 hidden grid gap-2 sm:grid-cols-2"
+                 data-category-picker-target="group"
+                 data-category-picker-group="<%= root.id %>">
+              <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-surface px-3 py-3 text-sm hover:border-primary-400 has-checked:border-primary-500 has-checked:bg-primary-50 dark:has-checked:bg-primary-900/30">
+                <%= radio_button_tag "listing[category_id]", root.id, listing.category_id == root.id,
+                                     id: "category_#{root.id}",
+                                     class: "h-4 w-4 text-primary-600 focus:ring-primary-500" %>
+                <span><%= t("sell.category.all_in", category: root.name) %></span>
+              </label>
+
+              <% children.each do |child| %>
+                <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-surface px-3 py-3 text-sm hover:border-primary-400 has-checked:border-primary-500 has-checked:bg-primary-50 dark:has-checked:bg-primary-900/30">
+                  <%= radio_button_tag "listing[category_id]", child.id, listing.category_id == child.id,
+                                       id: "category_#{child.id}",
+                                       class: "h-4 w-4 text-primary-600 focus:ring-primary-500" %>
+                  <span><%= child.name %></span>
+                </label>
+              <% end %>
+            </div>
+          <% else %>
+            <label class="flex cursor-pointer items-center gap-2 rounded-xl px-3 py-3 text-sm hover:bg-surface has-checked:bg-primary-50 dark:has-checked:bg-primary-900/30">
+              <%= radio_button_tag "listing[category_id]", root.id, listing.category_id == root.id,
+                                   id: "category_#{root.id}",
+                                   class: "h-4 w-4 text-primary-600 focus:ring-primary-500" %>
+              <span class="font-semibold"><%= root.name %></span>
+            </label>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <p class="mt-4 hidden text-sm text-muted" data-category-picker-target="empty"><%= t("sell.category.no_results") %></p>
+
+    <noscript>
+      <div class="mt-4">
+        <%= label_tag "noscript_category_id", t("sell.category.choose_root"), class: "text-sm font-semibold" %>
+        <%= select_tag "listing[category_id]",
+                       options_from_collection_for_select(Category.active.order(:depth, :position, :id), :id, :name, listing.category_id),
+                       include_blank: true,
+                       id: "noscript_category_id",
+                       class: "field mt-1.5" %>
+      </div>
+    </noscript>
+
+    <% if listing.category.present? %>
+      <p class="mt-4 rounded-xl bg-primary-50 px-3 py-2 text-sm font-semibold text-primary-800 dark:bg-primary-900/30 dark:text-primary-200">
+        <%= t("sell.category.selected", category: listing.category.name) %>
+      </p>
+    <% end %>
+  </section>
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <span></span>
+    <button type="submit" class="btn-primary"><%= t("sell.steps.continue") %></button>
+  </div>
+<% end %>

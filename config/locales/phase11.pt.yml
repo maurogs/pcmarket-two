@@ -1,0 +1,23 @@
+pt:
+  errors:
+    search_label: Pesquisar no marketplace
+    search_placeholder: Pesquisar componentes, PCs ou consolas
+    search_button: Pesquisar
+    links_label: Ligações úteis
+    links:
+      home: Voltar ao início
+      help: Centro de ajuda
+      contact: Contactar-nos
+    pages:
+      not_found:
+        eyebrow: Erro 404
+        title: Não encontrámos essa página
+        body: A ligação pode estar quebrada ou o anúncio foi vendido ou removido.
+      unprocessable:
+        eyebrow: Erro 422
+        title: Não foi possível processar esse pedido
+        body: Verifica os dados introduzidos e tenta novamente.
+      server_error:
+        eyebrow: Erro 500
+        title: Algo correu mal do nosso lado
+        body: Já fomos notificados. Tenta novamente dentro de instantes.

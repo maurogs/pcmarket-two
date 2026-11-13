@@ -1,0 +1,336 @@
+de:
+  users:
+    deleted: Gelöschter Benutzer
+  reviews:
+    errors:
+      not_buyer: Nur der Käufer dieser Bestellung kann eine Bewertung abgeben.
+      wrong_store: Die Bewertung muss zum Shop der Bestellung gehören.
+      not_delivered: Du kannst eine Bestellung bewerten, sobald sie zugestellt wurde.
+      window_closed: Der Bewertungszeitraum für diese Bestellung ist abgelaufen.
+    flash:
+      created: Danke. Deine Bewertung wurde veröffentlicht.
+      updated: Deine Bewertung wurde aktualisiert.
+      replied: Deine Antwort wurde veröffentlicht.
+      reply_failed: Deine Antwort konnte nicht gespeichert werden.
+    section:
+      title: Deine Bewertung
+      cta: Teile deine Erfahrung mit diesem Verkäufer, um anderen Käufern zu helfen.
+      edit: Bewertung bearbeiten
+      seller_reply: Antwort des Verkäufers
+      your_reply: Deine Antwort
+      window_closed: Der Bewertungszeitraum für diese Bestellung ist abgelaufen.
+      not_yet: Du kannst eine Bewertung abgeben, sobald die Bestellung zugestellt ist.
+      seller_title: Bewertung des Käufers
+    form:
+      rating: Bewertung
+      rating_option:
+        one: "%{count} Stern"
+        other: "%{count} Sterne"
+      rating_placeholder: Bewertung wählen
+      body: Deine Bewertung
+      body_placeholder: Wie lief es? Wie waren der Artikel und die Lieferung?
+      body_hint: Zwischen 10 und 2000 Zeichen.
+      edit_window: Du kannst deine Bewertung %{days} Tage nach der Veröffentlichung bearbeiten.
+      submit: Bewertung veröffentlichen
+      update: Änderungen speichern
+      reply: Deine Antwort
+      reply_submit: Antwort veröffentlichen
+  review_mailer:
+    reminder:
+      subject: Wie war deine Bestellung bei %{store}?
+      title: Bewertung abgeben
+      greeting: Hallo %{name},
+      body: Deine Bestellung %{number} bei %{store} wurde vor einigen Tagen zugestellt. Erzähl anderen Käufern, wie es gelaufen ist.
+      cta: Bewertung abgeben
+      closing: Bewertungen helfen dem gesamten Marktplatz. Danke für deine Zeit.
+  account_mailer:
+    data_export:
+      subject: Dein PCMarket-Datenexport
+      title: Deine Daten sind bereit
+      greeting: Hallo %{name},
+      body: Wir haben eine Kopie deiner PCMarket-Daten vorbereitet. Nutze den folgenden Link zum Herunterladen.
+      cta: Meine Daten herunterladen
+      expiry: Dieser Link läuft in 7 Tagen ab. Wenn er abgelaufen ist, fordere unter Datenschutz und Daten einen neuen Export an.
+  account:
+    settings:
+      eyebrow: Dein Konto
+      sidebar:
+        label: Kontoeinstellungen
+        security: Konto und Sicherheit
+        addresses: Lieferadressen
+        notifications: Benachrichtigungen
+        privacy: Datenschutz und Daten
+      profile:
+        title: Persönliche Daten
+        avatar: Profilbild
+        avatar_hint: PNG, JPEG oder WebP, bis zu 5 MB.
+        first_name: Vorname
+        last_name: Nachname
+        username: Benutzername
+        phone: Telefon
+        locale: Sprache
+        locale_hint: Wir verwenden diese Sprache für E-Mails und Benachrichtigungen.
+        save: Änderungen speichern
+        flash:
+          updated: Deine Kontodaten wurden aktualisiert.
+      security:
+        title: Konto und Sicherheit
+        subtitle: Verwalte deine persönlichen Daten, deine Anmelde-E-Mail und dein Passwort.
+        email_title: E-Mail-Adresse
+        email_body: "Deine aktuelle Adresse ist %{email}. Eine Änderung muss von der neuen Adresse bestätigt werden."
+        email_pending: "Wartet auf Bestätigung unter %{email}."
+        new_email: Neue E-Mail-Adresse
+        email_submit: Bestätigung senden
+        email_sent: Prüfe deinen Posteingang, um die neue E-Mail-Adresse zu bestätigen.
+        password_title: Passwort
+        oauth_only: Dein Konto meldet sich mit Google an, daher gibt es hier kein Passwort zu ändern.
+        current_password: Aktuelles Passwort
+        new_password: Neues Passwort
+        password_confirmation: Neues Passwort bestätigen
+        password_submit: Passwort ändern
+        password_changed: Dein Passwort wurde geändert.
+        sessions_title: Aktive Sitzungen
+        last_sign_in: Letzte Anmeldung
+        last_ip: IP der letzten Anmeldung
+        current_sign_in: Diese Sitzung begann
+        sign_in_count: Anmeldungen insgesamt
+        never: Nie
+        unknown: Unbekannt
+    addresses:
+      title: Lieferadressen
+      subtitle: Speichere die Adressen, die du beim Bezahlen verwendest.
+      new: Adresse hinzufügen
+      edit: Adresse bearbeiten
+      back: Zurück zu den Adressen
+      default_badge: Standard
+      delete: Löschen
+      delete_confirm: Diese Adresse löschen?
+      empty_title: Keine gespeicherten Adressen
+      empty_body: Füge eine Adresse hinzu, um zukünftige Käufe zu beschleunigen.
+      form:
+        subtitle: Wir liefern derzeit nur an Adressen in Spanien.
+        full_name: Vollständiger Name
+        line1: Adresse
+        line2: Adresszusatz (optional)
+        city: Stadt
+        province: Provinz
+        province_placeholder: Provinz wählen
+        postal_code: Postleitzahl
+        phone: Telefon
+        default: Als Standardadresse verwenden
+        cancel: Abbrechen
+        create: Adresse speichern
+        update: Änderungen speichern
+      flash:
+        created: Adresse gespeichert.
+        updated: Adresse aktualisiert.
+        destroyed: Adresse gelöscht.
+    privacy:
+      title: Datenschutz und Daten
+      subtitle: Lade eine Kopie deiner Daten herunter oder prüfe deine Datenschutzeinstellungen.
+      data_title: Meine Daten herunterladen
+      data_body: Wir erstellen eine JSON-Datei mit den personenbezogenen Daten, die wir über dich speichern, und senden dir einen sicheren Download-Link per E-Mail.
+      includes_profile: Profildaten und gespeicherte Adressen
+      includes_activity: Anzeigen, Nachrichten, Bewertungen und gespeicherte Suchen
+      includes_orders: Bestellungen, die du aufgegeben oder erhalten hast
+      download: Meine Daten anfordern
+      download_hint: Der Link läuft nach 7 Tagen ab.
+      cookies_title: Cookie-Einstellungen
+      cookies_body: Cookie-Steuerungen sind mit dem nächsten Datenschutz-Update verfügbar. Essenzielle Cookies halten dich angemeldet und merken sich Sprache und Design.
+      cookies_placeholder: Cookie-Einstellungen folgen in Kürze.
+      cookies_link: Cookie-Einstellungen verwalten
+      flash:
+        queued: Dein Export wird vorbereitet. Wir senden dir einen Download-Link per E-Mail.
+        invalid_link: Dieser Download-Link ist ungültig oder abgelaufen.
+        not_ready: Der Export ist noch nicht bereit. Bitte versuche es gleich noch einmal.
+    deletion:
+      title: Konto löschen
+      body: Das Löschen deines Kontos ist dauerhaft. Wir anonymisieren deine persönlichen Daten und archivieren deine Anzeigen.
+      bullet_data: Dein Name, deine Telefonnummer und dein Profilbild werden entfernt und deine E-Mail wird ersetzt.
+      bullet_orders: Bestellungen und Bewertungen bleiben aus rechtlichen und buchhalterischen Gründen erhalten und werden als „Gelöschter Benutzer“ angezeigt.
+      bullet_orders_kept: Du kannst dein Konto nicht löschen, solange du bezahlte oder versendete Bestellungen hast.
+      confirm_username: "Gib %{username} zur Bestätigung ein"
+      confirm_password: Bestätige dein Passwort
+      submit: Mein Konto löschen
+      confirm: Dein Konto dauerhaft löschen?
+      invalid_confirmation: Die Bestätigung stimmt nicht überein. Es wurde nichts gelöscht.
+      open_orders: Du kannst dein Konto nicht löschen, solange offene bezahlte oder versendete Bestellungen bestehen.
+      flash:
+        deleted: Dein Konto wurde gelöscht.
+  storefronts:
+    tabs:
+      label: Shop-Bereiche
+      listings: Anzeigen
+      about: Über uns
+      reviews: Bewertungen (%{count})
+    header:
+      verified: Verifiziert
+      rating: "%{rating} (%{count} Bewertungen)"
+      no_ratings: Noch keine Bewertungen
+      for_sale: Zu verkaufen
+      sold: Verkauft
+      followers: Follower
+    actions:
+      message: Nachricht
+    vacation:
+      title: Dieser Verkäufer ist im Urlaub
+      until: Zurück am %{date}
+    filters:
+      text: In diesem Shop suchen
+      text_placeholder: Anzeigen durchsuchen
+      category: Kategorie
+      all_categories: Alle Kategorien
+      min_price: Mindestpreis
+      max_price: Höchstpreis
+      condition: Zustand
+      all_conditions: Jeder Zustand
+      sort: Sortieren
+      apply: Anwenden
+    listings:
+      count:
+        one: "%{count} Anzeige"
+        other: "%{count} Anzeigen"
+    sold:
+      title: Kürzlich verkauft
+      hint: Diese Artikel haben bereits ein neues Zuhause gefunden.
+      badge: Verkauft
+    about:
+      title: Über diesen Verkäufer
+      empty_description: Dieser Verkäufer hat noch keine Beschreibung hinzugefügt.
+      policies_title: Shop-Bedingungen
+      returns: Rückgabe
+      default_returns: Rückgaben werden innerhalb von 14 Tagen nach der Lieferung akzeptiert, wenn der Artikel nicht der Beschreibung entspricht.
+      shipping: Versand
+      default_shipping: Bestellungen werden mit einem Sendungsverfolgungs-Anbieter versendet.
+      handling: Bearbeitungszeit
+      handling_days:
+        one: Versand innerhalb von %{count} Werktag
+        other: Versand innerhalb von %{count} Werktagen
+      legal_title: Über uns / rechtliche Informationen
+      legal_hint: Händlerinformationen gemäß dem EU-Gesetz über digitale Dienste.
+      legal_name: Firmenname
+      tax_id: Steuernummer
+      address: Adresse
+      details_title: Shop-Details
+      seller_type: Verkäufertyp
+      member_since: Mitglied seit
+      location: Standort
+    reviews:
+      title: Käuferbewertungen
+      count:
+        one: "%{count} Bewertung"
+        other: "%{count} Bewertungen"
+      sort:
+        label: Bewertungen sortieren
+        newest: Neueste zuerst
+        highest: Beste Bewertungen
+        lowest: Schlechteste Bewertungen
+      seller_reply: Antwort des Verkäufers
+      report: Bewertung melden
+      empty_title: Noch keine Bewertungen
+      empty_body: Bewertungen erscheinen hier, sobald Käufer ihre Bestellungen erhalten haben.
+  sell:
+    dashboard:
+      eyebrow: Verkäuferbereich
+      title: Dashboard
+      subtitle: So entwickelt sich %{store} und das braucht deine Aufmerksamkeit.
+      nav_label: Bereiche des Verkäufer-Dashboards
+      nav_heading: Verkäufer-Dashboard
+      nav:
+        analytics: Analysen
+        listings: Meine Anzeigen
+        sales: Meine Verkäufe
+        public_profile: Öffentliches Profil
+        store_settings: Shop-Einstellungen
+        vacation: Urlaubsmodus
+        payouts: Auszahlungen
+      range_label: Zeitraum
+      ranges:
+        seven: Letzte 7 Tage
+        thirty: Letzte 30 Tage
+        ninety: Letzte 90 Tage
+      kpis:
+        revenue: Umsatz
+        orders: Bestellungen
+        units: Verkaufte Einheiten
+        average_order: Durchschnittliche Bestellung
+        views: Anzeigenaufrufe
+        conversion: Conversion
+        favourites: Neue Favoriten
+        followers: Neue Follower
+      chart:
+        title: Umsatz pro Tag
+        subtitle: Letzte %{count} Tage
+        description: Tägliches Umsatzdiagramm der letzten %{count} Tage mit einer barrierefreien Datentabelle darunter.
+        bar_label: "%{date}: %{amount}"
+        show_table: Datentabelle anzeigen
+        date: Datum
+        revenue: Umsatz
+      top_by_views:
+        title: Top-Anzeigen nach Aufrufen
+        metric:
+          one: "%{count} Aufruf"
+          other: "%{count} Aufrufe"
+        empty: In diesem Zeitraum gibt es noch keine Anzeigenaufrufe.
+      top_by_revenue:
+        title: Top-Anzeigen nach Umsatz
+        empty: In diesem Zeitraum gibt es noch keine Verkäufe.
+      pending:
+        title: Ausstehende Aufgaben
+        orders_to_ship: Zu versendende Bestellungen
+        offers_to_answer: Zu beantwortende Angebote
+        unread_messages: Ungelesene Nachrichten
+        rejected_listings: Zu korrigierende Anzeigen
+  stores:
+    tabs:
+      vacation: Urlaubsmodus
+    form:
+      banner: Shop-Banner
+      banner_hint: Breites Bild oben in deinem Shop. PNG, JPEG oder WebP, bis zu 5 MB.
+      policies_heading: Shop-Bedingungen
+      policies_hint: Diese erscheinen im Tab „Über uns“ deines öffentlichen Shops.
+      return_policy: Rückgaberichtlinie
+      shipping_policy: Versandrichtlinie
+      handling_days: Bearbeitungszeit (Werktage)
+      handling_days_hint: Wie lange du normalerweise brauchst, bevor du ein Paket an den Versanddienstleister übergibst.
+    vacation:
+      title: Urlaubsmodus
+      subtitle: Pausiere deinen Shop während deiner Abwesenheit. Käufer sehen deine Anzeigen, können sie aber nicht kaufen.
+      enable: Urlaubsmodus aktivieren
+      enable_hint: Anzeigen bleiben mit einem Hinweis sichtbar, aber der Checkout ist deaktiviert.
+      message: Nachricht für Käufer
+      message_hint: Optional. Teile mit, wann du zurück bist.
+      return_date: Rückkehrdatum (optional)
+      return_date_hint: Der Urlaubsmodus wird am Ende dieses Tages automatisch deaktiviert.
+      save: Urlaubseinstellungen speichern
+      help_title: So funktioniert es
+      help_body: Bestehende Bestellungen laufen normal weiter. Neue Käufer können während des Urlaubsmodus keinen Kauf abschließen.
+      status_on: Der Urlaubsmodus ist aktiv.
+      status_until: "Zurück am %{date}."
+      status_off: Dein Shop ist für Verkäufe geöffnet.
+      flash:
+        updated: Urlaubseinstellungen aktualisiert.
+  reports:
+    review_preview: "Bewertung mit %{rating} Sternen"
+  admin:
+    reports:
+      types:
+        review: Bewertung
+      show:
+        action_effect:
+          review: Eine Maßnahme blendet die Bewertung auf der öffentlichen Shopseite aus.
+  notifications:
+    preferences:
+      marketing_label: Marketing-E-Mails
+      save_hint: Transaktions-E-Mails zu deinen Bestellungen werden immer gesendet.
+  activerecord:
+    models:
+      review: Bewertung
+    attributes:
+      review:
+        rating: Bewertung
+        body: Bewertung
+        seller_reply: Antwort des Verkäufers
+        order: Bestellung
+        store: Shop
+        reviewer: Verfasser

@@ -1,0 +1,38 @@
+<%= form_with model: @tier, url: @tier.persisted? ? admin_gpu_tier_path(@tier) : admin_gpu_tiers_path,
+              method: @tier.persisted? ? :patch : :post, class: "space-y-5" do |form| %>
+  <%= render "shared/form_errors", object: @tier %>
+
+  <div class="grid gap-4 rounded-2xl border border-border bg-surface p-4 sm:grid-cols-2 sm:p-5">
+    <div>
+      <%= form.label :pattern, t("admin.gpu_tiers.form.pattern"), class: "block text-sm font-semibold" %>
+      <%= form.text_field :pattern, class: "field mt-1.5", placeholder: t("admin.gpu_tiers.form.pattern_placeholder") %>
+      <p class="mt-1 text-xs text-muted"><%= t("admin.gpu_tiers.form.pattern_hint") %></p>
+    </div>
+    <div>
+      <%= form.label :tier, t("admin.gpu_tiers.form.tier"), class: "block text-sm font-semibold" %>
+      <%= form.number_field :tier, min: 1, max: 10, class: "field mt-1.5" %>
+    </div>
+    <div>
+      <%= form.label :position, t("admin.gpu_tiers.form.position"), class: "block text-sm font-semibold" %>
+      <%= form.number_field :position, min: 0, class: "field mt-1.5" %>
+    </div>
+    <label class="flex items-center gap-3 self-end text-sm">
+      <%= form.check_box :active, class: "h-5 w-5 rounded border-border text-primary-600" %>
+      <span><%= t("admin.gpu_tiers.form.active") %></span>
+    </label>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <div>
+      <% if @tier.persisted? %>
+        <%= link_to t("admin.gpu_tiers.form.delete"), admin_gpu_tier_path(@tier),
+                    data: { turbo_method: :delete, turbo_confirm: t("admin.gpu_tiers.form.delete_confirm") },
+                    class: "text-sm font-semibold text-danger underline-offset-2 hover:underline" %>
+      <% end %>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <%= link_to t("admin.common.cancel"), admin_gpu_tiers_path, class: "btn-accent" %>
+      <%= submit_tag t("admin.common.save"), class: "btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,36 @@
+it:
+  api:
+    errors:
+      unauthorized: "Accedi per continuare."
+      forbidden: "Non hai il permesso di eseguire questa azione."
+      not_found: "Non abbiamo trovato questa risorsa."
+      validation_failed: "Controlla i dati inviati."
+      rate_limited: "Troppe richieste. Riprova più tardi."
+      conflict: "Questa azione non è più disponibile."
+      feature_disabled: "Questa funzione non è disponibile."
+      required: "è obbligatorio"
+      invalid_signed_id: "Il file caricato non è valido."
+    auth:
+      invalid_credentials: "Email o password non corretti."
+      banned: "Il tuo account è sospeso. Contatta l'assistenza."
+      deleted: "Questo account è stato eliminato."
+      locked: "Il tuo account è temporaneamente bloccato."
+      unconfirmed: "Conferma il tuo indirizzo email prima di accedere."
+      confirmation_sent: "Ti abbiamo inviato un'email di conferma."
+      invalid_refresh_token: "Il token di aggiornamento non è valido o è scaduto."
+      invalid_google_token: "Non siamo riusciti a verificare il tuo account Google."
+      email_unverified: "Il tuo indirizzo email Google non è verificato."
+      password_reset_sent: "Se esiste un account con questa email, riceverai le istruzioni per reimpostare la password."
+    checkout:
+      payment_setup_failed: "Non siamo riusciti a preparare il pagamento. Riprova."
+    me:
+      cannot_delete: "Non puoi eliminare il tuo account finché hai ordini aperti."
+    sell:
+      archive_instead: "Puoi eliminare solo le bozze. Archivia invece questo annuncio."
+  settings:
+    api_require_confirmation: "Richiedi la conferma dell'email per gli utenti API"
+  offers:
+    errors:
+      not_offerer: "Solo chi ha fatto l'offerta può ritirarla."
+    system:
+      withdrawn: "Offerta di %{amount} ritirata."

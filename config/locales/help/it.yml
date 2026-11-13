@@ -1,0 +1,158 @@
+it:
+  help:
+    pages:
+      about:
+        title: Chi siamo
+        summary: Una piattaforma spagnola per comprare e vendere hardware PC in sicurezza.
+        description: PCMarket esiste perché appassionati e professionisti possano comprare e vendere componenti PC senza sorprese.
+        sections:
+          - title: La nostra missione
+            paragraphs:
+              - "Vogliamo rendere il riuso dell'hardware la scelta più semplice: trovare il pezzo giusto, sapere che il venditore è reale e ricevere ciò che è stato promesso."
+              - "Per questo uniamo un catalogo ordinato per specifiche a pagamenti trattenuti e a un team che risponde quando qualcosa non va."
+          - title: Come lavoriamo
+            paragraphs:
+              - "Esaminiamo gli annunci che richiedono approvazione, verifichiamo i venditori e manteniamo accessibili i canali di segnalazione. Non siamo un negozio: facciamo da intermediari perché l'acquisto sia sicuro."
+            bullets:
+              - Un catalogo e filtri pensati per hardware reale.
+              - Protezione dell'acquirente su ogni pagamento sulla piattaforma.
+              - Supporto in italiano e spagnolo e rispetto del diritto europeo.
+          - title: Dove siamo
+            paragraphs:
+              - "Operiamo dalla Spagna e spediamo in tutta la penisola e nelle isole. La società e i suoi dati di registrazione sono nelle note legali."
+      how-it-works:
+        title: Come comprare
+        summary: Dalla ricerca alla consegna, con il pagamento protetto in ogni fase.
+        description: Guida passo passo per comprare su PCMarket con protezione dell'acquirente.
+        sections:
+          - title: "1. Trova ciò che cerchi"
+            paragraphs:
+              - "Usa la ricerca o naviga per categorie. Puoi filtrare per specifiche, condizioni, prezzo, provincia e spedizione gratuita."
+          - title: "2. Controlla annuncio e venditore"
+            paragraphs:
+              - "Guarda foto, descrizione, condizioni e recensioni del venditore. Se hai dubbi, scrivigli dalla piattaforma."
+          - title: "3. Paga su PCMarket"
+            paragraphs:
+              - "Aggiungi l'articolo al carrello e paga con carta. L'importo resta trattenuto e arriva al venditore solo dopo la conferma della consegna."
+          - title: "4. Ricevi e controlla"
+            paragraphs:
+              - "Segui la spedizione dal tuo account. All'arrivo controlla l'articolo e conferma che sia tutto a posto. In caso contrario, apri una segnalazione prima della scadenza della protezione."
+      how-to-sell:
+        title: Come vendere
+        summary: Pubblica, vendi e ricevi il pagamento in sicurezza.
+        description: Guida per pubblicare un annuncio e vendere hardware su PCMarket.
+        sections:
+          - title: Prepara l'annuncio
+            paragraphs:
+              - "Scatta foto nitide con luce naturale, indica le condizioni reali e descrivi le specifiche. Gli annunci onesti vendono prima e creano meno problemi."
+            bullets:
+              - Un titolo preciso con modello e capacità.
+              - Foto del prodotto, delle porte e di eventuali difetti.
+              - Condizioni e accessori inclusi.
+          - title: Pubblica e rispondi
+            paragraphs:
+              - "Crea il tuo negozio se non l'hai ancora fatto e pubblica l'annuncio. Gli annunci possono essere revisionati prima di apparire. Rispondi rapidamente e rimani sulla piattaforma."
+          - title: Spedisci o consegna
+            paragraphs:
+              - "Quando vendi, imballa con cura e carica il tracciamento. Se hai concordato la consegna a mano, scegli un luogo pubblico e conferma la consegna dalla dashboard."
+          - title: Ricevi il pagamento
+            paragraphs:
+              - "Il pagamento viene rilasciato quando l'acquirente conferma la ricezione o scade il periodo di protezione. Gli incassi arrivano sul tuo conto Stripe."
+      seller-fees:
+        title: Commissioni di vendita
+        summary: Pubblicare è gratis e le future commissioni sono annunciate in anticipo.
+        description: Quanto costa vendere su PCMarket e come funzionano le commissioni.
+        sections:
+          - title: Pubblicazione
+            paragraphs:
+              - "Creare annunci e gestire il negozio è gratuito. Nessun canone mensile e nessun costo per caricare foto."
+          - title: Commissione
+            paragraphs:
+              - "Durante la fase di crescita non applichiamo commissioni. Se le attiveremo, compariranno qui e nel riepilogo dell'annuncio prima della pubblicazione."
+          - title: Annunci in evidenza
+            paragraphs:
+              - "Gli annunci in evidenza sono facoltativi. Il prezzo è mostrato prima dell'acquisto e non viene mai addebitato automaticamente."
+      shipping:
+        title: Guida alle spedizioni
+        summary: Come imballare PC e GPU perché arrivino intatti e quali corrieri operano in Spagna.
+        description: Consigli di imballaggio e trasporto per spedire hardware PC in sicurezza.
+        sections:
+          - title: Imballare una GPU
+            paragraphs:
+              - "Usa una busta antistatica, proteggi il connettore PCIe e le uscite video e inserisci la scheda in una scatola rigida con imbottitura su ogni lato."
+            bullets:
+              - Busta antistatica e schiuma o pluriball a doppio strato.
+              - Una scatola esterna con almeno 5 cm di imbottitura su ogni faccia.
+              - Etichetta fragile, senza affidarti solo a quella.
+          - title: Imballare un PC completo
+            paragraphs:
+              - "Per una torre, blocca la scheda grafica e il dissipatore. Riempì l'interno con schiuma antistatica e usa una doppia scatola esterna."
+            bullets:
+              - Rimuovi o fissa GPU e dissipatore se sporgono.
+              - Proteggi separatamente il pannello in vetro.
+              - Metti cavi e accessori in una busta.
+          - title: Corrieri in Spagna
+            paragraphs:
+              - "Puoi usare qualsiasi corriere con tracciamento. I più comuni sono Correos, SEUR, MRW, GLS e Nacex."
+              - "Attiva un'assicurazione oltre il limite standard, conserva la ricevuta e carica il numero di tracciamento sull'ordine."
+      returns:
+        title: Resi e rimborsi
+        summary: I tuoi diritti acquistando da un venditore professionista e la protezione tra privati.
+        description: Riepilogo di resi, recesso e rimborsi su PCMarket.
+        sections:
+          - title: Acquisti da venditori professionisti
+            paragraphs:
+              - "Come consumatore hai 14 giorni di calendario per recedere da un acquisto a distanza, salvo eccezioni di legge. Contattaci dall'ordine e ti spiegheremo come restituire l'articolo."
+          - title: Acquisti tra privati
+            paragraphs:
+              - "Tra privati non esiste il diritto legale di recesso. Tuttavia la protezione dell'acquirente copre articoli che non arrivano, arrivano danneggiati o non corrispondono alla descrizione."
+          - title: Rimborsi
+            paragraphs:
+              - "Se un reso o una segnalazione viene accettata, il rimborso avviene sullo stesso metodo di pagamento. I tempi dipendono dalla banca emittente, di solito 3-10 giorni lavorativi."
+    faq:
+      categories:
+        buying:
+          title: Acquisti
+          items:
+            - question: Serve un account per comprare?
+              answer: Puoi esplorare senza account, ma per pagare e seguire gli ordini serve un account confermato.
+            - question: Posso parlare con il venditore prima?
+              answer: "Sì. Dall'annuncio o dal profilo del venditore puoi aprire una conversazione senza condividere dati personali."
+            - question: E se l'articolo non corrisponde?
+              answer: Apri una segnalazione dall'ordine prima della scadenza della protezione e allega foto.
+        selling:
+          title: Vendite
+          items:
+            - question: Quanto costa pubblicare?
+              answer: Pubblicare è gratuito. Le commissioni, se attivate, saranno annunciate in anticipo e mostrate prima della pubblicazione.
+            - question: Quando vengo pagato?
+              answer: Quando l'acquirente conferma la consegna o scade il periodo di protezione senza problemi.
+            - question: Posso vendere come azienda?
+              answer: "Sì. Inserisci i dati fiscali nel negozio; compariranno nell'annuncio secondo le regole di tracciabilità."
+        payments:
+          title: Pagamenti
+          items:
+            - question: Quali metodi accettate?
+              answer: Carte elaborate da Stripe. Non accettiamo contanti o bonifici fuori dalla piattaforma.
+            - question: Quando viene trattenuto il denaro?
+              answer: Dal pagamento fino alla conferma della ricezione o alla fine del periodo di protezione.
+            - question: Emettete fattura?
+              answer: Il venditore professionista deve emettere la fattura. PCMarket fornisce i dati dell'ordine.
+        shipping:
+          title: Spedizioni
+          items:
+            - question: Chi paga la spedizione?
+              answer: Ogni annuncio indica il costo. Puoi filtrare per spedizione gratuita.
+            - question: Posso ritirare a mano?
+              answer: "Sì, se il venditore lo consente. Concordate un luogo pubblico e conferma la consegna sull'ordine."
+            - question: Cosa faccio se il pacco arriva danneggiato?
+              answer: Fotografa l'imballaggio e l'articolo prima di aprirlo del tutto e apri una segnalazione lo stesso giorno.
+        account:
+          title: Account
+          items:
+            - question: Come cambio la password?
+              answer: Dalle impostazioni account, sezione Sicurezza. Puoi anche richiedere il ripristino dalla pagina di accesso.
+            - question: Come elimino l'account?
+              answer: Dalle impostazioni account, sezione Privacy. Prima devono essere risolti gli ordini aperti.
+            - question: Come cambio la lingua?
+              answer: Usa il selettore lingua nell'intestazione. Ricorderemo la scelta per le visite future.

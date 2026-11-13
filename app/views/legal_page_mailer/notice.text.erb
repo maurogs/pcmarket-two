@@ -1,0 +1,9 @@
+<%= t("legal_page_mailer.notice.heading") %>
+
+<%= t("legal_page_mailer.notice.intro", title: @legal_page.title) %>
+
+<%= t("legal_page_mailer.notice.effective", date: l(@legal_page.effective_at || @legal_page.published_at, format: :long)) %>
+
+<%= @legal_page.plain_body %>
+
+<%= t("legal_page_mailer.notice.footer") %>

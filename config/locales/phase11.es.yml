@@ -1,0 +1,23 @@
+es:
+  errors:
+    search_label: Buscar en el mercado
+    search_placeholder: Busca piezas, PCs o consolas
+    search_button: Buscar
+    links_label: Enlaces útiles
+    links:
+      home: Volver al inicio
+      help: Centro de ayuda
+      contact: Contactar
+    pages:
+      not_found:
+        eyebrow: Error 404
+        title: No encontramos esa página
+        body: Puede que el enlace esté roto o que el anuncio se haya vendido o retirado.
+      unprocessable:
+        eyebrow: Error 422
+        title: No pudimos procesar esa solicitud
+        body: Revisa los datos que introdujiste e inténtalo de nuevo.
+      server_error:
+        eyebrow: Error 500
+        title: Algo falló de nuestro lado
+        body: Ya nos hemos enterado. Inténtalo de nuevo en unos instantes.

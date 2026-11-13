@@ -1,0 +1,158 @@
+en:
+  help:
+    pages:
+      about:
+        title: About us
+        summary: A Spanish platform for buying and selling PC hardware with safeguards.
+        description: PCMarket exists so enthusiasts and professionals can buy and sell PC parts without surprises.
+        sections:
+          - title: Our mission
+            paragraphs:
+              - "We want reusing hardware to be the easiest option: finding the right part, knowing the seller is real and receiving what was promised."
+              - "That is why we combine a catalogue organised by specifications with held payments and a team that answers when something goes wrong."
+          - title: How we work
+            paragraphs:
+              - "We review listings that require approval, verify sellers and keep reporting channels accessible. We are not a shop: we sit in the middle so the purchase is safe."
+            bullets:
+              - A catalogue and filters built for real hardware.
+              - Buyer protection on every payment made on the platform.
+              - English and Spanish support and compliance with European law.
+          - title: Where we are
+            paragraphs:
+              - "We operate from Spain and ship across the mainland and islands. The company and its registration details appear in the legal notice."
+      how-it-works:
+        title: How buying works
+        summary: From search to delivery, with your payment protected throughout.
+        description: A step-by-step guide to buying on PCMarket with buyer protection.
+        sections:
+          - title: 1. Find what you need
+            paragraphs:
+              - "Use search or browse by category. You can filter by specifications, condition, price, province and free shipping."
+          - title: 2. Check the listing and the seller
+            paragraphs:
+              - "Look at the photos, description, condition and the seller's reviews. If anything is unclear, message them on the platform."
+          - title: 3. Pay inside PCMarket
+            paragraphs:
+              - "Add the item to your basket and pay by card. The money is held and does not reach the seller until you confirm delivery."
+          - title: 4. Receive and inspect
+            paragraphs:
+              - "Track the delivery from your account. When it arrives, inspect the item and confirm everything is right. If not, raise an issue before the protection window closes."
+      how-to-sell:
+        title: How to sell
+        summary: List, sell and get paid safely.
+        description: A guide to listing and selling hardware on PCMarket.
+        sections:
+          - title: Prepare the listing
+            paragraphs:
+              - "Take clear photos in natural light, state the real condition and describe the specifications. Honest listings sell faster and cause fewer issues."
+            bullets:
+              - A specific title with model and capacity.
+              - Photos of the product, ports and any defects.
+              - Condition and included accessories.
+          - title: Publish and reply
+            paragraphs:
+              - "Create your store if you have not already and publish the listing. Listings may go through review before appearing. Reply quickly and keep the conversation on the platform."
+          - title: Ship or hand over
+            paragraphs:
+              - "When it sells, pack the item safely and upload tracking. If you agreed a handover, meet in a public place and confirm delivery in your dashboard."
+          - title: Get paid
+            paragraphs:
+              - "Payment is released when the buyer confirms receipt or the protection window ends. Payouts go to your Stripe account."
+      seller-fees:
+        title: Seller fees
+        summary: Listing is free, and any future fees are announced in advance.
+        description: What it costs to sell on PCMarket and how fees work.
+        sections:
+          - title: Listing
+            paragraphs:
+              - "Creating listings and running your store is free. There is no monthly fee and no charge for uploading photos."
+          - title: Commission
+            paragraphs:
+              - "While we are growing we do not charge commission. If we enable it, it will appear here and in the listing summary before you publish."
+          - title: Featured listings
+            paragraphs:
+              - "Featured listings are optional. The price is shown before you buy one and it is never charged automatically."
+      shipping:
+        title: Shipping guide
+        summary: How to pack PCs and GPUs so they arrive intact, and which carriers operate in Spain.
+        description: Packing and transport advice for sending PC hardware safely.
+        sections:
+          - title: Packing a GPU
+            paragraphs:
+              - "Use an anti-static bag, protect the PCIe connector and video outputs, and place the card in a rigid box with padding on every side."
+            bullets:
+              - Anti-static bag and double-layer foam or bubble wrap.
+              - An outer box with at least 5 cm of padding on each face.
+              - A fragile label, without relying on it for real protection.
+          - title: Packing a full PC
+            paragraphs:
+              - "If you ship a tower, immobilise the graphics card and cooler. Fill the inside with anti-static foam and use a double outer box."
+            bullets:
+              - Remove or secure the GPU and cooler if they overhang.
+              - Protect a glass side panel separately.
+              - Bag all cables and accessories.
+          - title: Carriers in Spain
+            paragraphs:
+              - "You can use any carrier with tracking. The most common are Correos, SEUR, MRW, GLS and Nacex."
+              - "Add insurance above the standard limit, keep the receipt and upload the tracking number to the order."
+      returns:
+        title: Returns and refunds
+        summary: Your rights when buying from a business seller, and how protection works between private sellers.
+        description: A summary of returns, withdrawal and refunds on PCMarket.
+        sections:
+          - title: Buying from business sellers
+            paragraphs:
+              - "As a consumer you have 14 calendar days to withdraw from a distance purchase, subject to legal exceptions. Contact us from the order and we will explain how to return the item."
+          - title: Buying from private sellers
+            paragraphs:
+              - "There is no statutory right of withdrawal between private sellers. Even so, buyer protection covers items that do not arrive, arrive damaged or do not match the description."
+          - title: Refunds
+            paragraphs:
+              - "If a return or issue is accepted, the refund goes back to the original payment method. Timing depends on the issuing bank, usually 3 to 10 working days."
+    faq:
+      categories:
+        buying:
+          title: Buying
+          items:
+            - question: Do I need an account to buy?
+              answer: You can browse without an account, but you need a confirmed account to pay and follow your orders.
+            - question: Can I talk to the seller first?
+              answer: "Yes. From the listing or the seller's profile you can start a conversation without sharing personal details."
+            - question: What if the item is not as described?
+              answer: Open an issue from the order before the protection window closes and add photos.
+        selling:
+          title: Selling
+          items:
+            - question: How much does listing cost?
+              answer: Listing is free. Any commission will be announced in advance and shown before you publish.
+            - question: When do I get paid?
+              answer: When the buyer confirms delivery or the protection window ends without an issue.
+            - question: Can I sell as a business?
+              answer: "Yes. Add your tax details in your store; they will appear on the listing under trader traceability rules."
+        payments:
+          title: Payments
+          items:
+            - question: Which methods do you accept?
+              answer: Cards processed by Stripe. We do not accept cash or transfers outside the platform.
+            - question: When is the money held?
+              answer: From payment until you confirm receipt or the protection window ends.
+            - question: Do you issue invoices?
+              answer: A business seller must issue the invoice. PCMarket provides the order details.
+        shipping:
+          title: Shipping
+          items:
+            - question: Who pays for shipping?
+              answer: Each listing shows its cost. You can filter for free shipping.
+            - question: Can I collect in person?
+              answer: "Yes, if the seller allows it. Agree a public place and confirm delivery on the order."
+            - question: What if the parcel arrives damaged?
+              answer: Photograph the packaging and the item before fully opening it and open an issue the same day.
+        account:
+          title: Account
+          items:
+            - question: How do I change my password?
+              answer: From Account settings, under Security. You can also request a reset from the sign-in page.
+            - question: How do I delete my account?
+              answer: From Account settings, under Privacy. Any open orders must be resolved first.
+            - question: How do I change the language?
+              answer: Use the language selector in the header. We will remember your choice for future visits.

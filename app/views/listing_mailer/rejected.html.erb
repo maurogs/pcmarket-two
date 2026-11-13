@@ -1,0 +1,25 @@
+<p style="margin: 0 0 12px; font-size: 15px; color: #0f172a;">
+  <%= t("listing_mailer.rejected.greeting", name: @listing.seller.first_name.presence || @listing.seller.display_name) %>
+</p>
+
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("listing_mailer.rejected.body", title: @listing.title, app: t("app.name")) %>
+</p>
+
+<% if @listing.rejection_reason.present? %>
+  <p style="margin: 0 0 16px; border-left: 3px solid #c02636; background-color: #fdecef; padding: 12px 14px; font-size: 14px; line-height: 1.6; color: #7f1d2d;">
+    <strong><%= t("listing_mailer.rejected.reason_label") %>:</strong>
+    <%= @listing.rejection_reason %>
+  </p>
+<% end %>
+
+<p style="margin: 0 0 16px;">
+  <a href="<%= edit_sell_listing_url(@listing, locale: @locale) %>"
+     style="display: inline-block; border-radius: 12px; background-color: #4f46e5; color: #ffffff; font-size: 14px; font-weight: 600; padding: 12px 20px; text-decoration: none;">
+    <%= t("listing_mailer.rejected.cta") %>
+  </a>
+</p>
+
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("listing_mailer.rejected.closing") %>
+</p>

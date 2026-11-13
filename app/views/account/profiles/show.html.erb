@@ -1,0 +1,166 @@
+<% set_meta_tags(title: t("account.settings.security.title"), noindex: true) %>
+
+<div class="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+  <aside class="space-y-4 lg:sticky lg:top-24 lg:self-start">
+    <%= render "account/shared/sidebar" %>
+  </aside>
+
+  <div class="min-w-0 space-y-6">
+    <header>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("account.settings.eyebrow") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("account.settings.security.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("account.settings.security.subtitle") %></p>
+    </header>
+
+    <%= form_with model: @user, url: account_profile_path, method: :patch, class: "space-y-5 rounded-2xl border border-border bg-surface p-5 sm:p-6" do |form| %>
+      <%= hidden_field_tag :section, "profile" %>
+      <h2 class="text-lg font-bold"><%= t("account.settings.profile.title") %></h2>
+      <%= render "shared/form_errors", object: @user %>
+
+      <div class="flex items-center gap-4">
+        <div class="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-surface-muted">
+          <% if @user.avatar.attached? %>
+            <%= image_tag url_for(@user.avatar.variant(resize_to_limit: [ 128, 128 ], format: :webp)),
+                          width: 128, height: 128, alt: "", class: "h-full w-full object-cover" %>
+          <% else %>
+            <div class="flex h-full w-full items-center justify-center text-lg font-bold text-primary-700 dark:text-primary-300">
+              <%= @user.display_name.to_s.first(2).upcase %>
+            </div>
+          <% end %>
+        </div>
+        <div class="min-w-0 flex-1">
+          <%= form.label :avatar, t("account.settings.profile.avatar"), class: "block text-sm font-semibold text-content" %>
+          <%= form.file_field :avatar,
+                              accept: User::AVATAR_CONTENT_TYPES.join(","),
+                              class: "mt-1.5 block w-full text-sm text-muted file:mr-3 file:rounded-xl file:border-0 file:bg-primary-600 file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-primary-700" %>
+          <p class="mt-1 text-xs text-muted"><%= t("account.settings.profile.avatar_hint") %></p>
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <%= form.label :first_name, t("account.settings.profile.first_name"), class: "block text-sm font-semibold text-content" %>
+          <%= form.text_field :first_name, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= form.label :last_name, t("account.settings.profile.last_name"), class: "block text-sm font-semibold text-content" %>
+          <%= form.text_field :last_name, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= form.label :username, t("account.settings.profile.username"), class: "block text-sm font-semibold text-content" %>
+          <%= form.text_field :username, required: true, minlength: 3, maxlength: 30, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= form.label :phone, t("account.settings.profile.phone"), class: "block text-sm font-semibold text-content" %>
+          <%= form.telephone_field :phone, class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= form.label :locale, t("account.settings.profile.locale"), class: "block text-sm font-semibold text-content" %>
+          <%= form.select :locale,
+                          I18n.available_locales.map { |locale| [ t("locale.names.#{locale}"), locale ] },
+                          {},
+                          class: "field mt-1.5" %>
+          <p class="mt-1 text-xs text-muted"><%= t("account.settings.profile.locale_hint") %></p>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <%= form.submit t("account.settings.profile.save"), class: "btn-primary" %>
+      </div>
+    <% end %>
+
+    <section class="space-y-4 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+      <h2 class="text-lg font-bold"><%= t("account.settings.security.email_title") %></h2>
+      <p class="text-sm text-muted"><%= t("account.settings.security.email_body", email: @user.email) %></p>
+      <% if @user.unconfirmed_email.present? %>
+        <p class="rounded-xl bg-warning-soft p-3 text-sm text-warning"><%= t("account.settings.security.email_pending", email: @user.unconfirmed_email) %></p>
+      <% end %>
+
+      <%= form_with model: @user, url: account_profile_path, method: :patch, class: "flex flex-wrap items-end gap-3" do |form| %>
+        <%= hidden_field_tag :section, "email" %>
+        <div class="min-w-0 flex-1">
+          <%= form.label :email, t("account.settings.security.new_email"), class: "block text-sm font-semibold text-content" %>
+          <%= form.email_field :email, required: true, class: "field mt-1.5" %>
+        </div>
+        <%= form.submit t("account.settings.security.email_submit"), class: "btn-primary" %>
+      <% end %>
+    </section>
+
+    <section class="space-y-4 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+      <h2 class="text-lg font-bold"><%= t("account.settings.security.password_title") %></h2>
+
+      <% if @user.oauth_only? %>
+        <p class="rounded-xl bg-surface-muted p-3 text-sm text-muted"><%= t("account.settings.security.oauth_only") %></p>
+      <% else %>
+        <%= form_with model: @user, url: account_password_path, method: :patch, class: "grid gap-4 sm:grid-cols-3" do |form| %>
+          <div>
+            <%= form.label :current_password, t("account.settings.security.current_password"), class: "block text-sm font-semibold text-content" %>
+            <%= form.password_field :current_password, autocomplete: "current-password", required: true, class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= form.label :password, t("account.settings.security.new_password"), class: "block text-sm font-semibold text-content" %>
+            <%= form.password_field :password, autocomplete: "new-password", required: true, class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= form.label :password_confirmation, t("account.settings.security.password_confirmation"), class: "block text-sm font-semibold text-content" %>
+            <%= form.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "field mt-1.5" %>
+          </div>
+          <div class="sm:col-span-3 flex justify-end">
+            <%= form.submit t("account.settings.security.password_submit"), class: "btn-primary" %>
+          </div>
+        <% end %>
+      <% end %>
+    </section>
+
+    <section class="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+      <h2 class="text-lg font-bold"><%= t("account.settings.security.sessions_title") %></h2>
+      <dl class="mt-3 grid gap-3 sm:grid-cols-2">
+        <div class="rounded-xl bg-surface-muted p-3">
+          <dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.settings.security.last_sign_in") %></dt>
+          <dd class="mt-1 text-sm font-semibold text-content">
+            <%= @user.last_sign_in_at.present? ? l(@user.last_sign_in_at, format: :long) : t("account.settings.security.never") %>
+          </dd>
+        </div>
+        <div class="rounded-xl bg-surface-muted p-3">
+          <dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.settings.security.last_ip") %></dt>
+          <dd class="mt-1 text-sm font-semibold text-content"><%= @user.last_sign_in_ip.presence || t("account.settings.security.unknown") %></dd>
+        </div>
+        <div class="rounded-xl bg-surface-muted p-3">
+          <dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.settings.security.current_sign_in") %></dt>
+          <dd class="mt-1 text-sm font-semibold text-content">
+            <%= @user.current_sign_in_at.present? ? l(@user.current_sign_in_at, format: :long) : t("account.settings.security.never") %>
+          </dd>
+        </div>
+        <div class="rounded-xl bg-surface-muted p-3">
+          <dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("account.settings.security.sign_in_count") %></dt>
+          <dd class="mt-1 text-sm font-semibold text-content"><%= @user.sign_in_count %></dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="space-y-4 rounded-2xl border border-danger/30 bg-danger-soft p-5 sm:p-6">
+      <h2 class="text-lg font-bold text-danger"><%= t("account.deletion.title") %></h2>
+      <p class="text-sm text-content"><%= t("account.deletion.body") %></p>
+      <ul class="list-disc space-y-1 pl-5 text-sm text-content">
+        <li><%= t("account.deletion.bullet_data") %></li>
+        <li><%= t("account.deletion.bullet_orders") %></li>
+        <li><%= t("account.deletion.bullet_orders_kept") %></li>
+      </ul>
+
+      <%= form_with url: account_deletion_path, method: :post, class: "flex flex-wrap items-end gap-3" do %>
+        <div class="min-w-0 flex-1">
+          <% if @user.oauth_only? %>
+            <%= label_tag :username, t("account.deletion.confirm_username", username: @user.username), class: "block text-sm font-semibold text-content" %>
+            <%= text_field_tag :username, nil, required: true, autocomplete: "off", class: "field mt-1.5" %>
+          <% else %>
+            <%= label_tag :current_password, t("account.deletion.confirm_password"), class: "block text-sm font-semibold text-content" %>
+            <%= password_field_tag :current_password, nil, required: true, autocomplete: "current-password", class: "field mt-1.5" %>
+          <% end %>
+        </div>
+        <%= submit_tag t("account.deletion.submit"),
+                       class: "rounded-xl bg-danger px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90",
+                       data: { turbo_confirm: t("account.deletion.confirm") } %>
+      <% end %>
+    </section>
+  </div>
+</div>

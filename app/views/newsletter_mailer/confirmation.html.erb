@@ -1,0 +1,11 @@
+<p style="margin: 0 0 12px; font-size: 16px; font-weight: 700;"><%= t("newsletter_mailer.confirmation.heading", app: t("app.name")) %></p>
+<p style="margin: 0 0 12px; font-size: 14px; line-height: 1.6;"><%= t("newsletter_mailer.confirmation.body") %></p>
+<p style="margin: 24px 0; text-align: center;">
+  <a href="<%= @confirm_url %>" style="display: inline-block; border-radius: 12px; background-color: #4f46e5; padding: 12px 20px; font-size: 14px; font-weight: 600; color: #ffffff; text-decoration: none;"><%= t("newsletter_mailer.confirmation.cta") %></a>
+</p>
+<p style="margin: 0 0 8px; font-size: 12px; line-height: 1.6; color: #52607a;"><%= t("newsletter_mailer.confirmation.fallback") %></p>
+<p style="margin: 0 0 16px; font-size: 12px; line-height: 1.6; word-break: break-all; color: #52607a;"><%= @confirm_url %></p>
+<p style="margin: 0; font-size: 12px; line-height: 1.6; color: #52607a;">
+  <%= t("newsletter_mailer.confirmation.unsubscribe") %>
+  <a href="<%= @unsubscribe_url %>" style="color: #4f46e5;"><%= t("newsletter_mailer.confirmation.unsubscribe_cta") %></a>
+</p>

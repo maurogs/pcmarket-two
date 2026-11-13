@@ -1,0 +1,9 @@
+<%= t("listing_mailer.approved.greeting", name: @listing.seller.first_name.presence || @listing.seller.display_name) %>
+
+<%= t("listing_mailer.approved.body", title: @listing.title, app: t("app.name")) %>
+
+<%= t("listing_mailer.approved.cta") %>: <%= listing_url(@listing, locale: @locale) %>
+
+<%= t("listing_mailer.approved.manage") %>: <%= edit_sell_listing_url(@listing, locale: @locale) %>
+
+<%= t("listing_mailer.approved.closing") %>

@@ -1,0 +1,630 @@
+---
+pt:
+  admin:
+    common:
+      any: Todos
+      'yes': Sim
+      'no': Não
+      none: Nenhum
+      from: De
+      to: Até
+      per_page: Por página
+      apply: Aplicar filtros
+      clear: Limpar filtros
+      export_csv: Exportar CSV
+      actions: Ações
+      view: Ver
+      edit: Editar
+      cancel: Cancelar
+      save: Guardar alterações
+    listings:
+      untitled: Anúncio sem título
+      index:
+        title: Anúncios
+        subtitle: Pesquise, filtre e gira todos os anúncios do mercado.
+        count:
+          one: "%{count} anúncio"
+          other: "%{count} anúncios"
+        empty_title: Nenhum anúncio corresponde a estes filtros
+        empty_body: Tente limpar os filtros ou alargar o intervalo de datas.
+      filters:
+        title: Filtros avançados
+        search: Pesquisar
+        search_placeholder: Título, ID ou slug
+        status: Estado
+        category: Categoria (com subcategorias)
+        seller: Vendedor
+        store_kind: Tipo de loja
+        condition: Estado do artigo
+        price_min: Preço mínimo (€)
+        price_max: Preço máximo (€)
+        featured: Em destaque
+        has_reports: Tem denúncias
+      table:
+        select: Selecionar anúncio
+        listing: Anúncio
+        seller: Vendedor
+        store: Loja
+        price: Preço
+        status: Estado
+        views: Visitas / favoritos
+        created: Criado
+        actions: Ações
+      bulk:
+        select_all: Selecionar tudo
+        operation: Ação em massa
+        operations:
+          approve: Aprovar
+          reject: Rejeitar
+          archive: Arquivar
+          label: Atribuir etiqueta de produto
+          feature: Destacar
+        reason: Motivo
+        reason_placeholder: Motivo da rejeição
+        label: Etiqueta de produto
+        days: Dias
+        submit: Aplicar à seleção
+        none_selected: Selecione pelo menos um anúncio.
+        admins_only: Apenas os administradores podem etiquetar ou destacar anúncios.
+        done: "%{count} anúncios atualizados (%{skipped} ignorados)."
+      show:
+        back: Voltar aos anúncios
+        public_page: Página pública
+        overview: Resumo
+        condition: Estado do artigo
+        location: Localização
+        quantity: Quantidade
+        featured_until: Em destaque até
+        stats_title: Atividade
+        views: Visitas
+        favourites: Favoritos
+        orders: Encomendas
+        reports: Denúncias
+        orders_title: Encomendas
+        orders_empty: Este anúncio ainda não tem encomendas.
+        reports_title: Denúncias
+        reports_empty: Não existem denúncias contra este anúncio.
+        history_title: Histórico de moderação
+        history_empty: Ainda não há decisões de moderação.
+        seller_title: Vendedor
+        actions_title: Ações
+        approve: Aprovar anúncio
+        reject_note: Adicione uma nota para o vendedor (opcional)
+        reject: Rejeitar e avisar o vendedor
+        archive: Arquivar anúncio
+        restore: Restaurar anúncio
+        feature: Destacar até esta data
+        delete: Eliminar permanentemente
+        delete_confirm: Eliminar este anúncio permanentemente? Esta ação não pode
+          ser anulada.
+        delete_blocked: Este anúncio tem encomendas e não pode ser eliminado permanentemente.
+        labels_title: Etiquetas de produto
+        save_labels: Guardar etiquetas
+      edit:
+        back: Voltar ao anúncio
+        title: Editar anúncio
+        subtitle: Os administradores podem editar qualquer campo. As alterações materiais
+          voltam a passar por moderação.
+        category: Categoria
+        featured_until: Em destaque até
+      flash:
+        updated: Anúncio atualizado.
+        not_deletable: Só rascunhos ou anúncios arquivados sem encomendas podem ser
+          eliminados permanentemente.
+        destroyed: Anúncio eliminado permanentemente.
+        approved: Anúncio aprovado.
+        already_moderated: Este anúncio já não está à espera de moderação.
+        reason_required: Escolha um motivo de rejeição.
+        rejected: Anúncio rejeitado e vendedor avisado.
+        cannot_archive: Este anúncio não pode ser arquivado no estado atual.
+        archived: Anúncio arquivado.
+        cannot_restore: Este anúncio não pode ser restaurado no estado atual.
+        restored: Anúncio restaurado.
+        invalid_feature_date: Escolha uma data de fim de destaque válida.
+        featured: Anúncio destacado.
+        labels_updated: Etiquetas de produto atualizadas.
+      csv:
+        id: ID
+        title: Título
+        status: Estado
+        seller: Vendedor
+        store: Loja
+        category: Categoria
+        price: Preço (€)
+        views: Visitas
+        favourites: Favoritos
+        created_at: Criado em
+      statuses:
+        draft: Rascunho
+        pending_review: Pendente de revisão
+        published: Publicado
+        rejected: Rejeitado
+        reserved: Reservado
+        sold: Vendido
+        archived: Arquivado
+    users:
+      never_signed_in: Nunca iniciou sessão
+      index:
+        title: Utilizadores
+        subtitle: Pesquise contas, reveja a atividade e aplique ações administrativas.
+        count:
+          one: "%{count} utilizador"
+          other: "%{count} utilizadores"
+        empty_title: Nenhum utilizador corresponde a estes filtros
+        empty_body: Tente outra pesquisa ou limpe os filtros.
+      filters:
+        title: Filtros avançados
+        search: Pesquisar
+        search_placeholder: Email, nome de utilizador ou nome
+        role: Função
+        status: Estado
+        has_store: Tem loja
+        last_sign_in_from: Sessão desde
+        last_sign_in_to: Sessão até
+      table:
+        user: Utilizador
+        email: Email
+        role: Função
+        status: Estado
+        store: Loja
+        last_sign_in: Último acesso
+        created: Registo
+      show:
+        back: Voltar aos utilizadores
+        impersonate: Iniciar sessão como este utilizador
+        profile_title: Perfil
+        role: Função
+        status: Estado
+        locale: Idioma
+        country: País
+        phone: Telefone
+        created: Registo
+        ban_reason: 'Motivo do bloqueio: %{reason}'
+        sign_in_title: Atividade de acesso
+        sign_in_count: Inícios de sessão
+        last_sign_in: Último acesso
+        last_ip: Último IP
+        confirmed_at: Email confirmado
+        unconfirmed: Não confirmado
+        store_title: Loja
+        no_store: Este utilizador não tem loja.
+        orders_title: Encomendas
+        as_buyer: Como comprador
+        as_seller: Como vendedor
+        listings_title: Anúncios
+        reviews_title: Avaliações escritas
+        review_rating: "%{rating}/5"
+        reports_title: Denúncias contra este utilizador
+        audit_title: Registo de auditoria
+        role_title: Função
+        change_role: Alterar função
+        moderation_title: Moderação
+        unban: Desbloquear conta
+        ban: Bloquear conta
+        ban_reason_placeholder: Motivo mostrado ao utilizador (obrigatório)
+        confirm: Confirmar email manualmente
+        resend_confirmation: Reenviar email de confirmação
+        reset_password: Enviar email de reposição de palavra-passe
+        deletion_title: Eliminar conta
+        deletion_hint: Elimina e anonimiza a conta e arquiva os seus anúncios.
+        delete: Eliminar conta
+        delete_confirm: Eliminar e anonimizar esta conta? Esta ação não pode ser anulada.
+      edit:
+        back: Voltar ao utilizador
+        title: Editar utilizador
+        subtitle: Atualize os campos do perfil. A alteração de função é tratada em
+          separado.
+        first_name: Nome
+        last_name: Apelidos
+        username: Nome de utilizador
+        email: Email
+        phone: Telefone
+        locale: Idioma
+        country: Código do país
+        marketing_opt_in: Emails de marketing
+      flash:
+        updated: Utilizador atualizado.
+        banned: Conta bloqueada e anúncios arquivados.
+        ban_failed: Não foi possível bloquear a conta. Verifique o motivo.
+        unbanned: Conta desbloqueada.
+        role_changed: Função atualizada.
+        role_change_failed: Essa alteração de função não é permitida.
+        confirmed: Email confirmado.
+        already_confirmed: Este email já está confirmado.
+        confirmation_resent: Email de confirmação enviado.
+        password_reset_sent: Email de reposição enviado.
+        deleted: Conta eliminada e anonimizada.
+      csv:
+        id: ID
+        username: Nome de utilizador
+        email: Email
+        role: Função
+        status: Estado
+        stores: Loja
+        sign_in_count: Inícios de sessão
+        last_sign_in_at: Último acesso
+        created_at: Registo em
+      roles:
+        user: Comprador
+        moderator: Moderador
+        admin: Administrador
+      statuses:
+        active: Ativo
+        banned: Bloqueado
+        deleted: Eliminado
+        unconfirmed: Não confirmado
+    stores:
+      index:
+        title: Lojas
+        subtitle: Reveja montras, informações legais, pagamentos e avaliações.
+        count:
+          one: "%{count} loja"
+          other: "%{count} lojas"
+        empty_title: Nenhuma loja corresponde a estes filtros
+        empty_body: Tente outra pesquisa ou limpe os filtros.
+      filters:
+        title: Filtros avançados
+        search: Pesquisar
+        search_placeholder: Nome, slug, denominação social ou email
+        kind: Tipo
+        status: Estado
+        verified: Verificada
+        payouts_ready: Pagamentos prontos
+        vacation: Modo de férias
+        rating_min: Avaliação mínima
+        rating_max: Avaliação máxima
+      table:
+        store: Loja
+        owner: Proprietário
+        kind: Tipo
+        status: Estado
+        verified: Verificada
+        payouts: Pagamentos
+        rating: Avaliação
+        listings: Anúncios
+      show:
+        back: Voltar às lojas
+        public_page: Montra pública
+        details_title: Detalhes da loja
+        owner: Proprietário
+        email: Email
+        location: Localização
+        website: Website
+        vacation: Modo de férias
+        created: Criada
+        legal_title: Informações legais
+        legal_name: Denominação social
+        tax_id: NIF
+        address: Endereço
+        phone: Telefone
+        stats_title: Desempenho
+        listings: Anúncios
+        followers: Seguidores
+        sales: Vendas concluídas
+        revenue: Receita
+        payouts_title: Pagamentos
+        payouts_status: Pagamentos Stripe ativos
+        listings_title: Anúncios recentes
+        reviews_title: Avaliações
+        review_rating: "%{rating}/5"
+        hide_review: Ocultar
+        unhide_review: Mostrar
+        followers_title: Seguidores
+        verification_title: Verificação
+        verified_on: Verificada em %{date}
+        not_verified: Esta loja ainda não está verificada.
+        verify: Verificar loja
+        unverify: Remover verificação
+        suspension_title: Suspensão
+        suspended_hint: A montra está suspensa e os seus anúncios estão ocultos.
+        reactivate: Reativar loja
+        reason_placeholder: Motivo mostrado ao vendedor (obrigatório)
+        suspend: Suspender loja
+      edit:
+        back: Voltar à loja
+        title: Editar loja
+        name: Nome
+        kind: Tipo
+        description: Descrição
+        legal_name: Denominação social
+        tax_id: NIF
+        address_line: Endereço
+        city: Cidade
+        region: Distrito
+        region_placeholder: Escolha um distrito
+        postal_code: Código postal
+        country_code: Código do país
+        phone: Telefone
+        website: Website
+        handling_days: Dias de preparação
+        return_policy: Política de devoluções
+        shipping_policy: Política de envios
+        allow_offers_default: Ofertas ativas por predefinição
+      flash:
+        updated: Loja atualizada.
+        verified: Loja verificada.
+        unverified: Verificação removida.
+        suspended: Loja suspensa e vendedor avisado.
+        reason_required: O motivo da suspensão é obrigatório.
+        reactivated: Loja reativada.
+        review_hidden: Avaliação oculta.
+        review_unhidden: Avaliação novamente visível.
+      kinds:
+        individual: Particular
+        business: Empresa
+      statuses:
+        active: Ativa
+        suspended: Suspensa
+      review_statuses:
+        visible: Visível
+        hidden: Oculta
+      csv:
+        id: ID
+        name: Nome
+        owner: Proprietário
+        kind: Tipo
+        status: Estado
+        verified: Verificada
+        payouts_ready: Pagamentos prontos
+        rating: Avaliação
+        listings: Anúncios
+        created_at: Criada em
+    orders:
+      guest_buyer: Comprador convidado
+      system_actor: Sistema
+      index:
+        title: Encomendas
+        subtitle: Pesquise encomendas, inspecione pagamentos e atue em nome de compradores
+          ou vendedores.
+        count:
+          one: "%{count} encomenda"
+          other: "%{count} encomendas"
+        empty_title: Nenhuma encomenda corresponde a estes filtros
+        empty_body: Tente outro número de encomenda ou alargue o intervalo de datas.
+      filters:
+        title: Filtros avançados
+        search: Pesquisar
+        search_placeholder: Número da encomenda
+        status: Estado
+        store: Loja
+        buyer_id: ID do comprador
+        fulfilment: Entrega
+        amount_min: Total mínimo (€)
+        amount_max: Total máximo (€)
+        disputed: Contestada
+      table:
+        number: Encomenda
+        status: Estado
+        buyer: Comprador
+        store: Loja
+        fulfilment: Entrega
+        total: Total
+        commission: Comissão
+        created: Criada
+      show:
+        back: Voltar às encomendas
+        summary_title: Resumo
+        buyer: Comprador
+        email: Email
+        store: Loja
+        tracking: Rastreio
+        items_title: Artigos
+        item: Artigo
+        quantity: Qtd.
+        unit_price: Preço unitário
+        line_total: Total da linha
+        subtotal: Subtotal
+        shipping: Envio
+        commission: Comissão
+        total: Total
+        payment_title: Pagamento e transferência
+        payment_intent: PaymentIntent
+        open_in_stripe: Abrir no Stripe
+        payout_title: Transferência
+        messages_title: Mensagens
+        messages_link: Abrir conversa n.º %{id}
+        timeline_title: Cronologia
+        notes_title: Notas internas
+        notes_hint: Apenas a equipa pode ler estas notas.
+        actions_title: Ações
+        carrier: Transportadora
+        tracking_number: Número de rastreio
+        mark_shipped: Marcar como enviada
+        mark_delivered: Marcar como entregue
+        mark_completed: Marcar como concluída
+        cancel_reason: Motivo do cancelamento
+        cancel_refund: Cancelar e reembolsar
+        cancel_confirm: Cancelar esta encomenda e reembolsar o comprador?
+        refund_amount: Montante (€)
+        partial_refund: Reembolso parcial
+        dispute_title: Encomenda contestada
+        dispute_note: Nota da decisão (opcional)
+        refund_buyer: Reembolsar comprador
+        release_seller: Libertar para o vendedor
+        add_note_title: Adicionar nota interna
+        note_placeholder: Escreva uma nota para a equipa de apoio
+        add_note: Adicionar nota
+      flash:
+        shipped: Encomenda marcada como enviada.
+        ship_failed: Não foi possível marcar a encomenda como enviada. Verifique a
+          transportadora e o rastreio.
+        delivered: Encomenda marcada como entregue.
+        deliver_failed: Não foi possível marcar a encomenda como entregue.
+        completed: Encomenda concluída e transferência libertada.
+        complete_failed: Não foi possível concluir a encomenda.
+        cancelled: Encomenda cancelada e reembolsada quando aplicável.
+        cancel_failed: Não foi possível cancelar a encomenda.
+        refunded: Reembolso efetuado.
+        refund_failed: Não foi possível efetuar o reembolso. Verifique o montante.
+        dispute_resolved: Contestação resolvida.
+        dispute_failed: Não foi possível resolver a contestação.
+        note_added: Nota adicionada.
+        note_failed: Não foi possível guardar a nota.
+      csv:
+        number: Encomenda
+        status: Estado
+        buyer: Comprador
+        store: Loja
+        subtotal: Subtotal (€)
+        shipping: Envio (€)
+        commission: Comissão (€)
+        total: Total (€)
+        currency: Moeda
+        created_at: Criada em
+    payouts:
+      index:
+        title: Transferências
+        subtitle: Acompanhe as transferências para vendedores e repita as falhadas.
+        count:
+          one: "%{count} transferência"
+          other: "%{count} transferências"
+        empty_title: Nenhuma transferência corresponde a estes filtros
+        empty_body: As transferências aparecem quando uma encomenda é concluída.
+      filters:
+        search: Pesquisar
+        search_placeholder: Número da encomenda
+        status: Estado
+        store: Loja
+      table:
+        order: Encomenda
+        store: Loja
+        amount: Montante
+        status: Estado
+        transfer: ID da transferência
+        error: Erro
+        retry: Repetir transferência
+      flash:
+        retried: Transferência repetida.
+        retry_failed: Não foi possível repetir a transferência.
+      csv:
+        id: ID
+        order: Encomenda
+        store: Loja
+        amount: Montante (€)
+        status: Estado
+        transfer: ID da transferência
+        created_at: Criada em
+      statuses:
+        pending: Pendente
+        paid: Paga
+        failed: Falhada
+    audit_logs:
+      system: Sistema
+      deleted_item: Item eliminado
+      review: Avaliação n.º %{id}
+      payout: Transferência n.º %{id}
+      index:
+        title: Registo de auditoria
+        subtitle: Cada alteração administrativa, com autor e detalhes do pedido.
+        count:
+          one: "%{count} registo"
+          other: "%{count} registos"
+        empty_title: Sem registos de auditoria
+        empty_body: As ações administrativas serão registadas aqui.
+      filters:
+        actor: Autor
+        type: Tipo de item
+        action: Ação
+      table:
+        created: Quando
+        actor: Autor
+        action: Ação
+        item: Item
+        ip: IP
+      types:
+        listing: Anúncio
+        store: Loja
+        user: Utilizador
+        order: Encomenda
+        review: Avaliação
+        payout: Transferência
+        admin_audit_log: Registo de auditoria
+      actions:
+        listing:
+          approved: Anúncio aprovado
+          rejected: Anúncio rejeitado
+          archived: Anúncio arquivado
+          restored: Anúncio restaurado
+          updated: Anúncio atualizado
+          destroyed: Anúncio eliminado
+          featured: Anúncio destacado
+          labelled: Etiquetas atribuídas
+          bulk: Ação em massa sobre anúncios
+        user:
+          updated: Utilizador atualizado
+          role_changed: Função alterada
+          banned: Utilizador bloqueado
+          unbanned: Utilizador desbloqueado
+          confirmed: Email confirmado
+          confirmation_resent: Confirmação reenviada
+          password_reset_requested: Reposição solicitada
+          deleted: Utilizador eliminado
+        store:
+          updated: Loja atualizada
+          verified: Loja verificada
+          unverified: Verificação removida
+          suspended: Loja suspensa
+          reactivated: Loja reativada
+        review:
+          hidden: Avaliação oculta
+          unhidden: Avaliação mostrada
+        order:
+          shipped: Encomenda enviada
+          delivered: Encomenda entregue
+          completed: Encomenda concluída
+          cancelled: Encomenda cancelada
+          partial_refunded: Reembolso parcial
+          dispute_resolved: Contestação resolvida
+          note_added: Nota interna adicionada
+        payout:
+          retried: Transferência repetida
+        impersonation:
+          started: Personificação iniciada
+          stopped: Personificação terminada
+    impersonation:
+      banner: Tem sessão iniciada como %{name}.
+      stop: Parar personificação
+      started: Está agora a navegar como %{name}.
+      stopped: Personificação terminada.
+      cannot: Não é possível personificar essa conta.
+      not_impersonating: Não existe nenhuma personificação ativa.
+      payment_blocked: As definições de pagamento não estão disponíveis durante a
+      account_blocked: A segurança da conta e os dados não estão disponíveis durante a personificação.
+        personificação.
+    dashboard:
+      sparkline:
+        title: Encomendas dos últimos 30 dias
+        subtitle: Encomendas diárias
+        from: De
+        to: Até
+      kpis:
+        gmv_7d_cents: Volume de vendas (7 dias)
+        gmv_30d_cents: Volume de vendas (30 dias)
+        orders_7d: Encomendas (7 dias)
+        commission_30d_cents: Comissão obtida (30 dias)
+        open_disputes: Contestações abertas
+        failed_payouts: Transferências falhadas
+    nav:
+      payouts: Transferências
+      audit_log: Auditoria
+  admin_mailer:
+    user_banned:
+      subject: A sua conta PCMarket foi suspensa
+      title: Conta suspensa
+      greeting: Olá %{name},
+      body: Um administrador suspendeu a sua conta. Já não pode iniciar sessão nem
+        vender na PCMarket.
+      closing: Se pensa que é um erro, responda a este email e a nossa equipa irá
+        analisar.
+    store_suspended:
+      subject: A sua loja foi suspensa
+      title: Loja suspensa
+      greeting: Olá %{name},
+      body: A sua loja "%{store}" foi suspensa. Os seus anúncios ficam ocultos no
+        mercado enquanto durar a suspensão.
+      closing: Se pensa que é um erro, responda a este email e a nossa equipa irá
+        analisar.
+  orders:
+    events:
+      partial_refund: Reembolso parcial efetuado
+      refunded: Encomenda reembolsada

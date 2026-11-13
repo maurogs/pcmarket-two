@@ -9,7 +9,30 @@
 #     priority: 2
 #     schedule: at 5am every day
 
+default: &default
+  release_expired_reservations:
+    class: ReleaseExpiredReservationsJob
+    schedule: every minute
+  # Runs at 8am in the application time zone (Madrid, config.time_zone).
+  saved_searches_digest:
+    class: SavedSearches::DigestJob
+    schedule: every day at 8am
+  expire_offers:
+    class: Offers::ExpiryJob
+    schedule: every 15 minutes
+  generate_sitemaps:
+    class: Sitemaps::GenerateJob
+    schedule: every day at 3am
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
 production:
+  <<: *default
+
   clear_solid_queue_finished_jobs:
     command: "SolidQueue::Job.clear_finished_in_batches(sleep_between_batches: 0.3)"
     schedule: every hour at minute 12

@@ -1,0 +1,158 @@
+pt:
+  help:
+    pages:
+      about:
+        title: Quem somos
+        summary: Uma plataforma espanhola para comprar e vender hardware de PC com segurança.
+        description: O PCMarket existe para que entusiastas e profissionais comprem e vendam componentes de PC sem surpresas.
+        sections:
+          - title: A nossa missão
+            paragraphs:
+              - "Queremos que reutilizar hardware seja a opção mais simples: encontrar a peça certa, saber que o vendedor é real e receber o que foi prometido."
+              - "Por isso combinamos um catálogo organizado por especificações com pagamentos retidos e uma equipa que responde quando algo falha."
+          - title: Como trabalhamos
+            paragraphs:
+              - "Analisamos os anúncios que exigem aprovação, verificamos vendedores e mantemos canais de denúncia acessíveis. Não somos uma loja: intermediámos para que a compra seja segura."
+            bullets:
+              - Um catálogo e filtros pensados para hardware real.
+              - Proteção do comprador em cada pagamento na plataforma.
+              - Apoio em português e espanhol e cumprimento da legislação europeia.
+          - title: Onde estamos
+            paragraphs:
+              - "Operamos a partir de Espanha e enviamos para toda a península e ilhas. A empresa e os seus dados de registo constam no aviso legal."
+      how-it-works:
+        title: Como comprar
+        summary: Da pesquisa à entrega, com o pagamento protegido em cada passo.
+        description: Guia passo a passo para comprar no PCMarket com proteção do comprador.
+        sections:
+          - title: "1. Encontra o que precisas"
+            paragraphs:
+              - "Usa a pesquisa ou navega por categorias. Podes filtrar por especificações, estado, preço, distrito e envio grátis."
+          - title: "2. Verifica o anúncio e o vendedor"
+            paragraphs:
+              - "Vê as fotos, a descrição, o estado e as avaliações do vendedor. Em caso de dúvida, escreve-lhe pela plataforma."
+          - title: "3. Paga dentro do PCMarket"
+            paragraphs:
+              - "Adiciona o artigo ao carrinho e paga com cartão. O valor fica retido e só chega ao vendedor depois de confirmares a entrega."
+          - title: "4. Recebe e inspeciona"
+            paragraphs:
+              - "Acompanha o envio na tua conta. Quando chegar, inspeciona o artigo e confirma que está tudo bem. Caso contrário, abre uma ocorrência antes do fim do prazo de proteção."
+      how-to-sell:
+        title: Como vender
+        summary: Publica, vende e recebe com segurança.
+        description: Guia para publicar um anúncio e vender hardware no PCMarket.
+        sections:
+          - title: Prepara o anúncio
+            paragraphs:
+              - "Tira fotos nítidas com luz natural, indica o estado real e detalha as especificações. Anúncios honestos vendem mais depressa e geram menos problemas."
+            bullets:
+              - Um título concreto com modelo e capacidade.
+              - Fotos do produto, das portas e de eventuais defeitos.
+              - Estado e acessórios incluídos.
+          - title: Publica e responde
+            paragraphs:
+              - "Cria a tua loja se ainda não tens e publica o anúncio. Os anúncios podem passar por revisão antes de aparecer. Responde depressa e mantém a conversa na plataforma."
+          - title: Envia ou entrega
+            paragraphs:
+              - "Quando venderes, embala com proteção e carrega o seguimento. Se acordaste entrega em mão, escolhe um local público e confirma a entrega no painel."
+          - title: Recebe
+            paragraphs:
+              - "O pagamento é libertado quando o comprador confirma a receção ou termina o prazo de proteção. Os recebimentos vão para a tua conta Stripe."
+      seller-fees:
+        title: Comissões de venda
+        summary: Publicar é grátis e futuras comissões são anunciadas com antecedência.
+        description: Quanto custa vender no PCMarket e como funcionam as comissões.
+        sections:
+          - title: Publicação
+            paragraphs:
+              - "Criar anúncios e manter a loja é gratuito. Não há mensalidade nem custo por carregar fotos."
+          - title: Comissão
+            paragraphs:
+              - "Durante a fase de crescimento não cobramos comissão. Se a ativarmos, aparecerá aqui e no resumo do anúncio antes da publicação."
+          - title: Anúncios em destaque
+            paragraphs:
+              - "Os anúncios em destaque são opcionais. O preço é mostrado antes da contratação e nunca é cobrado automaticamente."
+      shipping:
+        title: Guia de envios
+        summary: Como embalar PCs e GPUs para chegarem intactos e que transportadoras operam em Espanha.
+        description: Conselhos de embalagem e transporte para enviar hardware de PC em segurança.
+        sections:
+          - title: Embalar uma GPU
+            paragraphs:
+              - "Usa uma bolsa antiestática, protege o conector PCIe e as saídas de vídeo e coloca a placa numa caixa rígida com proteção em todos os lados."
+            bullets:
+              - Bolsa antiestática e espuma ou plástico bolha em dupla camada.
+              - Uma caixa exterior com pelo menos 5 cm de proteção em cada face.
+              - Etiqueta de frágil, sem confiar apenas nela.
+          - title: Embalar um PC completo
+            paragraphs:
+              - "Numa torre, imobiliza a placa gráfica e o dissipador. Enche o interior com espuma antiestática e usa uma caixa exterior dupla."
+            bullets:
+              - Remove ou fixa a GPU e o cooler se sobressaírem.
+              - Protege o painel de vidro em separado.
+              - Guarda todos os cabos e acessórios num saco.
+          - title: Transportadoras em Espanha
+            paragraphs:
+              - "Podes usar qualquer transportadora com seguimento. As mais comuns são Correos, SEUR, MRW, GLS e Nacex."
+              - "Contrata seguro acima do limite padrão, guarda o recibo e carrega o número de seguimento na encomenda."
+      returns:
+        title: Devoluções e reembolsos
+        summary: Os teus direitos ao comprar a um vendedor profissional e a proteção entre particulares.
+        description: Resumo de devoluções, livre resolução e reembolsos no PCMarket.
+        sections:
+          - title: Compras a vendedores profissionais
+            paragraphs:
+              - "Como consumidor tens 14 dias de calendário para exercer o direito de livre resolução em compras à distância, salvo exceções legais. Contacta-nos pela encomenda e explicamos como devolver o artigo."
+          - title: Compras entre particulares
+            paragraphs:
+              - "Entre particulares não existe direito legal de livre resolução. Ainda assim, a proteção do comprador cobre artigos que não cheguem, cheguem danificados ou não correspondam à descrição."
+          - title: Reembolsos
+            paragraphs:
+              - "Se uma devolução ou ocorrência for aceite, o reembolso é feito no mesmo método de pagamento. O prazo depende do banco emissor, normalmente 3 a 10 dias úteis."
+    faq:
+      categories:
+        buying:
+          title: Comprar
+          items:
+            - question: Preciso de conta para comprar?
+              answer: Podes explorar sem conta, mas precisas de uma conta confirmada para pagar e acompanhar encomendas.
+            - question: Posso falar com o vendedor antes?
+              answer: "Sim. A partir do anúncio ou do perfil do vendedor podes abrir uma conversa sem partilhar dados pessoais."
+            - question: E se o artigo não corresponder?
+              answer: Abre uma ocorrência na encomenda antes do fim do prazo de proteção e anexa fotos.
+        selling:
+          title: Vender
+          items:
+            - question: Quanto custa publicar?
+              answer: Publicar é gratuito. As comissões, se forem ativadas, são anunciadas com antecedência e mostradas antes da publicação.
+            - question: Quando recebo?
+              answer: Quando o comprador confirma a entrega ou termina o prazo de proteção sem problemas.
+            - question: Posso vender como empresa?
+              answer: "Sim. Indica os dados fiscais na loja; aparecerão no anúncio conforme as regras de rastreabilidade."
+        payments:
+          title: Pagamentos
+          items:
+            - question: Que métodos aceitam?
+              answer: Cartões processados pela Stripe. Não aceitamos dinheiro nem transferências fora da plataforma.
+            - question: Quando é retido o dinheiro?
+              answer: Desde o pagamento até confirmares a receção ou terminar o prazo de proteção.
+            - question: Emitem fatura?
+              answer: O vendedor profissional deve emitir a fatura. O PCMarket fornece os dados da encomenda.
+        shipping:
+          title: Envios
+          items:
+            - question: Quem paga o envio?
+              answer: Cada anúncio indica o custo. Podes filtrar por envio grátis.
+            - question: Posso recolher em mão?
+              answer: "Sim, se o vendedor permitir. Combinem um local público e confirma a entrega na encomenda."
+            - question: O que faço se a encomenda chegar danificada?
+              answer: Fotografa a embalagem e o artigo antes de abrir tudo e abre uma ocorrência no mesmo dia.
+        account:
+          title: Conta
+          items:
+            - question: Como altero a palavra-passe?
+              answer: Nas definições da conta, em Segurança. Também podes pedir reposição na página de início de sessão.
+            - question: Como elimino a conta?
+              answer: Nas definições da conta, em Privacidade. As encomendas abertas têm de ser resolvidas primeiro.
+            - question: Como altero o idioma?
+              answer: Usa o seletor de idioma no cabeçalho. Guardaremos a escolha para visitas futuras.

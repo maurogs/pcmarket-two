@@ -1,0 +1,13 @@
+<% set_meta_tags(title: t("newsletter.unsubscribe.title"), noindex: true) %>
+
+<div class="mx-auto max-w-xl space-y-5 rounded-3xl border border-border bg-surface p-6 text-center shadow-sm sm:p-10">
+  <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-surface-muted text-muted">
+    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <path d="M4 6h16v12H4z" stroke-linejoin="round"></path>
+      <path d="m4 7 8 6 8-6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </span>
+  <h1 class="text-2xl font-extrabold tracking-tight"><%= t("newsletter.unsubscribe.title") %></h1>
+  <p class="text-sm leading-relaxed text-muted"><%= t("newsletter.unsubscribe.body") %></p>
+  <%= link_to t("newsletter.unsubscribe.cta"), root_path, class: "btn-primary" %>
+</div>

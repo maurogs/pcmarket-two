@@ -1,0 +1,42 @@
+<%= form_with model: @category, url: @category.persisted? ? admin_category_path(@category) : admin_categories_path,
+              method: @category.persisted? ? :patch : :post, class: "space-y-5" do |form| %>
+  <%= render "shared/form_errors", object: @category %>
+
+  <%= translatable_form_field(form, @category, :name, label: t("admin.categories.form.name"), required: true) %>
+
+  <%= translatable_form_field(form, @category, :description, label: t("admin.categories.form.description"), type: :textarea, required: false) %>
+
+  <div class="grid gap-4 rounded-2xl border border-border bg-surface p-4 sm:grid-cols-2 sm:p-5">
+    <div>
+      <%= form.label :slug, t("admin.categories.form.slug"), class: "block text-sm font-semibold" %>
+      <%= form.text_field :slug, class: "field mt-1.5" %>
+      <p class="mt-1 text-xs text-muted"><%= t("admin.categories.form.slug_hint") %></p>
+    </div>
+    <div>
+      <%= form.label :icon, t("admin.categories.form.icon"), class: "block text-sm font-semibold" %>
+      <%= form.text_field :icon, class: "field mt-1.5" %>
+    </div>
+    <div>
+      <%= form.label :parent_id, t("admin.categories.form.parent"), class: "block text-sm font-semibold" %>
+      <%= form.select :parent_id, admin_category_parent_options(@category), {}, class: "field mt-1.5" %>
+    </div>
+    <div>
+      <%= form.label :position, t("admin.categories.form.position"), class: "block text-sm font-semibold" %>
+      <%= form.number_field :position, min: 0, class: "field mt-1.5" %>
+    </div>
+    <label class="flex items-center gap-3 self-end text-sm">
+      <%= form.check_box :active, class: "h-5 w-5 rounded border-border text-primary-600" %>
+      <span><%= t("admin.categories.form.active") %></span>
+    </label>
+  </div>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <%= translatable_form_field(form, @category, :seo_title, label: t("admin.categories.form.seo_title"), required: false) %>
+    <%= translatable_form_field(form, @category, :seo_description, label: t("admin.categories.form.seo_description"), type: :textarea, required: false) %>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-end gap-2">
+    <%= link_to t("admin.common.cancel"), admin_categories_path, class: "btn-accent" %>
+    <%= submit_tag t("admin.common.save"), class: "btn-primary" %>
+  </div>
+<% end %>

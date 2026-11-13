@@ -1,0 +1,9 @@
+<%= t("admin_mailer.user_banned.title") %>
+
+<%= t("admin_mailer.user_banned.greeting", name: @user.display_name) %>
+
+<%= t("admin_mailer.user_banned.body") %>
+
+<%= @reason %>
+
+<%= t("admin_mailer.user_banned.closing") %>

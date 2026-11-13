@@ -1,0 +1,141 @@
+# i18n-tasks configuration: https://github.com/glebm/i18n-tasks
+
+base_locale: es
+locales: [es, en, fr, de, it, pt]
+
+data:
+  read:
+    - config/locales/**/*.yml
+  yaml:
+    write:
+      line_width: -1
+
+search:
+  paths:
+    - app/
+    - config/
+    - lib/
+    - test/
+  exclude:
+    - app/assets/images
+    - app/assets/fonts
+    - app/assets/videos
+    - app/assets/builds
+
+# Referenced dynamically by the locale switcher and category nav in the layout.
+# Country names are resolved from the code, setting descriptions are rendered
+# by the admin UI, and Devise resolves its failure keys at runtime.
+ignore_unused:
+  - "locale.names.*"
+  - "nav.categories.*"
+  - "countries.*"
+  - "settings.*"
+  - "devise.failure.*"
+  - "activerecord.*"
+  - "listings.conditions.*"
+  - "listings.statuses.*"
+  - "listings.shipping_modes.*"
+  - "listings.attribute_groups.*"
+  - "sell.details.conditions.*"
+  - "sell.listings.tabs.*"
+  - "admin.nav.*"
+  - "admin.impersonation.*"
+  - "admin.settings.groups.*"
+  - "admin.settings.keys.*"
+  - "admin.features.descriptions.*"
+  - "admin.categories.statuses.*"
+  - "admin.attribute_definitions.input_types.*"
+  - "admin.tags.kinds.*"
+  - "admin.tags.colours.*"
+  - "admin.countries.statuses.*"
+  - "admin.countries.checklist.items.*"
+  - "admin.legal_pages.statuses.*"
+  - "admin.legal_pages.comparison.kinds.*"
+  - "legal_pages.kinds.*"
+  - "legal_pages.statuses.*"
+  - "admin.dashboard.kpis.*"
+  - "admin.moderation.reasons.*"
+  - "admin.moderation.actions.*"
+  - "admin.moderation.notices.*"
+  - "admin.moderation.filters.seller_kinds.*"
+  - "admin.listings.statuses.*"
+  - "admin.users.roles.*"
+  - "admin.users.statuses.*"
+  - "admin.stores.kinds.*"
+  - "admin.stores.statuses.*"
+  - "admin.stores.review_statuses.*"
+  - "admin.payouts.statuses.*"
+  - "admin.audit_logs.types.*"
+  - "admin.audit_logs.actions.*"
+  - "stores.form.individual"
+  - "stores.form.business"
+  - "stores.form.individual_hint"
+  - "stores.form.business_hint"
+  - "orders.statuses.*"
+  - "orders.fulfilments.*"
+  - "orders.carriers.*"
+  - "orders.events.*"
+  - "store_payments.requirements.*"
+  - "cart.unavailable.reasons.*"
+  - "cart.purchase_blocked.*"
+  - "cart.errors.*"
+  - "checkout.errors.*"
+  - "errors.messages.invalid_spanish_tax_id"
+  - "errors.messages.invalid_image_type"
+  - "errors.messages.image_too_large"
+  - "errors.messages.too_many_images"
+  - "wishlist.tabs.*"
+  - "saved_searches.frequency_options.*"
+  - "notifications.messages.*"
+  - "notifications.filters.*"
+  - "notifications.preferences.kinds.*"
+  - "sell.dashboard.nav.*"
+  - "account.settings.sidebar.*"
+  - "conversations.errors.*"
+  - "conversations.index.tabs.*"
+  - "messages.errors.*"
+  - "offers.errors.*"
+  - "offers.statuses.*"
+  - "offers.flash.*"
+  - "offers.system.*"
+  - "blocks.errors.*"
+  - "reports.errors.*"
+  - "reports.reasons.*"
+  - "admin.reports.*"
+  - "offer_mailer.*"
+  - "report_mailer.decisions.*"
+  - "help.pages.*"
+  - "help.faq.categories.*"
+  - "contact.topics.*"
+  - "cookie_consent.categories.*"
+  - "home.promos.*"
+  - "home.trust.*"
+  - "home.rails.*"
+  - "home.sold.*"
+  - "pc_finder.steps.*"
+  - "pc_finder.resolutions.*"
+  - "pc_finder.fps_options.*"
+  - "pc_finder.budgets.*"
+  - "pc_finder.case_sizes.*"
+  - "pc_finder.case_colours.*"
+  - "pc_finder.cooling_options.*"
+  - "pc_finder.bands.*"
+  - "sell_to_us.how.steps.*"
+  - "sell_to_us.faq.items.*"
+  - "buyback.component_types.*"
+  - "buyback.conditions.*"
+  - "buyback.statuses.*"
+  - "buyback.quote.questions.*"
+  - "buyback_mailer.events.*"
+  - "errors.messages.invalid_iban"
+  - "api.errors.*"
+  - "errors.pages.*"
+  - "api.auth.*"
+  - "api.checkout.*"
+  - "api.me.*"
+  - "api.sell.*"
+
+# Devise resolves its failure keys at runtime through devise-i18n, outside
+# config/locales, so i18n-tasks cannot see them.
+ignore_missing:
+  - "devise.*"

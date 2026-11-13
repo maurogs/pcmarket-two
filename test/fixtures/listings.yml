@@ -1,0 +1,331 @@
+published_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "NVIDIA GeForce RTX 4070 Ti Super"
+  description: "Excellent condition graphics card, barely used and fully tested."
+  slug: rtx-4070-ti-super
+  condition: used_like_new
+  price_cents: 79900
+  compare_at_price_cents: 89900
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: nvidia, gpu_memory_type: [gddr6x], gpu_vram: 16 }
+  status: published
+  published_at: <%= 2.days.ago %>
+  featured_until: <%= 1.day.from_now %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  shipping_price_cents: 0
+  free_shipping: true
+  handling_days: 3
+  allow_offers: true
+  views_count: 120
+  favorites_count: 8
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+amd_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "AMD Radeon RX 7800 XT"
+  description: "A fast graphics card for high-end gaming rigs and creators."
+  slug: radeon-rx-7800-xt
+  condition: used_good
+  price_cents: 49900
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: amd, gpu_memory_type: [gddr6] }
+  status: published
+  published_at: <%= 1.day.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping_and_pickup
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+nvidia_budget:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "NVIDIA GeForce RTX 4060 Budget"
+  description: "Affordable graphics card in good working order, box included."
+  slug: rtx-4060-budget
+  condition: used_fair
+  price_cents: 24900
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: nvidia, gpu_memory_type: [gddr6] }
+  status: published
+  published_at: <%= 3.days.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+accent_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: components
+  title: "Tarjeta Gráfica Radeon Usada"
+  description: "Una tarjeta gráfica potente para juegos exigentes y diseño."
+  slug: tarjeta-grafica-radeon
+  condition: used_good
+  price_cents: 19900
+  currency: EUR
+  quantity: 1
+  specs: {}
+  status: published
+  published_at: <%= 4.days.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+draft_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "Draft GPU Listing"
+  description: "This description is long enough to pass validation easily."
+  slug: draft-gpu-listing
+  condition: new_sealed
+  price_cents: 35000
+  currency: EUR
+  quantity: 1
+  specs: {}
+  status: draft
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+pending_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "Pending Review GPU"
+  description: "Another description that is long enough for validation."
+  slug: pending-review-gpu
+  condition: new_open_box
+  price_cents: 45000
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: nvidia }
+  status: pending_review
+  submitted_at: <%= 3.hours.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+pending_nvidia_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: nvidia
+  title: "Pending NVIDIA RTX 4090"
+  description: "A high-end graphics card waiting for moderation in a child category."
+  slug: pending-nvidia-rtx-4090
+  condition: used_like_new
+  price_cents: 125000
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: nvidia }
+  status: pending_review
+  submitted_at: <%= 1.hour.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+pending_business_gpu:
+  seller: seller_two
+  store: suspended_store
+  category: components
+  title: "Pending Business CPU Bundle"
+  description: "A processor bundle submitted by a business seller awaiting review."
+  slug: pending-business-cpu-bundle
+  condition: used_good
+  price_cents: 39000
+  currency: EUR
+  quantity: 1
+  specs: {}
+  status: pending_review
+  submitted_at: <%= 2.hours.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+reserved_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "Reserved RTX 4080"
+  description: "A powerful graphics card reserved by a buyer and awaiting payment."
+  slug: reserved-rtx-4080
+  condition: used_like_new
+  price_cents: 95000
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: nvidia, gpu_vram: 16 }
+  status: reserved
+  published_at: <%= 6.days.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  views_count: 40
+  favorites_count: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+rejected_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "Rejected Mining GPU"
+  description: "A graphics card that was used for mining and needs new photos."
+  slug: rejected-mining-gpu
+  condition: used_fair
+  price_cents: 22000
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: nvidia }
+  status: rejected
+  rejection_reason: "Photos do not show the item clearly."
+  submitted_at: <%= 2.days.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  views_count: 0
+  favorites_count: 0
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+sold_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "Sold GTX 1080 Ti"
+  description: "A graphics card that has already been sold to a buyer."
+  slug: sold-gtx-1080-ti
+  condition: used_good
+  price_cents: 30000
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: nvidia }
+  status: sold
+  published_at: <%= 10.days.ago %>
+  sold_at: <%= 1.day.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  views_count: 85
+  favorites_count: 6
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+archived_gpu:
+  seller: confirmed
+  store: confirmed_store
+  category: gpus
+  title: "Archived RX 6700 XT"
+  description: "A graphics card withdrawn from sale and kept in the archive."
+  slug: archived-rx-6700-xt
+  condition: used_good
+  price_cents: 28000
+  currency: EUR
+  quantity: 1
+  specs: { gpu_chipset: amd }
+  status: archived
+  published_at: <%= 20.days.ago %>
+  archived_at: <%= 5.days.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  views_count: 15
+  favorites_count: 1
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+suspended_listing:
+  seller: seller_two
+  store: suspended_store
+  category: components
+  title: "Suspended Store Component"
+  description: "A published listing from a suspended storefront, for scope tests."
+  slug: suspended-store-component
+  condition: used_good
+  price_cents: 15000
+  currency: EUR
+  quantity: 1
+  specs: {}
+  status: published
+  published_at: <%= 1.day.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+cpu_listing:
+  seller: confirmed
+  store: confirmed_store
+  category: cpus
+  title: "AMD Ryzen 7 5800X Processor"
+  description: "A desktop processor in excellent condition with the original box."
+  slug: ryzen-7-5800x
+  condition: used_like_new
+  price_cents: 18000
+  currency: EUR
+  quantity: 1
+  specs: {}
+  status: published
+  published_at: <%= 5.days.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+banned_listing:
+  seller: banned
+  store: confirmed_store
+  category: components
+  title: "Banned Seller Component"
+  description: "A published listing from a banned seller, for scope tests."
+  slug: banned-seller-component
+  condition: used_good
+  price_cents: 12000
+  currency: EUR
+  quantity: 1
+  specs: {}
+  status: published
+  published_at: <%= 1.day.ago %>
+  country_code: ES
+  region: madrid
+  shipping_mode: shipping
+  handling_days: 3
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

@@ -1,0 +1,36 @@
+fr:
+  api:
+    errors:
+      unauthorized: "Connectez-vous pour continuer."
+      forbidden: "Vous n'êtes pas autorisé à effectuer cette action."
+      not_found: "Nous n'avons pas trouvé cette ressource."
+      validation_failed: "Vérifiez les données envoyées."
+      rate_limited: "Trop de requêtes. Réessayez plus tard."
+      conflict: "Cette action n'est plus disponible."
+      feature_disabled: "Cette fonctionnalité n'est pas disponible."
+      required: "est obligatoire"
+      invalid_signed_id: "Le fichier envoyé n'est pas valide."
+    auth:
+      invalid_credentials: "Adresse e-mail ou mot de passe incorrect."
+      banned: "Votre compte est suspendu. Contactez le support."
+      deleted: "Ce compte a été supprimé."
+      locked: "Votre compte est temporairement verrouillé."
+      unconfirmed: "Confirmez votre adresse e-mail avant de vous connecter."
+      confirmation_sent: "Nous vous avons envoyé un e-mail de confirmation."
+      invalid_refresh_token: "Le jeton de rafraîchissement est invalide ou a expiré."
+      invalid_google_token: "Nous n'avons pas pu vérifier votre compte Google."
+      email_unverified: "Votre adresse e-mail Google n'est pas vérifiée."
+      password_reset_sent: "Si un compte existe pour cet e-mail, vous recevrez les instructions de réinitialisation."
+    checkout:
+      payment_setup_failed: "Nous n'avons pas pu préparer le paiement. Réessayez."
+    me:
+      cannot_delete: "Vous ne pouvez pas supprimer votre compte tant que vous avez des commandes en cours."
+    sell:
+      archive_instead: "Seuls les brouillons peuvent être supprimés. Archivez cette annonce à la place."
+  settings:
+    api_require_confirmation: "Exiger la confirmation de l'e-mail pour les utilisateurs de l'API"
+  offers:
+    errors:
+      not_offerer: "Seule la personne ayant fait l'offre peut la retirer."
+    system:
+      withdrawn: "Offre de %{amount} retirée."

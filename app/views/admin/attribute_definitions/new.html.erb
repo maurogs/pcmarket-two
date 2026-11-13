@@ -1,0 +1,9 @@
+<div class="space-y-6">
+  <header>
+    <%= link_to t("admin.attribute_definitions.form.back"), admin_attribute_definitions_path, class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.attribute_definitions.new.title") %></h1>
+    <p class="mt-2 text-sm text-muted"><%= t("admin.attribute_definitions.new.subtitle") %></p>
+  </header>
+
+  <%= render "form" %>
+</div>

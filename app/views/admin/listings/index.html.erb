@@ -1,0 +1,219 @@
+<div class="space-y-6" data-controller="bulk_select">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.title") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.listings.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("admin.listings.index.subtitle") %></p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <p class="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-muted">
+        <%= t("admin.listings.index.count", count: @query.pagy.count) %>
+      </p>
+      <%= link_to t("admin.common.export_csv"),
+                  admin_listings_path(request.query_parameters.merge(format: :csv)),
+                  class: "btn-accent" %>
+    </div>
+  </header>
+
+  <%= form_with url: admin_listings_path, method: :get, scope: nil,
+                class: "rounded-2xl border border-border bg-surface px-4 py-4" do |form| %>
+    <div class="flex flex-wrap items-end gap-3">
+      <div class="min-w-0 flex-1">
+        <%= label_tag :q, t("admin.listings.filters.search"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= search_field_tag :q, @query.filters[:q],
+                             placeholder: t("admin.listings.filters.search_placeholder"),
+                             class: "field mt-1.5" %>
+      </div>
+      <div>
+        <%= label_tag :per_page, t("admin.common.per_page"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :per_page,
+                       options_for_select(Admin::Filterable::PER_PAGE_OPTIONS, @query.per_page),
+                       class: "field mt-1.5",
+                       onchange: "this.form.requestSubmit()" %>
+      </div>
+      <%= submit_tag t("admin.common.apply"), class: "btn-primary" %>
+      <%= link_to t("admin.common.clear"), admin_listings_path, class: "btn-accent" %>
+    </div>
+
+    <details class="mt-4 rounded-xl border border-border bg-surface-muted/60 px-4 py-3" <%= "open" if admin_filters_active?(@query.filters) %>>
+      <summary class="cursor-pointer text-sm font-semibold text-content"><%= t("admin.listings.filters.title") %></summary>
+      <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <%= label_tag :status, t("admin.listings.filters.status"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :status,
+                         options_for_select([[t("admin.common.any"), ""]] +
+                           Admin::ListingQuery::FILTERABLE_STATUSES.map { |s| [admin_listing_status_label(s), s] },
+                           @query.filters[:status]), class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :category, t("admin.listings.filters.category"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :category,
+                         options_for_select([[t("admin.common.any"), ""]] +
+                           @query.categories.map { |c| ["#{'— ' * c.depth}#{c.name}", c.slug] },
+                           @query.filters[:category]&.slug), class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :seller_id, t("admin.listings.filters.seller"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :seller_id,
+                         options_for_select([[t("admin.common.any"), ""]] +
+                           @query.sellers.map { |u| [u.display_name, u.id] },
+                           @query.filters[:seller_id]), class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :store_kind, t("admin.listings.filters.store_kind"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :store_kind,
+                         options_for_select([[t("admin.common.any"), ""]] +
+                           Admin::ListingQuery::STORE_KINDS.map { |k| [admin_store_kind_label(k), k] },
+                           @query.filters[:store_kind]), class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :condition, t("admin.listings.filters.condition"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :condition,
+                         options_for_select([[t("admin.common.any"), ""]] +
+                           Admin::ListingQuery::FILTERABLE_CONDITIONS.map { |c| [condition_label(c), c] },
+                           @query.filters[:condition]), class: "field mt-1.5" %>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <%= label_tag :price_min, t("admin.listings.filters.price_min"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= number_field_tag :price_min, @query.filters[:price_min], step: "0.01", min: 0, class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= label_tag :price_max, t("admin.listings.filters.price_max"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= number_field_tag :price_max, @query.filters[:price_max], step: "0.01", min: 0, class: "field mt-1.5" %>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <%= label_tag :created_from, t("admin.common.from"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= date_field_tag :created_from, @query.filters[:created_from], class: "field mt-1.5" %>
+          </div>
+          <div>
+            <%= label_tag :created_to, t("admin.common.to"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= date_field_tag :created_to, @query.filters[:created_to], class: "field mt-1.5" %>
+          </div>
+        </div>
+        <div>
+          <%= label_tag :featured, t("admin.listings.filters.featured"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :featured,
+                         options_for_select([[t("admin.common.any"), ""], [t("admin.common.yes"), "true"], [t("admin.common.no"), "false"]],
+                           @query.filters[:featured].nil? ? "" : @query.filters[:featured].to_s),
+                         class: "field mt-1.5" %>
+        </div>
+        <div>
+          <%= label_tag :has_reports, t("admin.listings.filters.has_reports"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+          <%= select_tag :has_reports,
+                         options_for_select([[t("admin.common.any"), ""], [t("admin.common.yes"), "true"], [t("admin.common.no"), "false"]],
+                           @query.filters[:has_reports].nil? ? "" : @query.filters[:has_reports].to_s),
+                         class: "field mt-1.5" %>
+        </div>
+      </div>
+    </details>
+  <% end %>
+
+  <%= form_with url: admin_listing_bulk_actions_path, method: :post, scope: nil,
+                id: "listing-bulk-form",
+                class: "flex flex-wrap items-end gap-2 rounded-2xl border border-border bg-surface px-4 py-3" do %>
+    <label class="inline-flex items-center gap-2 self-center text-sm font-medium text-content">
+      <input type="checkbox"
+             data-bulk-select-target="all"
+             data-action="change->bulk_select#toggleAll"
+             class="h-4 w-4 rounded border-border text-primary-600">
+      <span><%= t("admin.listings.bulk.select_all") %></span>
+    </label>
+    <div>
+      <%= label_tag :operation, t("admin.listings.bulk.operation"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+      <%= select_tag :operation,
+                     options_for_select([
+                       [t("admin.listings.bulk.operations.approve"), "approve"],
+                       [t("admin.listings.bulk.operations.reject"), "reject"],
+                       [t("admin.listings.bulk.operations.archive"), "archive"],
+                       [t("admin.listings.bulk.operations.label"), "label"],
+                       [t("admin.listings.bulk.operations.feature"), "feature"]
+                     ]), class: "field mt-1.5" %>
+    </div>
+    <div>
+      <%= label_tag :reason_code, t("admin.listings.bulk.reason"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+      <%= select_tag :reason_code,
+                     options_for_select(ListingModeration::REJECTION_REASONS.map { |r| [admin_moderation_reason_label(r), r] }),
+                     include_blank: t("admin.listings.bulk.reason_placeholder"), class: "field mt-1.5" %>
+    </div>
+    <div>
+      <%= label_tag :label_id, t("admin.listings.bulk.label"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+      <%= select_tag :label_id,
+                     options_from_collection_for_select(Tag.product_labels.active.ordered, :id, :name),
+                     include_blank: t("admin.common.none"), class: "field mt-1.5" %>
+    </div>
+    <div>
+      <%= label_tag :days, t("admin.listings.bulk.days"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+      <%= number_field_tag :days, nil, min: 1, class: "field mt-1.5 w-24" %>
+    </div>
+    <%= submit_tag t("admin.listings.bulk.submit"), class: "btn-accent" %>
+  <% end %>
+
+  <% if @query.records.any? %>
+    <div class="overflow-x-auto rounded-2xl border border-border bg-surface">
+      <table class="min-w-full divide-y divide-border text-sm">
+        <thead class="bg-surface-muted text-left text-xs font-semibold uppercase tracking-widest text-muted">
+          <tr>
+            <th scope="col" class="w-10 px-4 py-3"><span class="sr-only"><%= t("admin.listings.table.select") %></span></th>
+            <th scope="col" class="px-4 py-3"><%= admin_sort_link(t("admin.listings.table.listing"), "title", query: @query, path: :admin_listings_path) %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.listings.table.seller") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.listings.table.store") %></th>
+            <th scope="col" class="px-4 py-3"><%= admin_sort_link(t("admin.listings.table.price"), "price", query: @query, path: :admin_listings_path) %></th>
+            <th scope="col" class="px-4 py-3"><%= admin_sort_link(t("admin.listings.table.status"), "status", query: @query, path: :admin_listings_path) %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.listings.table.views") %></th>
+            <th scope="col" class="px-4 py-3"><%= admin_sort_link(t("admin.listings.table.created"), "created_at", query: @query, path: :admin_listings_path) %></th>
+            <th scope="col" class="px-4 py-3 text-right"><%= t("admin.listings.table.actions") %></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <% @query.records.each do |listing| %>
+            <tr class="align-middle">
+              <td class="px-4 py-3">
+                <%= check_box_tag "listing_ids[]", listing.id, false,
+                                  form: "listing-bulk-form",
+                                  id: "listing_ids_#{listing.id}",
+                                  data: { bulk_select_target: "item", action: "change->bulk_select#update" },
+                                  class: "h-4 w-4 rounded border-border text-primary-600" %>
+              </td>
+              <td class="px-4 py-3">
+                <%= link_to listing.title.presence || t("admin.listings.untitled"),
+                            admin_listing_path(listing),
+                            class: "font-semibold text-content underline-offset-2 hover:underline" %>
+                <p class="text-xs text-muted">#<%= listing.id %> · <%= listing.category&.name %></p>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 text-muted"><%= listing.seller&.display_name %></td>
+              <td class="whitespace-nowrap px-4 py-3 text-muted"><%= listing.store&.name %></td>
+              <td class="whitespace-nowrap px-4 py-3 font-semibold text-content">
+                <%= listing.price_cents ? money(listing.price_cents, currency: listing.currency) : "—" %>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3">
+                <span class="rounded-full border px-2 py-0.5 text-xs font-semibold <%= admin_status_badge_class(listing.status) %>">
+                  <%= admin_listing_status_label(listing.status) %>
+                </span>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 text-muted"><%= listing.views_count %> / ♥ <%= listing.favorites_count %></td>
+              <td class="whitespace-nowrap px-4 py-3 text-muted"><%= l(listing.created_at, format: :short) %></td>
+              <td class="whitespace-nowrap px-4 py-3 text-right">
+                <div class="flex justify-end gap-3">
+                  <%= link_to t("admin.common.view"), admin_listing_path(listing),
+                              class: "font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+                  <%= link_to t("admin.common.edit"), edit_admin_listing_path(listing),
+                              class: "font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <%= pagy_nav(@query.pagy) %>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <h2 class="text-lg font-bold"><%= t("admin.listings.index.empty_title") %></h2>
+      <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("admin.listings.index.empty_body") %></p>
+    </div>
+  <% end %>
+</div>

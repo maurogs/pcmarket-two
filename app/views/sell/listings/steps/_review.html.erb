@@ -1,0 +1,84 @@
+<% missing = listing.missing_wizard_requirements %>
+
+<div class="space-y-6">
+  <section class="rounded-2xl border border-border bg-surface p-5 sm:p-6">
+    <h2 class="text-xl font-bold"><%= t("sell.review.title") %></h2>
+    <p class="mt-1 text-sm text-muted"><%= t("sell.review.subtitle") %></p>
+
+    <div class="mt-4">
+      <h3 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.review.checklist_title") %></h3>
+
+      <% if missing.empty? %>
+        <p class="mt-2 rounded-xl bg-success-soft px-3 py-2 text-sm font-semibold text-success">
+          <%= t("sell.review.checklist_ok") %>
+        </p>
+      <% else %>
+        <ul class="mt-2 space-y-1.5">
+          <% missing.each do |item| %>
+            <li>
+              <%= link_to edit_sell_listing_path(listing, step: item[:step]),
+                          data: { turbo_frame: "listing_wizard" },
+                          class: "flex items-center justify-between gap-3 rounded-xl border border-warning/40 bg-warning-soft px-3 py-2 text-sm text-content transition hover:border-warning" do %>
+                <span><%= t("sell.review.missing", field: review_field_label(item)) %></span>
+                <span class="shrink-0 text-xs font-semibold"><%= t("sell.review.go_to_step", step: wizard_step_label(item[:step])) %> →</span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <% if listing.approval_required? %>
+      <p class="mt-4 rounded-xl border border-border bg-surface-muted px-3 py-2 text-sm text-muted"><%= t("sell.review.approval_note") %></p>
+    <% else %>
+      <p class="mt-4 rounded-xl bg-success-soft px-3 py-2 text-sm font-semibold text-success"><%= t("sell.review.publish_note") %></p>
+    <% end %>
+
+    <% if listing.published? %>
+      <p class="mt-2 text-sm text-muted"><%= t("sell.review.published_note") %></p>
+    <% elsif listing.pending_review? %>
+      <p class="mt-2 text-sm text-muted"><%= t("sell.review.pending_note") %></p>
+    <% end %>
+  </section>
+
+  <section class="space-y-4 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+    <h2 class="text-lg font-bold"><%= t("sell.review.preview_title") %></h2>
+
+    <div class="mx-auto max-w-sm">
+      <%= render "listings/card", listing: listing %>
+    </div>
+
+    <div class="grid gap-4 lg:grid-cols-2">
+      <div class="min-w-0">
+        <%= render "listings/gallery", listing: listing %>
+      </div>
+      <div class="min-w-0 space-y-4">
+        <%= render "listings/specifications", listing: listing %>
+        <%= render "listings/seller_card", listing: listing %>
+      </div>
+    </div>
+  </section>
+
+  <%= form_with model: listing,
+                url: sell_listing_path(listing),
+                method: :patch,
+                data: { turbo_frame: "_top" },
+                class: "flex flex-wrap items-center justify-between gap-3" do %>
+    <%= hidden_field_tag :step, "review" %>
+
+    <%= link_to t("sell.steps.back"),
+                edit_sell_listing_path(listing, step: "price"),
+                class: "inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-content",
+                data: { turbo_frame: "listing_wizard" } %>
+
+    <% if listing.draft? || listing.rejected? %>
+      <button type="submit" name="commit" value="submit" class="btn-primary">
+        <%= listing.approval_required? ? t("sell.steps.submit") : t("sell.steps.publish") %>
+      </button>
+    <% else %>
+      <button type="submit" name="commit" value="save" class="btn-primary">
+        <%= t("sell.steps.save") %>
+      </button>
+    <% end %>
+  <% end %>
+</div>

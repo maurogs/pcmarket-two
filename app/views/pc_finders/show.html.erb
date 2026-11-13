@@ -1,0 +1,94 @@
+<% set_meta_tags(pc_finder_meta_tags(@criteria)) %>
+
+<div class="space-y-10">
+  <header class="overflow-hidden rounded-3xl border border-border bg-surface">
+    <div class="grid gap-8 p-6 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("pc_finder.hero.eyebrow") %></p>
+        <h1 class="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl"><%= t("pc_finder.hero.title") %></h1>
+        <p class="mt-3 max-w-2xl text-base leading-relaxed text-muted"><%= t("pc_finder.hero.description") %></p>
+      </div>
+      <div class="rounded-2xl bg-surface-muted p-5">
+        <p class="text-sm font-semibold"><%= t("pc_finder.hero.promise_title") %></p>
+        <ul class="mt-3 space-y-2 text-sm text-muted">
+          <li class="flex gap-2"><span aria-hidden="true">✓</span><%= t("pc_finder.hero.promise_games") %></li>
+          <li class="flex gap-2"><span aria-hidden="true">✓</span><%= t("pc_finder.hero.promise_budget") %></li>
+          <li class="flex gap-2"><span aria-hidden="true">✓</span><%= t("pc_finder.hero.promise_filters") %></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <% if @criteria.selected? %>
+    <section class="space-y-5" aria-labelledby="pc-finder-results-title">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 id="pc-finder-results-title" class="text-2xl font-extrabold tracking-tight"><%= t("pc_finder.results.title") %></h2>
+          <p class="mt-1 text-sm text-muted"><%= t("pc_finder.results.count", count: @result.total_count) %></p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <%= link_to t("pc_finder.results.change"), pc_finder_path, class: "btn-accent" %>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2" aria-label="<%= t("pc_finder.results.chips_label") %>">
+        <% if @criteria.games.any? %>
+          <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold">
+            <span><%= t("pc_finder.results.chip_games", games: @criteria.games.map(&:name).to_sentence) %></span>
+            <%= link_to "×", pc_finder_without(@criteria, :games, :game), class: "text-muted hover:text-danger", aria: { label: t("pc_finder.results.remove_chip") } %>
+          </span>
+        <% end %>
+        <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold">
+          <span><%= pc_finder_resolution_label(@criteria.resolution) %></span>
+          <%= link_to "×", pc_finder_without(@criteria, :resolution), class: "text-muted hover:text-danger", aria: { label: t("pc_finder.results.remove_chip") } %>
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold">
+          <span><%= t("pc_finder.results.chip_fps", fps: @criteria.fps) %></span>
+          <%= link_to "×", pc_finder_without(@criteria, :fps), class: "text-muted hover:text-danger", aria: { label: t("pc_finder.results.remove_chip") } %>
+        </span>
+        <% if @criteria.budget.present? %>
+          <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold">
+            <span><%= pc_finder_budget_label(@criteria.budget) %></span>
+            <%= link_to "×", pc_finder_without(@criteria, :budget), class: "text-muted hover:text-danger", aria: { label: t("pc_finder.results.remove_chip") } %>
+          </span>
+        <% end %>
+        <% if @criteria.case_size.present? %>
+          <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold">
+            <span><%= pc_finder_case_size_label(@criteria.case_size) %></span>
+            <%= link_to "×", pc_finder_without(@criteria, :case_size), class: "text-muted hover:text-danger", aria: { label: t("pc_finder.results.remove_chip") } %>
+          </span>
+        <% end %>
+        <% if @criteria.case_colour.present? %>
+          <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold">
+            <span><%= @criteria.case_colour %></span>
+            <%= link_to "×", pc_finder_without(@criteria, :case_colour), class: "text-muted hover:text-danger", aria: { label: t("pc_finder.results.remove_chip") } %>
+          </span>
+        <% end %>
+        <% if @criteria.cooling.present? %>
+          <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold">
+            <span><%= pc_finder_cooling_label(@criteria.cooling) %></span>
+            <%= link_to "×", pc_finder_without(@criteria, :cooling), class: "text-muted hover:text-danger", aria: { label: t("pc_finder.results.remove_chip") } %>
+          </span>
+        <% end %>
+        <% if @criteria.vibe.present? %>
+          <span class="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-semibold">
+            <span><%= pc_finder_vibe_label(@criteria.vibe) %></span>
+            <%= link_to "×", pc_finder_without(@criteria, :vibe), class: "text-muted hover:text-danger", aria: { label: t("pc_finder.results.remove_chip") } %>
+          </span>
+        <% end %>
+      </div>
+
+      <%= turbo_frame_tag "pc_finder_results" do %>
+        <div id="pc_finder_results_list" class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <%= render "pc_finders/results", result: @result %>
+        </div>
+        <div id="pc_finder_load_more">
+          <%= render "pc_finders/load_more", result: @result %>
+        </div>
+      <% end %>
+    </section>
+  <% else %>
+    <%= render "pc_finders/quiz", criteria: @criteria, games: @games %>
+    <%= render "pc_finders/landing", landing: @landing %>
+  <% end %>
+</div>

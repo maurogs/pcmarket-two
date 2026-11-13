@@ -1,0 +1,66 @@
+<% set_meta_tags(home_meta_tags) %>
+<% if (hero_photo = @home.deals_of_day.first&.primary_photo) && hero_photo.image.attached? %>
+  <% content_for :head do %>
+    <link rel="preload" as="image"
+          href="<%= url_for(hero_photo.image.variant(:large)) %>"
+          fetchpriority="high">
+  <% end %>
+<% end %>
+<h1 class="sr-only"><%= t("home.seo.title") %></h1>
+<%= json_ld_tag(organization_json_ld) %>
+<%= json_ld_tag(website_json_ld) %>
+
+<% rails_setup = @home.categories %>
+<% gpus = rails_setup["graphics-cards"] %>
+<% laptops = rails_setup["laptops"] %>
+<% phones = rails_setup["phones"] %>
+<% consoles = rails_setup["consoles"] %>
+
+<div class="space-y-12 lg:space-y-16">
+  <%= render "pages/home/hero_carousel", home: @home %>
+  <%= render "pages/home/promo_tiles", home: @home %>
+  <%= render "pages/home/pc_finder" %>
+  <%= render "pages/home/style_tiles", home: @home %>
+
+  <div class="space-y-10">
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :new_gpus,
+               title_key: "home.rails.new_gpus",
+               path: gpus ? category_path(gpus) : search_path %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :most_watched,
+               title_key: "home.rails.most_watched",
+               path: search_path(sort: "popular") %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :on_sale,
+               title_key: "home.rails.on_sale",
+               path: search_path %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :latest_laptops,
+               title_key: "home.rails.laptops",
+               path: laptops ? category_path(laptops) : search_path %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :latest_phones_and_tablets,
+               title_key: "home.rails.phones_tablets",
+               path: phones ? category_path(phones) : search_path %>
+    <%= render "pages/home/rail",
+               home: @home,
+               section: :latest_consoles,
+               title_key: "home.rails.consoles",
+               path: consoles ? category_path(consoles) : search_path %>
+  </div>
+
+  <%= render "pages/home/sell_cta" %>
+  <%= render "pages/home/rail",
+             home: @home,
+             section: :recently_sold,
+             title_key: "home.sold.title",
+             path: search_path,
+             sold: true %>
+  <%= render "pages/home/testimonials", home: @home %>
+</div>

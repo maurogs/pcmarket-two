@@ -1,0 +1,58 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.title") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.buyback_requests.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("admin.buyback_requests.index.subtitle") %></p>
+    </div>
+  </header>
+
+  <%= form_with url: admin_buyback_requests_path, method: :get, scope: nil, class: "rounded-2xl border border-border bg-surface px-4 py-4" do %>
+    <div class="flex flex-wrap items-end gap-3">
+      <div>
+        <%= label_tag :status, t("admin.buyback_requests.filters.status"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :status,
+                       options_for_select([[ t("admin.common.any"), "" ]] + BuybackRequest::STATUSES.map { |status| [ buyback_status_label(status), status ] }, @status),
+                       class: "field mt-1.5" %>
+      </div>
+      <%= submit_tag t("admin.common.apply"), class: "btn-primary" %>
+      <%= link_to t("admin.common.clear"), admin_buyback_requests_path, class: "btn-accent" %>
+    </div>
+  <% end %>
+
+  <% if @requests.any? %>
+    <div class="overflow-x-auto rounded-2xl border border-border bg-surface">
+      <table class="min-w-full divide-y divide-border text-sm">
+        <thead class="bg-surface-muted text-left text-xs font-semibold uppercase tracking-widest text-muted">
+          <tr>
+            <th class="px-4 py-3"><%= t("admin.buyback_requests.table.reference") %></th>
+            <th class="px-4 py-3"><%= t("admin.buyback_requests.table.customer") %></th>
+            <th class="px-4 py-3"><%= t("admin.buyback_requests.table.component") %></th>
+            <th class="px-4 py-3"><%= t("admin.buyback_requests.table.offer") %></th>
+            <th class="px-4 py-3"><%= t("admin.buyback_requests.table.status") %></th>
+            <th class="px-4 py-3"><%= t("admin.buyback_requests.table.created") %></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <% @requests.each do |request| %>
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs"><%= link_to request.reference, admin_buyback_request_path(request), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %></td>
+              <td class="px-4 py-3"><%= request.user.display_name %></td>
+              <td class="px-4 py-3"><%= request.component_model %></td>
+              <td class="px-4 py-3"><%= money(request.final_offer_cents, currency: "EUR") %></td>
+              <td class="px-4 py-3">
+                <span class="inline-flex rounded-full border px-2.5 py-0.5 text-xs font-semibold <%= buyback_status_classes(request.status) %>"><%= buyback_status_label(request.status) %></span>
+              </td>
+              <td class="px-4 py-3 text-xs text-muted"><%= l(request.created_at, format: :short) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <h2 class="text-lg font-bold"><%= t("admin.buyback_requests.index.empty_title") %></h2>
+      <p class="mt-2 text-sm text-muted"><%= t("admin.buyback_requests.index.empty_body") %></p>
+    </div>
+  <% end %>
+</div>

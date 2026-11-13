@@ -1,0 +1,12 @@
+<%= t("buyback_mailer.events.#{@event}.title", reference: @request.reference) %>
+
+<%= t("buyback_mailer.events.#{@event}.body") %>
+
+<%= t("buyback_mailer.details.reference") %>: <%= @request.reference %>
+<%= t("buyback_mailer.details.component") %>: <%= @request.component_model %>
+<%= t("buyback_mailer.details.offer") %>: <%= money(@request.final_offer_cents, currency: "EUR") %>
+<%= t("buyback_mailer.details.status") %>: <%= t("buyback.statuses.#{@request.status}") %>
+
+<%= t("buyback_mailer.cta") %>: <%= @status_url %>
+
+<%= t("buyback_mailer.footer") %>

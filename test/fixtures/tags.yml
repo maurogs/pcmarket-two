@@ -1,0 +1,19 @@
+featured:
+  kind: 0
+  name: { en: "Featured", es: "Destacado" }
+  slug: featured
+  position: 1
+  active: true
+  colour: accent
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+verified_seller:
+  kind: 1
+  name: { en: "Verified seller", es: "Vendedor verificado" }
+  slug: verified-seller
+  position: 1
+  active: true
+  colour: success
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

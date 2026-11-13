@@ -1,0 +1,167 @@
+<div class="space-y-6" data-controller="moderation-shortcuts">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div class="min-w-0">
+      <%= link_to t("admin.moderation.show.back"), admin_listing_reviews_path, class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+      <h1 class="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl"><%= @listing.title %></h1>
+      <p class="mt-1 text-sm text-muted">
+        <%= @listing.category&.name %>
+        ·
+        <%= t("admin.moderation.index.waiting_for", time: time_ago_in_words(@listing.submitted_at || @listing.created_at)) %>
+      </p>
+    </div>
+
+    <nav class="flex flex-wrap items-center gap-2" aria-label="<%= t("admin.moderation.index.title") %>">
+      <% if @previous_listing %>
+        <%= link_to t("admin.moderation.show.previous"),
+                    admin_listing_review_path(@previous_listing),
+                    data: { moderation_shortcuts_target: "previous" },
+                    class: "btn-accent" %>
+      <% end %>
+      <% if @next_listing %>
+        <%= link_to t("admin.moderation.show.next"),
+                    admin_listing_review_path(@next_listing),
+                    data: { moderation_shortcuts_target: "next" },
+                    class: "btn-accent" %>
+      <% end %>
+    </nav>
+  </header>
+
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
+    <div class="min-w-0 space-y-6">
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.moderation.show.buyer_preview") %></p>
+
+      <%= render "listings/gallery", listing: @listing %>
+
+      <section class="rounded-2xl border border-border bg-surface p-6">
+        <h2 class="text-lg font-bold"><%= t("admin.moderation.show.overview") %></h2>
+
+        <div class="mt-3 flex flex-wrap items-baseline gap-2">
+          <span class="text-3xl font-extrabold tracking-tight text-content"><%= @listing.price_cents ? money(@listing.price_cents, currency: @listing.currency) : "—" %></span>
+          <% if @listing.compare_at_price_cents.present? && @listing.price_cents.present? && @listing.compare_at_price_cents > @listing.price_cents %>
+            <span class="text-sm text-muted line-through"><%= money(@listing.compare_at_price_cents, currency: @listing.currency) %></span>
+          <% end %>
+        </div>
+
+        <dl class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <div class="flex items-center gap-2">
+            <dt class="text-muted"><%= t("admin.moderation.show.condition") %></dt>
+            <dd class="font-semibold text-content"><%= condition_label(@listing.condition) %></dd>
+          </div>
+          <div class="flex items-center gap-2">
+            <dt class="text-muted"><%= t("admin.moderation.show.location") %></dt>
+            <dd class="font-semibold text-content"><%= location_label(@listing) %></dd>
+          </div>
+        </dl>
+
+        <div class="rich-text mt-4 max-w-none text-content">
+          <%= simple_format(h(@listing.description)) %>
+        </div>
+      </section>
+
+      <%= render "listings/specifications", listing: @listing %>
+      <%= render "listings/seller_card", listing: @listing %>
+    </div>
+
+    <aside class="space-y-4">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("admin.moderation.show.seller_title") %></h2>
+        <p class="mt-2 font-semibold text-content"><%= @listing.seller.display_name %></p>
+        <p class="text-sm text-muted"><%= @listing.seller.email %></p>
+        <p class="text-sm text-muted"><%= @listing.store&.name %></p>
+
+        <dl class="mt-3 space-y-2 text-sm">
+          <div class="flex items-center justify-between gap-2">
+            <dt class="text-muted"><%= t("admin.moderation.seller.account_age_label") %></dt>
+            <dd class="font-semibold text-content"><%= t("admin.moderation.seller.account_age", count: @seller_profile.account_age_days) %></dd>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <dt class="text-muted"><%= t("admin.moderation.seller.previous_rejections_label") %></dt>
+            <dd class="font-semibold text-content"><%= t("admin.moderation.seller.previous_rejections", count: @seller_profile.previous_rejections_count) %></dd>
+          </div>
+          <div class="flex items-center justify-between gap-2">
+            <dt class="text-muted"><%= t("admin.moderation.seller.verified_label") %></dt>
+            <dd class="font-semibold <%= @seller_profile.verified? ? "text-success" : "text-muted" %>">
+              <%= @seller_profile.verified? ? t("admin.moderation.seller.verified") : t("admin.moderation.seller.unverified") %>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.moderation.show.history_title") %></h2>
+
+        <% if @moderations.any? %>
+          <ul class="mt-3 space-y-3">
+            <% @moderations.each do |moderation| %>
+              <li class="rounded-xl border border-border bg-surface-muted p-3 text-sm">
+                <p class="flex items-center justify-between gap-2 font-semibold text-content">
+                  <span><%= admin_moderation_action_label(moderation.action) %></span>
+                  <span class="text-xs font-normal text-muted"><%= l(moderation.created_at, format: :short) %></span>
+                </p>
+                <p class="mt-1 text-xs text-muted"><%= moderation.moderator.display_name %></p>
+                <% if moderation.reason.present? %>
+                  <p class="mt-1 text-xs text-content"><%= moderation.reason %></p>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="mt-3 text-sm text-muted"><%= t("admin.moderation.history.empty") %></p>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.moderation.show.decision_title") %></h2>
+
+        <%= form_with url: admin_listing_review_path(@listing), method: :patch, scope: nil, class: "mt-3" do %>
+          <%= hidden_field_tag :decision, "approve", id: "approve_decision" %>
+          <%= submit_tag t("admin.moderation.show.approve"),
+                         class: "btn-primary w-full",
+                         data: { moderation_shortcuts_target: "approve" } %>
+        <% end %>
+
+        <div class="my-4 border-t border-border"></div>
+
+        <p class="text-sm text-muted"><%= t("admin.moderation.show.reject_hint") %></p>
+
+        <%= form_with url: admin_listing_review_path(@listing), method: :patch, scope: nil, class: "mt-3 space-y-3" do %>
+          <%= hidden_field_tag :decision, "reject", id: "reject_decision" %>
+
+          <fieldset>
+            <legend class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.moderation.show.reason_label") %></legend>
+            <div class="mt-2 space-y-1.5">
+              <% ListingModeration::REJECTION_REASONS.each_with_index do |code, index| %>
+                <label class="flex items-center gap-2 text-sm text-content">
+                  <%= radio_button_tag :reason_code,
+                                       code,
+                                       false,
+                                       class: "h-4 w-4 border-border text-primary-600",
+                                       data: (index.zero? ? { moderation_shortcuts_target: "reject" } : {}) %>
+                  <span><%= admin_moderation_reason_label(code) %></span>
+                </label>
+              <% end %>
+            </div>
+          </fieldset>
+
+          <div>
+            <%= label_tag :reason_text, t("admin.moderation.show.reason_placeholder"), class: "text-xs font-semibold uppercase tracking-widest text-muted" %>
+            <%= text_area_tag :reason_text, nil, rows: 3, class: "field mt-1.5", placeholder: t("admin.moderation.show.reason_placeholder") %>
+          </div>
+
+          <%= submit_tag t("admin.moderation.show.reject"), class: "btn-accent w-full" %>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-dashed border-border bg-surface p-4 text-xs text-muted">
+        <h2 class="font-semibold uppercase tracking-widest"><%= t("admin.moderation.shortcuts.title") %></h2>
+        <p class="mt-2"><%= t("admin.moderation.shortcuts.hint") %></p>
+        <ul class="mt-2 space-y-1">
+          <li><%= t("admin.moderation.shortcuts.approve") %></li>
+          <li><%= t("admin.moderation.shortcuts.reject") %></li>
+          <li><%= t("admin.moderation.shortcuts.next") %></li>
+          <li><%= t("admin.moderation.shortcuts.previous") %></li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+</div>

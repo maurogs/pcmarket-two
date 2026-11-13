@@ -1,0 +1,72 @@
+<% set_meta_tags(title: t("notifications.preferences.title"), noindex: true) %>
+
+<div class="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+  <aside class="space-y-4 lg:sticky lg:top-24 lg:self-start">
+    <%= render "account/shared/sidebar" %>
+  </aside>
+
+  <div class="min-w-0 space-y-6">
+    <header>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("notifications.preferences.eyebrow") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("notifications.preferences.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("notifications.preferences.subtitle") %></p>
+    </header>
+
+    <%= form_with url: notification_preferences_path, method: :patch, scope: nil, class: "space-y-4" do %>
+      <div class="overflow-hidden rounded-2xl border border-border bg-surface">
+        <div class="hidden grid-cols-[minmax(0,1fr)_7rem_7rem] gap-3 border-b border-border bg-surface-muted px-4 py-2 text-xs font-semibold uppercase tracking-widest text-muted sm:grid">
+          <span><%= t("notifications.preferences.kind") %></span>
+          <span class="text-center"><%= t("notifications.preferences.in_app") %></span>
+          <span class="text-center"><%= t("notifications.preferences.email") %></span>
+        </div>
+
+        <ul class="divide-y divide-border">
+          <% Notification::KINDS.each do |kind| %>
+            <% preference = @preferences.fetch(kind) %>
+            <li class="grid gap-3 px-4 py-3 sm:grid-cols-[minmax(0,1fr)_7rem_7rem] sm:items-center">
+              <p class="text-sm font-medium text-content"><%= t("notifications.preferences.kinds.#{kind}") %></p>
+
+              <label class="inline-flex items-center gap-2 text-sm text-muted sm:justify-center">
+                <%= hidden_field_tag "notification_preferences[#{kind}][in_app]", "0", id: nil %>
+                <%= check_box_tag "notification_preferences[#{kind}][in_app]",
+                                  "1",
+                                  preference.in_app?,
+                                  id: "notification_preferences_#{kind}_in_app",
+                                  class: "h-4 w-4 rounded border-border text-primary-600" %>
+                <span class="sm:hidden"><%= t("notifications.preferences.in_app") %></span>
+              </label>
+
+              <label class="inline-flex items-center gap-2 text-sm text-muted sm:justify-center">
+                <%= hidden_field_tag "notification_preferences[#{kind}][email]", "0", id: nil %>
+                <%= check_box_tag "notification_preferences[#{kind}][email]",
+                                  "1",
+                                  preference.email?,
+                                  id: "notification_preferences_#{kind}_email",
+                                  class: "h-4 w-4 rounded border-border text-primary-600" %>
+                <span class="sm:hidden"><%= t("notifications.preferences.email") %></span>
+              </label>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <label class="flex items-start gap-3">
+          <%= hidden_field_tag :marketing_opt_in, "0", id: nil %>
+          <%= check_box_tag :marketing_opt_in, "1", current_user.marketing_opt_in?,
+                            id: "marketing_opt_in",
+                            class: "mt-0.5 h-4 w-4 rounded border-border text-primary-600" %>
+          <span>
+            <span class="block text-sm font-semibold text-content"><%= t("notifications.preferences.marketing_label") %></span>
+            <span class="mt-1 block text-xs text-muted"><%= t("notifications.preferences.marketing_note") %></span>
+          </span>
+        </label>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <p class="max-w-xl text-xs text-muted"><%= t("notifications.preferences.save_hint") %></p>
+        <%= submit_tag t("notifications.preferences.save"), class: "btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

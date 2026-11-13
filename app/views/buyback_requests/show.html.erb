@@ -1,0 +1,55 @@
+<% set_meta_tags(title: t("buyback.show.title", reference: @request.reference), noindex: true) %>
+
+<div class="mx-auto max-w-4xl space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-3">
+    <div>
+      <%= link_to t("buyback.show.back"), buyback_requests_path, class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= @request.component_model %></h1>
+      <p class="mt-1 font-mono text-xs text-muted"><%= @request.reference %></p>
+    </div>
+    <span class="inline-flex rounded-full border px-3 py-1.5 text-sm font-semibold <%= buyback_status_classes(@request.status) %>"><%= buyback_status_label(@request.status) %></span>
+  </header>
+
+  <div class="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+    <section class="rounded-2xl border border-border bg-surface p-5">
+      <h2 class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("buyback.show.progress_title") %></h2>
+      <div class="mt-4">
+        <%= render "buyback_requests/timeline", request: @request %>
+      </div>
+      <% if @request.status == "offer_revised" %>
+        <p class="mt-4 rounded-xl bg-warning-soft px-4 py-3 text-sm font-semibold text-warning"><%= t("buyback.show.revised", amount: money(@request.revised_offer_cents, currency: "EUR")) %></p>
+      <% end %>
+    </section>
+
+    <section class="space-y-5">
+      <div class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("buyback.show.details_title") %></h2>
+        <dl class="mt-3 space-y-2 text-sm">
+          <div class="flex justify-between gap-4"><dt class="text-muted"><%= t("buyback.details.component") %></dt><dd class="font-semibold"><%= t("buyback.component_types.#{@request.component_type}") %></dd></div>
+          <div class="flex justify-between gap-4"><dt class="text-muted"><%= t("buyback.details.condition") %></dt><dd class="font-semibold"><%= buyback_condition_label(@request.condition) %></dd></div>
+          <div class="flex justify-between gap-4"><dt class="text-muted"><%= t("buyback.details.offer") %></dt><dd class="font-semibold"><%= money(@request.final_offer_cents, currency: "EUR") %></dd></div>
+          <div class="flex justify-between gap-4"><dt class="text-muted"><%= t("buyback.details.iban") %></dt><dd class="font-mono text-xs font-semibold"><%= @request.masked_iban %></dd></div>
+        </dl>
+      </div>
+
+      <div class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("buyback.show.address_title") %></h2>
+        <address class="mt-3 text-sm not-italic leading-relaxed text-muted">
+          <%= @request.full_name %><br>
+          <%= @request.line1 %><br>
+          <% if @request.line2.present? %><%= @request.line2 %><br><% end %>
+          <%= @request.postal_code %> <%= @request.city %><br>
+          <%= @request.country_code %>
+        </address>
+        <% if @request.tracking_number.present? %>
+          <p class="mt-3 text-xs text-muted"><%= t("buyback.show.tracking", carrier: @request.carrier.presence || t("buyback.show.carrier_unknown"), number: @request.tracking_number) %></p>
+        <% end %>
+      </div>
+    </section>
+  </div>
+
+  <p class="text-center text-sm text-muted">
+    <%= t("buyback.show.help") %>
+    <%= link_to t("buyback.show.contact"), contact_messages_path, class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+  </p>
+</div>

@@ -1,0 +1,280 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Measures server-side performance of the main pages against the seeded demo
+# database. Uses an integration session (no external server needed) and
+# instruments SQL, view rendering and response size for each request.
+#
+# Usage:
+#   bin/perf_check              # table for every page (warm caches)
+#   bin/perf_check --cold       # clear the cache before each measured request
+#   bin/perf_check --json       # machine-readable output
+#   bin/perf_check --only=home  # filter by page name substring
+#
+# Each page is requested twice. The first request warms fragment caches, the
+# second is reported as "warm" (the production-relevant number). With --cold
+# the cache is cleared before every measured request instead.
+#
+# Exits with status 1 when a page is outside the launch targets (status other
+# than 200, 20 or more warm SQL queries, or 150 ms or more server time).
+
+ENV["RAILS_ENV"] ||= "development"
+require_relative "../config/environment"
+require "json"
+
+class PerfCheck
+  include Rails.application.routes.url_helpers
+
+  Page = Struct.new(:name, :path, :session, :setup, keyword_init: true)
+
+  SQL_EVENTS = %w[sql.active_record].freeze
+  RENDER_EVENTS = %w[
+    render_template.action_view
+    render_partial.action_view
+    render_layout.action_view
+    render_collection.action_view
+  ].freeze
+
+  def initialize(filter: nil)
+    @filter = filter
+    @sessions = {}
+    @results = []
+  end
+
+  def run
+    # Production-like behaviour: fragment caching on, no verbose SQL logs.
+    Rails.application.config.action_controller.perform_caching = true
+    ActionController::Base.perform_caching = true
+    ActionView::Base.annotate_rendered_view_with_filenames = false
+    Rails.application.config.action_view.annotate_rendered_view_with_filenames = false
+    # Production-like template resolution: development normally re-checks
+    # template digests on every render.
+    ActionView::Resolver.caching = true
+    Rails.application.config.action_view.cache_template_loading = true
+    Rails.application.config.enable_reloading = false
+    Rails.cache = ActiveSupport::Cache::MemoryStore.new if Rails.cache.is_a?(ActiveSupport::Cache::NullStore)
+    ActionController::Base.allow_forgery_protection = false
+    ActiveRecord::Base.logger = Logger.new(File::NULL)
+
+    pages.each do |page|
+      next if @filter && !page.name.include?(@filter)
+
+      session = session_for(page)
+      page.setup&.call(session)
+
+      2.times { measure(page, session, warm: false) } # warm caches
+      runs = 3.times.map do
+        Rails.cache.clear if cold?
+        measure(page, session, warm: !cold?)
+      end.sort_by { |run| run[:server_ms] }
+      result = runs[1] # median of three warm requests
+      @results << result
+      dump = ARGV.find { |arg| arg.start_with?("--dump=") }
+      if dump && page.name.include?(dump.split("=", 2).last)
+        puts "\nSQL for #{page.name}:"
+        result[:queries].each_with_index { |q, i| puts format("%2d %6.1fms %s", i + 1, q[:ms], q[:sql][0, 220]) }
+      end
+      if ARGV.any? { |arg| arg.start_with?("--dump-render") }
+        puts "\nRender for #{page.name}:"
+        result[:renders].group_by { |r| r[:template] }.map { |t, rows| [ t, rows.sum { |r| r[:ms] }, rows.size ] }
+              .sort_by { |row| -row[1] }.first(15).each { |t, ms, n| puts format("%7.1fms %3dx %s", ms, n, t) }
+      end
+    end
+
+    report
+  end
+
+  private
+
+  def cold?
+    ARGV.include?("--cold")
+  end
+
+  def pages
+    @pages ||= begin
+      listing = Listing.visible.order(published_at: :desc).first
+      conversation = Conversation.where(seller_id: seller_user.id).order(last_message_at: :desc).first ||
+                     Conversation.where(buyer_id: buyer_user.id).order(last_message_at: :desc).first ||
+                     Conversation.order(last_message_at: :desc).first
+      cart_listing = Listing.visible.where.not(id: Listing.where(store_id: seller_user.store&.id).select(:id)).first
+      category = Category.active.find_by(slug: "gpus") || Category.active.first
+      @pages = [
+        Page.new(name: "home", path: "/", session: :public),
+        Page.new(name: "category", path: category_path(category, locale: :es), session: :public),
+        Page.new(name: "category filtered+sorted",
+                 path: category_path(category, specs: { "gpu_memory" => %w[8 12] },
+                                     condition: %w[used_good], sort: "price_desc", locale: :es),
+                 session: :public),
+        Page.new(name: "search", path: search_path(q: "rtx", locale: :es), session: :public),
+        Page.new(name: "search facets+sort", path: search_path(q: "rtx", sort: "price_asc", condition: %w[used_good], locale: :es), session: :public),
+        Page.new(name: "listing", path: listing_path(listing, locale: :es), session: :public),
+        Page.new(name: "store", path: storefront_path(listing.store, locale: :es), session: :public),
+        Page.new(name: "pc finder", path: pc_finder_path(locale: :es), session: :public),
+        Page.new(name: "trust", path: trust_path(locale: :es), session: :public),
+        Page.new(name: "help", path: help_page_path("about", locale: :es), session: :public),
+        Page.new(name: "legal", path: legal_page_path("terms", locale: :es), session: :public),
+        Page.new(name: "cart", path: cart_path(locale: :es), session: :buyer,
+                 setup: ->(session) { ensure_cart_item(session, cart_listing) }),
+        Page.new(name: "checkout", path: new_checkout_path(locale: :es), session: :buyer,
+                 setup: ->(session) { ensure_cart_item(session, cart_listing) }),
+        Page.new(name: "orders", path: orders_path(locale: :es), session: :buyer),
+        Page.new(name: "wishlist", path: wishlist_path(locale: :es), session: :buyer),
+        Page.new(name: "notifications", path: notifications_path(locale: :es), session: :buyer),
+        Page.new(name: "inbox", path: conversations_path(locale: :es), session: :seller),
+        Page.new(name: "conversation", path: conversation_path(conversation, locale: :es), session: :seller),
+        Page.new(name: "sales", path: sell_orders_path(locale: :es), session: :seller),
+        Page.new(name: "seller dashboard", path: sell_dashboard_path(locale: :es), session: :seller),
+        Page.new(name: "admin dashboard", path: admin_root_path(locale: :es), session: :admin),
+        Page.new(name: "admin listings", path: admin_listings_path(locale: :es), session: :admin),
+        Page.new(name: "admin users", path: admin_users_path(locale: :es), session: :admin),
+        Page.new(name: "admin stores", path: admin_stores_path(locale: :es), session: :admin),
+        Page.new(name: "admin orders", path: admin_orders_path(locale: :es), session: :admin),
+        Page.new(name: "admin moderation", path: admin_listing_reviews_path(locale: :es), session: :admin),
+        Page.new(name: "admin payouts", path: admin_payouts_path(locale: :es), session: :admin),
+        Page.new(name: "admin audit logs", path: admin_audit_logs_path(locale: :es), session: :admin),
+        Page.new(name: "api listings", path: "/api/v1/listings?page=1&per_page=24", session: :public),
+        Page.new(name: "api categories", path: "/api/v1/categories", session: :public)
+      ]
+    end
+  end
+
+  def session_for(page)
+    @sessions[page.session] ||= begin
+      session = ActionDispatch::Integration::Session.new(Rails.application)
+      session.host! "localhost"
+      sign_in(session, page.session) unless page.session == :public
+      session
+    end
+  end
+
+  def ensure_cart_item(session, listing)
+    session.get cart_path(locale: :es)
+    return if session.response.body.include?(listing.title)
+
+    session.post cart_items_path(locale: :es), params: { listing_id: listing.id, quantity: 1 }
+  end
+
+  def sign_in(session, role)
+    user = case role
+           when :admin then staff_user
+           when :buyer then buyer_user
+           else seller_user
+           end
+    passwords = role == :admin ? [ ENV.fetch("ADMIN_PASSWORD", "ChangeMe123!"), demo_password ] : [ demo_password ]
+    passwords.each do |password|
+      session.post new_user_session_path(locale: :es), params: { user: { email: user.email, password: password } }
+      return if session.response.status.in?([ 200, 302, 303 ])
+    end
+
+    raise "Sign in failed for #{user.email}: #{session.response.status}"
+  end
+
+  def staff_user
+    @staff_user ||= User.where(role: User.roles[:admin]).first ||
+                    User.where(role: User.roles[:moderator]).first ||
+                    User.where.not(email: nil).first
+  end
+
+  def seller_user
+    @seller_user ||= User.joins(:store).where(stores: { demo: true }).first ||
+                     User.joins(:store).first
+  end
+
+  def buyer_user
+    @buyer_user ||= User.where.not(id: User.joins(:store).select(:id)).order(:id).first ||
+                    User.order(:id).first
+  end
+
+  def demo_password
+    ENV.fetch("DEMO_PASSWORD", "Demo1234!")
+  end
+
+  def measure(page, session, warm:)
+    sql = []
+    render = []
+    sql_sub = ActiveSupport::Notifications.subscribe(*SQL_EVENTS) do |_name, start, finish, _id, payload|
+      next if payload[:cached]
+      next if payload[:name] == "SCHEMA"
+      next if payload[:sql].match?(/\A(BEGIN|COMMIT|SAVEPOINT|RELEASE SAVEPOINT)/)
+
+      sql << { ms: (finish - start) * 1000.0, sql: payload[:sql] }
+      trace = ARGV.find { |arg| arg.start_with?("--trace=") }
+      if trace && payload[:sql].include?(trace.split("=", 2).last) && sql.size < 400
+        puts "\nTRACE #{payload[:sql][0, 120]}"
+        puts caller.grep(%r{(app|test)/}).first(6).map { |line| line.sub("#{Dir.pwd}/", "") }
+      end
+    end
+    render_subs = RENDER_EVENTS.map do |event|
+      ActiveSupport::Notifications.subscribe(event) do |_name, start, finish, _id, payload|
+        render << { ms: (finish - start) * 1000.0, template: payload[:identifier].to_s.sub("#{Rails.root}/", "") }
+      end
+    end
+
+    started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    session.get(page.path, headers: { "Accept-Language" => "es" })
+    elapsed = (Process.clock_gettime(Process::CLOCK_MONOTONIC) - started) * 1000.0
+
+    status = session.response.status
+    size = session.response.body.bytesize
+    puts "\n#{page.name} returned #{status}: #{session.response.body[0, 500]}" if status >= 400
+    {
+      name: page.name,
+      status: status,
+      path: page.path,
+      warm: warm,
+      server_ms: elapsed.round(1),
+      sql_queries: sql.size,
+      sql_ms: sql.sum { |row| row[:ms] }.round(1),
+      render_ms: render.sum { |row| row[:ms] }.round(1),
+      response_bytes: size,
+      slowest_sql: sql.max_by { |row| row[:ms] },
+      queries: sql,
+      renders: render
+    }
+  ensure
+    ActiveSupport::Notifications.unsubscribe(sql_sub) if sql_sub
+    render_subs.each { |sub| ActiveSupport::Notifications.unsubscribe(sub) } if render_subs
+  end
+
+  def report
+    if ARGV.include?("--json")
+      puts JSON.pretty_generate(@results)
+      return true
+    end
+
+    puts format("%-26s %6s %6s %9s %7s %9s %9s", "page", "status", "sql", "sql ms", "render", "server ms", "bytes")
+    puts "-" * 86
+    puts "Cache: #{cold? ? 'cold (cleared before each measured request)' : 'warm'}"
+    puts
+    @results.each do |result|
+      puts format("%-26s %6d %6d %9.1f %6.0fms %8.0fms %9s",
+                  result[:name], result[:status], result[:sql_queries], result[:sql_ms],
+                  result[:render_ms], result[:server_ms], number_to_human(result[:response_bytes]))
+    end
+
+    bottlenecks = @results.select { |r| r[:status] != 200 || r[:sql_queries] >= 20 || r[:server_ms] >= 150 }
+    puts
+    if bottlenecks.empty?
+      puts "All pages within targets (< 150 ms server time, < 20 warm queries)."
+      true
+    else
+      puts "Outside targets:"
+      bottlenecks.each do |r|
+        puts "  - #{r[:name]}: status=#{r[:status]} sql=#{r[:sql_queries]} server=#{r[:server_ms]}ms"
+      end
+      false
+    end
+  end
+
+  def number_to_human(bytes)
+    if bytes >= 1024 * 1024
+      format("%.1fMB", bytes / 1024.0 / 1024.0)
+    elsif bytes >= 1024
+      format("%.0fkB", bytes / 1024.0)
+    else
+      "#{bytes}B"
+    end
+  end
+end
+
+exit(PerfCheck.new(filter: ARGV.find { |arg| arg.start_with?("--only=") }&.split("=", 2)&.last).run ? 0 : 1)

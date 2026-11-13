@@ -1,0 +1,100 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.title") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.reports.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("admin.reports.index.subtitle") %></p>
+    </div>
+    <p class="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-muted">
+      <%= t("admin.reports.index.count", count: @queue.pagy.count) %>
+    </p>
+  </header>
+
+  <%= form_with url: admin_reports_path, method: :get, scope: nil,
+                class: "rounded-2xl border border-border bg-surface px-4 py-4" do %>
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <%= label_tag :status, t("admin.reports.filters.status"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :status,
+                       options_for_select(
+                         [ [ t("admin.reports.filters.any"), "" ] ] +
+                         Admin::ReportQueue::FILTERABLE_STATUSES.map { |status| [ report_status_label(status), status ] },
+                         @queue.filters[:status]
+                       ),
+                       class: "field mt-1.5" %>
+      </div>
+      <div>
+        <%= label_tag :reason, t("admin.reports.filters.reason"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :reason,
+                       options_for_select(
+                         [ [ t("admin.reports.filters.any"), "" ] ] +
+                         Admin::ReportQueue::FILTERABLE_REASONS.map { |reason| [ report_reason_label(reason), reason ] },
+                         @queue.filters[:reason]
+                       ),
+                       class: "field mt-1.5" %>
+      </div>
+      <div>
+        <%= label_tag :type, t("admin.reports.filters.type"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :type,
+                       options_for_select(
+                         [ [ t("admin.reports.filters.any"), "" ] ] +
+                         Admin::ReportQueue::FILTERABLE_TYPES.map { |type| [ report_type_label(type), type ] },
+                         @queue.filters[:type]
+                       ),
+                       class: "field mt-1.5" %>
+      </div>
+      <div class="flex items-end gap-2">
+        <%= submit_tag t("admin.reports.filters.apply"), class: "btn-primary" %>
+        <%= link_to t("admin.reports.filters.clear"), admin_reports_path, class: "btn-accent" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @queue.reports.any? %>
+    <div class="overflow-hidden rounded-2xl border border-border bg-surface">
+      <table class="min-w-full divide-y divide-border text-sm">
+        <thead class="bg-surface-muted text-left text-xs font-semibold uppercase tracking-widest text-muted">
+          <tr>
+            <th scope="col" class="px-4 py-3"><%= t("admin.reports.index.table.report") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.reports.index.table.item") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.reports.index.table.reason") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.reports.index.table.reporter") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.reports.index.table.created") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.reports.index.table.status") %></th>
+            <th scope="col" class="px-4 py-3 text-right"><%= t("admin.reports.index.table.actions") %></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <% @queue.reports.each do |report| %>
+            <tr class="align-middle">
+              <td class="whitespace-nowrap px-4 py-3 font-semibold text-content">#<%= report.id %></td>
+              <td class="px-4 py-3">
+                <p class="text-xs font-semibold uppercase tracking-wide text-muted"><%= report_type_label(report.reportable_type) %></p>
+                <p class="mt-0.5 max-w-xs truncate text-content"><%= reportable_label(report.reportable) %></p>
+              </td>
+              <td class="px-4 py-3 text-muted"><%= report_reason_label(report.reason) %></td>
+              <td class="px-4 py-3 text-muted">
+                <%= report.reporter&.display_name || t("admin.reports.anonymous") %>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 text-muted"><%= l(report.created_at, format: :short) %></td>
+              <td class="whitespace-nowrap px-4 py-3">
+                <span class="rounded-full border border-border bg-surface-muted px-2 py-0.5 text-xs font-semibold text-muted"><%= report_status_label(report.status) %></span>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 text-right">
+                <%= link_to t("admin.reports.index.table.open"), admin_report_path(report),
+                            class: "font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <%= pagy_nav(@queue.pagy) %>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <h2 class="text-lg font-bold"><%= t("admin.reports.index.empty_title") %></h2>
+      <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("admin.reports.index.empty_body") %></p>
+    </div>
+  <% end %>
+</div>

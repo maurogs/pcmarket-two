@@ -1,0 +1,9 @@
+<%= t("alert_mailer.saved_search_match.greeting", name: @user.display_name) %>
+
+<%= t("alert_mailer.saved_search_match.body", name: @saved_search.name, title: @listing.title) %>
+
+<%= render "alert_mailer/listing_row", listing: @listing %>
+
+<%= t("alert_mailer.saved_search_match.cta") %>: <%= @cta_url %>
+
+<%= t("alert_mailer.saved_search_match.closing") %>

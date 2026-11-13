@@ -1,0 +1,32 @@
+<%= render "shared/form_errors", object: review %>
+
+<%= form_with model: review,
+              url: order_review_path(order),
+              method: review.persisted? ? :patch : :post,
+              class: "space-y-4" do |form| %>
+  <div class="max-w-xs">
+    <%= form.label :rating, t("reviews.form.rating"), class: "block text-sm font-semibold text-content" %>
+    <%= form.select :rating,
+                    (1..5).map { |rating| [ t("reviews.form.rating_option", count: rating), rating ] },
+                    { include_blank: t("reviews.form.rating_placeholder") },
+                    required: true,
+                    class: "field mt-1.5" %>
+  </div>
+
+  <div>
+    <%= form.label :body, t("reviews.form.body"), class: "block text-sm font-semibold text-content" %>
+    <%= form.text_area :body,
+                       rows: 5,
+                       required: true,
+                       minlength: 10,
+                       maxlength: 2000,
+                       placeholder: t("reviews.form.body_placeholder"),
+                       class: "field mt-1.5" %>
+    <p class="mt-1 text-xs text-muted"><%= t("reviews.form.body_hint") %></p>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <p class="text-xs text-muted"><%= t("reviews.form.edit_window", days: Review::EDIT_WINDOW.in_days.to_i) %></p>
+    <%= form.submit review.persisted? ? t("reviews.form.update") : t("reviews.form.submit"), class: "btn-primary" %>
+  </div>
+<% end %>

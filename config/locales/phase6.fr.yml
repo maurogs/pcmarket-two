@@ -1,0 +1,336 @@
+fr:
+  users:
+    deleted: Utilisateur supprimé
+  reviews:
+    errors:
+      not_buyer: Seul l’acheteur de cette commande peut laisser un avis.
+      wrong_store: L’avis doit appartenir à la boutique de la commande.
+      not_delivered: Vous pouvez laisser un avis une fois la commande livrée.
+      window_closed: Le délai pour laisser un avis sur cette commande est écoulé.
+    flash:
+      created: Merci. Votre avis a été publié.
+      updated: Votre avis a été mis à jour.
+      replied: Votre réponse a été publiée.
+      reply_failed: Votre réponse n’a pas pu être enregistrée.
+    section:
+      title: Votre avis
+      cta: Partagez votre expérience avec ce vendeur pour aider les autres acheteurs.
+      edit: Modifier votre avis
+      seller_reply: Réponse du vendeur
+      your_reply: Votre réponse
+      window_closed: Le délai pour laisser un avis sur cette commande est écoulé.
+      not_yet: Vous pourrez laisser un avis lorsque la commande sera livrée.
+      seller_title: Avis de l’acheteur
+    form:
+      rating: Note
+      rating_option:
+        one: "%{count} étoile"
+        other: "%{count} étoiles"
+      rating_placeholder: Choisissez une note
+      body: Votre avis
+      body_placeholder: Comment cela s’est-il passé ? Quel était l’état de l’article et de la livraison ?
+      body_hint: Entre 10 et 2000 caractères.
+      edit_window: Vous pouvez modifier votre avis pendant %{days} jours après sa publication.
+      submit: Publier l’avis
+      update: Enregistrer les modifications
+      reply: Votre réponse
+      reply_submit: Publier la réponse
+  review_mailer:
+    reminder:
+      subject: Comment s’est passée votre commande chez %{store} ?
+      title: Laissez un avis
+      greeting: Bonjour %{name},
+      body: Votre commande %{number} chez %{store} a été livrée il y a quelques jours. Dites aux autres acheteurs comment cela s’est passé.
+      cta: Laisser un avis
+      closing: Les avis aident toute la marketplace. Merci pour votre temps.
+  account_mailer:
+    data_export:
+      subject: Votre export de données PCMarket
+      title: Vos données sont prêtes
+      greeting: Bonjour %{name},
+      body: Nous avons préparé une copie de vos données PCMarket. Utilisez le lien ci-dessous pour la télécharger.
+      cta: Télécharger mes données
+      expiry: Ce lien expire dans 7 jours. S’il a expiré, demandez un nouvel export depuis Confidentialité et données.
+  account:
+    settings:
+      eyebrow: Votre compte
+      sidebar:
+        label: Paramètres du compte
+        security: Compte et sécurité
+        addresses: Adresses de livraison
+        notifications: Notifications
+        privacy: Confidentialité et données
+      profile:
+        title: Informations personnelles
+        avatar: Photo de profil
+        avatar_hint: PNG, JPEG ou WebP, jusqu’à 5 Mo.
+        first_name: Prénom
+        last_name: Nom
+        username: Nom d’utilisateur
+        phone: Téléphone
+        locale: Langue
+        locale_hint: Nous utilisons cette langue pour les e-mails et les notifications.
+        save: Enregistrer les modifications
+        flash:
+          updated: Les informations de votre compte ont été mises à jour.
+      security:
+        title: Compte et sécurité
+        subtitle: Gérez vos informations personnelles, votre e-mail de connexion et votre mot de passe.
+        email_title: Adresse e-mail
+        email_body: "Votre adresse actuelle est %{email}. La modifier nécessite une confirmation depuis la nouvelle adresse."
+        email_pending: "En attente de confirmation à %{email}."
+        new_email: Nouvelle adresse e-mail
+        email_submit: Envoyer la confirmation
+        email_sent: Consultez votre boîte de réception pour confirmer la nouvelle adresse.
+        password_title: Mot de passe
+        oauth_only: Votre compte se connecte avec Google, il n’y a donc pas de mot de passe à modifier ici.
+        current_password: Mot de passe actuel
+        new_password: Nouveau mot de passe
+        password_confirmation: Confirmer le nouveau mot de passe
+        password_submit: Changer le mot de passe
+        password_changed: Votre mot de passe a été changé.
+        sessions_title: Sessions actives
+        last_sign_in: Dernière connexion
+        last_ip: IP de la dernière connexion
+        current_sign_in: Début de cette session
+        sign_in_count: Connexions totales
+        never: Jamais
+        unknown: Inconnue
+    addresses:
+      title: Adresses de livraison
+      subtitle: Enregistrez les adresses que vous utilisez au paiement.
+      new: Ajouter une adresse
+      edit: Modifier l’adresse
+      back: Retour aux adresses
+      default_badge: Par défaut
+      delete: Supprimer
+      delete_confirm: Supprimer cette adresse ?
+      empty_title: Aucune adresse enregistrée
+      empty_body: Ajoutez une adresse pour accélérer vos prochains paiements.
+      form:
+        subtitle: Nous livrons uniquement en Espagne pour le moment.
+        full_name: Nom complet
+        line1: Adresse
+        line2: Complément d’adresse (facultatif)
+        city: Ville
+        province: Province
+        province_placeholder: Choisissez une province
+        postal_code: Code postal
+        phone: Téléphone
+        default: Utiliser comme adresse par défaut
+        cancel: Annuler
+        create: Enregistrer l’adresse
+        update: Enregistrer les modifications
+      flash:
+        created: Adresse enregistrée.
+        updated: Adresse mise à jour.
+        destroyed: Adresse supprimée.
+    privacy:
+      title: Confidentialité et données
+      subtitle: Téléchargez une copie de vos données ou consultez vos paramètres de confidentialité.
+      data_title: Télécharger mes données
+      data_body: Nous préparerons un fichier JSON contenant les données personnelles que nous détenons à votre sujet et vous enverrons un lien de téléchargement sécurisé par e-mail.
+      includes_profile: Informations de profil et adresses enregistrées
+      includes_activity: Annonces, messages, avis et recherches enregistrées
+      includes_orders: Commandes passées ou reçues
+      download: Demander mes données
+      download_hint: Le lien expire après 7 jours.
+      cookies_title: Préférences de cookies
+      cookies_body: Les contrôles de cookies seront disponibles lors de la prochaine mise à jour de confidentialité. Les cookies essentiels vous gardent connecté et mémorisent votre langue et votre thème.
+      cookies_placeholder: Les préférences de cookies arrivent bientôt.
+      cookies_link: Gérer les préférences de cookies
+      flash:
+        queued: Votre export est en préparation. Nous vous enverrons un lien de téléchargement par e-mail.
+        invalid_link: Ce lien de téléchargement est invalide ou a expiré.
+        not_ready: L’export n’est pas encore prêt. Veuillez réessayer bientôt.
+    deletion:
+      title: Supprimer le compte
+      body: La suppression de votre compte est définitive. Nous anonymisons vos données personnelles et archivons vos annonces.
+      bullet_data: Votre nom, votre téléphone et votre photo de profil sont supprimés et votre e-mail est remplacé.
+      bullet_orders: Les commandes et les avis sont conservés pour des obligations légales et comptables, affichés comme « Utilisateur supprimé ».
+      bullet_orders_kept: Vous ne pouvez pas supprimer votre compte tant que vous avez des commandes payées ou expédiées.
+      confirm_username: "Saisissez %{username} pour confirmer"
+      confirm_password: Confirmez votre mot de passe
+      submit: Supprimer mon compte
+      confirm: Supprimer définitivement votre compte ?
+      invalid_confirmation: La confirmation ne correspond pas. Rien n’a été supprimé.
+      open_orders: Vous ne pouvez pas supprimer votre compte tant que vous avez des commandes payées ou expédiées en cours.
+      flash:
+        deleted: Votre compte a été supprimé.
+  storefronts:
+    tabs:
+      label: Sections de la boutique
+      listings: Annonces
+      about: À propos
+      reviews: Avis (%{count})
+    header:
+      verified: Vérifié
+      rating: "%{rating} (%{count} avis)"
+      no_ratings: Aucun avis pour le moment
+      for_sale: En vente
+      sold: Vendus
+      followers: Abonnés
+    actions:
+      message: Envoyer un message
+    vacation:
+      title: Ce vendeur est en vacances
+      until: De retour le %{date}
+    filters:
+      text: Rechercher dans cette boutique
+      text_placeholder: Rechercher des annonces
+      category: Catégorie
+      all_categories: Toutes les catégories
+      min_price: Prix minimum
+      max_price: Prix maximum
+      condition: État
+      all_conditions: Tous les états
+      sort: Trier
+      apply: Appliquer
+    listings:
+      count:
+        one: "%{count} annonce"
+        other: "%{count} annonces"
+    sold:
+      title: Vendus récemment
+      hint: Ces articles ont déjà trouvé un nouveau foyer.
+      badge: Vendu
+    about:
+      title: À propos de ce vendeur
+      empty_description: Ce vendeur n’a pas encore ajouté de description.
+      policies_title: Conditions de la boutique
+      returns: Retours
+      default_returns: Les retours sont acceptés dans les 14 jours suivant la livraison si l’article ne correspond pas à la description.
+      shipping: Livraison
+      default_shipping: Les commandes sont expédiées avec un transporteur suivi.
+      handling: Délai de préparation
+      handling_days:
+        one: Expédié sous %{count} jour ouvré
+        other: Expédié sous %{count} jours ouvrés
+      legal_title: À propos / informations légales
+      legal_hint: Informations du professionnel publiées en vertu du règlement européen sur les services numériques.
+      legal_name: Raison sociale
+      tax_id: Numéro de TVA
+      address: Adresse
+      details_title: Informations de la boutique
+      seller_type: Type de vendeur
+      member_since: Membre depuis
+      location: Localisation
+    reviews:
+      title: Avis des acheteurs
+      count:
+        one: "%{count} avis"
+        other: "%{count} avis"
+      sort:
+        label: Trier les avis
+        newest: Les plus récents
+        highest: Les mieux notés
+        lowest: Les moins bien notés
+      seller_reply: Réponse du vendeur
+      report: Signaler l’avis
+      empty_title: Aucun avis pour le moment
+      empty_body: Les avis apparaîtront ici lorsque les acheteurs auront reçu leurs commandes.
+  sell:
+    dashboard:
+      eyebrow: Espace vendeur
+      title: Tableau de bord
+      subtitle: Les performances de %{store} et ce qui demande votre attention.
+      nav_label: Sections du tableau de bord vendeur
+      nav_heading: Tableau de bord vendeur
+      nav:
+        analytics: Analyses
+        listings: Mes annonces
+        sales: Mes ventes
+        public_profile: Profil public
+        store_settings: Paramètres de la boutique
+        vacation: Mode vacances
+        payouts: Paiements
+      range_label: Période
+      ranges:
+        seven: 7 derniers jours
+        thirty: 30 derniers jours
+        ninety: 90 derniers jours
+      kpis:
+        revenue: Revenus
+        orders: Commandes
+        units: Unités vendues
+        average_order: Panier moyen
+        views: Vues des annonces
+        conversion: Conversion
+        favourites: Favoris gagnés
+        followers: Nouveaux abonnés
+      chart:
+        title: Revenus par jour
+        subtitle: "%{count} derniers jours"
+        description: Graphique des revenus quotidiens des %{count} derniers jours, avec un tableau de données accessible ci-dessous.
+        bar_label: "%{date} : %{amount}"
+        show_table: Afficher le tableau de données
+        date: Date
+        revenue: Revenus
+      top_by_views:
+        title: Annonces les plus vues
+        metric:
+          one: "%{count} vue"
+          other: "%{count} vues"
+        empty: Aucune vue d’annonce sur cette période.
+      top_by_revenue:
+        title: Annonces les plus rentables
+        empty: Aucune vente sur cette période.
+      pending:
+        title: Actions en attente
+        orders_to_ship: Commandes à expédier
+        offers_to_answer: Offres à traiter
+        unread_messages: Messages non lus
+        rejected_listings: Annonces à corriger
+  stores:
+    tabs:
+      vacation: Mode vacances
+    form:
+      banner: Bannière de la boutique
+      banner_hint: Image large affichée en haut de votre boutique. PNG, JPEG ou WebP, jusqu’à 5 Mo.
+      policies_heading: Conditions de la boutique
+      policies_hint: Elles apparaissent dans l’onglet À propos de votre boutique publique.
+      return_policy: Politique de retours
+      shipping_policy: Politique de livraison
+      handling_days: Délai de préparation (jours ouvrés)
+      handling_days_hint: Temps dont vous avez généralement besoin avant de remettre un colis au transporteur.
+    vacation:
+      title: Mode vacances
+      subtitle: Mettez votre boutique en pause pendant votre absence. Les acheteurs voient vos annonces mais ne peuvent pas les acheter.
+      enable: Activer le mode vacances
+      enable_hint: Les annonces restent visibles avec un avis, mais le paiement est désactivé.
+      message: Message pour les acheteurs
+      message_hint: Facultatif. Indiquez quand vous serez de retour.
+      return_date: Date de retour (facultative)
+      return_date_hint: Le mode vacances se désactive automatiquement à la fin de cette journée.
+      save: Enregistrer les paramètres de vacances
+      help_title: Fonctionnement
+      help_body: Les commandes existantes suivent leur cours normal. Les nouveaux acheteurs ne peuvent pas finaliser d’achat pendant le mode vacances.
+      status_on: Le mode vacances est activé.
+      status_until: "De retour le %{date}."
+      status_off: Votre boutique est ouverte aux ventes.
+      flash:
+        updated: Paramètres de vacances mis à jour.
+  reports:
+    review_preview: "Avis avec %{rating} étoiles"
+  admin:
+    reports:
+      types:
+        review: Avis
+      show:
+        action_effect:
+          review: Appliquer l’action masque l’avis de la page publique de la boutique.
+  notifications:
+    preferences:
+      marketing_label: E-mails marketing
+      save_hint: Les e-mails transactionnels concernant vos commandes sont toujours envoyés.
+  activerecord:
+    models:
+      review: Avis
+    attributes:
+      review:
+        rating: Note
+        body: Avis
+        seller_reply: Réponse du vendeur
+        order: Commande
+        store: Boutique
+        reviewer: Auteur de l’avis

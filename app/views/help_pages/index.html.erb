@@ -1,0 +1,61 @@
+<% set_meta_tags(title: t("help.index.title"), description: t("help.index.description"), canonical: help_pages_url) %>
+<% breadcrumbs = [ [ t("nav.home"), root_path ], [ t("help.index.title"), help_pages_path ] ] %>
+
+<div class="space-y-10">
+  <%= render "listings/breadcrumbs", trail: breadcrumbs %>
+
+  <header class="max-w-3xl">
+    <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("help.index.eyebrow") %></p>
+    <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl"><%= t("help.index.title") %></h1>
+    <p class="mt-3 text-base leading-relaxed text-muted"><%= t("help.index.description") %></p>
+    <div class="mt-5 flex flex-wrap gap-2">
+      <%= link_to t("help.index.contact"), contact_messages_path, class: "btn-primary" %>
+      <%= link_to t("help.index.trust"), trust_path, class: "btn-accent" %>
+    </div>
+  </header>
+
+  <section aria-labelledby="help-pages-title" class="space-y-4">
+    <h2 id="help-pages-title" class="text-2xl font-extrabold tracking-tight"><%= t("help.index.pages_title") %></h2>
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <% HelpPagesController::SLUGS.each do |slug| %>
+        <% page = help_page(slug) %>
+        <%= link_to help_page_path(slug: slug),
+                    class: "group flex flex-col rounded-2xl border border-border bg-surface p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md dark:hover:border-primary-700" do %>
+          <span class="text-base font-bold group-hover:text-primary-700 dark:group-hover:text-primary-300"><%= page[:title] %></span>
+          <span class="mt-1.5 text-sm leading-relaxed text-muted"><%= page[:summary] %></span>
+          <span class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-primary-700 dark:text-primary-300"><%= t("help.index.read_more") %></span>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
+  <section aria-labelledby="help-faq-title" class="space-y-5">
+    <div>
+      <h2 id="help-faq-title" class="text-2xl font-extrabold tracking-tight"><%= t("help.faq.title") %></h2>
+      <p class="mt-1 text-sm text-muted"><%= t("help.faq.description") %></p>
+    </div>
+
+    <% help_faq_categories.each do |_key, category| %>
+      <div class="space-y-2">
+        <h3 class="text-lg font-bold"><%= category[:title] %></h3>
+        <% category[:items].each do |item| %>
+          <details class="group rounded-2xl border border-border bg-surface px-5 py-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-content">
+              <span><%= item[:question] %></span>
+              <svg class="h-4 w-4 shrink-0 text-muted transition group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-muted"><%= item[:answer] %></p>
+          </details>
+        <% end %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="rounded-3xl border border-border bg-surface-muted/60 px-6 py-8 text-center sm:px-10">
+    <h2 class="text-xl font-extrabold tracking-tight"><%= t("help.index.cta_title") %></h2>
+    <p class="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted"><%= t("help.index.cta_body") %></p>
+    <%= link_to t("help.index.contact"), contact_messages_path, class: "btn-primary mt-4" %>
+  </section>
+</div>

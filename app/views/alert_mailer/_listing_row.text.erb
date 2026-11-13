@@ -1,0 +1,2 @@
+- <%= listing.title %> (<%= number_to_currency(listing.price_cents.to_i / 100.0, unit: "€") %>)
+  <%= listing_url(listing, locale: @locale) %>

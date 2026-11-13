@@ -1,0 +1,635 @@
+---
+fr:
+  admin:
+    common:
+      any: Tous
+      'yes': Oui
+      'no': Non
+      none: Aucun
+      from: Du
+      to: Au
+      per_page: Par page
+      apply: Appliquer les filtres
+      clear: Effacer les filtres
+      export_csv: Exporter en CSV
+      actions: Actions
+      view: Voir
+      edit: Modifier
+      cancel: Annuler
+      save: Enregistrer
+    listings:
+      untitled: Annonce sans titre
+      index:
+        title: Annonces
+        subtitle: Recherchez, filtrez et gérez toutes les annonces de la place de
+          marché.
+        count:
+          one: "%{count} annonce"
+          other: "%{count} annonces"
+        empty_title: Aucune annonce ne correspond à ces filtres
+        empty_body: Essayez d’effacer les filtres ou d’élargir la période.
+      filters:
+        title: Filtres avancés
+        search: Rechercher
+        search_placeholder: Titre, ID ou slug
+        status: Statut
+        category: Catégorie (avec sous-catégories)
+        seller: Vendeur
+        store_kind: Type de boutique
+        condition: État de l’article
+        price_min: Prix minimum (€)
+        price_max: Prix maximum (€)
+        featured: En vedette
+        has_reports: A des signalements
+      table:
+        select: Sélectionner l’annonce
+        listing: Annonce
+        seller: Vendeur
+        store: Boutique
+        price: Prix
+        status: Statut
+        views: Vues / favoris
+        created: Créée
+        actions: Actions
+      bulk:
+        select_all: Tout sélectionner
+        operation: Action groupée
+        operations:
+          approve: Approuver
+          reject: Refuser
+          archive: Archiver
+          label: Attribuer un label produit
+          feature: Mettre en vedette
+        reason: Motif
+        reason_placeholder: Motif du refus
+        label: Label produit
+        days: Jours
+        submit: Appliquer à la sélection
+        none_selected: Sélectionnez au moins une annonce.
+        admins_only: Seuls les administrateurs peuvent labelliser ou mettre en vedette
+          des annonces.
+        done: "%{count} annonces mises à jour (%{skipped} ignorées)."
+      show:
+        back: Retour aux annonces
+        public_page: Page publique
+        overview: Aperçu
+        condition: État de l’article
+        location: Localisation
+        quantity: Quantité
+        featured_until: En vedette jusqu’au
+        stats_title: Activité
+        views: Vues
+        favourites: Favoris
+        orders: Commandes
+        reports: Signalements
+        orders_title: Commandes
+        orders_empty: Cette annonce n’a encore aucune commande.
+        reports_title: Signalements
+        reports_empty: Aucun signalement n’a été déposé contre cette annonce.
+        history_title: Historique de modération
+        history_empty: Aucune décision de modération pour le moment.
+        seller_title: Vendeur
+        actions_title: Actions
+        approve: Approuver l’annonce
+        reject_note: Ajouter une note pour le vendeur (facultatif)
+        reject: Refuser et prévenir le vendeur
+        archive: Archiver l’annonce
+        restore: Restaurer l’annonce
+        feature: Mettre en vedette jusqu’à cette date
+        delete: Supprimer définitivement
+        delete_confirm: Supprimer définitivement cette annonce ? Cette action est
+          irréversible.
+        delete_blocked: Cette annonce a des commandes et ne peut pas être supprimée
+          définitivement.
+        labels_title: Labels produit
+        save_labels: Enregistrer les labels
+      edit:
+        back: Retour à l’annonce
+        title: Modifier l’annonce
+        subtitle: Les administrateurs peuvent modifier tous les champs. Les changements
+          importants repassent par la modération.
+        category: Catégorie
+        featured_until: En vedette jusqu’au
+      flash:
+        updated: Annonce mise à jour.
+        not_deletable: Seuls les brouillons ou les annonces archivées sans commande
+          peuvent être supprimés définitivement.
+        destroyed: Annonce supprimée définitivement.
+        approved: Annonce approuvée.
+        already_moderated: Cette annonce n’attend plus de modération.
+        reason_required: Choisissez un motif de refus.
+        rejected: Annonce refusée et vendeur prévenu.
+        cannot_archive: Cette annonce ne peut pas être archivée dans son état actuel.
+        archived: Annonce archivée.
+        cannot_restore: Cette annonce ne peut pas être restaurée dans son état actuel.
+        restored: Annonce restaurée.
+        invalid_feature_date: Choisissez une date de fin de mise en vedette valide.
+        featured: Annonce mise en vedette.
+        labels_updated: Labels produit mis à jour.
+      csv:
+        id: ID
+        title: Titre
+        status: Statut
+        seller: Vendeur
+        store: Boutique
+        category: Catégorie
+        price: Prix (€)
+        views: Vues
+        favourites: Favoris
+        created_at: Créée le
+      statuses:
+        draft: Brouillon
+        pending_review: En attente de modération
+        published: Publiée
+        rejected: Refusée
+        reserved: Réservée
+        sold: Vendue
+        archived: Archivée
+    users:
+      never_signed_in: Jamais connecté
+      index:
+        title: Utilisateurs
+        subtitle: Recherchez des comptes, consultez leur activité et appliquez des
+          actions administratives.
+        count:
+          one: "%{count} utilisateur"
+          other: "%{count} utilisateurs"
+        empty_title: Aucun utilisateur ne correspond à ces filtres
+        empty_body: Essayez une autre recherche ou effacez les filtres.
+      filters:
+        title: Filtres avancés
+        search: Rechercher
+        search_placeholder: E-mail, nom d’utilisateur ou nom
+        role: Rôle
+        status: Statut
+        has_store: A une boutique
+        last_sign_in_from: Connexion depuis
+        last_sign_in_to: Connexion jusqu’au
+      table:
+        user: Utilisateur
+        email: E-mail
+        role: Rôle
+        status: Statut
+        store: Boutique
+        last_sign_in: Dernière connexion
+        created: Inscription
+      show:
+        back: Retour aux utilisateurs
+        impersonate: Se connecter en tant que cet utilisateur
+        profile_title: Profil
+        role: Rôle
+        status: Statut
+        locale: Langue
+        country: Pays
+        phone: Téléphone
+        created: Inscription
+        ban_reason: 'Motif du bannissement : %{reason}'
+        sign_in_title: Activité de connexion
+        sign_in_count: Connexions
+        last_sign_in: Dernière connexion
+        last_ip: Dernière IP
+        confirmed_at: E-mail confirmé
+        unconfirmed: Non confirmé
+        store_title: Boutique
+        no_store: Cet utilisateur n’a pas de boutique.
+        orders_title: Commandes
+        as_buyer: Comme acheteur
+        as_seller: Comme vendeur
+        listings_title: Annonces
+        reviews_title: Avis rédigés
+        review_rating: "%{rating}/5"
+        reports_title: Signalements visant cet utilisateur
+        audit_title: Journal d’audit
+        role_title: Rôle
+        change_role: Changer le rôle
+        moderation_title: Modération
+        unban: Débannir le compte
+        ban: Bannir le compte
+        ban_reason_placeholder: Motif affiché à l’utilisateur (obligatoire)
+        confirm: Confirmer l’e-mail manuellement
+        resend_confirmation: Renvoyer l’e-mail de confirmation
+        reset_password: Envoyer un e-mail de réinitialisation
+        deletion_title: Supprimer le compte
+        deletion_hint: Supprime et anonymise le compte, puis archive ses annonces.
+        delete: Supprimer le compte
+        delete_confirm: Supprimer et anonymiser ce compte ? Cette action est irréversible.
+      edit:
+        back: Retour à l’utilisateur
+        title: Modifier l’utilisateur
+        subtitle: Mettez à jour les champs du profil. Le changement de rôle est géré
+          séparément.
+        first_name: Prénom
+        last_name: Nom
+        username: Nom d’utilisateur
+        email: E-mail
+        phone: Téléphone
+        locale: Langue
+        country: Code pays
+        marketing_opt_in: E-mails marketing
+      flash:
+        updated: Utilisateur mis à jour.
+        banned: Compte banni et annonces archivées.
+        ban_failed: Le compte n’a pas pu être banni. Vérifiez le motif.
+        unbanned: Compte débanni.
+        role_changed: Rôle mis à jour.
+        role_change_failed: Ce changement de rôle n’est pas autorisé.
+        confirmed: E-mail confirmé.
+        already_confirmed: Cet e-mail est déjà confirmé.
+        confirmation_resent: E-mail de confirmation envoyé.
+        password_reset_sent: E-mail de réinitialisation envoyé.
+        deleted: Compte supprimé et anonymisé.
+      csv:
+        id: ID
+        username: Nom d’utilisateur
+        email: E-mail
+        role: Rôle
+        status: Statut
+        stores: Boutique
+        sign_in_count: Connexions
+        last_sign_in_at: Dernière connexion
+        created_at: Inscription
+      roles:
+        user: Acheteur
+        moderator: Modérateur
+        admin: Administrateur
+      statuses:
+        active: Actif
+        banned: Banni
+        deleted: Supprimé
+        unconfirmed: Non confirmé
+    stores:
+      index:
+        title: Boutiques
+        subtitle: Consultez les vitrines, les informations légales, les paiements
+          et les notes.
+        count:
+          one: "%{count} boutique"
+          other: "%{count} boutiques"
+        empty_title: Aucune boutique ne correspond à ces filtres
+        empty_body: Essayez une autre recherche ou effacez les filtres.
+      filters:
+        title: Filtres avancés
+        search: Rechercher
+        search_placeholder: Nom, slug, raison sociale ou e-mail
+        kind: Type
+        status: Statut
+        verified: Vérifiée
+        payouts_ready: Paiements prêts
+        vacation: Mode vacances
+        rating_min: Note minimale
+        rating_max: Note maximale
+      table:
+        store: Boutique
+        owner: Propriétaire
+        kind: Type
+        status: Statut
+        verified: Vérifiée
+        payouts: Paiements
+        rating: Note
+        listings: Annonces
+      show:
+        back: Retour aux boutiques
+        public_page: Vitrine publique
+        details_title: Informations de la boutique
+        owner: Propriétaire
+        email: E-mail
+        location: Localisation
+        website: Site web
+        vacation: Mode vacances
+        created: Créée
+        legal_title: Informations légales
+        legal_name: Raison sociale
+        tax_id: Numéro fiscal
+        address: Adresse
+        phone: Téléphone
+        stats_title: Performance
+        listings: Annonces
+        followers: Abonnés
+        sales: Ventes terminées
+        revenue: Chiffre d’affaires
+        payouts_title: Paiements
+        payouts_status: Paiements Stripe activés
+        listings_title: Annonces récentes
+        reviews_title: Avis
+        review_rating: "%{rating}/5"
+        hide_review: Masquer
+        unhide_review: Afficher
+        followers_title: Abonnés
+        verification_title: Vérification
+        verified_on: Vérifiée le %{date}
+        not_verified: Cette boutique n’est pas encore vérifiée.
+        verify: Vérifier la boutique
+        unverify: Retirer la vérification
+        suspension_title: Suspension
+        suspended_hint: La vitrine est suspendue et ses annonces sont masquées.
+        reactivate: Réactiver la boutique
+        reason_placeholder: Motif affiché au vendeur (obligatoire)
+        suspend: Suspendre la boutique
+      edit:
+        back: Retour à la boutique
+        title: Modifier la boutique
+        name: Nom
+        kind: Type
+        description: Description
+        legal_name: Raison sociale
+        tax_id: Numéro fiscal
+        address_line: Adresse
+        city: Ville
+        region: Province
+        region_placeholder: Choisissez une province
+        postal_code: Code postal
+        country_code: Code pays
+        phone: Téléphone
+        website: Site web
+        handling_days: Jours de préparation
+        return_policy: Politique de retour
+        shipping_policy: Politique d’expédition
+        allow_offers_default: Offres activées par défaut
+      flash:
+        updated: Boutique mise à jour.
+        verified: Boutique vérifiée.
+        unverified: Vérification retirée.
+        suspended: Boutique suspendue et vendeur prévenu.
+        reason_required: Le motif de suspension est obligatoire.
+        reactivated: Boutique réactivée.
+        review_hidden: Avis masqué.
+        review_unhidden: Avis de nouveau visible.
+      kinds:
+        individual: Particulier
+        business: Entreprise
+      statuses:
+        active: Active
+        suspended: Suspendue
+      review_statuses:
+        visible: Visible
+        hidden: Masqué
+      csv:
+        id: ID
+        name: Nom
+        owner: Propriétaire
+        kind: Type
+        status: Statut
+        verified: Vérifiée
+        payouts_ready: Paiements prêts
+        rating: Note
+        listings: Annonces
+        created_at: Créée le
+    orders:
+      guest_buyer: Acheteur invité
+      system_actor: Système
+      index:
+        title: Commandes
+        subtitle: Recherchez des commandes, inspectez les paiements et agissez pour
+          les acheteurs ou les vendeurs.
+        count:
+          one: "%{count} commande"
+          other: "%{count} commandes"
+        empty_title: Aucune commande ne correspond à ces filtres
+        empty_body: Essayez un autre numéro de commande ou élargissez la période.
+      filters:
+        title: Filtres avancés
+        search: Rechercher
+        search_placeholder: Numéro de commande
+        status: Statut
+        store: Boutique
+        buyer_id: ID de l’acheteur
+        fulfilment: Livraison
+        amount_min: Total minimum (€)
+        amount_max: Total maximum (€)
+        disputed: En litige
+      table:
+        number: Commande
+        status: Statut
+        buyer: Acheteur
+        store: Boutique
+        fulfilment: Livraison
+        total: Total
+        commission: Commission
+        created: Créée
+      show:
+        back: Retour aux commandes
+        summary_title: Résumé
+        buyer: Acheteur
+        email: E-mail
+        store: Boutique
+        tracking: Suivi
+        items_title: Articles
+        item: Article
+        quantity: Qté
+        unit_price: Prix unitaire
+        line_total: Total ligne
+        subtotal: Sous-total
+        shipping: Livraison
+        commission: Commission
+        total: Total
+        payment_title: Paiement et versement
+        payment_intent: PaymentIntent
+        open_in_stripe: Ouvrir dans Stripe
+        payout_title: Versement
+        messages_title: Messages
+        messages_link: Ouvrir la conversation n° %{id}
+        timeline_title: Chronologie
+        notes_title: Notes internes
+        notes_hint: Seule l’équipe peut lire ces notes.
+        actions_title: Actions
+        carrier: Transporteur
+        tracking_number: Numéro de suivi
+        mark_shipped: Marquer comme expédiée
+        mark_delivered: Marquer comme livrée
+        mark_completed: Marquer comme terminée
+        cancel_reason: Motif d’annulation
+        cancel_refund: Annuler et rembourser
+        cancel_confirm: Annuler cette commande et rembourser l’acheteur ?
+        refund_amount: Montant (€)
+        partial_refund: Remboursement partiel
+        dispute_title: Commande en litige
+        dispute_note: Note de décision (facultative)
+        refund_buyer: Rembourser l’acheteur
+        release_seller: Libérer au vendeur
+        add_note_title: Ajouter une note interne
+        note_placeholder: Écrivez une note pour l’équipe support
+        add_note: Ajouter la note
+      flash:
+        shipped: Commande marquée comme expédiée.
+        ship_failed: Impossible de marquer la commande comme expédiée. Vérifiez le
+          transporteur et le suivi.
+        delivered: Commande marquée comme livrée.
+        deliver_failed: Impossible de marquer la commande comme livrée.
+        completed: Commande terminée et versement libéré.
+        complete_failed: Impossible de terminer la commande.
+        cancelled: Commande annulée et remboursée si nécessaire.
+        cancel_failed: Impossible d’annuler la commande.
+        refunded: Remboursement effectué.
+        refund_failed: Impossible d’effectuer le remboursement. Vérifiez le montant.
+        dispute_resolved: Litige résolu.
+        dispute_failed: Impossible de résoudre le litige.
+        note_added: Note ajoutée.
+        note_failed: Impossible d’enregistrer la note.
+      csv:
+        number: Commande
+        status: Statut
+        buyer: Acheteur
+        store: Boutique
+        subtotal: Sous-total (€)
+        shipping: Livraison (€)
+        commission: Commission (€)
+        total: Total (€)
+        currency: Devise
+        created_at: Créée le
+    payouts:
+      index:
+        title: Versements
+        subtitle: Suivez les transferts aux vendeurs et relancez les versements échoués.
+        count:
+          one: "%{count} versement"
+          other: "%{count} versements"
+        empty_title: Aucun versement ne correspond à ces filtres
+        empty_body: Les versements apparaissent une fois une commande terminée.
+      filters:
+        search: Rechercher
+        search_placeholder: Numéro de commande
+        status: Statut
+        store: Boutique
+      table:
+        order: Commande
+        store: Boutique
+        amount: Montant
+        status: Statut
+        transfer: ID de transfert
+        error: Erreur
+        retry: Relancer le transfert
+      flash:
+        retried: Versement relancé.
+        retry_failed: Impossible de relancer le versement.
+      csv:
+        id: ID
+        order: Commande
+        store: Boutique
+        amount: Montant (€)
+        status: Statut
+        transfer: ID de transfert
+        created_at: Créé le
+      statuses:
+        pending: En attente
+        paid: Payé
+        failed: Échoué
+    audit_logs:
+      system: Système
+      deleted_item: Élément supprimé
+      review: Avis n° %{id}
+      payout: Versement n° %{id}
+      index:
+        title: Journal d’audit
+        subtitle: Chaque modification administrative, avec son auteur et les détails
+          de la requête.
+        count:
+          one: "%{count} entrée"
+          other: "%{count} entrées"
+        empty_title: Aucune entrée d’audit
+        empty_body: Les actions administratives seront enregistrées ici.
+      filters:
+        actor: Auteur
+        type: Type d’élément
+        action: Action
+      table:
+        created: Quand
+        actor: Auteur
+        action: Action
+        item: Élément
+        ip: IP
+      types:
+        listing: Annonce
+        store: Boutique
+        user: Utilisateur
+        order: Commande
+        review: Avis
+        payout: Versement
+        admin_audit_log: Entrée d’audit
+      actions:
+        listing:
+          approved: Annonce approuvée
+          rejected: Annonce refusée
+          archived: Annonce archivée
+          restored: Annonce restaurée
+          updated: Annonce mise à jour
+          destroyed: Annonce supprimée
+          featured: Annonce mise en vedette
+          labelled: Labels attribués
+          bulk: Action groupée sur les annonces
+        user:
+          updated: Utilisateur mis à jour
+          role_changed: Rôle modifié
+          banned: Utilisateur banni
+          unbanned: Utilisateur débanni
+          confirmed: E-mail confirmé
+          confirmation_resent: Confirmation renvoyée
+          password_reset_requested: Réinitialisation demandée
+          deleted: Utilisateur supprimé
+        store:
+          updated: Boutique mise à jour
+          verified: Boutique vérifiée
+          unverified: Vérification retirée
+          suspended: Boutique suspendue
+          reactivated: Boutique réactivée
+        review:
+          hidden: Avis masqué
+          unhidden: Avis affiché
+        order:
+          shipped: Commande expédiée
+          delivered: Commande livrée
+          completed: Commande terminée
+          cancelled: Commande annulée
+          partial_refunded: Remboursement partiel
+          dispute_resolved: Litige résolu
+          note_added: Note interne ajoutée
+        payout:
+          retried: Versement relancé
+        impersonation:
+          started: Usurpation démarrée
+          stopped: Usurpation terminée
+    impersonation:
+      banner: Vous êtes connecté en tant que %{name}.
+      stop: Arrêter l’usurpation
+      started: Vous naviguez maintenant en tant que %{name}.
+      stopped: Usurpation terminée.
+      cannot: Ce compte ne peut pas être usurpé.
+      not_impersonating: Aucune usurpation n’est active.
+      payment_blocked: Les paramètres de paiement sont indisponibles pendant l’usurpation.
+      account_blocked: La sécurité du compte et les données sont indisponibles pendant l'emprunt d'identité.
+    dashboard:
+      sparkline:
+        title: Commandes des 30 derniers jours
+        subtitle: Nombre de commandes par jour
+        from: Du
+        to: Au
+      kpis:
+        gmv_7d_cents: Volume de ventes (7 jours)
+        gmv_30d_cents: Volume de ventes (30 jours)
+        orders_7d: Commandes (7 jours)
+        commission_30d_cents: Commission gagnée (30 jours)
+        open_disputes: Litiges ouverts
+        failed_payouts: Versements échoués
+    nav:
+      payouts: Versements
+      audit_log: Journal d’audit
+  admin_mailer:
+    user_banned:
+      subject: Votre compte PCMarket a été suspendu
+      title: Compte suspendu
+      greeting: Bonjour %{name},
+      body: Un administrateur a suspendu votre compte. Vous ne pouvez plus vous connecter
+        ni vendre sur PCMarket.
+      closing: Si vous pensez qu’il s’agit d’une erreur, répondez à cet e-mail et
+        notre équipe l’examinera.
+    store_suspended:
+      subject: Votre boutique a été suspendue
+      title: Boutique suspendue
+      greeting: Bonjour %{name},
+      body: Votre boutique « %{store} » a été suspendue. Ses annonces restent masquées
+        sur la place de marché pendant la suspension.
+      closing: Si vous pensez qu’il s’agit d’une erreur, répondez à cet e-mail et
+        notre équipe l’examinera.
+  orders:
+    events:
+      partial_refund: Remboursement partiel effectué
+      refunded: Commande remboursée

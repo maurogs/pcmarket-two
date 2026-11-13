@@ -1,0 +1,17 @@
+<%= t("alert_mailer.saved_search_digest.greeting", name: @user.display_name) %>
+
+<%= t("alert_mailer.saved_search_digest.body") %>
+
+<% @entries.each do |entry| %>
+<%= t("alert_mailer.saved_search_digest.search_heading", name: entry[:saved_search].name) %>
+
+<% entry[:listings].each do |listing| %>
+<%= render "alert_mailer/listing_row", listing: listing %>
+<% end %>
+<% end %>
+
+<% if @cta_url.present? %>
+<%= t("alert_mailer.saved_search_digest.cta") %>: <%= @cta_url %>
+<% end %>
+
+<%= t("alert_mailer.saved_search_digest.closing") %>

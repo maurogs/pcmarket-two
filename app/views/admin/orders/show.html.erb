@@ -1,0 +1,163 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div class="min-w-0">
+      <%= link_to t("admin.orders.show.back"), admin_orders_path, class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+      <h1 class="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl"><%= @order.number %></h1>
+      <p class="mt-1 text-sm text-muted"><%= order_status_label(@order.status) %> · <%= order_fulfilment_label(@order) %> · <%= l(@order.created_at, format: :long) %></p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <%= link_to @order.store.name, admin_store_path(@order.store), class: "btn-accent" %>
+      <% if @order.buyer %><%= link_to @order.buyer.display_name, admin_user_path(@order.buyer), class: "btn-accent" %><% end %>
+    </div>
+  </header>
+
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
+    <div class="min-w-0 space-y-6">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.orders.show.summary_title") %></h2>
+        <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.orders.show.buyer") %></dt><dd class="mt-1 font-semibold"><%= @order.buyer&.display_name || t("admin.orders.guest_buyer") %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.orders.show.email") %></dt><dd class="mt-1 break-all"><%= @order.buyer&.email || @order.checkout.recipient_email %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.orders.show.store") %></dt><dd class="mt-1"><%= link_to @order.store.name, admin_store_path(@order.store), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.orders.show.tracking") %></dt><dd class="mt-1"><%= [@order.tracking_carrier, @order.tracking_number].compact_blank.join(" · ").presence || "—" %></dd></div>
+        </dl>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.orders.show.items_title") %></h2>
+        <div class="mt-3 overflow-x-auto">
+          <table class="min-w-full divide-y divide-border text-sm">
+            <thead class="text-left text-xs font-semibold uppercase tracking-widest text-muted">
+              <tr><th class="py-2 pr-4"><%= t("admin.orders.show.item") %></th><th class="py-2 pr-4"><%= t("admin.orders.show.quantity") %></th><th class="py-2 pr-4"><%= t("admin.orders.show.unit_price") %></th><th class="py-2"><%= t("admin.orders.show.line_total") %></th></tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              <% @items.each do |item| %>
+                <tr>
+                  <td class="py-2 pr-4"><%= link_to item.title, admin_listing_path(item.listing), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %><span class="block text-xs text-muted"><%= item.seller_name %></span></td>
+                  <td class="py-2 pr-4"><%= item.quantity %></td>
+                  <td class="py-2 pr-4"><%= money(item.unit_price_cents, currency: @order.currency) %></td>
+                  <td class="py-2 font-semibold"><%= money(item.line_total_cents, currency: @order.currency) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <dl class="mt-4 space-y-1 border-t border-border pt-3 text-sm">
+          <div class="flex justify-between"><dt class="text-muted"><%= t("admin.orders.show.subtotal") %></dt><dd><%= money(@order.subtotal_cents, currency: @order.currency) %></dd></div>
+          <div class="flex justify-between"><dt class="text-muted"><%= t("admin.orders.show.shipping") %></dt><dd><%= money(@order.shipping_cents, currency: @order.currency) %></dd></div>
+          <div class="flex justify-between"><dt class="text-muted"><%= t("admin.orders.show.commission") %></dt><dd><%= money(@order.commission_cents, currency: @order.currency) %></dd></div>
+          <div class="flex justify-between border-t border-border pt-1 text-base font-extrabold"><dt><%= t("admin.orders.show.total") %></dt><dd><%= money(@order.total_cents, currency: @order.currency) %></dd></div>
+        </dl>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.orders.show.payment_title") %></h2>
+        <p class="mt-2 text-sm text-muted"><%= t("admin.orders.show.payment_intent") %>: <span class="break-all font-mono text-content"><%= @order.checkout.payment_intent_id.presence || "—" %></span></p>
+        <% if !Payments.fake_gateway? && @order.checkout.payment_intent_id.present? %>
+          <%= link_to t("admin.orders.show.open_in_stripe"), "https://dashboard.stripe.com/payments/#{@order.checkout.payment_intent_id}", class: "mt-2 inline-block text-sm font-semibold text-primary-700 hover:underline dark:text-primary-300", target: "_blank", rel: "noopener" %>
+        <% end %>
+        <% if @payout %>
+          <div class="mt-3 rounded-xl border border-border bg-surface-muted p-3 text-sm">
+            <p class="font-semibold"><%= t("admin.orders.show.payout_title") %> · <%= admin_payout_status_label(@payout.status) %></p>
+            <p class="text-muted"><%= money(@payout.amount_cents, currency: @order.currency) %> · <%= @payout.stripe_transfer_id.presence || "—" %></p>
+            <% if @payout.error.present? %><p class="mt-1 text-xs text-danger"><%= @payout.error %></p><% end %>
+          </div>
+        <% end %>
+        <% if @conversations.any? %>
+          <div class="mt-3">
+            <h3 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.orders.show.messages_title") %></h3>
+            <ul class="mt-1 space-y-1 text-sm">
+              <% @conversations.each do |conversation| %>
+                <li><%= link_to t("admin.orders.show.messages_link", id: conversation.id), conversation_path(conversation), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.orders.show.timeline_title") %></h2>
+        <ul class="mt-3 space-y-3">
+          <% @events.each do |event| %>
+            <li class="rounded-xl border border-border bg-surface-muted p-3 text-sm">
+              <p class="flex items-center justify-between gap-2 font-semibold"><span><%= t("orders.events.#{event.event}", default: event.event) %></span><span class="text-xs font-normal text-muted"><%= l(event.created_at, format: :short) %></span></p>
+              <p class="mt-1 text-xs text-muted"><%= event.actor&.display_name || t("admin.orders.system_actor") %></p>
+            </li>
+          <% end %>
+          <% if @events.empty? %><li class="text-sm text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.orders.show.notes_title") %></h2>
+        <p class="mt-1 text-xs text-muted"><%= t("admin.orders.show.notes_hint") %></p>
+        <ul class="mt-3 divide-y divide-border text-sm">
+          <% @notes.each do |note| %>
+            <li class="py-2">
+              <p class="whitespace-pre-line"><%= note.body %></p>
+              <p class="mt-1 text-xs text-muted"><%= note.author.display_name %> · <%= l(note.created_at, format: :short) %></p>
+            </li>
+          <% end %>
+          <% if @notes.empty? %><li class="py-2 text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="space-y-4">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.orders.show.actions_title") %></h2>
+        <div class="mt-3 space-y-2">
+          <% if @order.paid? %>
+            <%= form_with url: admin_order_shipment_path(@order), method: :post, scope: nil, class: "space-y-2" do %>
+              <%= select_tag :carrier, options_for_select(carrier_options), include_blank: t("admin.orders.show.carrier"), class: "field" %>
+              <%= text_field_tag :tracking_number, nil, placeholder: t("admin.orders.show.tracking_number"), class: "field" %>
+              <%= submit_tag t("admin.orders.show.mark_shipped"), class: "btn-primary w-full" %>
+            <% end %>
+          <% end %>
+          <% if @order.shipped? %>
+            <%= button_to t("admin.orders.show.mark_delivered"), admin_order_delivery_path(@order), method: :post, class: "btn-primary w-full" %>
+          <% end %>
+          <% if @order.delivered? %>
+            <%= button_to t("admin.orders.show.mark_completed"), admin_order_completion_path(@order), method: :post, class: "btn-primary w-full" %>
+          <% end %>
+
+          <% if @order.may_cancel? %>
+            <%= form_with url: admin_order_cancellation_path(@order), method: :post, scope: nil, class: "space-y-2" do %>
+              <%= text_field_tag :reason, nil, placeholder: t("admin.orders.show.cancel_reason"), class: "field" %>
+              <%= submit_tag t("admin.orders.show.cancel_refund"), class: "btn-accent w-full", data: { turbo_confirm: t("admin.orders.show.cancel_confirm") } %>
+            <% end %>
+          <% end %>
+
+          <% if Admin::PartialRefund::REFUNDABLE_STATUSES.include?(@order.status) %>
+            <%= form_with url: admin_order_refund_path(@order), method: :post, scope: nil, class: "flex items-end gap-2" do %>
+              <%= number_field_tag :amount, nil, step: "0.01", min: 0.01, max: @order.total_cents / 100.0, placeholder: t("admin.orders.show.refund_amount"), class: "field" %>
+              <%= submit_tag t("admin.orders.show.partial_refund"), class: "btn-accent" %>
+            <% end %>
+          <% end %>
+
+          <% if @order.disputed? %>
+            <div class="rounded-xl border border-danger/30 bg-danger-soft p-3">
+              <p class="text-sm font-semibold text-danger"><%= t("admin.orders.show.dispute_title") %></p>
+              <%= form_with url: admin_order_dispute_resolution_path(@order), method: :post, scope: nil, class: "mt-2 space-y-2" do %>
+                <%= text_area_tag :note, nil, rows: 2, placeholder: t("admin.orders.show.dispute_note"), class: "field" %>
+                <div class="flex gap-2">
+                  <%= submit_tag t("admin.orders.show.refund_buyer"), name: "decision", value: "refund", class: "btn-accent flex-1" %>
+                  <%= submit_tag t("admin.orders.show.release_seller"), name: "decision", value: "release", class: "btn-primary flex-1" %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.orders.show.add_note_title") %></h2>
+        <%= form_with url: admin_order_notes_path(@order), method: :post, scope: nil, class: "mt-3 space-y-2" do %>
+          <%= text_area_tag :body, nil, rows: 3, class: "field", placeholder: t("admin.orders.show.note_placeholder") %>
+          <%= submit_tag t("admin.orders.show.add_note"), class: "btn-primary w-full" %>
+        <% end %>
+      </section>
+    </aside>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<% mobile = local_assigns.fetch(:mobile, false) %>
+<% cache [ "shared/main_nav", I18n.locale, mobile, Category.tree_cache_version ] do %>
+  <nav aria-label="<%= t("nav.categories.label") %>" class="<%= mobile ? "" : "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" %>">
+    <% if mobile %>
+      <ul class="space-y-1">
+        <% navigation_tree.each do |root, children| %>
+          <li>
+            <details class="group rounded-xl">
+              <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2.5 text-sm font-semibold text-content transition hover:bg-surface-muted [&::-webkit-details-marker]:hidden">
+                <span><%= root.name %></span>
+                <svg class="h-4 w-4 text-muted transition group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+              </summary>
+              <ul class="mb-1 ml-2 space-y-0.5 border-l border-border pl-3">
+                <li>
+                  <%= link_to all_category_label(root),
+                              category_path(root),
+                              class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-primary-700 transition hover:bg-primary-50 dark:text-primary-300 dark:hover:bg-primary-900/30" %>
+                </li>
+                <% children.each do |child| %>
+                  <li>
+                    <%= link_to child.name,
+                                category_path(child),
+                                class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-surface-muted hover:text-content" %>
+                  </li>
+                <% end %>
+              </ul>
+            </details>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <ul class="flex flex-wrap items-center gap-0.5 py-1.5">
+        <% navigation_tree.each_with_index do |(root, children), index| %>
+          <% align_class = index >= navigation_tree.length - 3 ? "right-0" : "left-0" %>
+          <li data-controller="mega-menu"
+              data-action="mouseleave->mega-menu#intentClose"
+              class="relative">
+            <button type="button"
+                    data-mega-menu-target="trigger"
+                    data-action="click->mega-menu#toggle keydown->mega-menu#triggerKeydown mouseenter->mega-menu#intentOpen"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    class="flex min-h-11 items-center gap-1 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-muted transition hover:bg-surface-muted hover:text-content">
+              <span><%= root.name %></span>
+              <svg class="h-3.5 w-3.5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </button>
+
+            <div data-mega-menu-target="panel"
+                 role="region"
+                 aria-label="<%= root.name %>"
+                 hidden
+                 class="absolute <%= align_class %> top-full z-50 mt-1 w-[42rem] max-w-[85vw] rounded-2xl border border-border bg-surface p-4 shadow-2xl">
+              <div class="flex items-start justify-between gap-4 border-b border-border pb-3">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("nav.categories.label") %></p>
+                  <p class="mt-1 text-base font-bold text-content"><%= root.name %></p>
+                </div>
+                <%= link_to all_category_label(root),
+                            category_path(root),
+                            class: "shrink-0 rounded-lg bg-primary-50 px-3 py-1.5 text-xs font-semibold text-primary-700 transition hover:bg-primary-100 dark:bg-primary-900/40 dark:text-primary-200" %>
+              </div>
+
+              <% if children.any? %>
+                <ul class="mt-3 grid grid-cols-2 gap-0.5">
+                  <% children.each do |child| %>
+                    <li>
+                      <%= link_to child.name,
+                                  category_path(child),
+                                  class: "flex min-h-11 items-center rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-surface-muted hover:text-content" %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+
+              <% if root.slug == "gaming-pcs" %>
+                <div class="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-primary-50 px-4 py-3 dark:bg-primary-900/30">
+                  <div>
+                    <p class="text-sm font-bold text-primary-800 dark:text-primary-100"><%= t("nav.pc_finder_promo.title") %></p>
+                    <p class="mt-0.5 text-xs text-primary-700 dark:text-primary-200"><%= t("nav.pc_finder_promo.description") %></p>
+                  </div>
+                  <%= link_to t("nav.pc_finder_promo.cta"), pc_finder_path,
+                              class: "shrink-0 rounded-lg bg-primary-600 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-primary-700" %>
+                </div>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </nav>
+<% end %>

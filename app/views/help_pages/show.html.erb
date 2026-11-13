@@ -1,0 +1,77 @@
+<% page = help_page(@slug) %>
+<% set_meta_tags(title: page[:title], description: page[:description], canonical: help_page_url(slug: @slug, locale: I18n.locale)) %>
+<% breadcrumbs = help_breadcrumbs(page) %>
+<% rates = seller_fee_rates %>
+
+<div class="space-y-8">
+  <%= render "listings/breadcrumbs", trail: breadcrumbs %>
+
+  <article class="max-w-3xl space-y-8">
+    <header>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("help.pages.eyebrow") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl"><%= page[:title] %></h1>
+      <p class="mt-3 text-base leading-relaxed text-muted"><%= page[:description] %></p>
+    </header>
+
+    <% help_sections(page).each do |section| %>
+      <section class="space-y-3">
+        <h2 class="text-xl font-extrabold tracking-tight"><%= section[:title] %></h2>
+        <% Array(section[:paragraphs]).each do |paragraph| %>
+          <p class="text-sm leading-relaxed text-content"><%= paragraph %></p>
+        <% end %>
+        <% if section[:bullets].present? %>
+          <ul class="space-y-2 text-sm text-content">
+            <% section[:bullets].each do |bullet| %>
+              <li class="flex gap-2">
+                <svg class="mt-1 h-3.5 w-3.5 shrink-0 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span><%= bullet %></span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </section>
+    <% end %>
+
+    <% if @slug == "seller-fees" %>
+      <section class="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+        <h2 class="text-xl font-extrabold tracking-tight"><%= t("help.fees.title") %></h2>
+
+        <% if rates[:commission_enabled] || rates[:featured_enabled] %>
+          <dl class="mt-4 divide-y divide-border text-sm">
+            <% if rates[:commission_enabled] %>
+              <div class="flex items-center justify-between gap-4 py-2.5">
+                <dt class="text-muted"><%= t("help.fees.commission") %></dt>
+                <dd class="font-semibold"><%= number_to_percentage(rates[:commission_percent].to_f, precision: 1) %></dd>
+              </div>
+            <% end %>
+            <% if rates[:featured_enabled] %>
+              <div class="flex items-center justify-between gap-4 py-2.5">
+                <dt class="text-muted"><%= t("help.fees.featured") %></dt>
+                <dd class="font-semibold"><%= money(rates[:featured_price_cents], currency: "EUR") %></dd>
+              </div>
+            <% end %>
+          </dl>
+        <% else %>
+          <p class="mt-3 rounded-xl bg-success-soft px-4 py-3 text-sm font-medium text-success"><%= t("help.fees.free_notice") %></p>
+        <% end %>
+
+        <p class="mt-4 text-xs leading-relaxed text-muted"><%= t("help.fees.note") %></p>
+        <%= link_to t("help.fees.cta"), new_sell_listing_path, class: "btn-primary mt-4" %>
+      </section>
+    <% end %>
+
+    <div class="rounded-2xl border border-border bg-surface-muted/60 p-5">
+      <h2 class="text-base font-bold"><%= t("help.pages.related_title") %></h2>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <% (HelpPagesController::SLUGS - [ @slug ]).first(3).each do |slug| %>
+          <%= link_to help_page(slug)[:title], help_page_path(slug: slug),
+                      class: "inline-flex rounded-xl border border-border bg-surface px-3 py-2 text-sm font-semibold text-content transition hover:border-primary-300 hover:text-primary-700 dark:hover:border-primary-700 dark:hover:text-primary-300" %>
+        <% end %>
+        <%= link_to t("help.index.title"), help_pages_path,
+                    class: "inline-flex rounded-xl border border-border bg-surface px-3 py-2 text-sm font-semibold text-content transition hover:border-primary-300 hover:text-primary-700 dark:hover:border-primary-700 dark:hover:text-primary-300" %>
+      </div>
+    </div>
+  </article>
+</div>

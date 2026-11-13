@@ -1,0 +1,164 @@
+<% set_meta_tags(title: t("trust.meta.title"), description: t("trust.meta.description"), canonical: trust_url) %>
+
+<div class="space-y-12 lg:space-y-16">
+  <section class="relative overflow-hidden rounded-3xl border border-border bg-primary-900 px-6 py-12 text-white sm:px-10 lg:px-16">
+    <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/30 blur-3xl"></div>
+    <div class="relative max-w-3xl">
+      <p class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary-100">
+        <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+        <%= t("trust.eyebrow") %>
+      </p>
+      <h1 class="mt-4 text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl"><%= t("trust.title") %></h1>
+      <p class="mt-4 max-w-2xl text-base leading-relaxed text-primary-100"><%= t("trust.subtitle") %></p>
+
+      <div class="mt-7 flex flex-wrap gap-3">
+        <%= link_to t("trust.cta.browse"), search_path, class: "inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-primary-900 transition hover:bg-primary-50" %>
+        <%= link_to t("trust.cta.contact"), contact_messages_path, class: "inline-flex items-center justify-center rounded-xl border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/10" %>
+      </div>
+    </div>
+  </section>
+
+  <% if @stats.any? %>
+    <section aria-label="<%= t("trust.stats.label") %>">
+      <div class="grid gap-4 sm:grid-cols-3">
+        <% if @stats.show_listings_sold? %>
+          <div class="rounded-2xl border border-border bg-surface p-6 text-center shadow-sm">
+            <p class="text-3xl font-extrabold tracking-tight text-primary-700 dark:text-primary-300"><%= number_with_delimiter(@stats.listings_sold) %></p>
+            <p class="mt-1 text-sm text-muted"><%= t("trust.stats.listings_sold") %></p>
+          </div>
+        <% end %>
+        <% if @stats.show_active_sellers? %>
+          <div class="rounded-2xl border border-border bg-surface p-6 text-center shadow-sm">
+            <p class="text-3xl font-extrabold tracking-tight text-primary-700 dark:text-primary-300"><%= number_with_delimiter(@stats.active_sellers) %></p>
+            <p class="mt-1 text-sm text-muted"><%= t("trust.stats.active_sellers") %></p>
+          </div>
+        <% end %>
+        <% if @stats.show_rating? %>
+          <div class="rounded-2xl border border-border bg-surface p-6 text-center shadow-sm">
+            <p class="text-3xl font-extrabold tracking-tight text-primary-700 dark:text-primary-300">
+              <%= number_with_precision(@stats.average_rating, precision: 1) %><span class="text-lg text-muted"> / 5</span>
+            </p>
+            <p class="mt-1 text-sm text-muted"><%= t("trust.stats.average_rating", count: @stats.ratings_count) %></p>
+          </div>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
+  <section class="space-y-6" aria-labelledby="protection-title">
+    <div class="max-w-2xl">
+      <h2 id="protection-title" class="text-2xl font-extrabold tracking-tight sm:text-3xl"><%= t("trust.protection.title") %></h2>
+      <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("trust.protection.subtitle") %></p>
+    </div>
+
+    <ol class="grid gap-4 md:grid-cols-3">
+      <% [
+           { number: 1, title: t("trust.protection.steps.hold.title"), body: t("trust.protection.steps.hold.body") },
+           { number: 2, title: t("trust.protection.steps.ship.title"), body: t("trust.protection.steps.ship.body") },
+           { number: 3, title: t("trust.protection.steps.inspect.title"), body: t("trust.protection.steps.inspect.body", days: @protection_days) }
+         ].each do |step| %>
+        <li class="rounded-2xl border border-border bg-surface p-5 shadow-sm">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-primary-600 text-sm font-bold text-white"><%= step[:number] %></span>
+          <h3 class="mt-3 text-base font-bold"><%= step[:title] %></h3>
+          <p class="mt-1 text-sm leading-relaxed text-muted"><%= step[:body] %></p>
+        </li>
+      <% end %>
+    </ol>
+  </section>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    <section class="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+      <h2 class="text-xl font-extrabold tracking-tight"><%= t("trust.covered.title") %></h2>
+      <ul class="mt-4 space-y-2.5 text-sm text-content">
+        <% t("trust.covered.items").each do |item| %>
+          <li class="flex gap-2">
+            <svg class="mt-0.5 h-4 w-4 shrink-0 text-success" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            <span><%= item %></span>
+          </li>
+        <% end %>
+      </ul>
+      <p class="mt-4 rounded-xl bg-surface-muted px-4 py-3 text-xs leading-relaxed text-muted"><%= t("trust.covered.note") %></p>
+    </section>
+
+    <section class="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+      <h2 class="text-xl font-extrabold tracking-tight"><%= t("trust.verified.title") %></h2>
+      <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("trust.verified.intro") %></p>
+      <ul class="mt-4 space-y-3 text-sm">
+        <% t("trust.verified.items").each do |item| %>
+          <li class="flex gap-2.5">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>
+            <span><%= item %></span>
+          </li>
+        <% end %>
+      </ul>
+    </section>
+  </div>
+
+  <section class="rounded-2xl border border-warning/40 bg-warning-soft p-6 sm:p-8" aria-labelledby="safety-title">
+    <div class="flex items-start gap-3">
+      <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-warning/15 text-warning">
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M12 3 2.8 20h18.4L12 3Z" stroke-linejoin="round"></path>
+          <path d="M12 9v5M12 17h.01" stroke-linecap="round"></path>
+        </svg>
+      </span>
+      <div>
+        <h2 id="safety-title" class="text-xl font-extrabold tracking-tight"><%= t("trust.safety.title") %></h2>
+        <p class="mt-1 text-sm text-muted"><%= t("trust.safety.subtitle") %></p>
+      </div>
+    </div>
+    <ul class="mt-5 grid gap-3 sm:grid-cols-2">
+      <% t("trust.safety.tips").each do |tip| %>
+        <li class="flex gap-2.5 rounded-xl bg-surface/70 px-4 py-3 text-sm">
+          <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-warning"></span>
+          <span><%= tip %></span>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
+  <div class="grid gap-6 lg:grid-cols-2">
+    <section class="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+      <h2 class="text-xl font-extrabold tracking-tight"><%= t("trust.report.title") %></h2>
+      <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("trust.report.body") %></p>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <%= link_to t("trust.report.cta"), new_report_path, class: "btn-primary" %>
+        <%= link_to t("trust.report.contact"), contact_messages_path, class: "btn-accent" %>
+      </div>
+    </section>
+
+    <section class="rounded-2xl border border-border bg-surface p-6 shadow-sm">
+      <h2 class="text-xl font-extrabold tracking-tight"><%= t("trust.contact.title") %></h2>
+      <p class="mt-2 text-sm leading-relaxed text-muted"><%= t("trust.contact.body") %></p>
+      <a href="mailto:<%= @support_email %>" class="mt-3 inline-flex text-sm font-semibold text-primary-700 hover:underline dark:text-primary-300"><%= @support_email %></a>
+    </section>
+  </div>
+
+  <section class="space-y-4" aria-labelledby="trust-faq-title">
+    <h2 id="trust-faq-title" class="text-2xl font-extrabold tracking-tight"><%= t("trust.faq.title") %></h2>
+    <div class="space-y-2">
+      <% t("trust.faq.items").each do |item| %>
+        <details class="group rounded-2xl border border-border bg-surface px-5 py-4">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-content">
+            <span><%= item[:question] %></span>
+            <svg class="h-4 w-4 shrink-0 text-muted transition group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </summary>
+          <p class="mt-3 text-sm leading-relaxed text-muted"><%= item[:answer] %></p>
+        </details>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="rounded-3xl border border-border bg-surface-muted/60 px-6 py-10 text-center sm:px-10">
+    <h2 class="text-2xl font-extrabold tracking-tight"><%= t("trust.cta.title") %></h2>
+    <p class="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted"><%= t("trust.cta.body") %></p>
+    <div class="mt-5 flex flex-wrap justify-center gap-3">
+      <%= link_to t("trust.cta.browse"), search_path, class: "btn-primary" %>
+      <%= link_to t("trust.cta.sell"), new_sell_listing_path, class: "btn-accent" %>
+    </div>
+  </section>
+</div>

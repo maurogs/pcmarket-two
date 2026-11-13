@@ -1,0 +1,23 @@
+en:
+  credits:
+    meta:
+      title: "Image credits | PCMarket"
+      description: "Authors, providers and licences for the photos used in PCMarket demo listings."
+    eyebrow: "Transparency"
+    title: "Image credits"
+    intro: "Photos in demo listings come from image libraries with open licences. This page lists the author, provider, licence and a link to the original image."
+    unknown_provider: "Other"
+    image_count:
+      one: "%{count} image"
+      other: "%{count} images"
+    author: "Author"
+    license: "Licence"
+    source: "View original"
+    untitled: "Untitled"
+    unknown_author: "Unknown author"
+    unknown_license: "Licence not stated"
+    note: "These images are used as demonstration content only. The CC BY and CC BY-SA licences require crediting the author and linking to the original source; each entry names its provider."
+    empty: "There are no demo photos yet. Run bin/rails pcmarket:demo:images and bin/rails pcmarket:demo:seed to build the sample catalogue."
+  footer:
+    legal:
+      image_credits: "Image credits"

@@ -1,0 +1,23 @@
+de:
+  errors:
+    search_label: Im Marktplatz suchen
+    search_placeholder: PC-Teile, PCs oder Konsolen suchen
+    search_button: Suchen
+    links_label: Nützliche Links
+    links:
+      home: Zur Startseite
+      help: Hilfe-Center
+      contact: Kontakt
+    pages:
+      not_found:
+        eyebrow: Fehler 404
+        title: Diese Seite wurde nicht gefunden
+        body: Der Link ist möglicherweise defekt oder das Angebot wurde verkauft oder entfernt.
+      unprocessable:
+        eyebrow: Fehler 422
+        title: Diese Anfrage konnte nicht verarbeitet werden
+        body: Bitte prüfe deine Angaben und versuche es erneut.
+      server_error:
+        eyebrow: Fehler 500
+        title: Bei uns ist etwas schiefgelaufen
+        body: Wir wurden benachrichtigt. Bitte versuche es gleich noch einmal.

@@ -1,0 +1,71 @@
+it:
+  payments:
+    test_mode:
+      banner: "I pagamenti di prova sono attivi. Non verrà addebitato denaro reale."
+  checkout:
+    flash:
+      redirect_to_payment: "Il tuo carrello è riservato. Continua verso il pagamento per completare l'ordine."
+    payment:
+      stripe_title: "Pagamento sicuro con carta"
+      stripe_body: "Verrai reindirizzato al modulo di pagamento sicuro di Stripe per inserire i dati della carta."
+      continue: "Continua al pagamento"
+    payment_page:
+      title: "Completa il pagamento"
+      body: "Inserisci i dati della carta qui sotto. I tuoi articoli sono riservati durante il pagamento."
+      card_title: "Dati di pagamento"
+      pay: "Paga ora"
+      processing: "Elaborazione…"
+      error_fallback: "Non è stato possibile elaborare il pagamento. Controlla i dati e riprova."
+      confirming_title: "Conferma del pagamento"
+      confirming_body: "Stiamo confermando il pagamento con il fornitore. La pagina si aggiornerà a breve."
+  store_payments:
+    show:
+      title: "Pagamenti ai venditori"
+      subtitle: "Collega il tuo negozio a Stripe per consentire agli acquirenti di pagarti e ricevere i pagamenti."
+      setup: "Configura i pagamenti"
+      statuses:
+        setup: "Pagamenti non configurati"
+        test_mode: "Modalità di prova"
+        pending: "Verifica in sospeso"
+        enabled: "Pagamenti attivati"
+        action_required: "Azione richiesta"
+      requirements_title: "Informazioni ancora richieste da Stripe"
+      explanation: "Gli acquirenti non possono effettuare ordini nel tuo negozio finché i pagamenti non sono attivati."
+      not_configured: "Stripe non è configurato in questo ambiente. Aggiungi le chiavi segreta e pubblicabile per attivare i pagamenti reali."
+      test_mode: "I pagamenti sono simulati in sviluppo, quindi non servono un account Stripe né la configurazione dei pagamenti."
+    requirements:
+      external_account: "Un conto bancario per i pagamenti"
+      business_profile:
+        mcc: "Codice categoria dell'attività"
+        url: "Sito web dell'attività"
+      company:
+        tax_id: "Partita IVA dell'azienda"
+      individual:
+        id_number: "Numero del documento d'identità"
+        verification:
+          document: "Documento d'identità"
+          additional_document: "Documento d'identità aggiuntivo"
+      tos_acceptance:
+        date: "Accettazione dei termini di Stripe"
+        ip: "Accettazione dei termini di Stripe (conferma IP)"
+    errors:
+      onboarding_failed: "Non è stato possibile avviare la configurazione dei pagamenti. Riprova o contatta l'assistenza."
+  stores:
+    tabs:
+      label: "Sezioni delle impostazioni del negozio"
+      profile: "Profilo"
+      payments: "Pagamenti"
+  cart:
+    errors:
+      payouts_not_enabled: "Questo venditore non può ancora accettare pagamenti."
+    unavailable:
+      reasons:
+        payouts_not_enabled: "Il venditore non ha ancora attivato i pagamenti."
+    purchase_blocked:
+      payouts_not_enabled: "Questo venditore non è ancora pronto a ricevere pagamenti."
+  order_mailer:
+    dispute_alert:
+      subject: "Contestazione di pagamento aperta per l'ordine %{number}"
+      greeting: "Salve,"
+      body: "È stata aperta una contestazione di pagamento per l'ordine %{number} di %{store}. Esamina il caso su Stripe e contatta l'acquirente e il venditore se necessario."
+      closing: "Risolvi la contestazione rapidamente per proteggere i fondi del marketplace."

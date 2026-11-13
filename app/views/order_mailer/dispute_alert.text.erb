@@ -1,0 +1,7 @@
+<%= t("order_mailer.dispute_alert.greeting") %>
+
+<%= t("order_mailer.dispute_alert.body", number: @order.number, store: @order.store.name) %>
+
+<%= render "order_mailer/order_details", order: @order %>
+
+<%= t("order_mailer.dispute_alert.closing") %>

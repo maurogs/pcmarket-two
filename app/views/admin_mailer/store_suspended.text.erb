@@ -1,0 +1,9 @@
+<%= t("admin_mailer.store_suspended.title") %>
+
+<%= t("admin_mailer.store_suspended.greeting", name: @store.user.display_name) %>
+
+<%= t("admin_mailer.store_suspended.body", store: @store.name) %>
+
+<%= @reason %>
+
+<%= t("admin_mailer.store_suspended.closing") %>

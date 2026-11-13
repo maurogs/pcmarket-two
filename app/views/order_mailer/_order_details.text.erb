@@ -1,0 +1,11 @@
+<% order.items.each do |item| %>
+- <%= item.title %> × <%= item.quantity %>: <%= number_to_currency(BigDecimal(item.line_total_cents) / 100, unit: "€") %>
+<% end %>
+
+<%= t("order_mailer.details.subtotal") %>: <%= number_to_currency(BigDecimal(order.subtotal_cents) / 100, unit: "€") %>
+<%= t("order_mailer.details.shipping") %>: <%= number_to_currency(BigDecimal(order.shipping_cents) / 100, unit: "€") %>
+<%= t("order_mailer.details.total") %>: <%= number_to_currency(BigDecimal(order.total_cents) / 100, unit: "€") %>
+
+<% if order.tracking_number.present? %>
+<%= t("order_mailer.details.tracking", carrier: order.tracking_carrier, number: order.tracking_number) %>
+<% end %>

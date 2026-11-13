@@ -1,0 +1,132 @@
+<%= form_with model: listing,
+              url: sell_listing_path(listing),
+              method: :patch,
+              data: { turbo_frame: "listing_wizard" },
+              class: "space-y-6" do |f| %>
+  <%= hidden_field_tag :step, "price" %>
+
+  <section class="space-y-5 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+    <div>
+      <h2 class="text-xl font-bold"><%= t("sell.price.title") %></h2>
+      <p class="mt-1 text-sm text-muted"><%= t("sell.price.subtitle") %></p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <%= f.label :price, t("sell.price.price_label"), class: "text-sm font-semibold text-content" %>
+        <div class="relative mt-1.5">
+          <%= f.number_field :price, step: "0.01", min: 0, required: true,
+                             placeholder: t("sell.price.price_placeholder"),
+                             class: "field pr-9" %>
+          <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm font-semibold text-muted">€</span>
+        </div>
+      </div>
+
+      <div>
+        <%= f.label :compare_at_price, t("sell.price.compare_at_label"), class: "text-sm font-semibold text-content" %>
+        <div class="relative mt-1.5">
+          <%= f.number_field :compare_at_price, step: "0.01", min: 0,
+                             class: "field pr-9" %>
+          <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm font-semibold text-muted">€</span>
+        </div>
+        <p class="mt-1 text-xs text-muted"><%= t("sell.price.compare_at_hint") %></p>
+      </div>
+
+      <% if listing.store.business? %>
+        <div>
+          <%= f.label :quantity, t("sell.price.quantity_label"), class: "text-sm font-semibold text-content" %>
+          <%= f.number_field :quantity, min: 1, step: 1, class: "field mt-1.5" %>
+          <p class="mt-1 text-xs text-muted"><%= t("sell.price.quantity_hint") %></p>
+        </div>
+      <% else %>
+        <div>
+          <p class="text-sm font-semibold text-content"><%= t("sell.price.quantity_label") %></p>
+          <p class="mt-1.5 rounded-xl bg-surface-muted px-4 py-2.5 text-sm text-muted"><%= t("sell.price.quantity_fixed") %></p>
+          <%= f.hidden_field :quantity, value: 1 %>
+        </div>
+      <% end %>
+
+      <% if Flipper.enabled?(:offers) %>
+        <div>
+          <p class="text-sm font-semibold text-content"><%= t("sell.price.offers_label") %></p>
+          <label class="mt-2 flex cursor-pointer items-center gap-3 text-sm">
+            <%= f.check_box :allow_offers, class: "h-5 w-5 rounded border-border text-primary-600 focus:ring-primary-500" %>
+            <span><%= t("sell.price.offers_hint") %></span>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="space-y-5 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+    <h2 class="text-lg font-bold"><%= t("sell.price.shipping_title") %></h2>
+
+    <fieldset>
+      <legend class="text-sm font-semibold text-content"><%= t("sell.price.shipping_mode_label") %></legend>
+      <div class="mt-2 grid gap-2 sm:grid-cols-3">
+        <% Listing.shipping_modes.each_key do |mode| %>
+          <label class="flex cursor-pointer items-center gap-2 rounded-xl border border-border bg-surface-muted px-3 py-2.5 text-sm has-checked:border-primary-500 has-checked:bg-primary-50 dark:has-checked:bg-primary-900/30">
+            <%= f.radio_button :shipping_mode, mode,
+                               class: "h-4 w-4 text-primary-600 focus:ring-primary-500" %>
+            <span><%= shipping_mode_label(mode) %></span>
+          </label>
+        <% end %>
+      </div>
+    </fieldset>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      <div>
+        <%= f.label :shipping_price, t("sell.price.shipping_price_label"), class: "text-sm font-semibold text-content" %>
+        <div class="relative mt-1.5">
+          <%= f.number_field :shipping_price, step: "0.01", min: 0, class: "field pr-9" %>
+          <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-sm font-semibold text-muted">€</span>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold text-content"><%= t("sell.price.free_shipping_label") %></p>
+        <label class="mt-2 flex cursor-pointer items-center gap-3 text-sm">
+          <%= f.check_box :free_shipping, class: "h-5 w-5 rounded border-border text-primary-600 focus:ring-primary-500" %>
+          <span><%= t("sell.price.free_shipping_label") %></span>
+        </label>
+      </div>
+
+      <div>
+        <%= f.label :handling_days, t("sell.price.handling_days_label"), class: "text-sm font-semibold text-content" %>
+        <%= f.number_field :handling_days, min: 1, max: 10, step: 1, class: "field mt-1.5" %>
+        <p class="mt-1 text-xs text-muted"><%= t("sell.price.handling_days_hint") %></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="space-y-4 rounded-2xl border border-border bg-surface p-5 sm:p-6">
+    <h2 class="text-lg font-bold"><%= t("sell.price.location_title") %></h2>
+
+    <div class="grid gap-4 sm:grid-cols-3">
+      <div>
+        <%= f.label :region_id, t("sell.price.region_label"), class: "text-sm font-semibold text-content" %>
+        <%= f.collection_select :region_id, regions, :id, :name,
+                                { include_blank: t("sell.price.region_placeholder") },
+                                { required: true, class: "field mt-1.5" } %>
+      </div>
+
+      <div>
+        <%= f.label :city, t("sell.price.city_label"), class: "text-sm font-semibold text-content" %>
+        <%= f.text_field :city, required: true, class: "field mt-1.5" %>
+      </div>
+
+      <div>
+        <%= f.label :postal_code, t("sell.price.postal_code_label"), class: "text-sm font-semibold text-content" %>
+        <%= f.text_field :postal_code, required: true, inputmode: "numeric", maxlength: 5, class: "field mt-1.5" %>
+      </div>
+    </div>
+  </section>
+
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <%= link_to t("sell.steps.back"),
+                edit_sell_listing_path(listing, step: "details"),
+                class: "inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold text-muted transition hover:bg-surface-muted hover:text-content",
+                data: { turbo_frame: "listing_wizard" } %>
+    <button type="submit" class="btn-primary"><%= t("sell.steps.continue") %></button>
+  </div>
+<% end %>

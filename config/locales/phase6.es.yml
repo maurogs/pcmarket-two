@@ -1,0 +1,336 @@
+es:
+  users:
+    deleted: Usuario eliminado
+  reviews:
+    errors:
+      not_buyer: Solo el comprador de este pedido puede dejar una reseña.
+      wrong_store: La reseña debe pertenecer a la tienda del pedido.
+      not_delivered: Puedes reseñar un pedido cuando se haya entregado.
+      window_closed: El plazo para reseñar este pedido ha finalizado.
+    flash:
+      created: Gracias. Tu reseña se ha publicado.
+      updated: Tu reseña se ha actualizado.
+      replied: Tu respuesta se ha publicado.
+      reply_failed: No se pudo guardar tu respuesta.
+    section:
+      title: Tu reseña
+      cta: Comparte tu experiencia con este vendedor para ayudar a otros compradores.
+      edit: Editar tu reseña
+      seller_reply: Respuesta del vendedor
+      your_reply: Tu respuesta
+      window_closed: El plazo para reseñar este pedido ha finalizado.
+      not_yet: Podrás dejar una reseña cuando el pedido se haya entregado.
+      seller_title: Reseña del comprador
+    form:
+      rating: Valoración
+      rating_option:
+        one: "%{count} estrella"
+        other: "%{count} estrellas"
+      rating_placeholder: Elige una valoración
+      body: Tu reseña
+      body_placeholder: ¿Qué tal fue? ¿Cómo estaban el artículo y la entrega?
+      body_hint: Entre 10 y 2000 caracteres.
+      edit_window: Puedes editar tu reseña durante %{days} días después de publicarla.
+      submit: Publicar reseña
+      update: Guardar cambios
+      reply: Tu respuesta
+      reply_submit: Publicar respuesta
+  review_mailer:
+    reminder:
+      subject: ¿Qué tal fue tu pedido de %{store}?
+      title: Deja una reseña
+      greeting: Hola %{name},
+      body: Tu pedido %{number} de %{store} se entregó hace unos días. Cuenta a otros compradores qué tal fue.
+      cta: Dejar una reseña
+      closing: Las reseñas ayudan a todo el mercado. Gracias por tu tiempo.
+  account_mailer:
+    data_export:
+      subject: Tu exportación de datos de PCMarket
+      title: Tus datos están listos
+      greeting: Hola %{name},
+      body: Hemos preparado una copia de tus datos de PCMarket. Usa el siguiente enlace para descargarla.
+      cta: Descargar mis datos
+      expiry: Este enlace caduca en 7 días. Si ha caducado, solicita una nueva exportación desde Privacidad y datos.
+  account:
+    settings:
+      eyebrow: Tu cuenta
+      sidebar:
+        label: Configuración de la cuenta
+        security: Cuenta y seguridad
+        addresses: Direcciones de envío
+        notifications: Notificaciones
+        privacy: Privacidad y datos
+      profile:
+        title: Datos personales
+        avatar: Foto de perfil
+        avatar_hint: PNG, JPEG o WebP, hasta 5 MB.
+        first_name: Nombre
+        last_name: Apellidos
+        username: Nombre de usuario
+        phone: Teléfono
+        locale: Idioma
+        locale_hint: Usamos este idioma para los correos y las notificaciones.
+        save: Guardar cambios
+        flash:
+          updated: Los datos de tu cuenta se han actualizado.
+      security:
+        title: Cuenta y seguridad
+        subtitle: Gestiona tus datos personales, el correo de acceso y la contraseña.
+        email_title: Correo electrónico
+        email_body: "Tu dirección actual es %{email}. Cambiarla requiere confirmación desde la nueva dirección."
+        email_pending: "Pendiente de confirmación en %{email}."
+        new_email: Nuevo correo electrónico
+        email_submit: Enviar confirmación
+        email_sent: Revisa tu bandeja de entrada para confirmar el nuevo correo.
+        password_title: Contraseña
+        oauth_only: Tu cuenta inicia sesión con Google, así que no hay contraseña que cambiar aquí.
+        current_password: Contraseña actual
+        new_password: Nueva contraseña
+        password_confirmation: Confirmar nueva contraseña
+        password_submit: Cambiar contraseña
+        password_changed: Tu contraseña se ha cambiado.
+        sessions_title: Sesiones activas
+        last_sign_in: Último acceso
+        last_ip: IP del último acceso
+        current_sign_in: Esta sesión comenzó
+        sign_in_count: Accesos totales
+        never: Nunca
+        unknown: Desconocida
+    addresses:
+      title: Direcciones de envío
+      subtitle: Guarda las direcciones que usas al pagar.
+      new: Añadir una dirección
+      edit: Editar dirección
+      back: Volver a las direcciones
+      default_badge: Predeterminada
+      delete: Eliminar
+      delete_confirm: ¿Eliminar esta dirección?
+      empty_title: No hay direcciones guardadas
+      empty_body: Añade una dirección para agilizar tus próximas compras.
+      form:
+        subtitle: Por ahora solo entregamos en direcciones de España.
+        full_name: Nombre completo
+        line1: Dirección
+        line2: Segunda línea de dirección (opcional)
+        city: Ciudad
+        province: Provincia
+        province_placeholder: Elige una provincia
+        postal_code: Código postal
+        phone: Teléfono
+        default: Usar como mi dirección predeterminada
+        cancel: Cancelar
+        create: Guardar dirección
+        update: Guardar cambios
+      flash:
+        created: Dirección guardada.
+        updated: Dirección actualizada.
+        destroyed: Dirección eliminada.
+    privacy:
+      title: Privacidad y datos
+      subtitle: Descarga una copia de tus datos o revisa tu configuración de privacidad.
+      data_title: Descargar mis datos
+      data_body: Prepararemos un archivo JSON con los datos personales que tenemos sobre ti y te enviaremos por correo un enlace de descarga seguro.
+      includes_profile: Datos del perfil y direcciones guardadas
+      includes_activity: Anuncios, mensajes, reseñas y búsquedas guardadas
+      includes_orders: Pedidos que has realizado o recibido
+      download: Solicitar mis datos
+      download_hint: El enlace caduca a los 7 días.
+      cookies_title: Preferencias de cookies
+      cookies_body: Los controles de cookies estarán disponibles con la próxima actualización de privacidad. Las cookies esenciales mantienen tu sesión y recuerdan tu idioma y tema.
+      cookies_placeholder: Las preferencias de cookies estarán disponibles pronto.
+      cookies_link: Gestionar preferencias de cookies
+      flash:
+        queued: Estamos preparando tu exportación. Te enviaremos por correo un enlace de descarga.
+        invalid_link: Este enlace de descarga no es válido o ha caducado.
+        not_ready: La exportación aún no está lista. Vuelve a intentarlo en breve.
+    deletion:
+      title: Eliminar cuenta
+      body: Eliminar tu cuenta es definitivo. Anonimizamos tus datos personales y archivamos tus anuncios.
+      bullet_data: Se eliminan tu nombre, teléfono y foto de perfil, y se sustituye tu correo.
+      bullet_orders: Los pedidos y las reseñas se conservan por obligaciones legales y contables, mostrados como “Usuario eliminado”.
+      bullet_orders_kept: No puedes eliminar tu cuenta mientras tengas pedidos pagados o enviados.
+      confirm_username: "Escribe %{username} para confirmar"
+      confirm_password: Confirma tu contraseña
+      submit: Eliminar mi cuenta
+      confirm: ¿Eliminar tu cuenta de forma permanente?
+      invalid_confirmation: La confirmación no coincide. No se ha eliminado nada.
+      open_orders: No puedes eliminar tu cuenta mientras tengas pedidos abiertos pagados o enviados.
+      flash:
+        deleted: Tu cuenta se ha eliminado.
+  storefronts:
+    tabs:
+      label: Secciones de la tienda
+      listings: Anuncios
+      about: Información
+      reviews: Reseñas (%{count})
+    header:
+      verified: Verificado
+      rating: "%{rating} (%{count} reseñas)"
+      no_ratings: Aún no hay reseñas
+      for_sale: En venta
+      sold: Vendidos
+      followers: Seguidores
+    actions:
+      message: Enviar mensaje
+    vacation:
+      title: Este vendedor está de vacaciones
+      until: Vuelve el %{date}
+    filters:
+      text: Buscar en esta tienda
+      text_placeholder: Buscar anuncios
+      category: Categoría
+      all_categories: Todas las categorías
+      min_price: Precio mínimo
+      max_price: Precio máximo
+      condition: Estado
+      all_conditions: Cualquier estado
+      sort: Ordenar
+      apply: Aplicar
+    listings:
+      count:
+        one: "%{count} anuncio"
+        other: "%{count} anuncios"
+    sold:
+      title: Vendidos recientemente
+      hint: Estos artículos ya han encontrado un nuevo hogar.
+      badge: Vendido
+    about:
+      title: Sobre este vendedor
+      empty_description: Este vendedor aún no ha añadido una descripción.
+      policies_title: Políticas de la tienda
+      returns: Devoluciones
+      default_returns: Se aceptan devoluciones en los 14 días siguientes a la entrega si el artículo no es como se describía.
+      shipping: Envío
+      default_shipping: Los pedidos se envían con un transportista con seguimiento.
+      handling: Tiempo de preparación
+      handling_days:
+        one: Se envía en %{count} día laborable
+        other: Se envía en %{count} días laborables
+      legal_title: Información / datos legales
+      legal_hint: Información del comerciante publicada conforme a la Ley de Servicios Digitales de la UE.
+      legal_name: Razón social
+      tax_id: NIF/CIF
+      address: Dirección
+      details_title: Datos de la tienda
+      seller_type: Tipo de vendedor
+      member_since: Miembro desde
+      location: Ubicación
+    reviews:
+      title: Reseñas de compradores
+      count:
+        one: "%{count} reseña"
+        other: "%{count} reseñas"
+      sort:
+        label: Ordenar reseñas
+        newest: Más recientes
+        highest: Mejor valoradas
+        lowest: Peor valoradas
+      seller_reply: Respuesta del vendedor
+      report: Denunciar reseña
+      empty_title: Aún no hay reseñas
+      empty_body: Las reseñas aparecerán aquí cuando los compradores reciban sus pedidos.
+  sell:
+    dashboard:
+      eyebrow: Centro del vendedor
+      title: Panel
+      subtitle: Así va %{store} y esto es lo que requiere tu atención.
+      nav_label: Secciones del panel del vendedor
+      nav_heading: Panel del vendedor
+      nav:
+        analytics: Analíticas
+        listings: Mis anuncios
+        sales: Mis ventas
+        public_profile: Perfil público
+        store_settings: Configuración de la tienda
+        vacation: Modo vacaciones
+        payouts: Pagos
+      range_label: Rango de fechas
+      ranges:
+        seven: Últimos 7 días
+        thirty: Últimos 30 días
+        ninety: Últimos 90 días
+      kpis:
+        revenue: Ingresos
+        orders: Pedidos
+        units: Unidades vendidas
+        average_order: Pedido medio
+        views: Visitas a anuncios
+        conversion: Conversión
+        favourites: Favoritos ganados
+        followers: Nuevos seguidores
+      chart:
+        title: Ingresos por día
+        subtitle: Últimos %{count} días
+        description: Gráfico de ingresos diarios de los últimos %{count} días, con una tabla de datos accesible debajo.
+        bar_label: "%{date}: %{amount}"
+        show_table: Mostrar tabla de datos
+        date: Fecha
+        revenue: Ingresos
+      top_by_views:
+        title: Anuncios más vistos
+        metric:
+          one: "%{count} visita"
+          other: "%{count} visitas"
+        empty: Aún no hay visitas a anuncios en este periodo.
+      top_by_revenue:
+        title: Anuncios con más ingresos
+        empty: Aún no hay ventas en este periodo.
+      pending:
+        title: Acciones pendientes
+        orders_to_ship: Pedidos por enviar
+        offers_to_answer: Ofertas por responder
+        unread_messages: Mensajes sin leer
+        rejected_listings: Anuncios por corregir
+  stores:
+    tabs:
+      vacation: Modo vacaciones
+    form:
+      banner: Portada de la tienda
+      banner_hint: Imagen ancha que se muestra en la parte superior de tu tienda. PNG, JPEG o WebP, hasta 5 MB.
+      policies_heading: Políticas de la tienda
+      policies_hint: Aparecen en la pestaña Información de tu tienda pública.
+      return_policy: Política de devoluciones
+      shipping_policy: Política de envíos
+      handling_days: Tiempo de preparación (días laborables)
+      handling_days_hint: Cuánto sueles tardar antes de entregar un paquete al transportista.
+    vacation:
+      title: Modo vacaciones
+      subtitle: Pausa tu tienda mientras estás fuera. Los compradores pueden ver tus anuncios, pero no comprarlos.
+      enable: Activar el modo vacaciones
+      enable_hint: Los anuncios siguen visibles con un aviso, pero el pago está desactivado.
+      message: Mensaje para los compradores
+      message_hint: Opcional. Indica cuándo volverás.
+      return_date: Fecha de vuelta (opcional)
+      return_date_hint: El modo vacaciones se desactiva automáticamente al final de ese día.
+      save: Guardar configuración de vacaciones
+      help_title: Cómo funciona
+      help_body: Los pedidos existentes siguen con normalidad. Los nuevos compradores no pueden completar una compra mientras el modo vacaciones está activo.
+      status_on: El modo vacaciones está activo.
+      status_until: "Vuelves el %{date}."
+      status_off: Tu tienda está abierta a ventas.
+      flash:
+        updated: Configuración de vacaciones actualizada.
+  reports:
+    review_preview: "Reseña con %{rating} estrellas"
+  admin:
+    reports:
+      types:
+        review: Reseña
+      show:
+        action_effect:
+          review: Aplicar la acción oculta la reseña de la página pública de la tienda.
+  notifications:
+    preferences:
+      marketing_label: Correos de marketing
+      save_hint: Los correos transaccionales sobre tus pedidos siempre se envían.
+  activerecord:
+    models:
+      review: Reseña
+    attributes:
+      review:
+        rating: Valoración
+        body: Reseña
+        seller_reply: Respuesta del vendedor
+        order: Pedido
+        store: Tienda
+        reviewer: Autor de la reseña

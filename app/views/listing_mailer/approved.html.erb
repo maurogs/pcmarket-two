@@ -1,0 +1,24 @@
+<p style="margin: 0 0 12px; font-size: 15px; color: #0f172a;">
+  <%= t("listing_mailer.approved.greeting", name: @listing.seller.first_name.presence || @listing.seller.display_name) %>
+</p>
+
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("listing_mailer.approved.body", title: @listing.title, app: t("app.name")) %>
+</p>
+
+<p style="margin: 0 0 16px;">
+  <a href="<%= listing_url(@listing, locale: @locale) %>"
+     style="display: inline-block; border-radius: 12px; background-color: #4f46e5; color: #ffffff; font-size: 14px; font-weight: 600; padding: 12px 20px; text-decoration: none;">
+    <%= t("listing_mailer.approved.cta") %>
+  </a>
+</p>
+
+<p style="margin: 0 0 16px; font-size: 13px; line-height: 1.6;">
+  <a href="<%= edit_sell_listing_url(@listing, locale: @locale) %>" style="color: #4338ca;">
+    <%= t("listing_mailer.approved.manage") %>
+  </a>
+</p>
+
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #334155;">
+  <%= t("listing_mailer.approved.closing") %>
+</p>

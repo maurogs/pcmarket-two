@@ -1,29 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
   <head>
-    <title><%= content_for(:title) || "App Test Two" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <%= display_meta_tags(default_meta_tags) %>
+    <%= hreflang_link_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="turbo-prefetch" content="true">
+    <meta name="theme-color" content="#f4f6fb" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#080d18" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="App Test Two">
+    <meta name="application-name" content="<%= t("app.name") %>">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
+    <%# Applies the persisted/system theme before first paint to avoid a flash. %>
+    <script nonce="<%= content_security_policy_nonce %>">
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (error) {}
+      })();
+    </script>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <%= yield :head %>
 
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%# Includes all stylesheet files in app/assets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body id="top"
+        class="min-h-screen bg-canvas text-content"
+        data-controller="cookie_consent consent"
+        data-cookie-consent-consented-value="<%= cookie_consent_given? %>"
+        data-cookie-consent-categories-value="<%= cookie_consent_categories.to_json %>"
+        data-consent-categories-value="<%= cookie_consent_categories.to_json %>">
+    <a href="#main-content"
+       class="sr-only rounded-xl bg-primary-600 px-4 py-2 font-semibold text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60]">
+      <%= t("layout.skip_to_content") %>
+    </a>
+
+    <%= render "shared/announcement_bar" %>
+    <%= render "shared/impersonation_banner" %>
+    <%= render "shared/header" %>
+    <%= render "shared/test_payments_banner" if Payments.test_mode_banner? %>
+
+    <main id="main-content" tabindex="-1" class="mx-auto w-full max-w-7xl px-4 py-8 focus:outline-none sm:px-6 lg:px-8">
+      <%= render "shared/flash" %>
+      <%= yield %>
+    </main>
+
+    <%= render "shared/footer" %>
+    <%= render "shared/back_to_top" %>
+    <%= render "shared/cookie_consent" %>
+
+    <%# Consent-gated third-party tags stay inert inside these templates. %>
+    <template data-consent="analytics"></template>
+    <template data-consent="marketing"></template>
   </body>
 </html>

@@ -1,0 +1,23 @@
+it:
+  errors:
+    search_label: Cerca nel marketplace
+    search_placeholder: Cerca componenti, PC o console
+    search_button: Cerca
+    links_label: Link utili
+    links:
+      home: Torna alla home
+      help: Centro assistenza
+      contact: Contattaci
+    pages:
+      not_found:
+        eyebrow: Errore 404
+        title: Non abbiamo trovato quella pagina
+        body: Il link potrebbe essere rotto oppure l'annuncio è stato venduto o rimosso.
+      unprocessable:
+        eyebrow: Errore 422
+        title: Non abbiamo potuto elaborare la richiesta
+        body: Controlla i dati inseriti e riprova.
+      server_error:
+        eyebrow: Errore 500
+        title: Qualcosa è andato storto dalla nostra parte
+        body: Siamo stati avvisati. Riprova tra qualche istante.

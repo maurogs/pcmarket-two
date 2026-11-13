@@ -1,0 +1,9 @@
+<h1 style="margin: 0 0 16px; font-size: 22px; color: #0f172a;"><%= t("admin_mailer.store_suspended.title") %></h1>
+
+<p style="margin: 0 0 12px; font-size: 15px; line-height: 1.6; color: #334155;"><%= t("admin_mailer.store_suspended.greeting", name: @store.user.display_name) %></p>
+
+<p style="margin: 0 0 12px; font-size: 15px; line-height: 1.6; color: #334155;"><%= t("admin_mailer.store_suspended.body", store: @store.name) %></p>
+
+<p style="margin: 0 0 16px; padding: 12px 16px; border-radius: 12px; background-color: #fef2f2; font-size: 14px; color: #991b1b;"><%= @reason %></p>
+
+<p style="margin: 0; font-size: 13px; line-height: 1.6; color: #52607a;"><%= t("admin_mailer.store_suspended.closing") %></p>

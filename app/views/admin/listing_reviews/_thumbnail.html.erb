@@ -1,0 +1,18 @@
+<%= link_to admin_listing_review_path(listing), class: "block h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-surface-muted", tabindex: "-1", aria: { hidden: "true" } do %>
+  <% photo = listing.primary_photo %>
+  <% if photo&.image&.attached? %>
+    <%= image_tag url_for(photo.image.variant(:thumb)),
+                  width: 320,
+                  height: 320,
+                  loading: "lazy",
+                  alt: "",
+                  class: "h-full w-full object-cover" %>
+  <% else %>
+    <span class="flex h-full w-full items-center justify-center text-muted">
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+        <path d="m4 17 5-5 4 4 3-3 4 4" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </span>
+  <% end %>
+<% end %>

@@ -1,0 +1,312 @@
+fr:
+  home:
+    seo:
+      title: "PCMarket — Achetez et vendez des composants PC"
+      description: "Découvrez des PC gaming, ordinateurs portables, cartes graphiques et consoles vérifiés, avec protection de l'acheteur et vendeurs de confiance."
+    deals:
+      title: Offres du jour
+      eyebrow: Offre du jour
+      slide: "Offre %{current} sur %{total}"
+      cta: Voir l'offre
+      browse: Explorer la place de marché
+      pagination: Choisir une offre
+      go_to: "Aller à l'offre %{number}"
+      previous: Offre précédente
+      next: Offre suivante
+    promos:
+      title: Ce qui bouge
+      most_wanted:
+        title: Les plus convoités
+        description: Les annonces qui ont gagné le plus de favoris cette semaine.
+        cta: Voir les plus populaires
+      ready_to_ship:
+        title: Prêts à expédier
+        description: PC gaming préparés et expédiés sous 48 heures.
+        cta: Voir les PC prêts à expédier
+      deals:
+        title: En promotion
+        description: Des prix inférieurs au prix précédent, sans petits caractères.
+        cta: Voir toutes les promotions
+    pc_finder:
+      eyebrow: Trouvez votre machine
+      title: Vous ne savez pas quel PC vous convient ?
+      description: Répondez à quelques questions et nous vous proposerons des configurations selon votre budget et vos jeux.
+      cta: Utiliser PC Finder
+    styles:
+      title: Achetez des PC par style
+      description: Filtrez par finitions et esthétique adaptées à votre installation.
+      count:
+        one: "%{count} annonce"
+        other: "%{count} annonces"
+    rails:
+      view_all: Tout voir
+      previous: Faire défiler à gauche
+      next: Faire défiler à droite
+      new_gpus: Nouvelles cartes graphiques
+      most_watched: Les plus vues cette semaine
+      on_sale: En promotion
+      laptops: Derniers ordinateurs portables
+      phones_tablets: Derniers téléphones et tablettes
+      consoles: Consoles
+    sell:
+      eyebrow: Vendez avec nous
+      title: Votre matériel vaut peut-être plus que vous ne pensez
+      description: Publiez gratuitement, touchez des acheteurs partout en Espagne et soyez payé en toute sécurité.
+      cta: Publier une annonce
+      sell_to_us: Vendez-nous
+    sold:
+      title: Vendus récemment
+      badge: Vendu
+    testimonials:
+      title: Ce que disent les acheteurs
+      rating: "Note : %{rating} sur 5"
+    trust:
+      protection:
+        title: Paiement protégé
+        description: Nous retenons l'argent jusqu'à la réception conforme de l'article.
+      payments:
+        title: Paiements sécurisés
+        description: Cartes traitées par Stripe ; nous ne voyons jamais vos données.
+      sellers:
+        title: Vendeurs vérifiés
+        description: Nous contrôlons l'identité et l'activité avant d'accorder le badge.
+      support:
+        title: Un vrai support
+        description: Des personnes qui répondent dès qu'un problème survient.
+  trust:
+    meta:
+      title: Confiance et sécurité
+      description: "Paiements retenus, vendeurs vérifiés et vrai support : voici comment nous protégeons chaque achat sur PCMarket."
+    eyebrow: Confiance et sécurité
+    title: PCMarket est-il sûr ?
+    subtitle: "Oui : nous retenons le paiement, vérifions les vendeurs et intervenons en cas de problème. C'est ainsi que nous protégeons chaque achat, du premier clic à la livraison."
+    cta:
+      browse: Explorer les annonces
+      contact: Parler au support
+      title: Achetez en confiance
+      body: Des milliers de passionnés achètent et vendent déjà des composants sur PCMarket. Rejoignez-les en sachant que votre argent est protégé.
+      sell: Commencer à vendre
+    stats:
+      label: Chiffres de la plateforme
+      listings_sold: annonces vendues
+      active_sellers: vendeurs actifs
+      average_rating: "note moyenne (%{count} avis)"
+    protection:
+      title: Comment fonctionne la protection de l'acheteur
+      subtitle: Votre argent ne parvient au vendeur que lorsque vous confirmez que tout est en ordre.
+      steps:
+        hold:
+          title: Nous retenons le paiement
+          body: Au paiement, le montant est conservé en sécurité. Le vendeur sait que la commande est réelle et vous ne risquez pas vos fonds.
+        ship:
+          title: L'article est expédié avec suivi
+          body: Le vendeur prépare la commande et ajoute un numéro de suivi. Vous pouvez suivre la livraison depuis votre compte.
+        inspect:
+          title: Vous vérifiez l'article
+          body: "Vous disposez de %{days} jours après la livraison pour vérifier que tout correspond à la description. Sinon, ouvrez un litige avant la libération du paiement."
+    covered:
+      title: Ce que couvre la protection de l'acheteur
+      items:
+        - L'article n'arrive pas dans le délai prévu.
+        - Il arrive endommagé ou ne correspond pas à la description.
+        - Le vendeur annule après le paiement.
+        - L'article est contrefait ou interdit.
+        - Vous recevez autre chose que ce que vous avez acheté.
+      note: La protection couvre les achats payés sur PCMarket. Les paiements effectués hors plateforme ne peuvent pas être réclamés.
+    verified:
+      title: Que signifie « vendeur vérifié » ?
+      intro: Le badge de vérification n'est pas automatique. Nous l'accordons après avoir contrôlé des signaux de confiance.
+      items:
+        - Identité et coordonnées confirmées.
+        - Un historique d'activité sans incident grave.
+        - Un compte de versement Stripe correctement configuré.
+        - Des annonces conformes à nos règles de catalogue.
+    safety:
+      title: Conseils de sécurité
+      subtitle: Quelques secondes de prudence évitent presque tous les problèmes.
+      tips:
+        - Ne payez jamais en dehors de PCMarket : vous perdriez la protection de l'acheteur.
+        - Méfiez-vous de quiconque demande un Bizum ou un virement direct pour « éviter les frais ».
+        - Pour un rendez-vous, choisissez un lieu public et fréquenté.
+        - Vérifiez le numéro de série et testez l'article avant de conclure une vente en main propre.
+        - Gardez la conversation sur la plateforme et méfiez-vous des liens externes.
+    report:
+      title: Comment signaler
+      body: Si vous voyez une annonce suspecte, un message abusif ou une possible arnaque, utilisez le bouton de signalement de l'annonce ou du profil. Nous examinons chaque signalement et pouvons retirer du contenu, suspendre des comptes et collaborer avec les autorités.
+      cta: Signaler une annonce
+      contact: Écrire au support
+    contact:
+      title: Besoin d'aide ?
+      body: Notre équipe répond en français et en espagnol du lundi au vendredi. Décrivez-nous ce qui s'est passé le plus précisément possible et nous vous aiderons.
+    faq:
+      title: Questions fréquentes
+      items:
+        - question: Quand le vendeur est-il payé ?
+          answer: Lorsque vous confirmez la livraison ou que le délai de protection se termine sans incident. D'ici là, le montant reste retenu.
+        - question: Puis-je acheter sans compte ?
+          answer: Vous pouvez parcourir sans compte, mais il faut un compte confirmé pour payer. Cela nous permet de protéger l'achat et de vous prévenir de la livraison.
+        - question: Que se passe-t-il si l'article n'arrive pas ?
+          answer: Ouvrez un litige depuis la commande avant la fin du délai. Si le vendeur ne peut pas prouver l'expédition, nous vous remboursons.
+        - question: Les frais de port sont-ils inclus ?
+          answer: Chaque annonce indique ses frais de port. De nombreux vendeurs proposent la livraison gratuite et vous pouvez filtrer sur cette option.
+        - question: Puis-je retourner un article qui ne me plaît pas ?
+          answer: Si vous achetez à un vendeur professionnel, vous disposez de 14 jours de rétractation. Entre particuliers, ce droit n'existe pas, mais la protection couvre les articles non conformes.
+        - question: Comment savoir si un vendeur est fiable ?
+          answer: Consultez son profil, ses avis et son badge de vérification. Vous pouvez aussi lui écrire avant d'acheter.
+        - question: Quels moyens de paiement acceptez-vous ?
+          answer: Les paiements par carte traités par Stripe. Nous n'acceptons ni espèces ni virements hors plateforme, car nous ne pourrions pas vous protéger.
+        - question: Comment signaler une annonce ?
+          answer: Appuyez sur « Signaler » dans l'annonce ou le profil et choisissez un motif. Notre équipe examine le signalement et vous informe de sa décision.
+  help:
+    index:
+      eyebrow: Centre d'aide
+      title: Centre d'aide
+      description: Des réponses rapides sur les achats, les ventes, les paiements et les livraisons. Et si vous ne trouvez pas, écrivez-nous.
+      contact: Contacter le support
+      trust: Confiance et sécurité
+      pages_title: Guides principaux
+      read_more: Lire le guide
+      cta_title: Encore une question ?
+      cta_body: Racontez-nous votre situation et nous vous répondrons au plus vite.
+    pages:
+      eyebrow: Aide
+      related_title: Continuer la lecture
+    faq:
+      title: Questions fréquentes
+      description: Les questions les plus posées, classées par thème.
+    fees:
+      title: Frais de vente
+      commission: Commission par vente
+      featured: Annonce mise en avant
+      free_notice: Publier et vendre est gratuit pendant notre croissance. Nous ne prélevons aucune commission.
+      note: Lorsque nous activerons les frais, nous préviendrons à l'avance et ils ne s'appliqueront qu'aux nouvelles ventes.
+      cta: Publier une annonce
+  contact:
+    meta:
+      title: Contact
+      description: Écrivez-nous pour toute question sur les achats, les ventes, les paiements, les livraisons ou votre compte.
+    eyebrow: Nous sommes là
+    title: Contact
+    subtitle: Dites-nous ce dont vous avez besoin et nous répondrons dès que possible. Si votre question concerne une commande, indiquez son numéro pour aller plus vite.
+    form:
+      name: Nom
+      email: Adresse e-mail
+      topic: Motif
+      order_number: Numéro de commande
+      order_number_placeholder: "PCM-2026-000123"
+      order_number_hint: Facultatif. Vous le trouverez dans l'e-mail de confirmation.
+      message: Message
+      website: Laissez ce champ vide
+      privacy_note: Nous utiliserons vos données uniquement pour répondre à cette demande, conformément à notre politique de confidentialité.
+      submit: Envoyer le message
+    topics:
+      general: Question générale
+      buying: Achats
+      selling: Ventes
+      payments: Paiements et versements
+      shipping: Livraisons
+      account: Compte et connexion
+      report: Signaler un contenu
+      privacy: Confidentialité et données
+    aside:
+      title: Nous écrire directement
+      body: Vous pouvez aussi nous écrire directement. Nous répondons du lundi au vendredi pendant les heures ouvrées.
+      links_title: Liens utiles
+      report: Signaler une annonce
+    flash:
+      sent: Merci. Nous avons bien reçu votre message et vous répondrons bientôt.
+    errors:
+      rate_limited: Vous avez envoyé plusieurs messages d'affilée. Patientez un peu avant de réessayer.
+  newsletter:
+    flash:
+      check_email: Consultez votre boîte mail et confirmez votre abonnement pour recevoir nos nouvelles.
+    errors:
+      rate_limited: Trop de demandes d'affilée. Réessayez dans l'heure.
+    confirmation:
+      title: Abonnement confirmé
+      body: Vous êtes inscrit. Vous recevrez les offres et actualités de PCMarket sans spam.
+      cta: Retour à l'accueil
+    unsubscribe:
+      title: Vous êtes désabonné
+      body: Vous ne recevrez plus notre newsletter. Vous pouvez vous réabonner quand vous le souhaitez.
+      cta: Retour à l'accueil
+  newsletter_mailer:
+    confirmation:
+      subject: Confirmez votre abonnement à PCMarket
+      heading: "Confirmez votre abonnement à %{app}"
+      body: Vous avez demandé à recevoir les offres et actualités de PCMarket. Appuyez sur le bouton pour confirmer votre e-mail. Si ce n'est pas vous, ignorez ce message.
+      cta: Confirmer l'abonnement
+      fallback: Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur.
+      unsubscribe: Vous ne voulez plus recevoir ces e-mails ?
+      unsubscribe_cta: Se désabonner ici
+  contact_mailer:
+    notification:
+      subject: "Nouveau message de contact : %{topic}"
+      heading: Nouveau message de contact
+      intro: Un message a été envoyé depuis le formulaire de contact de PCMarket.
+      none: Non renseigné
+  legal_pages:
+    public:
+      eyebrow: Informations légales
+      index_title: Informations légales
+      index_description: Consultez les conditions, la confidentialité et les autres documents légaux applicables dans votre pays.
+      effective_from: En vigueur depuis
+      version: "Version %{version}"
+      versions_link: Versions précédentes
+      print: Imprimer
+      toc: Sur cette page
+      no_toc: Ce document ne contient pas de sections.
+      help_note: Si quelque chose n'est pas clair, écrivez-nous et nous vous aiderons.
+      country: "Pays : %{country}"
+      updated: "Mis à jour le %{date}"
+      meta_description: "%{title} de PCMarket."
+      undated: Sans date
+    versions:
+      title: "Versions de %{title}"
+      description: Historique des versions publiées. La version en vigueur est indiquée.
+      current: En vigueur
+      open: Ouvrir
+      back: Retour au document
+  cookie_consent:
+    banner:
+      label: Consentement aux cookies
+      title: Votre vie privée, vos règles
+      body: Nous utilisons des cookies nécessaires au fonctionnement du site. Avec votre accord, nous utilisons aussi des cookies de préférences, d'analyse et de marketing.
+      configure: Configurer
+      reject: Tout refuser
+      accept: Tout accepter
+    modal:
+      title: Préférences de cookies
+      description: Choisissez les catégories que vous autorisez. Les cookies nécessaires ne peuvent pas être désactivés.
+      close: Fermer
+      cancel: Annuler
+      save: Enregistrer les préférences
+    categories:
+      necessary:
+        title: Nécessaires
+        description: Session, langue, thème, pays et votre propre choix de cookies. Sans eux, le site ne fonctionne pas.
+      preferences:
+        title: Préférences
+        description: Mémorisent des réglages comme le thème ou la vue choisie.
+      analytics:
+        title: Analyse
+        description: Nous aident à comprendre quelles pages sont utilisées pour améliorer le catalogue et la navigation.
+      marketing:
+        title: Marketing
+        description: Permettent de mesurer les campagnes et de vous montrer des publicités pertinentes hors plateforme.
+      always: Toujours actifs
+    flash:
+      saved: Nous avons enregistré vos préférences de cookies.
+  country_preference:
+    invalid: Ce pays n'est pas encore disponible. Nous travaillons pour l'ouvrir bientôt.
+  footer:
+    country:
+      label: Pays
+      button: Appliquer
+    legal:
+      index: Informations légales
+      cookie_preferences: Préférences de cookies
+  admin:
+    legal_pages:
+      show:
+        review_required: "Modèle — doit être relu par un avocat qualifié avant le lancement."

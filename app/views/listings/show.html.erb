@@ -1,0 +1,231 @@
+<% set_meta_tags(listing_meta_tags(@listing)) %>
+<% if (preload_photo = @listing.photos.find { |photo| photo.image.attached? }) %>
+  <% content_for :head do %>
+    <link rel="preload" as="image"
+          href="<%= url_for(preload_photo.image.variant(:large)) %>"
+          imagesrcset="<%= url_for(preload_photo.image.variant(:card)) %> 640w, <%= url_for(preload_photo.image.variant(:large)) %> 1600w"
+          imagesizes="(min-width: 1024px) 60vw, 100vw"
+          fetchpriority="high">
+  <% end %>
+<% end %>
+<% breadcrumbs = listing_breadcrumbs(@listing) %>
+<% labels = product_labels(@listing) %>
+<% tags = seller_tags(@listing) %>
+
+<div class="space-y-6">
+  <%= render "listings/breadcrumbs", trail: breadcrumbs %>
+
+  <% unless @listing.publicly_visible? %>
+    <div class="rounded-2xl border p-4 <%= @listing.rejected? ? "border-danger/40 bg-danger-soft" : "border-warning/40 bg-warning-soft" %>">
+      <p class="text-sm font-semibold text-content">
+        <%= t("listings.show.status_banner", status: status_label(@listing)) %>
+      </p>
+      <% if @listing.rejected? && @listing.rejection_reason.present? %>
+        <p class="mt-1 text-sm text-muted"><%= t("listings.show.rejection_reason", reason: @listing.rejection_reason) %></p>
+      <% end %>
+      <p class="mt-1 text-xs text-muted"><%= t("listings.show.status_visibility") %></p>
+    </div>
+  <% end %>
+
+  <% if @listing.store.vacation_active? %>
+    <div class="rounded-2xl border border-warning/40 bg-warning-soft p-4">
+      <p class="text-sm font-semibold text-warning"><%= t("storefronts.vacation.title") %></p>
+      <% if @listing.store.vacation_message.present? %>
+        <p class="mt-1 text-sm text-warning"><%= @listing.store.vacation_message %></p>
+      <% end %>
+      <% if @listing.store.vacation_until.present? %>
+        <p class="mt-1 text-xs text-warning"><%= t("storefronts.vacation.until", date: l(@listing.store.vacation_until, format: :long)) %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem]">
+    <div class="min-w-0 space-y-6">
+      <%= render "listings/gallery", listing: @listing %>
+
+      <section class="rounded-2xl border border-border bg-surface p-6">
+        <h2 class="text-lg font-bold"><%= t("listings.show.overview") %></h2>
+        <dl class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <div class="flex items-center gap-2">
+            <dt class="text-muted"><%= t("listings.show.condition") %></dt>
+            <dd class="font-semibold text-content"><%= condition_label(@listing.condition) %></dd>
+          </div>
+          <div class="flex items-center gap-2">
+            <dt class="text-muted"><%= t("listings.show.location") %></dt>
+            <dd class="font-semibold text-content"><%= location_label(@listing) %></dd>
+          </div>
+        </dl>
+
+        <div class="rich-text mt-4 max-w-none text-content">
+          <%= simple_format(h(@listing.description)) %>
+        </div>
+      </section>
+
+      <%= render "listings/specifications", listing: @listing %>
+
+      <section class="rounded-2xl border border-border bg-surface p-6">
+        <h2 class="text-lg font-bold"><%= t("listings.show.shipping_returns.title") %></h2>
+        <% estimate = delivery_estimate_for(@listing) %>
+        <div class="mt-4 grid gap-3 sm:grid-cols-3">
+          <div class="rounded-xl border border-border bg-surface-muted p-3">
+            <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("listings.show.shipping_returns.order_placed") %></p>
+            <p class="mt-1 text-sm font-semibold text-content"><%= short_date(estimate.order_date) %></p>
+          </div>
+          <div class="rounded-xl border border-border bg-surface-muted p-3">
+            <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("listings.show.shipping_returns.ships_by") %></p>
+            <p class="mt-1 text-sm font-semibold text-content"><%= short_date(estimate.ships_on) %></p>
+          </div>
+          <div class="rounded-xl border border-border bg-surface-muted p-3">
+            <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("listings.show.shipping_returns.delivered") %></p>
+            <p class="mt-1 text-sm font-semibold text-content">
+              <%= short_date(estimate.delivered_from) %> – <%= short_date(estimate.delivered_to) %>
+            </p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-muted"><%= t("listings.show.shipping_returns.returns_copy") %></p>
+      </section>
+    </div>
+
+    <aside class="space-y-4 lg:sticky lg:top-24 lg:self-start">
+      <div class="rounded-2xl border border-border bg-surface p-5">
+        <% if labels.any? || tags.any? %>
+          <div class="mb-3 flex flex-wrap gap-1.5">
+            <% labels.each do |label| %>
+              <span class="inline-flex items-center rounded-full bg-primary-600 px-2.5 py-1 text-[11px] font-semibold text-white"><%= label.name %></span>
+            <% end %>
+            <% tags.each do |tag| %>
+              <span class="inline-flex items-center rounded-full border border-border bg-surface-muted px-2.5 py-1 text-[11px] font-medium text-muted"><%= tag.name %></span>
+            <% end %>
+          </div>
+        <% end %>
+
+        <h1 class="text-xl font-extrabold leading-tight tracking-tight text-content"><%= @listing.title %></h1>
+
+        <div class="mt-3 flex flex-wrap items-baseline gap-2">
+          <span class="text-3xl font-extrabold tracking-tight text-content"><%= money(@listing.price_cents, currency: @listing.currency) %></span>
+          <% if @listing.compare_at_price_cents.present? && @listing.compare_at_price_cents > @listing.price_cents %>
+            <span class="text-sm text-muted line-through"><%= money(@listing.compare_at_price_cents, currency: @listing.currency) %></span>
+          <% end %>
+          <% if @listing.discount_percent %>
+            <span class="rounded-full bg-accent px-2 py-0.5 text-xs font-bold text-on-accent">-<%= @listing.discount_percent %>%</span>
+          <% end %>
+        </div>
+
+        <div class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+          <span><%= condition_label(@listing.condition) %></span>
+          <span aria-hidden="true">·</span>
+          <span><%= location_label(@listing) %></span>
+        </div>
+
+        <div class="mt-4 space-y-1 rounded-xl bg-surface-muted p-3 text-sm">
+          <p class="flex items-center gap-2 font-medium text-content">
+            <svg class="h-4 w-4 text-primary-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="7" cy="18.5" r="1.5"></circle>
+              <circle cx="17.5" cy="18.5" r="1.5"></circle>
+            </svg>
+            <%= shipping_summary(@listing) %>
+          </p>
+          <p class="pl-6 text-xs text-muted"><%= t("listings.show.ships_within", count: @listing.handling_days) %></p>
+        </div>
+
+        <div class="mt-4 space-y-2">
+          <% blocked = purchase_blocked_reason(@listing) %>
+          <% if blocked.nil? %>
+            <%= button_to t("listings.show.buy_now"),
+                          cart_items_path,
+                          params: { listing_id: @listing.id, quantity: 1, buy_now: true },
+                          class: "btn-primary w-full" %>
+            <div class="flex items-center gap-2">
+              <%= button_to t("listings.show.add_to_cart"),
+                            cart_items_path,
+                            params: { listing_id: @listing.id, quantity: 1 },
+                            class: "btn-accent flex-1" %>
+              <%= render "favourites/button", listing: @listing, favourited: favourited?(@listing) %>
+            </div>
+          <% else %>
+            <button type="button" disabled aria-disabled="true" title="<%= purchase_blocked_message(blocked) %>" class="btn-primary w-full cursor-not-allowed opacity-60">
+              <%= t("listings.show.buy_now") %>
+            </button>
+            <button type="button" disabled aria-disabled="true" title="<%= purchase_blocked_message(blocked) %>" class="btn-accent w-full cursor-not-allowed opacity-60">
+              <%= t("listings.show.add_to_cart") %>
+            </button>
+            <p class="text-xs font-medium text-muted"><%= purchase_blocked_message(blocked) %></p>
+          <% end %>
+          <% if @listing.allow_offers? && Flipper.enabled?(:offers) && user_signed_in? && @listing.user_id != current_user.id %>
+            <%= form_with url: listing_offers_path(@listing), scope: nil, class: "rounded-xl border border-border bg-surface p-3" do %>
+              <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("offers.form.title") %></p>
+              <div class="mt-2 flex items-end gap-2">
+                <div class="flex-1">
+                  <%= label_tag :amount, t("offers.form.amount"), class: "block text-[11px] font-semibold text-muted" %>
+                  <%= number_field_tag :amount, nil, min: 1, step: "0.01", class: "field mt-1 w-full", placeholder: money((@listing.price_cents * 0.8).round, currency: @listing.currency) %>
+                </div>
+                <%= submit_tag t("listings.show.make_offer"), class: "btn-primary px-3 py-2 text-xs" %>
+              </div>
+              <%= text_area_tag :message, nil, rows: 2, class: "field mt-2 w-full text-sm", placeholder: t("offers.form.message_placeholder") %>
+              <p class="mt-1 text-[11px] text-muted"><%= t("offers.form.hint") %></p>
+            <% end %>
+          <% end %>
+          <% unless user_signed_in? && @listing.user_id == current_user.id %>
+            <%= button_to t("listings.show.message_seller"),
+                          conversations_path,
+                          params: { listing_id: @listing.id },
+                          class: "w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-content hover:bg-surface-muted" %>
+          <% end %>
+          <%= link_to t("reports.link"),
+                      new_report_path(reportable_type: "Listing", reportable_id: @listing.id),
+                      class: "block text-center text-xs font-semibold text-muted underline-offset-2 hover:text-danger hover:underline" %>
+        </div>
+      </div>
+
+      <%= render "listings/seller_card", listing: @listing %>
+
+      <section class="rounded-2xl border border-primary-200 bg-primary-50 p-5 text-sm dark:border-primary-800 dark:bg-primary-900/30">
+        <h2 class="text-sm font-bold text-primary-900 dark:text-primary-100"><%= t("listings.show.buyer_protection.title") %></h2>
+        <% days = Setting.get(:buyer_protection_days, 2).to_i %>
+        <p class="mt-1.5 text-primary-800 dark:text-primary-200"><%= t("listings.show.buyer_protection.body", days: days) %></p>
+      </section>
+    </aside>
+  </div>
+
+  <% cache_if !user_signed_in?, [ "listings/similar", @listing.id, @listing.updated_at.to_f, I18n.locale ], expires_in: 10.minutes do %>
+    <% similar = Listing.similar_to(@listing).to_a %>
+    <% if similar.any? %>
+      <section class="space-y-3">
+        <h2 class="text-lg font-bold"><%= t("listings.show.similar") %></h2>
+        <ul class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+          <% similar.each do |listing| %>
+            <li class="w-64 shrink-0 snap-start">
+              <%= render "listings/card", listing: listing, eager: false %>
+            </li>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
+  <% end %>
+
+  <% cache_if !user_signed_in?, [ "listings/more_from_seller", @listing.id, @listing.store_id, @listing.updated_at.to_f, I18n.locale ], expires_in: 10.minutes do %>
+    <% more = Listing.more_from_seller(@listing).to_a %>
+    <% if more.any? %>
+      <section class="space-y-3">
+        <h2 class="text-lg font-bold"><%= t("listings.show.more_from_seller") %></h2>
+        <ul class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2">
+          <% more.each do |listing| %>
+            <li class="w-64 shrink-0 snap-start">
+              <%= render "listings/card", listing: listing, eager: false %>
+            </li>
+          <% end %>
+        </ul>
+      </section>
+    <% end %>
+  <% end %>
+
+  <footer class="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4 text-xs text-muted">
+    <%= render "listings/breadcrumbs", trail: breadcrumbs %>
+    <% published_at = @listing.published_at || @listing.created_at %>
+    <p><%= t("listings.show.published_on", date: l(published_at.to_date, format: :long)) %></p>
+  </footer>
+</div>
+
+<%= json_ld_tag(breadcrumb_json_ld(breadcrumbs)) %>
+<%= json_ld_tag(product_json_ld(@listing)) if @listing.publicly_visible? %>

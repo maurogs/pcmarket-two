@@ -1,0 +1,23 @@
+pt:
+  credits:
+    meta:
+      title: "Créditos de imagens | PCMarket"
+      description: "Autores, fornecedores e licenças das fotos usadas nos anúncios de demonstração da PCMarket."
+    eyebrow: "Transparência"
+    title: "Créditos de imagens"
+    intro: "As fotos dos anúncios de demonstração vêm de bancos de imagens com licenças abertas. Aqui podes consultar o autor, o fornecedor, a licença e a ligação à imagem original."
+    unknown_provider: "Outros"
+    image_count:
+      one: "%{count} imagem"
+      other: "%{count} imagens"
+    author: "Autor"
+    license: "Licença"
+    source: "Ver original"
+    untitled: "Sem título"
+    unknown_author: "Autor desconhecido"
+    unknown_license: "Licença não indicada"
+    note: "Estas imagens são usadas apenas como conteúdo de demonstração. As licenças CC BY e CC BY-SA exigem a atribuição do autor e uma ligação à fonte original; cada registo indica o fornecedor."
+    empty: "Ainda não há fotos de demonstração. Executa bin/rails pcmarket:demo:images e depois bin/rails pcmarket:demo:seed para criar o catálogo de exemplo."
+  footer:
+    legal:
+      image_credits: "Créditos de imagens"

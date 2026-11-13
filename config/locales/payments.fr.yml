@@ -1,0 +1,71 @@
+fr:
+  payments:
+    test_mode:
+      banner: "Les paiements de test sont activés. Aucun argent réel ne sera débité."
+  checkout:
+    flash:
+      redirect_to_payment: "Votre panier est réservé. Continuez vers le paiement pour finaliser votre commande."
+    payment:
+      stripe_title: "Paiement sécurisé par carte"
+      stripe_body: "Vous serez redirigé vers le formulaire de paiement sécurisé de Stripe pour saisir les informations de votre carte."
+      continue: "Continuer vers le paiement"
+    payment_page:
+      title: "Finalisez votre paiement"
+      body: "Saisissez les informations de votre carte ci-dessous. Vos articles sont réservés pendant le paiement."
+      card_title: "Informations de paiement"
+      pay: "Payer maintenant"
+      processing: "Traitement…"
+      error_fallback: "Nous n'avons pas pu traiter le paiement. Vérifiez vos informations et réessayez."
+      confirming_title: "Confirmation de votre paiement"
+      confirming_body: "Nous confirmons votre paiement auprès du prestataire. Cette page se mettra à jour sous peu."
+  store_payments:
+    show:
+      title: "Versements"
+      subtitle: "Connectez votre boutique à Stripe pour que les acheteurs puissent vous payer et que vous puissiez recevoir vos versements."
+      setup: "Configurer les versements"
+      statuses:
+        setup: "Versements non configurés"
+        test_mode: "Mode test"
+        pending: "Vérification en cours"
+        enabled: "Versements activés"
+        action_required: "Action requise"
+      requirements_title: "Informations encore requises par Stripe"
+      explanation: "Les acheteurs ne peuvent pas passer commande sur votre boutique tant que les versements ne sont pas activés."
+      not_configured: "Stripe n'est pas configuré dans cet environnement. Ajoutez les clés secrète et publique pour activer les versements réels."
+      test_mode: "Les paiements sont simulés en développement ; aucun compte Stripe ni configuration de versement n'est nécessaire."
+    requirements:
+      external_account: "Un compte bancaire pour les versements"
+      business_profile:
+        mcc: "Code de catégorie d'activité"
+        url: "Site web de l'entreprise"
+      company:
+        tax_id: "Numéro fiscal de l'entreprise"
+      individual:
+        id_number: "Numéro de pièce d'identité"
+        verification:
+          document: "Pièce d'identité"
+          additional_document: "Pièce d'identité complémentaire"
+      tos_acceptance:
+        date: "Acceptation des conditions de Stripe"
+        ip: "Acceptation des conditions de Stripe (confirmation IP)"
+    errors:
+      onboarding_failed: "Nous n'avons pas pu démarrer la configuration des versements. Réessayez ou contactez le support."
+  stores:
+    tabs:
+      label: "Sections des paramètres de la boutique"
+      profile: "Profil"
+      payments: "Versements"
+  cart:
+    errors:
+      payouts_not_enabled: "Ce vendeur ne peut pas encore accepter les paiements."
+    unavailable:
+      reasons:
+        payouts_not_enabled: "Le vendeur n'a pas encore activé les versements."
+    purchase_blocked:
+      payouts_not_enabled: "Ce vendeur n'est pas encore prêt à recevoir des paiements."
+  order_mailer:
+    dispute_alert:
+      subject: "Litige de paiement ouvert pour la commande %{number}"
+      greeting: "Bonjour,"
+      body: "Un litige de paiement a été ouvert pour la commande %{number} de %{store}. Examinez le dossier dans Stripe et contactez l'acheteur et le vendeur si nécessaire."
+      closing: "Résolvez le litige rapidement afin de protéger les fonds de la place de marché."

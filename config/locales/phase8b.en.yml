@@ -1,0 +1,526 @@
+en:
+  nav:
+    pc_finder_promo:
+      title: Not sure which PC fits you?
+      description: Answer a few questions and see builds matched to your games and budget.
+      cta: Use PC Finder
+  account:
+    menu:
+      trade_ins: My trade-ins
+  footer:
+    selling:
+      sell_to_us: Sell to us
+  pc_finder:
+    seo:
+      title: PC Finder — Find the right gaming PC
+      description: Tell us the games you play, your monitor and your budget, and we will match you with gaming PCs that meet the performance you need.
+      preset_title: "Best gaming PCs for %{game}"
+      preset_description: "Gaming PCs that meet the recommended performance for %{game}, ranked by price to performance."
+      results_title: PC Finder results
+      results_description: Gaming PCs matched to your answers on PCMarket.
+    hero:
+      eyebrow: Find your machine
+      title: The right gaming PC, without the guesswork
+      description: Pick the games you play, the resolution and the frame rate you want, and we will show only the builds that can hold it.
+      promise_title: What you get
+      promise_games: PCs checked against the games you actually play
+      promise_budget: Results inside your budget, cheapest first
+      promise_filters: Optional filters for case, cooling and looks
+    quiz:
+      title: Tell us how you play
+      subtitle: Seven quick steps. You can change any answer later.
+      progress: "Step %{current} of %{total}"
+      steps_label: Quiz steps
+      games_title: Which games do you play?
+      games_hint: Pick up to three. We use the most demanding one at your resolution and frame rate.
+      monitor_title: What is your monitor resolution?
+      monitor_hint: Choose the resolution you play at most often.
+      fps_title: What frame rate are you aiming for?
+      fps_hint: Higher frame rates need a stronger graphics card.
+      budget_title: What is your budget?
+      budget_hint: Prices are for complete gaming PCs.
+      optional: Optional — skip it if you do not mind.
+      case_title: Case preferences
+      case_colour: Colour
+      case_size: Size
+      cooling_title: Cooling
+      vibe_title: Which look do you like?
+      back: Back
+      next: Next
+      submit: See results
+    steps:
+      games: Games
+      monitor: Monitor
+      fps: Frame rate
+      budget: Budget
+      case: Case
+      cooling: Cooling
+      vibe: Style
+    resolutions:
+      "1080p": 1080p
+      "1440p": 1440p
+      "4k": 4K
+    fps_options:
+      "60": 60 FPS
+      "144": 144 FPS
+      "240": 240+ FPS
+    budgets:
+      under_600: Under €600
+      "600_1000": €600–€1,000
+      "1000_1500": €1,000–€1,500
+      "1500_2500": €1,500–€2,500
+      "2500_plus": €2,500+
+    case_sizes:
+      compact: Compact
+      mid: Mid-tower
+      full: Full-tower
+    case_colours:
+      black: Black
+      white: White
+      silver: Silver
+      grey: Grey
+    cooling_options:
+      air: Air cooling
+      aio: All-in-one liquid
+    answers:
+      none: No preference
+      any: Any
+    bands:
+      "1080p_60": 1080p · 60 FPS
+      "1080p_144": 1080p · 144 FPS
+      "1080p_240": 1080p · 240 FPS
+      "1440p_60": 1440p · 60 FPS
+      "1440p_144": 1440p · 144 FPS
+      "1440p_240": 1440p · 240 FPS
+      "4k_60": 4K · 60 FPS
+      "4k_144": 4K · 144 FPS
+      "4k_240": 4K · 240 FPS
+    results:
+      title: Your matches
+      count:
+        one: "%{count} gaming PC"
+        other: "%{count} gaming PCs"
+      change: Change answers
+      chips_label: Your answers
+      chip_games: "Games: %{games}"
+      chip_fps: "%{fps} FPS"
+      remove_chip: Remove this answer
+      expected_title: Expected performance
+      expected: "%{game} · ~%{fps} FPS at %{resolution}"
+      expected_unavailable: "%{game} · below the 60 FPS target"
+      add_to_cart: Add to cart
+      load_more: Load more
+      empty_title: No PC matches every answer yet
+      empty_body: Try raising the budget or lowering the frame rate. Your other answers stay selected.
+      raise_budget: Raise the budget
+      lower_fps: Aim for 60 FPS
+    landing:
+      styles_title: PCs by gamer style
+      styles_description: Start from the look you want, then narrow it down in the quiz.
+      style_count:
+        one: "%{count} PC"
+        other: "%{count} PCs"
+      budget_title: Gaming PCs under €1,000
+      budget_description: Complete builds that still leave room for games.
+      view_all: See every option
+      games_title: Best PCs for your game
+      games_description: Ready-made presets for the games people ask about most.
+      best_for: Best for
+      game_cta: See matched PCs
+  sell_to_us:
+    seo:
+      title: Sell your GPU or CPU to PCMarket
+      description: Get an instant offer for your graphics card or processor, ship it with a prepaid label and get paid by bank transfer.
+    hero:
+      eyebrow: Sell to us
+      title: Turn spare hardware into money, without listing it
+      description: Choose your GPU or CPU, answer four condition questions and get a firm offer in seconds. If you accept, we send a prepaid shipping label.
+      cta: Get an instant offer
+      how_it_works: How it works
+    prices:
+      title: Example payouts
+      description: A sample of current buyback prices. Your instant quote uses the exact model and condition.
+      gpus: Graphics cards
+      cpus: Processors
+      model: Model
+      empty: No prices published for this component yet.
+      note: Payouts are estimates before inspection. The offer shown in the quote flow is the one we honour.
+    how:
+      title: How it works
+      description: Four steps from your spare part to a bank transfer.
+      steps:
+        offer:
+          title: Get an offer
+          body: Pick the model and condition. The instant offer is valid for seven days.
+        ship:
+          title: Ship it free
+          body: Accept the offer and we email a prepaid label with packing instructions.
+        inspect:
+          title: We inspect it
+          body: We test the component and confirm the condition within two working days.
+        paid:
+          title: Get paid
+          body: We transfer the agreed amount to your IBAN, usually within one working day.
+    faq:
+      title: Questions before you sell
+      items:
+        condition:
+          question: What counts as “good” condition?
+          answer: The component works normally, has no physical damage and shows only light signs of use. Missing boxes or accessories lower the offer through the condition questions.
+        shipping:
+          question: Do I pay for shipping?
+          answer: No. Once you accept the offer we send a prepaid, insured label. Pack the component carefully in an anti-static bag and a sturdy box.
+        payment:
+          question: How and when do I get paid?
+          answer: By bank transfer to the IBAN you provide after accepting. We pay within one working day of the inspection.
+        data:
+          question: What happens to my personal data?
+          answer: We store your IBAN encrypted, use it only for this payout and keep the request for the legally required accounting period.
+    cta:
+      title: Ready to see what your hardware is worth?
+      description: The quote takes less than a minute and does not commit you to anything.
+      button: Start my quote
+  buyback:
+    component_types:
+      gpu: Graphics card
+      cpu: Processor
+    conditions:
+      like_new: Like new
+      good: Good
+      fair: Fair
+      for_parts: For parts
+    questions:
+      "yes": "Yes"
+      "no": "No"
+    statuses:
+      quoted: Quoted
+      accepted: Accepted
+      label_sent: Label sent
+      received: Received
+      inspected: Inspected
+      offer_revised: Offer revised
+      paid: Paid
+      rejected: Rejected
+      returned: Returned
+    timeline:
+      label: Trade-in progress
+    details:
+      component: Component
+      condition: Condition
+      offer: Offer
+      revised_offer: Revised offer
+      iban: IBAN
+    errors:
+      price_missing: Choose a model to get an offer.
+      quote_expired: This offer has expired. Please request a new quote.
+      quote_used: This offer has already been accepted.
+      accept_failed: We could not accept this offer. Please try again.
+    flash:
+      quote_created: Your instant offer is ready.
+      request_created: "Trade-in %{reference} created. We will email the prepaid label next."
+    quote:
+      seo_title: Your instant offer
+      back: Back to sell to us
+      title: Get an instant offer
+      subtitle: Choose the component, its condition and answer a few questions. The offer is valid for seven days.
+      component_type: Component type
+      search_label: Search models
+      search_placeholder: Type a model, for example RTX 4070
+      model: Model
+      model_option: "%{model} — up to %{price}"
+      choose_model: Choose a model
+      model_hint: Only models with a published buyback price are listed.
+      condition: Condition
+      choose_condition: Choose the condition
+      questions:
+        title: Condition questions
+        powers_on: Does it power on and work normally?
+        artifacts: Are there visual artefacts or crashes?
+        original_box: Do you have the original box?
+        physical_damage: Is there physical damage?
+      disclaimer: The final amount is confirmed after inspection.
+      submit: Get my offer
+      offer_eyebrow: Your offer
+      offer_title: Your instant offer
+      expired: This offer has expired. Request a new one to see the current price.
+      new_quote: Get a new offer
+      valid_until: "Valid until %{date}"
+      accept: Accept this offer
+      accept_hint: You will need an account to accept and provide your IBAN.
+      summary_title: What we based it on
+    request:
+      title: Accept your offer
+      subtitle: Tell us where to collect the component and where to send the money.
+      back: Back to your offer
+      payment_title: Payment details
+      iban: IBAN
+      iban_placeholder: ES00 0000 0000 0000 0000 0000
+      iban_hint: We store your IBAN encrypted and use it only for this payout.
+      full_name: Full name
+      address_title: Collection address
+      line1: Address
+      line2: Apartment, suite or building
+      city: City
+      postal_code: Postal code
+      country: Country
+      phone: Phone
+      terms_note: By accepting you confirm the condition answers and agree to the buyback terms.
+      submit: Accept and create trade-in
+    index:
+      title: My trade-ins
+      subtitle: Track every buyback request and its inspection.
+      new: New trade-in
+      empty_title: You have no trade-ins yet
+      empty_body: Get an instant offer for a spare GPU or CPU and ship it with a prepaid label.
+      empty_cta: Get an instant offer
+      sell: Back to sell to us
+    show:
+      title: "Trade-in %{reference}"
+      back: All trade-ins
+      progress_title: Progress
+      revised: "We revised the offer to %{amount}. The admin team will confirm your decision."
+      details_title: Details
+      address_title: Collection address
+      tracking: "Tracking: %{carrier} · %{number}"
+      carrier_unknown: Carrier
+      help: Need help with this trade-in?
+      contact: Contact support
+  buyback_mailer:
+    cta: View your trade-in
+    footer: You are receiving this email because you created a trade-in on PCMarket. Reply to this message if anything looks wrong.
+    details:
+      reference: Reference
+      component: Component
+      offer: Offer
+      status: Status
+    events:
+      accepted:
+        subject: "Trade-in %{reference} accepted"
+        title: "Trade-in %{reference} accepted"
+        body: We have accepted your trade-in. The next email contains your prepaid shipping label.
+      label_sent:
+        subject: "Your prepaid label for %{reference}"
+        title: "Your prepaid label is on its way"
+        body: We have issued the prepaid label. Pack the component safely and drop it at the carrier.
+      received:
+        subject: "We received %{reference}"
+        title: "Your component has arrived"
+        body: The parcel is in our workshop and will be inspected within two working days.
+      inspected:
+        subject: "Inspection complete for %{reference}"
+        title: "Inspection complete"
+        body: The component matches the condition you declared. We will process the payment next.
+      offer_revised:
+        subject: "We revised the offer for %{reference}"
+        title: "We revised your offer"
+        body: The inspection found a difference from the declared condition. The revised offer is shown in your trade-in.
+      accepted_revision:
+        subject: "Revised offer accepted for %{reference}"
+        title: "Revised offer accepted"
+        body: Thanks for confirming. We will pay the revised amount by bank transfer.
+      paid:
+        subject: "Payment sent for %{reference}"
+        title: "Payment sent"
+        body: We have sent the agreed amount to your IBAN. It usually arrives within one working day.
+      rejected:
+        subject: "Trade-in %{reference} could not be accepted"
+        title: "Trade-in not accepted"
+        body: The component did not pass inspection and cannot be bought back. We will explain the next steps by email.
+      returned:
+        subject: "Your component is being returned (%{reference})"
+        title: "Your component is on its way back"
+        body: We are returning the component to the collection address. Tracking details will follow.
+  admin:
+    nav:
+      pc_finder: PC Finder
+      gpu_tiers: GPU tiers
+      cpu_tiers: CPU tiers
+      buyback_prices: Buyback prices
+      buyback_requests: Trade-ins
+    games:
+      index:
+        title: PC Finder games
+        subtitle: Games shown in the quiz, their cover art and the GPU/CPU tier needed at each resolution and frame rate.
+        new: New game
+        delete_confirm: Delete this game?
+        empty_title: No games yet
+        empty_body: Add the first game to make the PC Finder quiz useful.
+      table:
+        game: Game
+        slug: Slug
+        position: Position
+        active: Active
+      form:
+        name: Name
+        slug: Slug
+        slug_placeholder: Generated from the name if left blank
+        position: Position
+        active: Active
+        cover: Cover image
+        cover_hint: Portrait art works best. PNG, JPEG or WebP up to 5 MB.
+        requirements_title: Tier requirements
+        requirements_hint: "Enter a tier from 1 to 10. These values are matched against the GPU and CPU tiers."
+        gpu_tier: GPU tier
+        cpu_tier: CPU tier
+        back: Back to games
+        delete: Delete game
+        delete_confirm: Delete this game?
+      new:
+        title: New game
+      edit:
+        title: "Edit %{name}"
+      flash:
+        created: Game created.
+        updated: Game updated.
+        destroyed: Game deleted.
+    gpu_tiers:
+      index:
+        title: GPU tiers
+        subtitle: Patterns matched case-insensitively against listing GPU models. The longest pattern wins.
+        new: New GPU tier
+        delete_confirm: Delete this mapping?
+      table:
+        pattern: Pattern
+        tier: Tier
+        position: Position
+        active: Active
+      form:
+        pattern: Pattern
+        pattern_placeholder: rtx 4070
+        pattern_hint: A substring of the model name, for example “rtx 4070”.
+        tier: Tier
+        position: Position
+        active: Active
+        back: Back to GPU tiers
+        delete: Delete mapping
+        delete_confirm: Delete this mapping?
+      new:
+        title: New GPU tier
+      edit:
+        title: "Edit %{pattern}"
+      flash:
+        created: GPU tier created.
+        updated: GPU tier updated.
+        destroyed: GPU tier deleted.
+    cpu_tiers:
+      index:
+        title: CPU tiers
+        subtitle: Patterns matched case-insensitively against listing CPU models. The longest pattern wins.
+        new: New CPU tier
+        delete_confirm: Delete this mapping?
+      table:
+        pattern: Pattern
+        tier: Tier
+        position: Position
+        active: Active
+      form:
+        pattern: Pattern
+        pattern_placeholder: ryzen 5 5
+        pattern_hint: A substring of the model name, for example “ryzen 5 5”.
+        tier: Tier
+        position: Position
+        active: Active
+        back: Back to CPU tiers
+        delete: Delete mapping
+        delete_confirm: Delete this mapping?
+      new:
+        title: New CPU tier
+      edit:
+        title: "Edit %{pattern}"
+      flash:
+        created: CPU tier created.
+        updated: CPU tier updated.
+        destroyed: CPU tier deleted.
+    buyback_prices:
+      index:
+        title: Buyback prices
+        subtitle: Base offers and condition multipliers used by the instant quote flow.
+        new: New buyback price
+        delete_confirm: Delete this price?
+      table:
+        component: Component
+        model: Model
+        base: Base offer
+        multipliers: Multipliers
+        active: Active
+      form:
+        component_type: Component type
+        component_model: Model name
+        model_placeholder: RTX 4070
+        base_offer_cents: Base offer (cents)
+        base_hint: "10000 = €100.00. The quote applies the condition multiplier and deductions."
+        active: Active
+        multipliers_title: Condition multipliers
+        multipliers_hint: Multipliers are applied to the base offer before the condition deductions.
+        back: Back to buyback prices
+        delete: Delete price
+        delete_confirm: Delete this price?
+      new:
+        title: New buyback price
+      edit:
+        title: "Edit %{model}"
+      import:
+        title: Import CSV
+        hint: "Columns: component_type, component_model, base_offer_cents (or base_offer_eur). Existing models are updated."
+        submit: Import prices
+      flash:
+        created: Buyback price created.
+        updated: Buyback price updated.
+        destroyed: Buyback price deleted.
+        in_use: This price already has quotes and cannot be deleted.
+        imported: "Imported %{created} new and %{updated} updated prices; %{skipped} rows skipped."
+    buyback_requests:
+      index:
+        title: Trade-in queue
+        subtitle: Buyback requests from customers, from quote to payout.
+        empty_title: No trade-ins yet
+        empty_body: Requests appear here once a customer accepts an instant offer.
+      table:
+        reference: Reference
+        customer: Customer
+        component: Component
+        offer: Offer
+        status: Status
+        created: Created
+      filters:
+        status: Status
+      show:
+        back: Back to trade-ins
+        details_title: Request
+        address_title: Collection address
+        inspection_result: Inspection result
+        actions_title: Actions
+        no_actions: No actions are available in this state.
+        created_at: "Created %{date}"
+        user_note: The customer receives a translated email after every action.
+      actions:
+        label_sent:
+          title: Mark label sent
+          carrier: Carrier
+          tracking: Tracking number
+          submit: Mark label sent
+        received:
+          submit: Mark received
+        inspected:
+          result: Inspection result
+          revised_offer: Revised offer (€, optional)
+          hint: Enter a revised amount to send a new offer instead of completing the inspection.
+          submit: Save inspection
+        paid:
+          title: Mark paid
+          body: Record the bank transfer to the customer's IBAN.
+          submit: Mark paid
+        rejected:
+          submit: Reject
+          confirm: Reject this trade-in?
+        returned:
+          submit: Return to sender
+          confirm: Return this component to the customer?
+        accepted_revision:
+          submit: Accept revised offer
+      flash:
+        advanced: "Trade-in moved to %{status}."
+        invalid_transition: That action is not allowed in the current state.
+  errors:
+    messages:
+      invalid_iban: is not a valid IBAN

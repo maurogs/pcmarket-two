@@ -1,0 +1,24 @@
+<% if @noindex -%>
+# Staging environment: indexing disabled through NOINDEX=1.
+User-agent: *
+Disallow: /
+<% else -%>
+User-agent: *
+Allow: /
+
+# Private and transactional areas.
+Disallow: /admin
+Disallow: /account
+Disallow: /sell
+Disallow: /cart
+Disallow: /checkout
+Disallow: /inbox
+Disallow: /api
+
+# Search result pages with a query are noindex; keep category pages crawlable.
+Disallow: /search?*q=
+Disallow: /search?*page=
+Disallow: /*?*sort=
+
+Sitemap: <%= request.base_url %>/sitemaps/sitemap.xml.gz
+<% end -%>

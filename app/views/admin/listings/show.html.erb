@@ -1,0 +1,163 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div class="min-w-0">
+      <%= link_to t("admin.listings.show.back"), admin_listings_path, class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+      <h1 class="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl"><%= @listing.title.presence || t("admin.listings.untitled") %></h1>
+      <p class="mt-1 text-sm text-muted">
+        #<%= @listing.id %> · <%= @listing.category&.name %> · <%= @listing.store&.name %>
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <%= link_to t("admin.common.edit"), edit_admin_listing_path(@listing), class: "btn-primary" %>
+      <%= link_to t("admin.listings.show.public_page"), listing_path(@listing), class: "btn-accent" %>
+    </div>
+  </header>
+
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
+    <div class="min-w-0 space-y-6">
+      <%= render "listings/gallery", listing: @listing %>
+
+      <section class="rounded-2xl border border-border bg-surface p-6">
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 class="text-lg font-bold"><%= t("admin.listings.show.overview") %></h2>
+          <span class="rounded-full border px-2.5 py-1 text-xs font-semibold <%= admin_status_badge_class(@listing.status) %>">
+            <%= admin_listing_status_label(@listing.status) %>
+          </span>
+        </div>
+        <p class="mt-3 text-3xl font-extrabold tracking-tight"><%= @listing.price_cents ? money(@listing.price_cents, currency: @listing.currency) : "—" %></p>
+        <dl class="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.listings.show.condition") %></dt><dd class="mt-1 font-semibold"><%= condition_label(@listing.condition) %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.listings.show.location") %></dt><dd class="mt-1 font-semibold"><%= location_label(@listing) %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.listings.show.quantity") %></dt><dd class="mt-1 font-semibold"><%= @listing.quantity %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.listings.show.featured_until") %></dt><dd class="mt-1 font-semibold"><%= @listing.featured_until ? l(@listing.featured_until, format: :short) : "—" %></dd></div>
+        </dl>
+        <div class="rich-text mt-4 max-w-none text-content"><%= simple_format(h(@listing.description)) %></div>
+      </section>
+
+      <%= render "listings/specifications", listing: @listing %>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.listings.show.stats_title") %></h2>
+        <dl class="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+          <div class="rounded-xl bg-surface-muted p-3"><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.listings.show.views") %></dt><dd class="mt-1 text-xl font-extrabold"><%= @listing.views_count %></dd></div>
+          <div class="rounded-xl bg-surface-muted p-3"><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.listings.show.favourites") %></dt><dd class="mt-1 text-xl font-extrabold"><%= @listing.favorites_count %></dd></div>
+          <div class="rounded-xl bg-surface-muted p-3"><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.listings.show.orders") %></dt><dd class="mt-1 text-xl font-extrabold"><%= @orders.size %></dd></div>
+          <div class="rounded-xl bg-surface-muted p-3"><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.listings.show.reports") %></dt><dd class="mt-1 text-xl font-extrabold"><%= @reports.size %></dd></div>
+        </dl>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.listings.show.orders_title") %></h2>
+        <% if @orders.any? %>
+          <ul class="mt-3 divide-y divide-border text-sm">
+            <% @orders.each do |order| %>
+              <li class="flex flex-wrap items-center justify-between gap-2 py-2">
+                <%= link_to order.number, admin_order_path(order), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+                <span class="text-muted"><%= order.buyer&.display_name %> · <%= order_status_label(order.status) %> · <%= money(order.total_cents, currency: order.currency) %></span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="mt-3 text-sm text-muted"><%= t("admin.listings.show.orders_empty") %></p>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.listings.show.reports_title") %></h2>
+        <% if @reports.any? %>
+          <ul class="mt-3 divide-y divide-border text-sm">
+            <% @reports.each do |report| %>
+              <li class="flex flex-wrap items-center justify-between gap-2 py-2">
+                <%= link_to "##{report.id} #{report_reason_label(report.reason)}", admin_report_path(report), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+                <span class="text-muted"><%= report_status_label(report.status) %> · <%= l(report.created_at, format: :short) %></span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="mt-3 text-sm text-muted"><%= t("admin.listings.show.reports_empty") %></p>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.listings.show.history_title") %></h2>
+        <% if @moderations.any? %>
+          <ul class="mt-3 space-y-3">
+            <% @moderations.each do |moderation| %>
+              <li class="rounded-xl border border-border bg-surface-muted p-3 text-sm">
+                <p class="flex items-center justify-between gap-2 font-semibold">
+                  <span><%= admin_moderation_action_label(moderation.action) %></span>
+                  <span class="text-xs font-normal text-muted"><%= l(moderation.created_at, format: :short) %></span>
+                </p>
+                <p class="mt-1 text-xs text-muted"><%= moderation.moderator.display_name %></p>
+                <% if moderation.reason.present? %><p class="mt-1 text-xs"><%= moderation.reason %></p><% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="mt-3 text-sm text-muted"><%= t("admin.listings.show.history_empty") %></p>
+        <% end %>
+      </section>
+    </div>
+
+    <aside class="space-y-4">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("admin.listings.show.seller_title") %></h2>
+        <p class="mt-2 font-semibold"><%= link_to @listing.seller.display_name, admin_user_path(@listing.seller), class: "text-primary-700 hover:underline dark:text-primary-300" %></p>
+        <p class="text-sm text-muted"><%= @listing.seller.email %></p>
+        <p class="mt-2 text-sm"><%= link_to @listing.store.name, admin_store_path(@listing.store), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %></p>
+        <p class="text-xs text-muted"><%= admin_store_kind_label(@listing.store.kind) %> · <%= admin_store_status_label(@listing.store.status) %></p>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.listings.show.actions_title") %></h2>
+        <div class="mt-3 space-y-2">
+          <% if @listing.pending_review? %>
+            <%= button_to t("admin.listings.show.approve"), admin_listing_approval_path(@listing), method: :post, class: "btn-primary w-full" %>
+            <%= form_with url: admin_listing_rejection_path(@listing), method: :post, scope: nil, class: "space-y-2" do %>
+              <%= select_tag :reason_code, options_for_select(ListingModeration::REJECTION_REASONS.map { |r| [admin_moderation_reason_label(r), r] }), include_blank: t("admin.listings.bulk.reason_placeholder"), class: "field" %>
+              <%= text_area_tag :reason_text, nil, rows: 3, placeholder: t("admin.listings.show.reject_note"), class: "field" %>
+              <%= submit_tag t("admin.listings.show.reject"), class: "btn-accent w-full" %>
+            <% end %>
+          <% end %>
+
+          <% if @listing.may_archive? %>
+            <%= button_to t("admin.listings.show.archive"), admin_listing_archival_path(@listing), method: :post, class: "btn-accent w-full" %>
+          <% end %>
+          <% if @listing.may_republish? %>
+            <%= button_to t("admin.listings.show.restore"), admin_listing_restoration_path(@listing), method: :post, class: "btn-accent w-full" %>
+          <% end %>
+
+          <%= form_with url: admin_listing_feature_path(@listing), method: :post, scope: nil, class: "flex items-end gap-2" do %>
+            <%= date_field_tag :featured_until, @listing.featured_until&.to_date, class: "field" %>
+            <%= submit_tag t("admin.listings.show.feature"), class: "btn-accent" %>
+          <% end %>
+
+          <% if @listing.draft? || @listing.archived? %>
+            <% if @listing.order_items.none? %>
+              <%= button_to t("admin.listings.show.delete"), admin_listing_path(@listing), method: :delete,
+                            class: "btn-accent w-full",
+                            data: { turbo_confirm: t("admin.listings.show.delete_confirm") } %>
+            <% else %>
+              <p class="text-xs text-muted"><%= t("admin.listings.show.delete_blocked") %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.listings.show.labels_title") %></h2>
+        <%= form_with url: admin_listing_label_path(@listing), method: :post, scope: nil, class: "mt-3 space-y-2" do %>
+          <% @product_labels.each do |tag| %>
+            <label class="flex items-center gap-2 text-sm">
+              <%= check_box_tag "product_label_ids[]", tag.id, @listing.product_label_ids.include?(tag.id),
+                                id: "product_label_#{tag.id}",
+                                class: "h-4 w-4 rounded border-border text-primary-600" %>
+              <span><%= tag.name %></span>
+            </label>
+          <% end %>
+          <%= submit_tag t("admin.listings.show.save_labels"), class: "btn-primary w-full" %>
+        <% end %>
+      </section>
+    </aside>
+  </div>
+</div>

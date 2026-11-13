@@ -1,0 +1,9 @@
+<%= t("order_mailer.seller_new_sale.greeting", name: @order.store.user.first_name.presence || @order.store.user.display_name) %>
+
+<%= t("order_mailer.seller_new_sale.body", number: @order.number) %>
+
+<%= render "order_mailer/order_details", order: @order %>
+
+<%= t("order_mailer.seller_new_sale.cta") %>: <%= sell_order_url(@order, locale: @locale) %>
+
+<%= t("order_mailer.seller_new_sale.closing") %>

@@ -1,0 +1,11 @@
+<%= t("contact_mailer.notification.heading") %>
+
+<%= t("contact_mailer.notification.intro") %>
+
+<%= t("contact.form.name") %>: <%= @contact_message.name %>
+<%= t("contact.form.email") %>: <%= @contact_message.email %>
+<%= t("contact.form.topic") %>: <%= t("contact.topics.#{@contact_message.topic}") %>
+<%= t("contact.form.order_number") %>: <%= @contact_message.order_number.presence || t("contact_mailer.notification.none") %>
+
+<%= t("contact.form.message") %>:
+<%= @contact_message.message %>

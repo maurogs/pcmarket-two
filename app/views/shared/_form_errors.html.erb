@@ -1,0 +1,10 @@
+<% if object.errors.any? %>
+  <div role="alert" class="rounded-2xl border border-danger/30 bg-danger-soft p-4 text-sm text-danger">
+    <p class="font-semibold"><%= t("form.errors.heading") %></p>
+    <ul class="mt-2 list-disc space-y-1 pl-5">
+      <% object.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

@@ -1,0 +1,3268 @@
+openapi: 3.1.0
+info:
+  title: PCMarket API
+  version: "1.0.0"
+  description: |
+    Versioned JSON API for PCMarket's native iOS and Android apps.
+
+    ## Authentication
+    Send `Authorization: Bearer <access_token>` for every authenticated endpoint.
+    Obtain a token pair from `POST /api/v1/sessions`, `POST /api/v1/sessions/refresh`
+    or the Google mobile sign-in endpoint. The access token lasts 30 days and
+    slides on use; the refresh token lasts 90 days and is single use.
+
+    ## Envelopes
+    Collections return `{ "data": [...], "meta": { page, per_page, total, total_pages } }`.
+    Single resources return `{ "data": {...} }`. Errors return
+    `{ "error": { "code", "message", "details" } }`.
+
+    ## Locale
+    Locale is negotiated from `Accept-Language`, then the user's stored locale,
+    then Spanish. Error messages are translated into the negotiated locale.
+
+    ## Pagination
+    `page` (1-based) and `per_page` (maximum 50). Responses include `X-Total-Count`
+    and `Link` headers. Cursor feeds (messages, notifications) use `before_id`
+    and return `meta.next_before_id` / `meta.has_more`.
+
+    ## Rate limits
+    API requests: 300 per 5 minutes per token or IP. Sign-in: 10 per minute per IP
+    and email. Sign-up: 5 per hour per IP. A 429 response carries `Retry-After`
+    and the standard error envelope.
+  contact:
+    name: PCMarket
+    email: support@pcmarket.example
+servers:
+  - url: https://api.pcmarket.example
+    description: Production
+  - url: http://localhost:3000
+    description: Local development
+tags:
+  - name: Auth
+  - name: Catalogue
+  - name: Buyer
+  - name: Seller
+  - name: Messaging
+  - name: Notifications
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      required: false
+      schema:
+        type: string
+        example: en-GB,en;q=0.9
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PerPage:
+      name: per_page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 20
+    BeforeId:
+      name: before_id
+      in: query
+      description: Return records with an id lower than this cursor.
+      schema:
+        type: integer
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    NoContent:
+      description: Deleted or revoked.
+    Unauthorized:
+      description: Missing, invalid or expired access token.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    Forbidden:
+      description: The token is valid but the action is not allowed.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    NotFound:
+      description: The resource does not exist or is not visible to the caller.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    ValidationFailed:
+      description: Validation failed; `details` contains field errors.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    Conflict:
+      description: The requested state transition is no longer possible.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    FeatureDisabled:
+      description: The feature flag is off.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+    RateLimited:
+      description: Too many requests. `Retry-After` is set.
+      headers:
+        Retry-After:
+          schema:
+            type: integer
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+  schemas:
+    ErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message, details]
+          properties:
+            code:
+              type: string
+              enum: [unauthorized, forbidden, not_found, validation_failed, rate_limited, conflict, feature_disabled]
+            message:
+              type: string
+            details:
+              oneOf:
+                - type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+                - type: "null"
+    Meta:
+      type: object
+      properties:
+        page:
+          type: integer
+        per_page:
+          type: integer
+        total:
+          type: integer
+        total_pages:
+          type: integer
+        facets:
+          type: object
+          additionalProperties: true
+        applied_filters:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        next_before_id:
+          type: integer
+        has_more:
+          type: boolean
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        display_name:
+          type: string
+        phone:
+          type: string
+        locale:
+          type: string
+          enum: [es, en, fr, de, it, pt]
+        country_code:
+          type: string
+        role:
+          type: string
+          enum: [user, moderator, admin]
+        marketing_opt_in:
+          type: boolean
+        confirmed:
+          type: boolean
+        avatar_url:
+          type: string
+          nullable: true
+        notification_preferences:
+          type: array
+          items:
+            type: object
+            properties:
+              kind:
+                type: string
+              in_app:
+                type: boolean
+              email:
+                type: boolean
+    ApiSession:
+      type: object
+      properties:
+        id:
+          type: integer
+        device_name:
+          type: string
+        platform:
+          type: string
+          enum: [ios, android, other]
+        app_version:
+          type: string
+        last_used_at:
+          type: string
+          format: date-time
+        expires_at:
+          type: string
+          format: date-time
+        refresh_expires_at:
+          type: string
+          format: date-time
+        current:
+          type: boolean
+    AuthPayload:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+          example: Bearer
+        expires_at:
+          type: string
+          format: date-time
+        refresh_expires_at:
+          type: string
+          format: date-time
+        session:
+          $ref: "#/components/schemas/ApiSession"
+        user:
+          $ref: "#/components/schemas/User"
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        icon:
+          type: string
+          nullable: true
+        position:
+          type: integer
+        depth:
+          type: integer
+        listings_count:
+          type: integer
+        active:
+          type: boolean
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+    AttributeOption:
+      type: object
+      properties:
+        id:
+          type: integer
+        value:
+          type: string
+        label:
+          type: string
+        position:
+          type: integer
+        popular:
+          type: boolean
+        active:
+          type: boolean
+    AttributeDefinition:
+      type: object
+      properties:
+        id:
+          type: integer
+        key:
+          type: string
+        name:
+          type: string
+        group:
+          type: string
+        input_type:
+          type: string
+          enum: [single_select, multi_select, number, boolean, text]
+        unit:
+          type: string
+          nullable: true
+        filterable:
+          type: boolean
+        show_on_card:
+          type: boolean
+        position:
+          type: integer
+        active:
+          type: boolean
+        required_flag:
+          type: boolean
+        attribute_options:
+          type: array
+          items:
+            $ref: "#/components/schemas/AttributeOption"
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        name:
+          type: string
+        kind:
+          type: string
+          enum: [product_label, seller_tag]
+        colour:
+          type: string
+          nullable: true
+        position:
+          type: integer
+        active:
+          type: boolean
+    Region:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        code:
+          type: string
+        country_code:
+          type: string
+        position:
+          type: integer
+    Country:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        currency:
+          type: string
+        default_locale:
+          type: string
+        position:
+          type: integer
+    StoreSummary:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        kind:
+          type: string
+          enum: [individual, business]
+        verified:
+          type: boolean
+        city:
+          type: string
+          nullable: true
+        province:
+          type: string
+          nullable: true
+        country_code:
+          type: string
+        rating_average:
+          type: number
+        ratings_count:
+          type: integer
+        listings_count:
+          type: integer
+        logo_url:
+          type: string
+          nullable: true
+    StoreDetail:
+      allOf:
+        - $ref: "#/components/schemas/StoreSummary"
+        - type: object
+          properties:
+            description:
+              type: string
+            status:
+              type: string
+              enum: [active, suspended]
+            handling_days:
+              type: integer
+            return_policy:
+              type: string
+            shipping_policy:
+              type: string
+            followers_count:
+              type: integer
+            vacation_mode:
+              type: boolean
+            vacation_message:
+              type: string
+            vacation_until:
+              type: string
+              format: date
+              nullable: true
+            for_sale_count:
+              type: integer
+            sold_count:
+              type: integer
+            banner_url:
+              type: string
+              nullable: true
+            user:
+              $ref: "#/components/schemas/User"
+    ListingPhoto:
+      type: object
+      properties:
+        id:
+          type: integer
+        position:
+          type: integer
+        thumb_url:
+          type: string
+        card_url:
+          type: string
+        large_url:
+          type: string
+    SpecValue:
+      type: object
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+    ListingCard:
+      type: object
+      properties:
+        id:
+          type: integer
+        slug:
+          type: string
+        title:
+          type: string
+        price_cents:
+          type: integer
+        compare_at_price_cents:
+          type: integer
+          nullable: true
+        currency:
+          type: string
+        condition:
+          type: string
+        status:
+          type: string
+        quantity:
+          type: integer
+        shipping_mode:
+          type: string
+        shipping_price_cents:
+          type: integer
+        free_shipping:
+          type: boolean
+        city:
+          type: string
+        region_id:
+          type: integer
+          nullable: true
+        published_at:
+          type: string
+          format: date-time
+        views_count:
+          type: integer
+        favorites_count:
+          type: integer
+        allow_offers:
+          type: boolean
+        seller_id:
+          type: integer
+        featured:
+          type: boolean
+        discount_percent:
+          type: integer
+          nullable: true
+        store:
+          $ref: "#/components/schemas/StoreSummary"
+        category:
+          $ref: "#/components/schemas/Category"
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/Tag"
+        primary_photo:
+          $ref: "#/components/schemas/ListingPhoto"
+    DeliveryEstimate:
+      type: object
+      properties:
+        ships_on:
+          type: string
+          format: date
+        delivered_from:
+          type: string
+          format: date
+        delivered_to:
+          type: string
+          format: date
+    ListingDetail:
+      allOf:
+        - $ref: "#/components/schemas/ListingCard"
+        - type: object
+          properties:
+            description:
+              type: string
+            handling_days:
+              type: integer
+            postal_code:
+              type: string
+            country_code:
+              type: string
+            photos:
+              type: array
+              items:
+                $ref: "#/components/schemas/ListingPhoto"
+            specs:
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    type: string
+                  label:
+                    type: string
+                  values:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SpecValue"
+            seller:
+              $ref: "#/components/schemas/User"
+            store_detail:
+              $ref: "#/components/schemas/StoreDetail"
+            delivery_estimate:
+              $ref: "#/components/schemas/DeliveryEstimate"
+            similar_listing_ids:
+              type: array
+              items:
+                type: integer
+    Address:
+      type: object
+      properties:
+        id:
+          type: integer
+        full_name:
+          type: string
+        line1:
+          type: string
+        line2:
+          type: string
+          nullable: true
+        city:
+          type: string
+        region_id:
+          type: integer
+          nullable: true
+        province_name:
+          type: string
+          nullable: true
+        postal_code:
+          type: string
+        country_code:
+          type: string
+        phone:
+          type: string
+        default:
+          type: boolean
+    CartItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        quantity:
+          type: integer
+        unit_price_cents:
+          type: integer
+          nullable: true
+        offer_id:
+          type: integer
+          nullable: true
+        line_total_cents:
+          type: integer
+        effective_unit_price_cents:
+          type: integer
+        purchasable:
+          type: boolean
+        listing:
+          $ref: "#/components/schemas/ListingCard"
+    Cart:
+      type: object
+      properties:
+        id:
+          type: integer
+        item_count:
+          type: integer
+        subtotal_cents:
+          type: integer
+        shipping_cents:
+          type: integer
+        total_cents:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/CartItem"
+        groups:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        listing_id:
+          type: integer
+        quantity:
+          type: integer
+        unit_price_cents:
+          type: integer
+        shipping_cents:
+          type: integer
+        line_total_cents:
+          type: integer
+        title:
+          type: string
+        seller_name:
+          type: string
+        photo_url:
+          type: string
+          nullable: true
+        specs:
+          type: object
+          additionalProperties: true
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        number:
+          type: string
+        status:
+          type: string
+          enum: [pending_payment, paid, shipped, delivered, completed, cancelled, refunded, disputed]
+        fulfilment:
+          type: string
+          enum: [shipping, local_pickup]
+        subtotal_cents:
+          type: integer
+        shipping_cents:
+          type: integer
+        commission_cents:
+          type: integer
+        total_cents:
+          type: integer
+        currency:
+          type: string
+        tracking_carrier:
+          type: string
+          nullable: true
+        tracking_number:
+          type: string
+          nullable: true
+        paid_at:
+          type: string
+          format: date-time
+          nullable: true
+        shipped_at:
+          type: string
+          format: date-time
+          nullable: true
+        delivered_at:
+          type: string
+          format: date-time
+          nullable: true
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+        cancelled_at:
+          type: string
+          format: date-time
+          nullable: true
+        buyer_protection_ends_at:
+          type: string
+          format: date-time
+          nullable: true
+        store:
+          $ref: "#/components/schemas/StoreSummary"
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+        review_id:
+          type: integer
+          nullable: true
+        reviewable:
+          type: boolean
+    Checkout:
+      type: object
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+          enum: [pending, paid, failed, expired, cancelled]
+        subtotal_cents:
+          type: integer
+        shipping_cents:
+          type: integer
+        total_cents:
+          type: integer
+        currency:
+          type: string
+        payment_intent_id:
+          type: string
+          nullable: true
+        expires_at:
+          type: string
+          format: date-time
+        orders:
+          type: array
+          items:
+            $ref: "#/components/schemas/Order"
+    PaymentSheet:
+      type: object
+      properties:
+        publishable_key:
+          type: string
+        customer_id:
+          type: string
+        ephemeral_key_secret:
+          type: string
+        payment_intent_id:
+          type: string
+        client_secret:
+          type: string
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+        order_id:
+          type: integer
+        store_id:
+          type: integer
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        body:
+          type: string
+        status:
+          type: string
+          enum: [visible, hidden]
+        seller_reply:
+          type: string
+          nullable: true
+        seller_replied_at:
+          type: string
+          format: date-time
+          nullable: true
+        reviewer:
+          $ref: "#/components/schemas/User"
+        editable:
+          type: boolean
+    Message:
+      type: object
+      properties:
+        id:
+          type: integer
+        conversation_id:
+          type: integer
+        sender_id:
+          type: integer
+        kind:
+          type: string
+          enum: [text, system, offer]
+        body:
+          type: string
+        raw_body:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        sender:
+          $ref: "#/components/schemas/User"
+        images:
+          type: array
+          items:
+            type: object
+            properties:
+              thumb_url:
+                type: string
+              card_url:
+                type: string
+              original_url:
+                type: string
+        read_at:
+          type: string
+          format: date-time
+          nullable: true
+        hidden_at:
+          type: string
+          format: date-time
+          nullable: true
+        safety_flagged:
+          type: boolean
+    Offer:
+      type: object
+      properties:
+        id:
+          type: integer
+        listing_id:
+          type: integer
+        conversation_id:
+          type: integer
+        buyer_id:
+          type: integer
+        offerer_id:
+          type: integer
+        recipient_id:
+          type: integer
+          nullable: true
+        amount_cents:
+          type: integer
+        currency:
+          type: string
+        status:
+          type: string
+          enum: [pending, accepted, declined, countered, expired, withdrawn]
+        message:
+          type: string
+          nullable: true
+        expires_at:
+          type: string
+          format: date-time
+        counter_offer_id:
+          type: integer
+          nullable: true
+        acceptable:
+          type: boolean
+        redeemable:
+          type: boolean
+    Conversation:
+      type: object
+      properties:
+        id:
+          type: integer
+        listing_id:
+          type: integer
+          nullable: true
+        buyer_id:
+          type: integer
+        seller_id:
+          type: integer
+        store_id:
+          type: integer
+        title:
+          type: string
+        last_message_at:
+          type: string
+          format: date-time
+          nullable: true
+        unread_count:
+          type: integer
+        archived:
+          type: boolean
+        store:
+          $ref: "#/components/schemas/StoreSummary"
+        buyer:
+          $ref: "#/components/schemas/User"
+        seller:
+          $ref: "#/components/schemas/User"
+        last_message:
+          $ref: "#/components/schemas/Message"
+    Notification:
+      type: object
+      properties:
+        id:
+          type: integer
+        kind:
+          type: string
+        notifiable_type:
+          type: string
+          nullable: true
+        notifiable_id:
+          type: integer
+          nullable: true
+        params:
+          type: object
+          additionalProperties: true
+        message:
+          type: string
+        read_at:
+          type: string
+          format: date-time
+          nullable: true
+        unread:
+          type: boolean
+    SavedSearch:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category_id:
+          type: integer
+          nullable: true
+        query_params:
+          type: object
+          additionalProperties: true
+        frequency:
+          type: string
+          enum: [instant, daily, weekly]
+        email_alerts:
+          type: boolean
+        last_notified_at:
+          type: string
+          format: date-time
+          nullable: true
+    DeviceToken:
+      type: object
+      properties:
+        id:
+          type: integer
+        platform:
+          type: string
+          enum: [ios, android, other]
+        token:
+          type: string
+        last_seen_at:
+          type: string
+          format: date-time
+    LegalPage:
+      type: object
+      properties:
+        id:
+          type: integer
+        kind:
+          type: string
+        title:
+          type: string
+        version:
+          type: string
+        locale:
+          type: string
+        country_code:
+          type: string
+        published_at:
+          type: string
+          format: date-time
+        effective_at:
+          type: string
+          format: date-time
+        body_html:
+          type: string
+        body_plain:
+          type: string
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        slug:
+          type: string
+        cover_url:
+          type: string
+          nullable: true
+        min_gpu_tier:
+          type: object
+          additionalProperties:
+            type: integer
+        min_cpu_tier:
+          type: object
+          additionalProperties:
+            type: integer
+    Analytics:
+      type: object
+      properties:
+        range:
+          type: integer
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        revenue_cents:
+          type: integer
+        orders_count:
+          type: integer
+        units_sold:
+          type: integer
+        average_order_cents:
+          type: integer
+        views:
+          type: integer
+        conversion_rate:
+          type: number
+        favourites_gained:
+          type: integer
+        new_followers:
+          type: integer
+        revenue_by_day:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              amount_cents:
+                type: integer
+        top_by_views:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        top_by_revenue:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        pending:
+          type: object
+          additionalProperties:
+            type: integer
+paths:
+  /api/v1/sessions:
+    get:
+      tags: [Auth]
+      summary: List my active device sessions
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated sessions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ApiSession"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      tags: [Auth]
+      summary: Sign in with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                device_name:
+                  type: string
+                platform:
+                  type: string
+                  enum: [ios, android, other]
+                app_version:
+                  type: string
+      responses:
+        "201":
+          description: Signed in.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/AuthPayload"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+  /api/v1/sessions/current:
+    delete:
+      tags: [Auth]
+      summary: Revoke the current session
+      security:
+        - bearerAuth: []
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/sessions/{id}:
+    delete:
+      tags: [Auth]
+      summary: Revoke one of my sessions
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/session_refresh:
+    post:
+      tags: [Auth]
+      summary: Rotate the access and refresh tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refresh_token]
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        "200":
+          description: New token pair.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/AuthPayload"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+  /api/v1/registrations:
+    post:
+      tags: [Auth]
+      summary: Create an account
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user]
+              properties:
+                user:
+                  type: object
+                  required: [username, email, password, password_confirmation, terms_accepted]
+                  properties:
+                    username:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    password_confirmation:
+                      type: string
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    phone:
+                      type: string
+                    locale:
+                      type: string
+                    country_code:
+                      type: string
+                    marketing_opt_in:
+                      type: boolean
+                    terms_accepted:
+                      type: boolean
+      responses:
+        "201":
+          description: Account created (tokens or confirmation-required payload).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    oneOf:
+                      - $ref: "#/components/schemas/AuthPayload"
+                      - type: object
+                        properties:
+                          user:
+                            $ref: "#/components/schemas/User"
+                          confirmation_required:
+                            type: boolean
+                          message:
+                            type: string
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+  /api/v1/password_reset:
+    post:
+      tags: [Auth]
+      summary: Request password reset instructions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+      responses:
+        "202":
+          description: Generic acknowledgement.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+  /api/v1/google_sessions:
+    post:
+      tags: [Auth]
+      summary: Sign in with a Google ID token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id_token]
+              properties:
+                id_token:
+                  type: string
+                device_name:
+                  type: string
+                platform:
+                  type: string
+                app_version:
+                  type: string
+      responses:
+        "201":
+          description: Signed in.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/AuthPayload"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+  /api/v1/me:
+    get:
+      tags: [Auth]
+      summary: Current user profile
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    patch:
+      tags: [Auth]
+      summary: Update profile, locale and notification preferences
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  additionalProperties: true
+                notification_preferences:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      in_app:
+                        type: boolean
+                      email:
+                        type: boolean
+                avatar_signed_id:
+                  type: string
+      responses:
+        "200":
+          description: Updated profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/User"
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+    put:
+      tags: [Auth]
+      summary: Update the profile (alias of PATCH)
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Updated profile.
+    delete:
+      tags: [Auth]
+      summary: Delete the account
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                current_password:
+                  type: string
+                username:
+                  type: string
+      responses:
+        "200":
+          description: Account deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      deleted:
+                        type: boolean
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/device_tokens:
+    post:
+      tags: [Notifications]
+      summary: Register a push-notification device token
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token]
+              properties:
+                token:
+                  type: string
+                platform:
+                  type: string
+                  enum: [ios, android, other]
+      responses:
+        "201":
+          description: Token registered.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/DeviceToken"
+  /api/v1/device_tokens/{id}:
+    delete:
+      tags: [Notifications]
+      summary: Unregister a device token
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+  /api/v1/categories:
+    get:
+      tags: [Catalogue]
+      summary: Active category tree (cached)
+      responses:
+        "200":
+          description: Category tree.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Category"
+  /api/v1/categories/{id}:
+    get:
+      tags: [Catalogue]
+      summary: Category detail with effective filters and options
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Category and filters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      category:
+                        $ref: "#/components/schemas/Category"
+                      filters:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/AttributeDefinition"
+                      required_attribute_definition_ids:
+                        type: array
+                        items:
+                          type: integer
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/attribute_definitions:
+    get:
+      tags: [Catalogue]
+      summary: Attribute definitions and options
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated definitions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AttributeDefinition"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/tags:
+    get:
+      tags: [Catalogue]
+      summary: Active product labels and seller tags
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated tags.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Tag"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/regions:
+    get:
+      tags: [Catalogue]
+      summary: Regions for a country
+      parameters:
+        - name: country
+          in: query
+          schema:
+            type: string
+            default: ES
+      responses:
+        "200":
+          description: Paginated regions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Region"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/countries:
+    get:
+      tags: [Catalogue]
+      summary: Launched countries
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated countries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Country"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/listings:
+    get:
+      tags: [Catalogue]
+      summary: Search visible listings (same filters as the website)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: min_price
+          in: query
+          schema:
+            type: number
+        - name: max_price
+          in: query
+          schema:
+            type: number
+        - name: condition
+          in: query
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: tags
+          in: query
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: region
+          in: query
+          schema:
+            type: integer
+        - name: free_shipping
+          in: query
+          schema:
+            type: boolean
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum: [best_match, newest, price_asc, price_desc, popular]
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated listing cards with facets in meta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ListingCard"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/listings/{id}:
+    get:
+      tags: [Catalogue]
+      summary: Listing detail with resolved specs, seller, delivery estimate and similar ids
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Listing detail.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/ListingDetail"
+        "304":
+          description: Not modified.
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/stores/{id}:
+    get:
+      tags: [Catalogue]
+      summary: Public storefront
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Store detail.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/StoreDetail"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/stores/{store_id}/listings:
+    get:
+      tags: [Catalogue]
+      summary: Store-scoped listing search
+      parameters:
+        - name: store_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated listing cards.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ListingCard"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/stores/{store_id}/reviews:
+    get:
+      tags: [Catalogue]
+      summary: Store reviews
+      parameters:
+        - name: store_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: review_sort
+          in: query
+          schema:
+            type: string
+            enum: [newest, highest, lowest]
+        - $ref: "#/components/parameters/Page"
+      responses:
+        "200":
+          description: Paginated reviews.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Review"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/pc_finder/games:
+    get:
+      tags: [Catalogue]
+      summary: Games available in PC Finder
+      responses:
+        "200":
+          description: Paginated games.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Game"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/pc_finder/recommendations:
+    get:
+      tags: [Catalogue]
+      summary: PC Finder recommendations
+      parameters:
+        - name: game
+          in: query
+          schema:
+            type: string
+        - name: games
+          in: query
+          style: form
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: resolution
+          in: query
+          schema:
+            type: string
+            enum: [1080p, 1440p, 4k]
+        - name: fps
+          in: query
+          schema:
+            type: string
+            enum: ["60", "144", "240"]
+        - name: budget
+          in: query
+          schema:
+            type: string
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated recommendation cards.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ListingCard"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/legal_pages/{kind}:
+    get:
+      tags: [Catalogue]
+      summary: Current published legal page
+      parameters:
+        - name: kind
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: country
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Legal page.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/LegalPage"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/settings/public:
+    get:
+      tags: [Catalogue]
+      summary: Public client settings and feature flags
+      responses:
+        "200":
+          description: Public settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      min_price_cents:
+                        type: integer
+                      max_price_cents:
+                        type: integer
+                      buyer_protection_days:
+                        type: integer
+                      currency:
+                        type: string
+                      features:
+                        type: object
+                        properties:
+                          offers:
+                            type: boolean
+                          guest_checkout:
+                            type: boolean
+                          sell_to_us:
+                            type: boolean
+  /api/v1/favourites:
+    get:
+      tags: [Buyer]
+      summary: My favourites
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated favourites.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        listing_id:
+                          type: integer
+                        listing:
+                          $ref: "#/components/schemas/ListingCard"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+    post:
+      tags: [Buyer]
+      summary: Favourite a listing
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [listing_id]
+              properties:
+                listing_id:
+                  type: integer
+      responses:
+        "201":
+          description: Favourite created.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/favourites/{id}:
+    delete:
+      tags: [Buyer]
+      summary: Remove a favourite
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/follows:
+    get:
+      tags: [Buyer]
+      summary: Stores I follow
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated follows.
+    post:
+      tags: [Buyer]
+      summary: Follow a store
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [store_id]
+              properties:
+                store_id:
+                  type: string
+      responses:
+        "201":
+          description: Follow created.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/follows/{id}:
+    delete:
+      tags: [Buyer]
+      summary: Unfollow a store
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+  /api/v1/saved_searches:
+    get:
+      tags: [Buyer]
+      summary: My saved searches
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated saved searches.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SavedSearch"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+    post:
+      tags: [Buyer]
+      summary: Save a search
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [saved_search]
+              properties:
+                saved_search:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    category_id:
+                      type: integer
+                    frequency:
+                      type: string
+                      enum: [instant, daily, weekly]
+                    email_alerts:
+                      type: boolean
+                    query_params:
+                      type: object
+                      additionalProperties: true
+      responses:
+        "201":
+          description: Saved search created.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/saved_searches/{id}:
+    patch:
+      tags: [Buyer]
+      summary: Update a saved search
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                saved_search:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "200":
+          description: Updated saved search.
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      tags: [Buyer]
+      summary: Update a saved search (alias of PATCH)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Updated saved search.
+    delete:
+      tags: [Buyer]
+      summary: Delete a saved search
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+  /api/v1/cart:
+    get:
+      tags: [Buyer]
+      summary: My basket
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Basket.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Cart"
+  /api/v1/cart_items:
+    post:
+      tags: [Buyer]
+      summary: Add a listing to the basket
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [listing_id]
+              properties:
+                listing_id:
+                  type: integer
+                quantity:
+                  type: integer
+                offer_id:
+                  type: integer
+      responses:
+        "201":
+          description: Item added.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/CartItem"
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+        "404":
+          $ref: "#/components/responses/FeatureDisabled"
+  /api/v1/cart_items/{id}:
+    patch:
+      tags: [Buyer]
+      summary: Change an item quantity (zero removes it)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [quantity]
+              properties:
+                quantity:
+                  type: integer
+      responses:
+        "200":
+          description: Updated item or removed marker.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+    put:
+      tags: [Buyer]
+      summary: Change an item quantity (alias of PATCH)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Updated item.
+    delete:
+      tags: [Buyer]
+      summary: Remove an item
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+  /api/v1/addresses:
+    get:
+      tags: [Buyer]
+      summary: My addresses
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated addresses.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Address"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+    post:
+      tags: [Buyer]
+      summary: Create an address
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [address]
+              properties:
+                address:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "201":
+          description: Address created.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/addresses/{id}:
+    patch:
+      tags: [Buyer]
+      summary: Update an address
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                address:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "200":
+          description: Updated address.
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      tags: [Buyer]
+      summary: Update an address (alias of PATCH)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Updated address.
+    delete:
+      tags: [Buyer]
+      summary: Delete an address
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+  /api/v1/checkouts:
+    post:
+      tags: [Buyer]
+      summary: Start a checkout and return PaymentSheet details
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [terms_accepted]
+              properties:
+                email:
+                  type: string
+                address_id:
+                  type: integer
+                save_address:
+                  type: boolean
+                terms_accepted:
+                  type: boolean
+                idempotency_key:
+                  type: string
+                buy_now_listing_id:
+                  type: integer
+                address:
+                  type: object
+                  additionalProperties: true
+                fulfilment:
+                  type: object
+                  additionalProperties:
+                    type: string
+      responses:
+        "201":
+          description: Checkout and Stripe PaymentSheet details.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      checkout:
+                        $ref: "#/components/schemas/Checkout"
+                      payment:
+                        $ref: "#/components/schemas/PaymentSheet"
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/checkouts/{id}:
+    get:
+      tags: [Buyer]
+      summary: Poll a checkout status
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Checkout.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Checkout"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/orders:
+    get:
+      tags: [Buyer]
+      summary: My orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated orders.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Order"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/orders/{id}:
+    get:
+      tags: [Buyer]
+      summary: Order detail
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Order.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Order"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/orders/{order_id}/delivery_confirmation:
+    post:
+      tags: [Buyer]
+      summary: Confirm delivery
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Delivered order.
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/orders/{order_id}/cancellation:
+    post:
+      tags: [Buyer]
+      summary: Cancel an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+      responses:
+        "200":
+          description: Cancelled order.
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/orders/{order_id}/problem_report:
+    post:
+      tags: [Buyer]
+      summary: Report a problem with an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                details:
+                  type: string
+      responses:
+        "202":
+          description: Report recorded.
+  /api/v1/orders/{order_id}/review:
+    post:
+      tags: [Buyer]
+      summary: Create a review
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [review]
+              properties:
+                review:
+                  type: object
+                  required: [rating, body]
+                  properties:
+                    rating:
+                      type: integer
+                    body:
+                      type: string
+      responses:
+        "201":
+          description: Review created.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+    patch:
+      tags: [Buyer]
+      summary: Update a review
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Review updated.
+    put:
+      tags: [Buyer]
+      summary: Update a review (alias of PATCH)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Review updated.
+  /api/v1/store:
+    get:
+      tags: [Seller]
+      summary: My store
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: My store.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/StoreDetail"
+    post:
+      tags: [Seller]
+      summary: Create my store
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [store]
+              properties:
+                store:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "201":
+          description: Store created.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+    patch:
+      tags: [Seller]
+      summary: Update my store
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store:
+                  type: object
+                  additionalProperties: true
+                logo_signed_id:
+                  type: string
+      responses:
+        "200":
+          description: Updated store.
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      tags: [Seller]
+      summary: Update my store (alias of PATCH)
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Updated store.
+  /api/v1/vacation:
+    get:
+      tags: [Seller]
+      summary: Vacation mode
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Vacation settings.
+    patch:
+      tags: [Seller]
+      summary: Update vacation mode
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store:
+                  type: object
+                  properties:
+                    vacation_mode:
+                      type: boolean
+                    vacation_message:
+                      type: string
+                    vacation_until:
+                      type: string
+                      format: date
+      responses:
+        "200":
+          description: Updated vacation settings.
+    put:
+      tags: [Seller]
+      summary: Update vacation mode (alias of PATCH)
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Updated vacation settings.
+  /api/v1/stripe_connect:
+    post:
+      tags: [Seller]
+      summary: Create a Stripe Connect onboarding link
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Onboarding URL.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/direct_uploads:
+    post:
+      tags: [Seller]
+      summary: Create an Active Storage direct upload
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [blob]
+              properties:
+                blob:
+                  type: object
+                  required: [filename, byte_size, checksum, content_type]
+                  properties:
+                    filename:
+                      type: string
+                    byte_size:
+                      type: integer
+                    checksum:
+                      type: string
+                    content_type:
+                      type: string
+                    metadata:
+                      type: object
+                      additionalProperties: true
+      responses:
+        "201":
+          description: Blob and upload instructions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      signed_id:
+                        type: string
+                      direct_upload:
+                        type: object
+                        properties:
+                          url:
+                            type: string
+                          headers:
+                            type: object
+                            additionalProperties:
+                              type: string
+  /api/v1/sell/listings:
+    get:
+      tags: [Seller]
+      summary: My listings by status tab
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: tab
+          in: query
+          schema:
+            type: string
+            enum: [active, pending_review, drafts, rejected, sold, archived]
+        - name: q
+          in: query
+          schema:
+            type: string
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated listings and tab counts.
+    post:
+      tags: [Seller]
+      summary: Create a draft
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                step:
+                  type: string
+                  enum: [category, photos, details, price, review]
+                listing:
+                  type: object
+                  additionalProperties: true
+      responses:
+        "201":
+          description: Draft created.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/sell/listings/{id}:
+    patch:
+      tags: [Seller]
+      summary: Save one wizard step
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                step:
+                  type: string
+                  enum: [category, photos, details, price, review]
+                listing:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    price:
+                      type: string
+                    photo_signed_ids:
+                      type: array
+                      items:
+                        type: string
+                    photo_order:
+                      type: array
+                      items:
+                        type: integer
+                    remove_photo_ids:
+                      type: array
+                      items:
+                        type: integer
+      responses:
+        "200":
+          description: Listing updated.
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+    put:
+      tags: [Seller]
+      summary: Save one wizard step (alias of PATCH)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Listing updated.
+    delete:
+      tags: [Seller]
+      summary: Delete a draft (archive other states)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/sell/listings/{listing_id}/submission:
+    post:
+      tags: [Seller]
+      summary: Submit a listing for review
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: listing_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Submitted listing.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/sell/listings/{listing_id}/archival:
+    post:
+      tags: [Seller]
+      summary: Archive a listing
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: listing_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Archived listing.
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/sell/listings/{listing_id}/republication:
+    post:
+      tags: [Seller]
+      summary: Republish an archived listing
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: listing_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Republished listing.
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/sell/orders:
+    get:
+      tags: [Seller]
+      summary: My sales
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated sales.
+  /api/v1/sell/orders/{id}:
+    get:
+      tags: [Seller]
+      summary: Sale detail
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Order.
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/sell/orders/{order_id}/shipment:
+    post:
+      tags: [Seller]
+      summary: Ship an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                carrier:
+                  type: string
+                tracking_number:
+                  type: string
+      responses:
+        "200":
+          description: Shipped order.
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/sell/orders/{order_id}/cancellation:
+    post:
+      tags: [Seller]
+      summary: Cancel a sale
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Cancelled order.
+        "409":
+          $ref: "#/components/responses/Conflict"
+  /api/v1/sell/analytics:
+    get:
+      tags: [Seller]
+      summary: Seller analytics summary
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: range
+          in: query
+          schema:
+            type: integer
+            enum: [7, 30, 90]
+      responses:
+        "200":
+          description: Analytics summary.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Analytics"
+  /api/v1/conversations:
+    get:
+      tags: [Messaging]
+      summary: My conversations
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: tab
+          in: query
+          schema:
+            type: string
+            enum: [chats, offers, blocked]
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated conversations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Conversation"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+    post:
+      tags: [Messaging]
+      summary: Start a conversation
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                listing_id:
+                  type: integer
+                store_id:
+                  type: string
+      responses:
+        "201":
+          description: Conversation.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/conversations/{id}:
+    get:
+      tags: [Messaging]
+      summary: Conversation with recent messages and offers
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Conversation thread.
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/conversations/{conversation_id}/messages:
+    get:
+      tags: [Messaging]
+      summary: Cursor-paginated messages
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - $ref: "#/components/parameters/BeforeId"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Messages oldest first with cursor meta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Message"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+    post:
+      tags: [Messaging]
+      summary: Send a message with optional image signed ids
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: object
+                  properties:
+                    body:
+                      type: string
+                    image_signed_ids:
+                      type: array
+                      items:
+                        type: string
+      responses:
+        "201":
+          description: Message created.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/conversations/{conversation_id}/read:
+    post:
+      tags: [Messaging]
+      summary: Mark a conversation as read
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: conversation_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Read counters.
+  /api/v1/offers:
+    post:
+      tags: [Messaging]
+      summary: Make an offer
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [listing_id, amount]
+              properties:
+                listing_id:
+                  type: integer
+                amount:
+                  type: string
+                message:
+                  type: string
+      responses:
+        "201":
+          description: Offer created.
+        "404":
+          $ref: "#/components/responses/FeatureDisabled"
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/offers/{id}:
+    patch:
+      tags: [Messaging]
+      summary: Accept, decline, counter or withdraw an offer
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision]
+              properties:
+                decision:
+                  type: string
+                  enum: [accept, decline, counter, withdraw]
+                amount:
+                  type: string
+                message:
+                  type: string
+      responses:
+        "200":
+          description: Updated offer.
+        "404":
+          $ref: "#/components/responses/FeatureDisabled"
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+    put:
+      tags: [Messaging]
+      summary: Respond to an offer (alias of PATCH)
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Updated offer.
+  /api/v1/blocks:
+    get:
+      tags: [Messaging]
+      summary: Blocked users
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Paginated blocks.
+    post:
+      tags: [Messaging]
+      summary: Block a user
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [blocked_user_id]
+              properties:
+                blocked_user_id:
+                  type: integer
+      responses:
+        "201":
+          description: Block created.
+  /api/v1/blocks/{id}:
+    delete:
+      tags: [Messaging]
+      summary: Unblock a user
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          $ref: "#/components/responses/NoContent"
+  /api/v1/reports:
+    post:
+      tags: [Messaging]
+      summary: Submit a DSA report
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reportable_type, reportable_id, reason, details]
+              properties:
+                reportable_type:
+                  type: string
+                  enum: [Listing, Store, Message, User, Review]
+                reportable_id:
+                  type: integer
+                reason:
+                  type: string
+                  enum: [illegal_content, counterfeit, stolen_goods, scam_fraud, prohibited_item, misleading, harassment, spam, ip_infringement, other]
+                details:
+                  type: string
+      responses:
+        "201":
+          description: Report recorded.
+        "422":
+          $ref: "#/components/responses/ValidationFailed"
+  /api/v1/notifications:
+    get:
+      tags: [Notifications]
+      summary: Cursor-paginated notifications
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/BeforeId"
+        - $ref: "#/components/parameters/PerPage"
+      responses:
+        "200":
+          description: Notifications oldest first with cursor meta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Notification"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+  /api/v1/notifications/{notification_id}/read:
+    post:
+      tags: [Notifications]
+      summary: Mark one notification as read
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: notification_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Updated notification.
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /api/v1/notifications/read_all:
+    post:
+      tags: [Notifications]
+      summary: Mark every notification as read
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Marked count and zero unread.
+  /api/v1/notifications/unread_count:
+    get:
+      tags: [Notifications]
+      summary: Unread notification count
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Unread count.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      unread_count:
+                        type: integer

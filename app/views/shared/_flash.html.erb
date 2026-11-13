@@ -1,0 +1,28 @@
+<% flash.each do |type, message| %>
+  <% next if message.blank? %>
+  <% alert = type.to_s == "alert" %>
+  <div data-controller="flash"
+       data-flash-delay-value="5000"
+       role="<%= alert ? "alert" : "status" %>"
+       class="mb-6 flex items-start gap-3 rounded-xl border px-4 py-3 text-sm <%= alert ? "border-danger/30 bg-danger-soft text-danger" : "border-success/30 bg-success-soft text-success" %>">
+    <span class="mt-0.5 shrink-0">
+      <% if alert %>
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 7v6M12 17h.01" stroke-linecap="round"></path>
+        </svg>
+      <% else %>
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="m8 12 2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      <% end %>
+    </span>
+    <p class="flex-1 font-medium"><%= message %></p>
+    <button type="button" data-action="flash#dismiss" class="shrink-0 rounded-lg p-1 transition hover:bg-black/5 dark:hover:bg-white/10" aria-label="<%= t("flash.dismiss") %>">
+      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18" stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </div>
+<% end %>

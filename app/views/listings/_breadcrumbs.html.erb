@@ -1,0 +1,16 @@
+<nav aria-label="<%= t("listings.breadcrumb.label") %>">
+  <ol class="flex flex-wrap items-center gap-1.5 text-sm text-muted">
+    <% trail.each_with_index do |(label, path), index| %>
+      <li class="flex items-center gap-1.5">
+        <% if index.positive? %>
+          <span aria-hidden="true" class="text-border">/</span>
+        <% end %>
+        <% if index == trail.length - 1 %>
+          <span aria-current="page" class="line-clamp-1 font-medium text-content"><%= label %></span>
+        <% else %>
+          <%= link_to label, path, class: "transition hover:text-primary-700 dark:hover:text-primary-300" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+</nav>

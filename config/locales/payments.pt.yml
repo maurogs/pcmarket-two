@@ -1,0 +1,71 @@
+pt:
+  payments:
+    test_mode:
+      banner: "Os pagamentos de teste estão ativos. Não será cobrado dinheiro real."
+  checkout:
+    flash:
+      redirect_to_payment: "O teu carrinho está reservado. Continua para o pagamento para finalizar a encomenda."
+    payment:
+      stripe_title: "Pagamento seguro com cartão"
+      stripe_body: "Serás redirecionado para o formulário de pagamento seguro da Stripe para introduzir os dados do cartão."
+      continue: "Continuar para o pagamento"
+    payment_page:
+      title: "Conclui o teu pagamento"
+      body: "Introduz os dados do cartão abaixo. Os teus artigos ficam reservados durante o pagamento."
+      card_title: "Dados de pagamento"
+      pay: "Pagar agora"
+      processing: "A processar…"
+      error_fallback: "Não foi possível processar o pagamento. Verifica os dados e tenta novamente."
+      confirming_title: "A confirmar o teu pagamento"
+      confirming_body: "Estamos a confirmar o pagamento com o fornecedor. Esta página será atualizada em breve."
+  store_payments:
+    show:
+      title: "Recebimentos"
+      subtitle: "Liga a tua loja à Stripe para que os compradores te possam pagar e receberes os pagamentos."
+      setup: "Configurar recebimentos"
+      statuses:
+        setup: "Recebimentos não configurados"
+        test_mode: "Modo de teste"
+        pending: "Verificação pendente"
+        enabled: "Recebimentos ativados"
+        action_required: "Ação necessária"
+      requirements_title: "Informações ainda necessárias pela Stripe"
+      explanation: "Os compradores não podem fazer encomendas na tua loja até os recebimentos serem ativados."
+      not_configured: "A Stripe não está configurada neste ambiente. Adiciona as chaves secreta e publicável para ativar os recebimentos reais."
+      test_mode: "Os pagamentos são simulados em desenvolvimento, pelo que não é necessária uma conta Stripe nem configurar recebimentos."
+    requirements:
+      external_account: "Uma conta bancária para recebimentos"
+      business_profile:
+        mcc: "Código de categoria da atividade"
+        url: "Website da atividade"
+      company:
+        tax_id: "Número de contribuinte da empresa"
+      individual:
+        id_number: "Número do documento de identificação"
+        verification:
+          document: "Documento de identificação"
+          additional_document: "Documento de identificação adicional"
+      tos_acceptance:
+        date: "Aceitação dos termos da Stripe"
+        ip: "Aceitação dos termos da Stripe (confirmação de IP)"
+    errors:
+      onboarding_failed: "Não foi possível iniciar a configuração dos recebimentos. Tenta novamente ou contacta o suporte."
+  stores:
+    tabs:
+      label: "Secções das definições da loja"
+      profile: "Perfil"
+      payments: "Recebimentos"
+  cart:
+    errors:
+      payouts_not_enabled: "Este vendedor ainda não pode aceitar pagamentos."
+    unavailable:
+      reasons:
+        payouts_not_enabled: "O vendedor ainda não ativou os recebimentos."
+    purchase_blocked:
+      payouts_not_enabled: "Este vendedor ainda não está pronto para receber pagamentos."
+  order_mailer:
+    dispute_alert:
+      subject: "Contestação de pagamento aberta para a encomenda %{number}"
+      greeting: "Olá,"
+      body: "Foi aberta uma contestação de pagamento para a encomenda %{number} de %{store}. Analisa o caso na Stripe e contacta o comprador e o vendedor, se necessário."
+      closing: "Resolve a contestação rapidamente para proteger os fundos do marketplace."

@@ -1,0 +1,7 @@
+<p style="margin: 0 0 12px; font-size: 18px; font-weight: 700;"><%= t("legal_page_mailer.notice.heading") %></p>
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6;"><%= t("legal_page_mailer.notice.intro", title: @legal_page.title) %></p>
+<p style="margin: 0 0 16px; font-size: 14px; line-height: 1.6;"><%= t("legal_page_mailer.notice.effective", date: l(@legal_page.effective_at || @legal_page.published_at, format: :long)) %></p>
+<div style="margin: 0 0 16px; font-size: 14px; line-height: 1.7;">
+  <%= simple_format(@legal_page.plain_body) %>
+</div>
+<p style="margin: 0; font-size: 12px; color: #52607a;"><%= t("legal_page_mailer.notice.footer") %></p>

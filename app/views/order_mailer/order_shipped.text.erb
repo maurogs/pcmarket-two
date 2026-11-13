@@ -1,0 +1,9 @@
+<%= t("order_mailer.order_shipped.greeting", name: @order.checkout.shipping_address["full_name"]) %>
+
+<%= t("order_mailer.order_shipped.body", number: @order.number, store: @order.store.name) %>
+
+<%= render "order_mailer/order_details", order: @order %>
+
+<%= t("order_mailer.order_shipped.cta") %>: <%= order_url(@order, locale: @locale) %>
+
+<%= t("order_mailer.order_shipped.closing") %>

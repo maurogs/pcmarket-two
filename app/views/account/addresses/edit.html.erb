@@ -1,0 +1,16 @@
+<% set_meta_tags(title: t("account.addresses.edit"), noindex: true) %>
+
+<div class="mx-auto max-w-2xl space-y-6">
+  <nav class="text-sm">
+    <%= link_to t("account.addresses.back"), account_addresses_path, class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+  </nav>
+
+  <header>
+    <h1 class="text-3xl font-extrabold tracking-tight"><%= t("account.addresses.edit") %></h1>
+    <p class="mt-2 text-sm text-muted"><%= t("account.addresses.form.subtitle") %></p>
+  </header>
+
+  <%= form_with model: @address, url: account_address_path(@address), method: :patch, class: "space-y-5 rounded-2xl border border-border bg-surface p-5 sm:p-6" do |form| %>
+    <%= render "form", form: form, address: @address, regions: @regions %>
+  <% end %>
+</div>

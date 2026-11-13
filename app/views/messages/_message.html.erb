@@ -1,0 +1,41 @@
+<% if message.event? %>
+  <div id="<%= dom_id(message) %>" class="my-2 flex justify-center">
+    <p class="rounded-full bg-surface-muted px-3 py-1 text-center text-[11px] font-medium text-muted">
+      <%= message_text(message) %>
+    </p>
+  </div>
+<% else %>
+  <div id="<%= dom_id(message) %>"
+       data-chat-message
+       data-chat-sender-id="<%= message.sender_id %>"
+       class="flex">
+    <div data-chat-bubble
+         class="max-w-[85%] rounded-2xl border border-border bg-surface-muted px-3 py-2 text-sm text-content">
+      <p class="whitespace-pre-line break-words"><%= message.body %></p>
+
+      <% if message.images.attached? %>
+        <div class="mt-2 grid grid-cols-2 gap-2">
+          <% message.images.each do |image| %>
+            <%= image_tag url_for(image), alt: "", class: "h-28 w-full rounded-lg object-cover" %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if message.safety_warning? %>
+        <p data-chat-safety
+           data-chat-sender-id="<%= message.sender_id %>"
+           class="mt-2 rounded-lg border border-warning/40 bg-warning-soft px-2 py-1 text-[11px] font-semibold text-warning">
+          <%= t("messages.safety_warning") %>
+        </p>
+      <% end %>
+
+      <div class="mt-1 flex items-center justify-end gap-2 text-[10px] text-muted">
+        <% if message.read_at.present? %>
+          <span data-chat-read-receipt class="hidden"><%= t("messages.read") %></span>
+        <% end %>
+        <time datetime="<%= message.created_at.iso8601 %>"><%= l(message.created_at, format: :short) %></time>
+        <%= link_to t("reports.link"), message_report_path(message), class: "underline-offset-2 hover:underline" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,56 @@
+<% set_meta_tags(title: @page.title, description: t("legal_pages.public.meta_description", title: @page.title), canonical: legal_page_url(kind: @page.kind, locale: I18n.locale)) %>
+<% breadcrumbs = legal_page_breadcrumbs(@page) %>
+<% body_html, toc = legal_page_body_and_toc(@page) %>
+
+<div class="space-y-8">
+  <%= render "listings/breadcrumbs", trail: breadcrumbs %>
+
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
+    <article class="min-w-0">
+      <header class="border-b border-border pb-6">
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("legal_pages.public.eyebrow") %></p>
+        <h1 class="mt-1 text-3xl font-extrabold tracking-tight sm:text-4xl"><%= @page.title %></h1>
+        <div class="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
+          <span><%= t("legal_pages.public.effective_from") %> <strong class="font-semibold text-content"><%= legal_page_date(@page) %></strong></span>
+          <span><%= t("legal_pages.public.version", version: @page.version) %></span>
+          <span><%= @country&.name %></span>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2">
+          <%= link_to t("legal_pages.public.versions_link"), legal_page_versions_path(kind: @page.kind),
+                      class: "inline-flex rounded-xl border border-border bg-surface px-3 py-2 text-sm font-semibold text-content transition hover:border-primary-300 hover:text-primary-700 dark:hover:border-primary-700 dark:hover:text-primary-300" %>
+          <button type="button"
+                  data-controller="print"
+                  data-action="print#print"
+                  class="inline-flex rounded-xl border border-border bg-surface px-3 py-2 text-sm font-semibold text-content transition hover:border-primary-300 hover:text-primary-700 dark:hover:border-primary-700 dark:hover:text-primary-300">
+            <%= t("legal_pages.public.print") %>
+          </button>
+        </div>
+      </header>
+
+      <div class="legal-copy mt-6">
+        <%= body_html %>
+      </div>
+    </article>
+
+    <aside class="min-w-0 lg:sticky lg:top-24 lg:self-start">
+      <nav aria-label="<%= t("legal_pages.public.toc") %>" class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-sm font-bold uppercase tracking-widest text-muted"><%= t("legal_pages.public.toc") %></h2>
+        <% if toc.any? %>
+          <ol class="mt-3 space-y-2 text-sm">
+            <% toc.each do |entry| %>
+              <li class="<%= entry[:level] == 3 ? "pl-4 text-xs" : "font-medium" %>">
+                <%= link_to entry[:title], "##{entry[:id]}",
+                            class: "text-content transition hover:text-primary-700 dark:hover:text-primary-300" %>
+              </li>
+            <% end %>
+          </ol>
+        <% else %>
+          <p class="mt-3 text-sm text-muted"><%= t("legal_pages.public.no_toc") %></p>
+        <% end %>
+      </nav>
+
+      <p class="mt-4 text-xs leading-relaxed text-muted"><%= t("legal_pages.public.help_note") %></p>
+      <%= link_to t("contact.title"), contact_messages_path, class: "mt-2 inline-flex text-sm font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+    </aside>
+  </div>
+</div>

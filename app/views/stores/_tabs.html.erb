@@ -1,0 +1,17 @@
+<nav aria-label="<%= t("stores.tabs.label") %>" class="flex flex-wrap gap-2 border-b border-border pb-3">
+  <%= link_to t("stores.tabs.profile"), edit_store_path,
+              class: class_names(
+                "rounded-xl px-3 py-2 text-sm font-semibold transition",
+                current_page?(edit_store_path) ? "bg-primary-600 text-white" : "text-muted hover:bg-surface-muted hover:text-content"
+              ) %>
+  <%= link_to t("stores.tabs.payments"), store_payment_path,
+              class: class_names(
+                "rounded-xl px-3 py-2 text-sm font-semibold transition",
+                current_page?(store_payment_path) ? "bg-primary-600 text-white" : "text-muted hover:bg-surface-muted hover:text-content"
+              ) %>
+  <%= link_to t("stores.tabs.vacation"), store_vacation_path,
+              class: class_names(
+                "rounded-xl px-3 py-2 text-sm font-semibold transition",
+                current_page?(store_vacation_path) ? "bg-primary-600 text-white" : "text-muted hover:bg-surface-muted hover:text-content"
+              ) %>
+</nav>

@@ -1,0 +1,128 @@
+<% set_meta_tags(title: t("sell.dashboard.title"), noindex: true) %>
+<% analytics = @analytics %>
+
+<div class="grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
+  <aside class="space-y-4 lg:sticky lg:top-24 lg:self-start">
+    <%= render "sell/shared/nav" %>
+  </aside>
+
+  <div class="min-w-0 space-y-6">
+    <header class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("sell.dashboard.eyebrow") %></p>
+        <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("sell.dashboard.title") %></h1>
+        <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("sell.dashboard.subtitle", store: @store.name) %></p>
+      </div>
+
+      <nav aria-label="<%= t("sell.dashboard.range_label") %>" class="inline-flex rounded-xl border border-border bg-surface p-1">
+        <% Sell::Analytics::RANGES.each do |range| %>
+          <%= link_to analytics_range_label(range),
+                      sell_dashboard_path(range: range),
+                      aria: { current: (analytics.range == range ? "page" : nil) },
+                      class: "rounded-lg px-3 py-1.5 text-sm font-semibold transition #{analytics.range == range ? "bg-primary-600 text-white" : "text-muted hover:bg-surface-muted hover:text-content"}" %>
+        <% end %>
+      </nav>
+    </header>
+
+    <section class="grid grid-cols-2 gap-3 xl:grid-cols-4">
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.dashboard.kpis.revenue") %></p>
+        <p class="mt-2 text-2xl font-extrabold tracking-tight"><%= money(analytics.revenue_cents, currency: "EUR") %></p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.dashboard.kpis.orders") %></p>
+        <p class="mt-2 text-2xl font-extrabold tracking-tight"><%= analytics.orders_count %></p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.dashboard.kpis.units") %></p>
+        <p class="mt-2 text-2xl font-extrabold tracking-tight"><%= analytics.units_sold %></p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.dashboard.kpis.average_order") %></p>
+        <p class="mt-2 text-2xl font-extrabold tracking-tight"><%= money(analytics.average_order_cents, currency: "EUR") %></p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.dashboard.kpis.views") %></p>
+        <p class="mt-2 text-2xl font-extrabold tracking-tight"><%= analytics.views %></p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.dashboard.kpis.conversion") %></p>
+        <p class="mt-2 text-2xl font-extrabold tracking-tight"><%= analytics_percent(analytics.conversion_rate) %></p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.dashboard.kpis.favourites") %></p>
+        <p class="mt-2 text-2xl font-extrabold tracking-tight"><%= analytics.favourites_gained %></p>
+      </div>
+      <div class="rounded-2xl border border-border bg-surface p-4">
+        <p class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("sell.dashboard.kpis.followers") %></p>
+        <p class="mt-2 text-2xl font-extrabold tracking-tight"><%= analytics.new_followers %></p>
+      </div>
+    </section>
+
+    <%= render "sell/dashboards/revenue_chart", analytics: analytics %>
+
+    <div class="grid gap-4 xl:grid-cols-2">
+      <section class="min-w-0 rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-base font-bold"><%= t("sell.dashboard.top_by_views.title") %></h2>
+        <% if analytics.top_by_views.any? %>
+          <ol class="mt-3 divide-y divide-border">
+            <% analytics.top_by_views.each_with_index do |entry, index| %>
+              <li class="flex items-center gap-3 py-2.5 text-sm">
+                <span class="w-5 shrink-0 text-xs font-bold text-muted"><%= index + 1 %></span>
+                <span class="min-w-0 flex-1 truncate">
+                  <%= link_to entry[:listing].title, listing_path(entry[:listing]),
+                              class: "font-medium text-content hover:text-primary-700 dark:hover:text-primary-300" %>
+                </span>
+                <span class="shrink-0 font-semibold tabular-nums"><%= t("sell.dashboard.top_by_views.metric", count: entry[:value]) %></span>
+              </li>
+            <% end %>
+          </ol>
+        <% else %>
+          <p class="mt-2 text-sm text-muted"><%= t("sell.dashboard.top_by_views.empty") %></p>
+        <% end %>
+      </section>
+
+      <section class="min-w-0 rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-base font-bold"><%= t("sell.dashboard.top_by_revenue.title") %></h2>
+        <% if analytics.top_by_revenue.any? %>
+          <ol class="mt-3 divide-y divide-border">
+            <% analytics.top_by_revenue.each_with_index do |entry, index| %>
+              <li class="flex items-center gap-3 py-2.5 text-sm">
+                <span class="w-5 shrink-0 text-xs font-bold text-muted"><%= index + 1 %></span>
+                <span class="min-w-0 flex-1 truncate">
+                  <%= link_to entry[:listing].title, listing_path(entry[:listing]),
+                              class: "font-medium text-content hover:text-primary-700 dark:hover:text-primary-300" %>
+                </span>
+                <span class="shrink-0 font-semibold tabular-nums"><%= money(entry[:value], currency: "EUR") %></span>
+              </li>
+            <% end %>
+          </ol>
+        <% else %>
+          <p class="mt-2 text-sm text-muted"><%= t("sell.dashboard.top_by_revenue.empty") %></p>
+        <% end %>
+      </section>
+    </div>
+
+    <section class="min-w-0 rounded-2xl border border-border bg-surface p-5">
+      <h2 class="text-base font-bold"><%= t("sell.dashboard.pending.title") %></h2>
+      <div class="mt-3 grid gap-2 sm:grid-cols-2">
+        <%= link_to sell_orders_path(status: "paid"), class: "flex min-h-11 items-center justify-between gap-3 rounded-xl bg-surface-muted px-3 py-2.5 text-sm transition hover:bg-primary-50 dark:hover:bg-primary-900/30" do %>
+          <span><%= t("sell.dashboard.pending.orders_to_ship") %></span>
+          <span class="font-bold tabular-nums"><%= analytics.pending[:orders_to_ship] %></span>
+        <% end %>
+        <%= link_to conversations_path(tab: "offers"), class: "flex min-h-11 items-center justify-between gap-3 rounded-xl bg-surface-muted px-3 py-2.5 text-sm transition hover:bg-primary-50 dark:hover:bg-primary-900/30" do %>
+          <span><%= t("sell.dashboard.pending.offers_to_answer") %></span>
+          <span class="font-bold tabular-nums"><%= analytics.pending[:offers_to_answer] %></span>
+        <% end %>
+        <%= link_to conversations_path, class: "flex min-h-11 items-center justify-between gap-3 rounded-xl bg-surface-muted px-3 py-2.5 text-sm transition hover:bg-primary-50 dark:hover:bg-primary-900/30" do %>
+          <span><%= t("sell.dashboard.pending.unread_messages") %></span>
+          <span class="font-bold tabular-nums"><%= analytics.pending[:unread_messages] %></span>
+        <% end %>
+        <%= link_to sell_listings_path(tab: "rejected"), class: "flex min-h-11 items-center justify-between gap-3 rounded-xl bg-surface-muted px-3 py-2.5 text-sm transition hover:bg-primary-50 dark:hover:bg-primary-900/30" do %>
+          <span><%= t("sell.dashboard.pending.rejected_listings") %></span>
+          <span class="font-bold tabular-nums"><%= analytics.pending[:rejected_listings] %></span>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

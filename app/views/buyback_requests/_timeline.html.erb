@@ -1,0 +1,11 @@
+<ol class="space-y-2" aria-label="<%= t("buyback.timeline.label") %>">
+  <% request.timeline.each do |entry| %>
+    <li class="flex flex-wrap items-center gap-3 rounded-xl border px-3 py-2 text-sm <%= buyback_timeline_state_class(entry[:state]) %>">
+      <span class="inline-flex h-2.5 w-2.5 shrink-0 rounded-full bg-current" aria-hidden="true"></span>
+      <span class="font-semibold"><%= buyback_status_label(entry[:key]) %></span>
+      <% if entry[:at].present? %>
+        <time class="ml-auto text-xs" datetime="<%= entry[:at].iso8601 %>"><%= l(entry[:at], format: :short) %></time>
+      <% end %>
+    </li>
+  <% end %>
+</ol>

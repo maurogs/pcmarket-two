@@ -1,0 +1,9 @@
+<%= t("offer_mailer.#{@event}.greeting", name: @recipient.display_name) %>
+
+<%= t("offer_mailer.#{@event}.body",
+      title: @listing.title,
+      amount: money(@offer.amount_cents, currency: @listing.currency)) %>
+
+<%= t("offer_mailer.#{@event}.cta") %>: <%= @cta_url %>
+
+<%= t("offer_mailer.#{@event}.closing") %>

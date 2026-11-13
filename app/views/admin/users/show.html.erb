@@ -1,0 +1,170 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div class="min-w-0">
+      <%= link_to t("admin.users.show.back"), admin_users_path, class: "text-sm font-semibold text-primary-700 underline-offset-2 hover:underline dark:text-primary-300" %>
+      <h1 class="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl"><%= @user.display_name %></h1>
+      <p class="mt-1 break-all text-sm text-muted">@<%= @user.username %> · <%= @user.email %> · #<%= @user.id %></p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <%= link_to t("admin.common.edit"), edit_admin_user_path(@user), class: "btn-primary" %>
+      <% if @user.id != current_user.id && !@user.admin? && !@user.soft_deleted? %>
+        <%= button_to t("admin.users.show.impersonate"), admin_impersonation_path(user_id: @user.id), method: :post, class: "btn-accent" %>
+      <% end %>
+    </div>
+  </header>
+
+  <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_24rem]">
+    <div class="min-w-0 space-y-6">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.profile_title") %></h2>
+        <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.role") %></dt><dd class="mt-1 font-semibold"><%= admin_user_role_label(@user.role) %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.status") %></dt><dd class="mt-1 font-semibold"><%= admin_user_status_label(@user.soft_deleted? ? "deleted" : (@user.banned? ? "banned" : (@user.confirmed_at.nil? ? "unconfirmed" : "active"))) %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.locale") %></dt><dd class="mt-1"><%= t("locale.names.#{@user.locale}") %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.country") %></dt><dd class="mt-1"><%= @user.country_code %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.phone") %></dt><dd class="mt-1"><%= @user.phone.presence || "—" %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.created") %></dt><dd class="mt-1"><%= l(@user.created_at, format: :long) %></dd></div>
+        </dl>
+        <% if @user.banned? %>
+          <p class="mt-4 rounded-xl border border-danger/30 bg-danger-soft p-3 text-sm text-danger"><%= t("admin.users.show.ban_reason", reason: @user.ban_reason) %></p>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.sign_in_title") %></h2>
+        <dl class="mt-3 grid gap-3 text-sm sm:grid-cols-2">
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.sign_in_count") %></dt><dd class="mt-1 font-semibold"><%= @user.sign_in_count %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.last_sign_in") %></dt><dd class="mt-1"><%= @user.last_sign_in_at ? l(@user.last_sign_in_at, format: :long) : t("admin.users.never_signed_in") %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.last_ip") %></dt><dd class="mt-1"><%= @user.last_sign_in_ip.presence || "—" %></dd></div>
+          <div><dt class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.confirmed_at") %></dt><dd class="mt-1"><%= @user.confirmed_at ? l(@user.confirmed_at, format: :short) : t("admin.users.show.unconfirmed") %></dd></div>
+        </dl>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.store_title") %></h2>
+        <% if @store %>
+          <p class="mt-2"><%= link_to @store.name, admin_store_path(@store), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %></p>
+          <p class="text-sm text-muted"><%= admin_store_kind_label(@store.kind) %> · <%= admin_store_status_label(@store.status) %> · <%= t("admin.stores.table.verified") %>: <%= @store.verified? ? t("admin.common.yes") : t("admin.common.no") %></p>
+        <% else %>
+          <p class="mt-2 text-sm text-muted"><%= t("admin.users.show.no_store") %></p>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.orders_title") %></h2>
+        <div class="mt-3 grid gap-4 sm:grid-cols-2">
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.as_buyer") %></h3>
+            <ul class="mt-2 space-y-1 text-sm">
+              <% @buyer_orders.each do |order| %>
+                <li><%= link_to order.number, admin_order_path(order), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %> <span class="text-muted">· <%= order_status_label(order.status) %></span></li>
+              <% end %>
+              <% if @buyer_orders.empty? %><li class="text-muted"><%= t("admin.common.none") %></li><% end %>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-widest text-muted"><%= t("admin.users.show.as_seller") %></h3>
+            <ul class="mt-2 space-y-1 text-sm">
+              <% @seller_orders.each do |order| %>
+                <li><%= link_to order.number, admin_order_path(order), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %> <span class="text-muted">· <%= order_status_label(order.status) %></span></li>
+              <% end %>
+              <% if @seller_orders.empty? %><li class="text-muted"><%= t("admin.common.none") %></li><% end %>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.listings_title") %></h2>
+        <ul class="mt-3 divide-y divide-border text-sm">
+          <% @listings.each do |listing| %>
+            <li class="flex flex-wrap items-center justify-between gap-2 py-2">
+              <%= link_to listing.title, admin_listing_path(listing), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+              <span class="text-muted"><%= admin_listing_status_label(listing.status) %> · <%= listing.price_cents ? money(listing.price_cents, currency: listing.currency) : "—" %></span>
+            </li>
+          <% end %>
+          <% if @listings.empty? %><li class="py-2 text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.reviews_title") %></h2>
+        <ul class="mt-3 divide-y divide-border text-sm">
+          <% @reviews.each do |review| %>
+            <li class="flex flex-wrap items-center justify-between gap-2 py-2">
+              <span><%= t("admin.users.show.review_rating", rating: review.rating) %> · <%= review.body.truncate(80) %></span>
+              <span class="text-muted"><%= review.status %></span>
+            </li>
+          <% end %>
+          <% if @reviews.empty? %><li class="py-2 text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.reports_title") %></h2>
+        <ul class="mt-3 divide-y divide-border text-sm">
+          <% @reports_against.each do |report| %>
+            <li class="flex flex-wrap items-center justify-between gap-2 py-2">
+              <%= link_to "##{report.id}", admin_report_path(report), class: "font-semibold text-primary-700 hover:underline dark:text-primary-300" %>
+              <span class="text-muted"><%= report_reason_label(report.reason) %> · <%= report_status_label(report.status) %></span>
+            </li>
+          <% end %>
+          <% if @reports_against.empty? %><li class="py-2 text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.audit_title") %></h2>
+        <ul class="mt-3 divide-y divide-border text-sm">
+          <% @audit_logs.each do |log| %>
+            <li class="flex flex-wrap items-center justify-between gap-2 py-2">
+              <span class="font-semibold"><%= admin_audit_action_label(log.action) %></span>
+              <span class="text-muted"><%= log.actor&.display_name || t("admin.audit_logs.system") %> · <%= l(log.created_at, format: :short) %></span>
+            </li>
+          <% end %>
+          <% if @audit_logs.empty? %><li class="py-2 text-muted"><%= t("admin.common.none") %></li><% end %>
+        </ul>
+      </section>
+    </div>
+
+    <aside class="space-y-4">
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.role_title") %></h2>
+        <%= form_with url: admin_user_role_path(@user), method: :post, scope: nil, class: "mt-3 flex items-end gap-2" do %>
+          <%= select_tag :role, options_for_select(Admin::UserQuery::ROLES.map { |r| [admin_user_role_label(r), r] }, @user.role), class: "field" %>
+          <%= submit_tag t("admin.users.show.change_role"), class: "btn-primary" %>
+        <% end %>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.moderation_title") %></h2>
+        <% if @user.banned? %>
+          <%= button_to t("admin.users.show.unban"), admin_user_ban_path(@user), method: :delete, class: "btn-accent w-full" %>
+        <% else %>
+          <%= form_with url: admin_user_ban_path(@user), method: :post, scope: nil, class: "mt-3 space-y-2" do %>
+            <%= text_area_tag :reason, nil, rows: 3, placeholder: t("admin.users.show.ban_reason_placeholder"), class: "field" %>
+            <%= submit_tag t("admin.users.show.ban"), class: "btn-accent w-full" %>
+          <% end %>
+        <% end %>
+
+        <div class="mt-3 space-y-2">
+          <% if @user.confirmed_at.nil? %>
+            <%= button_to t("admin.users.show.confirm"), admin_user_confirmation_path(@user), method: :post, class: "btn-accent w-full" %>
+            <%= button_to t("admin.users.show.resend_confirmation"), admin_user_confirmation_resend_path(@user), method: :post, class: "btn-accent w-full" %>
+          <% end %>
+          <%= button_to t("admin.users.show.reset_password"), admin_user_password_reset_path(@user), method: :post, class: "btn-accent w-full" %>
+        </div>
+      </section>
+
+      <section class="rounded-2xl border border-border bg-surface p-5">
+        <h2 class="text-lg font-bold"><%= t("admin.users.show.deletion_title") %></h2>
+        <p class="mt-1 text-xs text-muted"><%= t("admin.users.show.deletion_hint") %></p>
+        <% unless @user.soft_deleted? %>
+          <%= button_to t("admin.users.show.delete"), admin_user_deletion_path(@user), method: :post,
+                        class: "btn-accent mt-3 w-full",
+                        data: { turbo_confirm: t("admin.users.show.delete_confirm") } %>
+        <% end %>
+      </section>
+    </aside>
+  </div>
+</div>

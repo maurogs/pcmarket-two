@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="application-name" content="<%= t("app.name") %>">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <title><%= t("maintenance.title") %> · <%= t("app.name") %></title>
+    <script nonce="<%= content_security_policy_nonce %>">
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (error) {}
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen bg-canvas text-content">
+    <main class="mx-auto flex min-h-screen max-w-xl flex-col items-center justify-center px-6 text-center">
+      <%= yield %>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<div class="space-y-6">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-primary-700 dark:text-primary-300"><%= t("admin.title") %></p>
+      <h1 class="mt-1 text-3xl font-extrabold tracking-tight"><%= t("admin.moderation.index.title") %></h1>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-muted"><%= t("admin.moderation.index.subtitle") %></p>
+    </div>
+    <p class="rounded-full border border-border bg-surface px-3 py-1.5 text-sm font-semibold text-muted">
+      <%= t("admin.moderation.index.results_count", count: @queue.pagy.count) %>
+    </p>
+  </header>
+
+  <%= form_with url: admin_listing_reviews_path,
+                method: :get,
+                scope: nil,
+                class: "rounded-2xl border border-border bg-surface px-4 py-4" do %>
+    <%= hidden_field_tag :q, @queue.filters[:q] if @queue.filters[:q].present? %>
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <%= label_tag :category, t("admin.moderation.index.category"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :category,
+                       options_for_select(
+                         [ [ t("admin.moderation.index.all_categories"), "" ] ] +
+                         @queue.categories.map { |category| [ category.name, category.slug ] },
+                         @queue.filters[:category]&.slug
+                       ),
+                       class: "field mt-1.5" %>
+      </div>
+
+      <div>
+        <%= label_tag :seller_kind, t("admin.moderation.index.seller_kind"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :seller_kind,
+                       options_for_select(
+                         [ [ admin_seller_kind_label("all"), "" ] ] +
+                         Admin::ModerationQueue::SELLER_KINDS.map { |kind| [ admin_seller_kind_label(kind), kind ] },
+                         @queue.filters[:seller_kind]
+                       ),
+                       class: "field mt-1.5" %>
+      </div>
+
+      <div>
+        <%= label_tag :photos, t("admin.moderation.index.photos"), class: "block text-xs font-semibold uppercase tracking-widest text-muted" %>
+        <%= select_tag :photos,
+                       options_for_select(
+                         [
+                           [ t("admin.moderation.index.photos_any"), "" ],
+                           [ t("admin.moderation.index.photos_with"), "with" ],
+                           [ t("admin.moderation.index.photos_without"), "without" ]
+                         ],
+                         @queue.filters[:photos]
+                       ),
+                       class: "field mt-1.5" %>
+      </div>
+
+      <div class="flex items-end gap-2">
+        <%= submit_tag t("admin.moderation.index.apply"), class: "btn-primary" %>
+        <%= link_to t("admin.moderation.index.clear"), admin_listing_reviews_path, class: "btn-accent" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @queue.listings.any? %>
+    <div class="hidden overflow-hidden rounded-2xl border border-border bg-surface md:block">
+      <table class="min-w-full divide-y divide-border text-sm">
+        <thead class="bg-surface-muted text-left text-xs font-semibold uppercase tracking-widest text-muted">
+          <tr>
+            <th scope="col" class="px-4 py-3"><%= t("admin.moderation.index.table.listing") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.moderation.index.table.seller") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.moderation.index.table.price") %></th>
+            <th scope="col" class="px-4 py-3"><%= t("admin.moderation.index.table.submitted") %></th>
+            <th scope="col" class="px-4 py-3 text-right"><%= t("admin.moderation.index.table.actions") %></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-border">
+          <%= render partial: "admin/listing_reviews/queue_row", collection: @queue.listings, as: :listing %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="space-y-3 md:hidden">
+      <%= render partial: "admin/listing_reviews/queue_card", collection: @queue.listings, as: :listing %>
+    </div>
+
+    <%= pagy_nav(@queue.pagy) %>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-border bg-surface p-10 text-center">
+      <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-50 text-primary-700 dark:bg-primary-900/40 dark:text-primary-200">
+        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <h2 class="mt-4 text-lg font-bold"><%= t("admin.moderation.index.empty_title") %></h2>
+      <p class="mx-auto mt-2 max-w-md text-sm text-muted"><%= t("admin.moderation.index.empty_body") %></p>
+      <div class="mt-5 flex justify-center">
+        <%= link_to t("admin.moderation.index.clear"), admin_listing_reviews_path, class: "btn-accent" %>
+      </div>
+    </div>
+  <% end %>
+</div>

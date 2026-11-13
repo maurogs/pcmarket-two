@@ -20,8 +20,12 @@
 - Keep `.claude/context/project.md` up to date (decisions, code map, open items).
 
 ## Delegation Rules
-You’re the primary orchestrator. Your job is to plan, review and approve.
-For any code implementation task (editing files, running tests), do NOT do it yourself.
-You MUST use the `opencode_execute` tool with the `build` agent and the model `opencode/deepseek-v4.1-flash-free#high` so that a subagent executes it. 
-If corrections are needed, use `opencode_reply` to continue the session.
-Review the diff returned by the tool before giving your approval.
+
+> **Scope:** this section applies **only** to the outer Claude Code orchestrator, which has the `opencode_execute` tool. If you are an OpenCode/DeepSeek agent executing a task directly in this repository, **ignore this section and implement the task yourself**. Do not delegate to another agent.
+
+When you are the Claude Code orchestrator:
+- Your job is to plan, review and approve.
+- For any code implementation task (editing files, running tests), do NOT do it yourself.
+- Use the `opencode_execute` tool with the `build` agent and the model `opencode-go/deepseek-v4.1-flash#high` so that a subagent executes it.
+- If corrections are needed, use `opencode_reply` to continue the session.
+- Review the diff returned by the tool before giving your approval.

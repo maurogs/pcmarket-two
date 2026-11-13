@@ -1,0 +1,10 @@
+<% if user_signed_in? %>
+  <%= form_with url: saved_searches_path, method: :post, scope: nil, class: "inline-flex" do %>
+    <%= hidden_field_tag "saved_search[name]", @search.suggested_name %>
+    <%= hidden_field_tag "saved_search[category_id]", @category&.id %>
+    <%= hidden_field_tag "saved_search[query_params_json]", @search.normalized_params.to_json %>
+    <%= submit_tag t("saved_searches.save"), class: "btn-accent px-3 py-2 text-xs" %>
+  <% end %>
+<% else %>
+  <%= link_to t("saved_searches.save"), new_user_session_path, class: "btn-accent px-3 py-2 text-xs" %>
+<% end %>

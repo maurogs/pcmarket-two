@@ -1,0 +1,24 @@
+<%= form_with model: [@country, @region], url: @region.persisted? ? admin_country_region_path(@country, @region) : admin_country_regions_path(@country),
+              method: @region.persisted? ? :patch : :post, class: "space-y-5" do |form| %>
+  <%= render "shared/form_errors", object: @region %>
+
+  <div class="grid gap-4 rounded-2xl border border-border bg-surface p-4 sm:grid-cols-3 sm:p-5">
+    <div>
+      <%= form.label :code, t("admin.regions.form.code"), class: "block text-sm font-semibold" %>
+      <%= form.text_field :code, class: "field mt-1.5 font-mono uppercase" %>
+    </div>
+    <div class="sm:col-span-2">
+      <%= form.label :name, t("admin.regions.form.name"), class: "block text-sm font-semibold" %>
+      <%= form.text_field :name, class: "field mt-1.5" %>
+    </div>
+    <div>
+      <%= form.label :position, t("admin.regions.form.position"), class: "block text-sm font-semibold" %>
+      <%= form.number_field :position, min: 0, class: "field mt-1.5" %>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-2">
+    <%= link_to t("admin.common.cancel"), admin_country_regions_path(@country), class: "btn-accent" %>
+    <%= submit_tag t("admin.common.save"), class: "btn-primary" %>
+  </div>
+<% end %>

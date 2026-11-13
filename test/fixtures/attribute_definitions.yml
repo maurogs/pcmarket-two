@@ -1,0 +1,48 @@
+gpu_chipset:
+  key: gpu_chipset
+  name: { en: "GPU chipset", es: "Chipset de la GPU" }
+  group: gpu
+  input_type: 0
+  filterable: true
+  show_on_card: true
+  position: 1
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+gpu_memory_type:
+  key: gpu_memory_type
+  name: { en: "Memory type", es: "Tipo de memoria" }
+  group: gpu
+  input_type: 1
+  filterable: true
+  show_on_card: false
+  position: 2
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+gpu_vram:
+  key: gpu_vram
+  name: { en: "VRAM", es: "VRAM" }
+  group: gpu
+  input_type: 2
+  unit: GB
+  filterable: true
+  show_on_card: true
+  position: 3
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+warranty:
+  key: warranty
+  name: { en: "Warranty", es: "Garantía" }
+  group: general
+  input_type: 3
+  filterable: false
+  show_on_card: false
+  position: 10
+  active: true
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
