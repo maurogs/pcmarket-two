@@ -364,6 +364,7 @@ Cold (cache cleared before every measured request) is reported for first-render 
 - `app/javascript/controllers/{wizard,sortable,category_picker,character_counter,store_kind,bulk_select}_controller.js` — wizard progress, photo reordering, category search, counters, business-field toggling and seller bulk selection.
 - `test/validators/spanish_tax_id_validator_test.rb`, `test/policies/{store,listing}_policy_test.rb`, `test/models/listing_wizard_validation_test.rb` — validator, policy and step-context coverage.
 - `test/integration/{store_onboarding,sell_listings_wizard,sell_listings_index}_test.rb` — onboarding, wizard happy paths, approval-off, photo limit, compare-at, review, seller tabs/filter/bulk/republish and delete/archive coverage.
+- `test/application_system_test_case.rb`, `test/system/{browsing,wishlist,cookie_consent,sell_and_moderate}_test.rb` — headless-Chrome smoke coverage (`bin/rails test:system`) for home/search/filters, listing detail, wishlist, sell wizard → moderation approval and cookie rejection; the browser runs in the default Spanish locale and the review form navigates at the top frame after submit.
 - `app/helpers/money_helper.rb` — locale-aware `money(cents, currency:)` using `number_to_currency`.
 - `test/i18n_test.rb` — missing/unused key checks.
 - `test/seeds/catalogue_seeds_test.rb` — catalogue seed counts, idempotency, six-locale coverage and leaf attribute rules.

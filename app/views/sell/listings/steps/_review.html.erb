@@ -62,7 +62,7 @@
   <%= form_with model: listing,
                 url: sell_listing_path(listing),
                 method: :patch,
-                data: { turbo_frame: "listing_wizard" },
+                data: { turbo_frame: "_top" },
                 class: "flex flex-wrap items-center justify-between gap-3" do %>
     <%= hidden_field_tag :step, "review" %>
 
